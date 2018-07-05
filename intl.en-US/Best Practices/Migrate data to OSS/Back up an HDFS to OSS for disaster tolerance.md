@@ -20,7 +20,7 @@ hadoop fs -ls /
 
 ## Migrate Hadoop data to OSS {#section_ghz_j4w_5db .section}
 
-1.  Download[emr-tools](https://yq.aliyun.com/attachment/download/?spm=5176.100239.blogcont78093.18.BfNz7d&id=1956).
+1.  Download [emr-tools](https://yq.aliyun.com/attachment/download/?spm=5176.100239.blogcont78093.18.BfNz7d&id=1956).
 
     **Note:** emr-tools is compatible with Hadoop versions 2.4.x, 2.5.x, 2.6.x, and 2.7.x. If you require compatibility with other Hadoop versions, [open a ticket](https://selfservice.console.aliyun.com/ticket/createIndex).
 
