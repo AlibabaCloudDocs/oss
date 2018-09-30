@@ -51,7 +51,7 @@ ossutil提供了列举UploadID、删除指定object的所有UploadID的功能。
     1.922915(s) elapsed
     ```
 
-    删除obj1和obj2的3个UploadID：
+    删除obj1和obj2的4个UploadID：
 
     ```
     $./ossutil rm -m oss://bucket1/ob
