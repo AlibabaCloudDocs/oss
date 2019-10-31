@@ -48,8 +48,8 @@ PostObject使用HTML表单上传Object到指定Bucket。
 
 -   请求Header
 
-    **说明：** PostObject的消息实体通过多重表单格式（multipart/form-data）编码，在PutObject操作中参数通过HTTP请求头传递，在PostObject操作中则作为消息体中的表单域传递。
-
+    **说明：** PostObject的消息实体通过多重表单格式（[multipart/form-data](https://tools.ietf.org/html/rfc2388)）编码，多重表单格式将多个表单项作为请求实体传递，本文中我们将每个部分看作具备不同参数的表单域。
+    
     |名称|类型|描述|必须|
     |:-|:-|:-|:-|
     |OSSAccessKeyId|字符串|Bucket 拥有者的AccessKeyId。 默认值：无
