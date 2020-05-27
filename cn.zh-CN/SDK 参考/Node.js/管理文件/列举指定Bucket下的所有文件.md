@@ -21,7 +21,7 @@ let client = new OSS({
 });
 async function list () {
   {
-    // 不带任何参数，默认最多返回1000个文件。
+    // 不带任何参数，默认最多返回100个文件。
     let result = await client.list();
     console.log(result);
     // 根据nextMarker继续列出文件。
