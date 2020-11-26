@@ -60,7 +60,7 @@ You can configure the AccessKey pair by using one of the following methods:
     </configuration>
     ```
 
--   Configure the password-free feature of Jindo DistCp to avoid storing your AccessKey pairs in plaintext, which makes data more secure. For more information, see [t1872858.dita\#task\_2435437](/intl.en-US/SmartData/Use SmartData in EMR versions earlier than V3.27.0/Use the password-free feature of JindoFS SDK.md).
+-   Configure the password-free feature of Jindo DistCp to avoid storing your AccessKey pairs in plaintext, which makes data more secure. For more information, see [Use the password-free feature of JindoFS SDK](Use the password-free feature of JindoFS SDKt1872858.dita#task_2435437).
 
 ## Step 3: Configure parameters
 
