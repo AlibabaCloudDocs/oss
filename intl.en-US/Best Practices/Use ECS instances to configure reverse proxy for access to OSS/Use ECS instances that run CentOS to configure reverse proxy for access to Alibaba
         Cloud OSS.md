@@ -60,12 +60,12 @@ To resolve these problems, you can use ECS instances to configure reverse proxy 
 
     -   server\_name: the IP address used to provide the reverse proxy service, which is the public IP address of the ECS instance.
     -   proxy\_pass: the endpoint for redirection.
-        -   When the ECS instance and the target bucket are located within the same region, specify the internal endpoint of the target bucket. For more information about endpoints, see [OSS domain names](/intl.en-US/Developer Guide/Endpoint/OSS domain names.md).
-        -   When the ECS instance and the target bucket are located within different regions, specify the public endpoint of the target bucket.
-        -   For security reasons, when an OSS domain name is used to access an OSS image or web page object through a browser, the object is directly downloaded. To preview the object, use a custom domain name. Add the custom domain name for this parameter. For more information about how to bind a custom domain name, see [Bind custom domain names](/intl.en-US/Console User Guide/Manage buckets/Manage a domain/Bind custom domain names.md).
-    -   proxy\_set\_header Host $host: If you add this parameter, the host value is replaced with the IP address of the ECS instance when NGINX sends a request to OSS. If the following situations exist, you must add this parameter:
+        -   When the ECS instance and the requested bucket are located within the same region, specify the internal endpoint of the bucket. For more information about endpoints, see [OSS domain names](/intl.en-US/Developer Guide/Endpoint/OSS domain names.md).
+        -   When the ECS instance and the requested bucket are located within different regions, specify the public endpoint of the bucket.
+        -   For security reasons, when an OSS domain name is used to access an OSS image or web page object by using a browser, the object is directly downloaded. To preview the object, use a custom domain name that is bound to the bucket. Add the custom domain name for this parameter. For more information about how to bind a custom domain name, see [Bind custom domain names](/intl.en-US/Console User Guide/Manage buckets/Manage a domain/Bind custom domain names.md).
+    -   proxy\_set\_header Host $host: If you add this parameter, the host value is replaced with the IP address of the ECS instance when NGINX sends a request to OSS. You must add this parameter in the following situations:
         -   Signature errors.
-        -   Your custom domain name is resolved to the public IP address of the ECS instance, and your user needs to browse image or web page objects in a bucket. You can bind a custom domain name to the bucket for which reverse proxy is configured. You do not need to configure CNAME. You can set proxy\_pass to the internal or public endpoint of the bucket. For more information about how to bind a custom domain name, see [Bind custom domain names](/intl.en-US/Console User Guide/Manage buckets/Manage a domain/Bind custom domain names.md).
+        -   Your custom domain name is resolved to the public IP address of the ECS instance, and your user must browse image or web page objects in a bucket. You can bind a custom domain name to the bucket for which reverse proxy is configured. You do not need to configure CNAME. You can set proxy\_pass to the internal or public endpoint of the bucket. For more information about how to bind a custom domain name, see [Bind custom domain names](/intl.en-US/Console User Guide/Manage buckets/Manage a domain/Bind custom domain names.md).
     **Note:** This topic uses the demo environment. For data security reasons, we recommend that you configure the https context. For more information,see [Configure HTTPS for your own domain name in OSS by using reverse proxy](https://www.alibabacloud.com/help/zh/faq-detail/39544.htm).
 
 5.  Go to the folder of the NGINX executable. Start NGINX.
@@ -86,5 +86,8 @@ To resolve these problems, you can use ECS instances to configure reverse proxy 
 
 ## References
 
-[Use ECS instances that run Ubuntu to configure reverse proxy for access to Alibaba Cloud OSS](/intl.en-US/Best Practices/Use ECS instances to configure reverse proxy for access to OSS/Use ECS instances that run Ubuntu to configure reverse proxy for access to Alibaba Cloud OSS.md)
+-   [Use ECS instances that run Windows to configure reverse proxy for access to Alibaba Cloud OSS](/intl.en-US/Best Practices/Use ECS instances to configure reverse proxy for access to OSS/Use ECS instances that run Windows to configure reverse proxy for access to Alibaba
+         Cloud OSS.md)
+-   [Use ECS instances that run Ubuntu to configure reverse proxy for access to Alibaba Cloud OSS](/intl.en-US/Best Practices/Use ECS instances to configure reverse proxy for access to OSS/Use ECS instances that run Ubuntu to configure reverse proxy for access to Alibaba
+         Cloud OSS.md)
 
