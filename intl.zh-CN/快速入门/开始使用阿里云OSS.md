@@ -1,52 +1,52 @@
-# 开始使用阿里云OSS {#concept_ptc_g24_tdb .concept}
+# 开始使用阿里云OSS
 
-阿里云对象存储服务（Object Storage Service，简称 OSS）为您提供基于网络的数据存取服务。使用 OSS，您可以通过网络随时存储和调用包括文本、图片、音频和视频等在内的各种非结构化数据文件。
+阿里云对象存储OSS（Object Storage Service）为您提供基于网络的数据存取服务。使用OSS，您可以通过网络随时存储和调用包括文本、图片、音视频在内的各类数据文件。
 
-初次使用阿里云 OSS，请您先了解[阿里云 OSS 使用限制](../../../../../intl.zh-CN/产品简介/使用限制.md#)。
+**说明：** 初次使用OSS时，建议您先通过产品简介的文档了解OSS基本概念、使用场景、使用限制等。
 
-阿里云 OSS 将数据文件以对象（object）的形式上传到存储空间（bucket）中。您可以进行以下操作：
+OSS将各类文件以对象（Object）的形式上传到存储空间（Bucket）中。您可以进行以下操作：
 
--   创建一个或者多个存储空间，向每个存储空间中添加一个或多个文件。
--   通过获取已上传文件的地址进行文件的分享和下载。
--   通过修改存储空间或文件的属性或元信息来设置相应的访问权限。
--   通过阿里云管理控制台、各种便捷工具、以及丰富的 SDK 包执行基本和高级 OSS 操作。
+-   创建Bucket，并向Bucket上传Object。
+-   获取已上传Object的地址进行分享和下载。
+-   通过读写权限ACL、Bucket Policy、RAM Policy等功能对访问用户进行授权和鉴权。
+-   通过阿里云管理控制台、各种便捷工具以及丰富的SDK包执行OSS的基本和高级操作。
 
-## 使用 OSS 管理控制台 {#section_pw1_4dp_yfb .section}
+## 快速开始
 
-使用阿里云管理控制台来完成 OSS 基本操作的流程如下：
+OSS的基本操作流程如下：
 
-![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/4330/1550568510919_zh-CN.jpg)
+![quickstart](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/0955536061/p140852.png)
 
-1.  [开通 OSS服务](intl.zh-CN/快速入门/开通OSS服务.md#)
-2.  [创建存储空间](intl.zh-CN/快速入门/创建存储空间.md#)
-3.  [上传文件](intl.zh-CN/快速入门/上传文件.md#)
-4.  [下载文件](intl.zh-CN/快速入门/下载文件.md#)
-5.  [删除文件](intl.zh-CN/快速入门/删除文件.md#)
-6.  [删除存储空间](intl.zh-CN/快速入门/删除存储空间.md#)
+1.  [开通OSS服务](/intl.zh-CN/快速入门/开通OSS服务.md)
+2.  [创建存储空间](/intl.zh-CN/快速入门/创建存储空间.md)
+3.  [上传对象](/intl.zh-CN/快速入门/上传文件.md)
+4.  [下载或分享对象](/intl.zh-CN/快速入门/下载文件.md)
 
-观看以下视频快速了解如何通过 OSS 管理控制台上传下载文件：
+## 使用控制台
 
-## 使用图形化管理工具 ossbrowser {#section_iby_x2p_yfb .section}
+您可以通过OSS控制台执行OSS的基本和高级操作，详情请参见[OSS控制台用户指南](/intl.zh-CN/控制台用户指南/登录OSS管理控制台/使用阿里云账号登录OSS管理控制台.md)。
 
-ossbrowser 是图形化的 OSS 数据管理工具，支持 Windows、Linux、Mac 平台。使用 ossbrowser，您可以通过图形化界面方便直观地浏览文件、上传下载文件和文件夹（目录）、断点续传、图形化 Policy 授权等操作。因为 ossbrowser 是桌面式图形化工具，所以传输速度和性能不如 ossutil。详情请参见[ossbrowser 快速开始](../../../../../intl.zh-CN/常用工具/图形化管理工具ossbrowser/快速开始.md#)。
+观看以下视频快速了解如何通过控制台使用OSS。
 
-## 使用命令行管理工具 ossutil {#section_lfg_cfp_yfb .section}
+## 使用图形化管理工具ossbrowser
 
-ossutil 是以命令行方式管理 OSS 数据的工具，支持 Windows、Linux、Mac 平台。ossutil 提供方便、简洁、丰富的 Bucket 和 Object 管理命令，操作性能好，可并发上传。支持文件和文件夹（目录）上传下载、断点续传等。详情请参见[ossutil快速开始](../../../../../intl.zh-CN/常用工具/命令行工具ossutil/快速开始.md#)。
+ossbrowser是OSS的图形化工具，支持Windows、Linux、macOS系统。您可以通过ossbrowser的图形化界面方便直观地管理Bucket、上传下载Object和文件夹（目录）、简化Policy授权等操作。更多信息，请参见[ossbrowser快速开始](/intl.zh-CN/常用工具/图形化管理工具ossbrowser/快速开始.md)。
 
-## 使用 API/SDK {#section_ud2_qxp_yfb .section}
+ossbrowser是桌面式图形化工具，所以传输速度和性能不如ossutil。
 
-OSS 提供多种语言的 API/SDK 包，方便您快速进行二次开发。详情请参见：
+## 使用命令行管理工具ossutil
 
--   [Java SDK 快速入门](../../../../../intl.zh-CN/SDK 参考/Java/快速入门.md#)
--   [Python SDK 快速入门](../../../../../intl.zh-CN/SDK 参考/Python/快速入门.md#)
--   [PHP SDK 快速入门](../../../../../intl.zh-CN/SDK 参考/PHP/快速入门.md#)
--   [Go SDK 快速入门](../../../../../intl.zh-CN/SDK 参考/Go/快速入门.md#)
--   [C SDK 快速入门](../../../../../intl.zh-CN/SDK 参考/C/快速入门.md#)
+ossutil是OSS的命令行工具，支持Windows、Linux、macOS系统。您可以通过ossutil提供的方便、简洁、丰富的Bucket和Object命令管理您的OSS。支持Bucket的创建与管理、Object和文件夹（目录）的上传下载、断点续传、并发上传等。更多信息，请参见[ossutil快速开始](/intl.zh-CN/常用工具/命令行工具ossutil/概述.md)。
 
-更多语言的 SDK 示例请参见[OSS SDK 文档](../../../../../intl.zh-CN/SDK 参考/SDK 文档简介.md#)。OSS 各接口的详细信息请参见[OSS API 文档](../../../../../intl.zh-CN/API 参考/简介.md#)。
+## 使用API和SDK
 
-## 后续操作 {#section_l45_hlq_yfb .section}
+OSS提供Java、Python、PHP、Go等多种语言的API和SDK包，方便您快速进行二次开发。各语言SDK示例，请参见[OSS SDK示例](/intl.zh-CN/SDK 示例/简介.md) 。各API接口的详细信息，请参见 [OSS API文档](/intl.zh-CN/API 参考/简介.md)。
 
-OSS 的更多高级操作，请参见[阿里云 OSS 开发指南](../../../../../intl.zh-CN/开发指南/基本概念介绍.md#)。
+## 基于OSS的文件系统管理
+
+OSS的存储空间内部是扁平的，没有文件系统的目录等概念，所有的对象都直接隶属于其对应的存储空间。如果您想要像使用本地文件夹和磁盘那样来使用OSS存储服务，可以通过配置云存储网关来实现。通过云存储网关提供的NFS、SMB（CIFS）、iSCSI协议，OSS的存储资源会以Bucket为基础映射成本地文件夹或者磁盘。您可以通过文件读写操作访问OSS资源，无缝衔接基于POSIX和块访问协议的应用，降低应用改造和学习成本。更多信息，请参见[配置云存储网关](/intl.zh-CN/控制台用户指南/上传、下载和管理文件/配置云存储网关.md)。
+
+## 更多参考
+
+OSS的更多高级操作，请参见[OSS开发指南](/intl.zh-CN/开发指南/基本概念.md)。
 
