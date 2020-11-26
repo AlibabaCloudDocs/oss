@@ -1,52 +1,20 @@
-# Back up buckets {#concept_kzh_w4f_vdb .concept}
+# Back up buckets
 
-Alibaba Cloud offers multiple backup methods for data on OSS to suit different scenarios.
+Alibaba Cloud offers multiple backup methods for data in OSS to suit different scenarios. This topic describes methods used to back up OSS data on the cloud.
 
-The following methods can be used to back up OSS data on the cloud:
+## Back up data by using scheduled backup
 
--   Cross-region replication \(set on the console or using APIs or SDK code\)
--   ossimport tool
+You can create a backup plan in Hybrid Backup Recovery \(HBR\) to back up your OSS data. This allows you to recover your data when the data is lost due to an unintended modification or deletion. You can also use HBR to store historical OSS data for an extended period of time at low cost. For more information, see [Configure scheduled backup](/intl.en-US/Console User Guide/Upload, download, and manage objects/Configure scheduled backup.md).
 
-## Back up data using cross-region replication {#section_m2p_y4f_vdb .section}
+## Back up data by using CRR
 
--   Applicable scenarios
+Cross-region replication \(CRR\) enables the automatic and asynchronous \(near real-time\) replication of objects across buckets in different OSS regions. Operations such as the creation, overwriting, and deletion of objects can be synchronized from a source bucket to a destination bucket. For more information, see [Configure CRR](/intl.en-US/Console User Guide/Manage buckets/Redundancy for fault tolerance/Configure CRR.md).
 
-    See [Cross-Region replication development guide](../../../../reseller.en-US/Developer Guide/Disaster recovery/Cross-region replication.md#).
+## Back up data by using Data Online Migration
 
--   Operation on the console
+Alibaba Cloud Data Online Migration is used as a data channel between different storage services. You can migrate data from third-party data stores to OSS or between OSS buckets by using Data Online Migration. For more information, see [Background information]().
 
-    See [Cross-Region replication operation guide](../../../../reseller.en-US/Console User Guide/Manage buckets/Configure cross-region replication.md#).
+## Back up data by using the ossimport tool
 
--   FAQ
-
-**Note:** 
-
--   The source bucket and target bucket belong to the same user but different regions.
--   The source bucket and target bucket do not use archive storage.
--   Data synchronization between buckets in the same region can be implemented using OSS SDK/API code.
-
-## Back up data using the ossimport tool {#section_ftg_dpf_vdb .section}
-
--   advantage
-
-    The ossimport tool can migrate data stored on local hosts or other cloud storage systems to OSS. It has the following features:
-
-    -   Supports a vast variety of data sources, including local drives, Qiniu Cloud, Baidu BOS, AWS S3, Azure Blob, Blob, but also cloud, Tencent cloud cos, Golden Mountain ks3, HTTP, OSS, and so on, and can be expanded as needed.
-    -   Supports resumable upload.
-    -   Supports throttling.
-    -   Supports migration of objects generated after a specified time or with a specified prefix.
-    -   Supports parallel data upload and download.
-    -   Supports the standalone and distributed modes. The standalone mode is easy to deploy and use, while the distributed mode is suitable for large-scale data migration.
--   Installation and deployment
-
-    See [Architecture and configuration](../../../../reseller.en-US/Tools/ossimport/Architecture and configuration.md#), [Standalone deployment](../../../../reseller.en-US/Tools/ossimport/Standalone deployment.md#), and [Distributed deployment](../../../../reseller.en-US/Tools/ossimport/Distributed deployment.md#).
-
--   FAQ
-
-    See [FAQ](../../../../reseller.en-US/Tools/ossimport/FAQ.md#).
-
--   NOTE
-    -   If data needs to be migrated between buckets of different user accounts and the data volume exceeds 10 TB, the distributed version is recommended.
-    -   When using the incremental mode to synchronize object changes between OSS buckets, note that ossimport can synchronize only modification operations \(put/append/multipart\) and cannot synchronize read or delete operations. No SLA guarantee is provided for timely data synchronization in this mode. Therefore, use the incremental mode with caution.
-    -   Cross-region replication is recommended for data synchronization between different regions, if cross-region replication is enabled in these regions.
+ossimport is a tool used to migrate data to OSS. You can deploy ossimport on the local server or ECS instance in the cloud to migrate data stored locally or in other cloud storage systems to OSS. For more information, see [Architectures and configurations](/intl.en-US/Tools/ossimport/Architectures and configurations.md).
 
