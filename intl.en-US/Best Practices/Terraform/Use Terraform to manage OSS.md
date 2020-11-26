@@ -1,52 +1,69 @@
-# Use Terraform to manage OSS {#concept_nqx_wps_zfb .concept}
+# Use Terraform to manage OSS
 
-This topic describes how to install and configure Terraform and how to use Terraform to manage OSS.
+This topic describes how to install, configure, and use Terraform to manage OSS.
 
-## Install and configure Terraform {#section_twh_cqs_zfb .section}
+## Install and configure Terraform
 
-Before using Terraform, follow these steps to install and configure Terraform:
+Before you use Terraform, perform the following steps to install and configure Terraform:
 
-1.  Download the installation package applicable to your operating system from [Terraform official website](https://www.terraform.io/downloads.html). In this topic, Terraform is installed and configured in Linux as an example.
-2.  Extract the installation package to the following path: /usr/local/bin. If you extract the executable file to another path, you must add the path to global variables.
-3.  Run the path verification command. If a list of available Terraform options is displayed, Terraform is installed successfully.
+1.  Download the software package applicable to your operating system from [Download Terraform](https://www.terraform.io/downloads.html).
+
+    In this topic, Terraform is installed and configured in a Linux operating system as an example.
+
+2.  Decompress the package to /usr/local/bin.
+
+    To decompress the executable file to another directory, you must add the path to global variables.
+
+3.  Run Terraform to verify the path configuration. If a list of available Terraform options is displayed, the installation is complete.
 
     ```
     [root@test bin]#terraform
     Usage: terraform [-version] [-help] <command> [args]
     ```
 
-4.  Create and authorize a RAM user.
+4.  Create a RAM user and grant permissions to the user.
 
     1.  Log on to the [RAM console](https://ram.console.aliyun.com/#/overview).
-    2.  Create a RAM user named Terraform and create an AccessKey for the user. For more information, see [Create a RAM user](https://help.aliyun.com/document_detail/28637.html#concept-gpm-ccf-xdb).
-    3.  Authorize the RAM user. You can add relevant permissions to the Terraform RAM user as needed. For detailed steps, see [Authorize RAM users](https://help.aliyun.com/document_detail/28639.html#concept-t13-3gf-xdb).
-    **Note:** To maintain data security, do not use the AccessKey of your Alibaba Cloud account to configure Terraform.
 
-5.  You must create a separate directory for each Terraform project. Therefore, create a test directory first: terraform-test.
+    2.  Create a RAM user named Terraform. Create an AccessKey pair for the user.
+
+        For more information, see [Create a RAM user](/intl.en-US/RAM User Management/Create a RAM user.md).
+
+    3.  Authorize the RAM user.
+
+        You can add relevant management permissions to the Terraform RAM user. For more information, see [Grant permissions to a RAM user](/intl.en-US/RAM User Management/Grant permissions to a RAM user.md).
+
+    **Note:** For security reasons, do not use the AccessKey pair of your Alibaba Cloud account to configure Terraform.
+
+5.  Create a test directory.
+
+    You must create a separate working directory for each Terraform project. In this example, create a test directory named terraform-test.
 
     ```
     [root@test bin]#mkdir terraform-test
     ```
 
-6.  Enter the terraform-test directory.
+6.  Go to the Terraform-test directory.
 
     ```
     [root@test bin]#cd terraform-test
     [root@test terraform-test]#
     ```
 
-7.  Create a configuration file. Terraform reads all \*.tf and \*.tfvars files in the directory when running. Therefore, you can write configuration information to different files as needed. Some common configuration files are described as follows:
+7.  Create a configuration file.
+
+    Terraform reads all \*.tf and \*.tfvars files in the directory when Terraform runns. You can write configuration information to different files. Frequently used configuration files:
 
     ```
-    provider.tf: Used to configure providers.
-    terraform.tfvars: Used to configure the variables required to configure providers.
-    varable.tf: Used to configure universal variables.
-    resource.tf: Used to define resources.
-    data.tf: Used to define package files.
-    output.tf: Used to configure the output.
+    provider.tf                -- used to configure providers
+    terraform.tfvars      -- used to configure the variables required to configure providers
+    varable.tf                  -- used to configure universal variables
+    resource.tf                -- used to define resources
+    data.tf                        -- used to define package files
+    output.tf                    -- used to configure the output
     ```
 
-    For example, when you create the provider.tf file, you can configure your authentication information as follows:
+    For example, when you create the provider.tf file, you can configure your authentication information based on the following format:
 
     ```
     [root@test terraform-test]# vim provider.tf
@@ -54,11 +71,12 @@ Before using Terraform, follow these steps to install and configure Terraform:
         region           = "cn-beijing"
         access_key  = "LTA**********NO2"
         secret_key   = "MOk8x0*********************wwff"
+    }
     ```
 
     For more information about configurations, see [alicloud\_oss\_bucket](https://www.terraform.io/docs/providers/alicloud/r/oss_bucket.html).
 
-8.  Initialize a working directory.
+8.  Initialize your working directory.
 
     ```
     [root@test terraform-test]#terraform init
@@ -96,21 +114,21 @@ Before using Terraform, follow these steps to install and configure Terraform:
     rerun this command to reinitialize your working directory. If you forget, other
     commands will detect it and remind you to do so if necessary.
     
-    
+                            
     ```
 
-    **Note:** After creating a directory and configuration files for a Terraform project, you must initialize the directory.
+    **Note:** After you create a working directory and the configuration file for a Terraform project, you must initialize the working directory.
 
 
-You can use Terraform after completing the preceding steps.
+You can use Terraform after you complete the preceding steps.
 
-## Use Terraform to manage OSS {#section_gmt_2zs_zfb .section}
+## Use Terraform to manage OSS
 
-After Terraform is installed, you can run commands in Terraform to manage OSS. Some common commands are described as follows:
+After Terraform is installed, you can run Terraform commands to manage OSS. Some common command:
 
--   terraform plan: You can run this command to view the operations to be executed by a configuration file.
+-   terraform plan: You can run this command to view the operations to be performed by a configuration file.
 
-    For example, you add a configuration file named test.tf that is used to create a bucket as follows:
+    Assume that you add a configuration file named test.tf that is used to create a bucket:
 
     ```
     [root@test terraform-test]#vim test.tf
@@ -120,7 +138,7 @@ After Terraform is installed, you can run commands in Terraform to manage OSS. S
     }
     ```
 
-    In this case, you can run the terraform plan command to view the operations to be executed by test.tf.
+    You can run the terraform plan command to view the operations to be performed by the test.tf configuration file.
 
     ```
     [root@test terraform-test]# terraform plan
@@ -162,7 +180,7 @@ After Terraform is installed, you can run commands in Terraform to manage OSS. S
 
 -   terraform apply: You can run this command to execute a configuration file in the working directory.
 
-    For example, if you want to create a bucket named figo-chen-2020, you must add a configuration file named test.tf that is used to create a bucket as follows:
+    To create a bucket named figo-chen-2020, you must add a configuration file named test.tf.
 
     ```
     [root@test terraform-test]#vim test.tf
@@ -172,7 +190,7 @@ After Terraform is installed, you can run commands in Terraform to manage OSS. S
     }
     ```
 
-    Run the terraform apply command to execute the configuration file as follows:
+    Run the terraform apply command to execute the configuration file.
 
     ```
     [root@test terraform-test]#terraform  apply
@@ -221,29 +239,30 @@ After Terraform is installed, you can run commands in Terraform to manage OSS. S
     Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
     ```
 
-    **Note:** After you have executed the configuration file, a new bucket is created if the figo-chen-2020 bucket does not exist. If the figo-chen-2020 bucket already exists and is an empty bucket created by Terraform, the bucket is deleted and a new bucket with the same name is created.
+    **Note:** After you execute the configuration file, a new bucket is created if the figo-chen-2020 bucket does not exist. If the figo-chen-2020 bucket exists and contains no data, the existing bucket is overwritten by the new bucket.
 
--   `terraform destroy`: You can run this command to delete an empty bucket created by Terraform.
+-   terraform destroy: You can run this command to delete an empty bucket created by Terraform.
 -   terraform import: You can run this command to import a bucket that is not created by Terraform.
 
-    First, create a configuration file named main.tf and add configurations to the file as follows:
+    To run this command, create a file named main.tf and write information about the bucket:
 
     ```
     [root@test terraform-test]#vim main.tf
     resource "alicloud_oss_bucket" "bucket" { 
-     # (resource arguments)
+     bucket = "test-hangzhou-2025" 
+     acl = "private"
     }
     ```
 
-    Then, run the following command to import an existing bucket:
+    Run the following command to import the test-hangzhou-2025 bucket:
 
     ```
-    terraform import alicloud_oss_bucket.bucket bucketname
+    terraform import alicloud_oss_bucket.bucket test-hangzhou-2025
     ```
 
 
-## References {#section_afq_hhy_zfb .section}
+## References
 
--   For more bucket configuration examples, see [alicloud\_oss\_bucket](https://www.terraform.io/docs/providers/alicloud/r/oss_bucket.html).
--   For more object configuration examples, see [alicloud\_oss\_bucket\_object](https://www.terraform.io/docs/providers/alicloud/r/oss_bucket_object.html).
+-   For more information about bucket configuration examples, see [alicloud\_oss\_bucket](https://www.terraform.io/docs/providers/alicloud/r/oss_bucket.html).
+-   For more information about object configuration examples, see [alicloud\_oss\_bucket\_object](https://www.terraform.io/docs/providers/alicloud/r/oss_bucket_object.html).
 
