@@ -26,7 +26,7 @@ For more information about event notification, see [Event notification](/intl.en
 
 4.  Click **Create Rule**. In the **Create Rule** panel, configure an event notification rule.
 
-    ![](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/3867549951/p11309.png)
+    ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/3867549951/p11309.png)
 
     The following table describes the parameters.
 
@@ -46,7 +46,7 @@ For more information about event notification, see [Event notification](/intl.en
     **Note:**
 
     -   When a notification rule is triggered by an operation, OSS event notification generates a message and publishes the message to an MNS topic. MNS sends the message to the subscribed endpoint.
-    -   MNS is a paid service. For more information, see [.](.t1835565.dita#concept_2028746)
+    -   MNS is a paid service. For more information, see [t1835565.dita\#concept\_2028746]().
     -   For more information about error messages, see [Error codes]().
 5.  Click **OK**.
 
