@@ -62,12 +62,12 @@ Bucket列表中列举您已创建的所有存储空间，您可以看到存储�
 -   **Bucket名称**搜索栏：可以输入存储空间名称搜索指定的存储空间。支持部分匹配。
 -   **区域**下拉框：下拉可选择展示指定区域的存储空间。
 -   **存储类型**下拉框：下拉可选择展示指定存储类型的存储空间。
--   ![下载](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/2394459951/p87165.png)：单击可导出Bucket列表到本地，包含Bucket名称、地域、存储类型等信息。
--   ![刷新](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/2394459951/p87166.png)：单击可刷新存储空间列表。
+-   ![下载](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/2394459951/p87165.png)：单击可导出Bucket列表到本地，包含Bucket名称、地域、存储类型等信息。
+-   ![刷新](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/2394459951/p87166.png)：单击可刷新存储空间列表。
 
 存储空间列表中展示了Bucket名称、Bucket标签、区域、存储类型、冗余类型、容量、当月流量、当月访问次数、各存储类型的容量、版本控制状态、传输加速状态等信息。其中：
 
--   单击Bucket名称后的![排序 ](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/2394459951/p87167.png)按钮，可按字母正序或反序排列存储空间。
+-   单击Bucket名称后的![排序 ](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/2394459951/p87167.png)按钮，可按字母正序或反序排列存储空间。
 -   单击**Bucket标签**列的**添加**，可设置Bucket的标签。标签功能详情请参见[设置存储空间标签](/intl.zh-CN/控制台用户指南/存储空间管理/基础设置/设置存储空间标签.md)。
 -   打开**版本控制**列的开关，可开启指定存储空间版本控制的状态。版本控制详情请参见[版本控制介绍](/intl.zh-CN/开发指南/数据安全/版本控制/版本控制介绍.md)。
 -   打开**传输加速**列的开关，可开启指定存储空间的传输加速功能。传输加速详情请参见[传输加速](/intl.zh-CN/开发指南/存储空间（Bucket）/传输加速.md)。
@@ -76,27 +76,27 @@ Bucket列表中列举您已创建的所有存储空间，您可以看到存储�
 
 可以手动或自动添加访问路径，快速定位目标资源。
 
--   ![设置](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/2394459951/p101539.png)：单击图标，在访问路径设置对话框设置自动保存访问路径的策略。
+-   ![设置](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/2394459951/p101539.png)：单击图标，在访问路径设置对话框设置自动保存访问路径的策略。
     -   **最近访问路径**：打开开关表示会自动保存最近访问过的文件路径，关闭则不保存。
     -   **保留路径数**：设置自动保存的访问路径条数，默认为10条。取值范围1条~10条。
--   ![加号](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/2394459951/p101541.png)：单击图标，可手动添加访问路径。
+-   ![加号](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/2394459951/p101541.png)：单击图标，可手动添加访问路径。
     -   **区域**：选择目标Bucket所在地域。
     -   **Bucket**：填写有访问权限的Bucket名称。
     -   **选择已授权Bucket**：单击后可选择本账号下已授权访问的Bucket。
     -   **文件路径**：填写有访问权限的文件路径，例如有权限访问根目录下path目录，则填写path。要访问整个Bucket，此项置空。
 
-文件路径添加之后，单击对应的路径名称，可直接跳转到对应文件路径。单击指定路径后的![置顶](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/2394459951/p101551.png)可置顶该路径；单击![删除](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/2394459951/p101553.png)可删除该路径。
+文件路径添加之后，单击对应的路径名称，可直接跳转到对应文件路径。单击指定路径后的![置顶](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/2394459951/p101551.png)可置顶该路径；单击![删除](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/2394459951/p101553.png)可删除该路径。
 
 ## 资源包管理
 
 资源包管理页可管理您的资源包，包括查看资源包使用量、购买资源包、续费、升级等。
 
--   **购买资源包**：单击可购买新的资源包，详情请参见[包年包月概述](/intl.zh-CN/计量计费/计费方式/包年包月/包年包月（资源包）.md)。
+-   **购买资源包**：单击可购买新的资源包，详情请参见[包年包月概述](/intl.zh-CN/计量计费/计费方式/包年包月/包年包月概述.md)。
 -   **消费明细**：单击可查看所有已购买资源包的详情，包括已过期的资源包。
 -   **资源包使用明细**：单击可查看资源包的使用详情。
 -   资源包列表：列出已购买且未过期的资源包。
-    -   单击对应资源包后的**升级**可提升资源包的规格。详情请参见[升级资源包](/intl.zh-CN/计量计费/计费方式/包年包月/包年包月（资源包）.mdsection_nnt_zug_lsv)。
-    -   单击对应资源包后的**续费**可延长资源包的有效期，详情请参见[续费资源包](/intl.zh-CN/计量计费/计费方式/包年包月/包年包月（资源包）.mdsection_axy_bot_o4m)。
+    -   单击对应资源包后的**升级**可提升资源包的规格。详情请参见[升级资源包](/intl.zh-CN/计量计费/计费方式/包年包月/包年包月概述.mdsection_nnt_zug_lsv)。
+    -   单击对应资源包后的**续费**可延长资源包的有效期，详情请参见[续费资源包](/intl.zh-CN/计量计费/计费方式/包年包月/包年包月概述.mdsection_axy_bot_o4m)。
 
 ## 跨区域复制
 
