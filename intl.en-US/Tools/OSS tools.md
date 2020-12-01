@@ -1,82 +1,59 @@
-# OSS tools {#concept_owg_knn_vdb .concept}
+# OSS tools
 
-In addition to the OSS console, you can use the following tools to use OSS more efficiently.
+The following table lists the tools to streamline OSS operations.
 
-|Tool|Description|
-|:---|:----------|
-|[ossbrowser](reseller.en-US/Tools/ossbrowser/Quick start.md#)|A graphical object management tool. -   Provides an easy-to-use graphical interface.
+|Tool|Overview|
+|:---|:-------|
+|[ossbrowser](/intl.en-US/Tools/ossbrowser/Quick start.md)|A graphical object management tool. -   Provides an easy-to-use graphical interface.
 -   Provides features similar to those of Windows Explorer.
 -   Allows you to browse objects.
--   Allows you to upload and download folders.
--   Allows you to use concurrent upload and resumable upload to upload files.
--   Allows you to configure authorization policies and grant RAM users permissions.
--   Supports Windows, Linux, and Mac.
+-   Allows you to upload and download directories \(folders\).
+-   Allows you to use concurrent upload and resumable upload to upload objects.
+-   Allows you to configure authorization policies and grant permissions to RAM users.
+-   Supports Windows, Linux, and macOS.
 
- Limits:
+Limits:
 
 -   The transmission speed and performance of ossbrower are not as good as those of ossutil because ossbrower is a graphical tool.
--   Only files smaller than 5 GB can be uploaded or replicated.
-
- |
-|[ossutil](reseller.en-US/Tools/ossutil/Quick start.md#)|A command line tool that is used to manage objects and buckets. -   Provides a wide range of convenient and simple commands to manage objects and buckets while ensuring good operation performance.
--   Allows you to use concurrent upload and resumable upload to upload files.
--   Allows you to upload and download folders.
--   Supports typical bucket management-related commands.
-
- |
-|[osscmd \(unavailable\)](reseller.en-US/Tools/osscmd/Quick installation.md#)|A command line tool that is used to manage objects and buckets. -   Provides a wide range of commands to manage objects and buckets.
+-   Only objects smaller than 5 GB can be moved or replicated.
+-   Objects larger than 48.8 TB cannot be uploaded. |
+|[ossutil](/intl.en-US/Tools/ossutil/Overview.md)|A command line tool used to manage objects and buckets. -   Provides a wide range of simple and convenient commands to manage objects and buckets while high performance of operations is ensured.
+-   Allows you to use concurrent upload and resumable upload to upload objects.
+-   Allows you to upload and download directories \(folders\). |
+|[osscmd \(unavailable\)](/intl.en-US/Tools/osscmd (unavailable)/Overview.md)|A command line tool used to manage objects and buckets. -   Provides a wide range of commands to manage objects and buckets.
 -   Supports Windows and Linux.
 
- Limits:
+Limits:
 
--   The osscmd tool is compatible with Python versions 2.5, 2.6, and 2.7 only.
--   You cannot use the tool to configure new features such as the storage class of infrequent access \(IA\) or Archive, cross-region replication \(CRR\), and back-to-origin.
+-   osscmd is compatible only with Python 2.5, 2.6, and 2.7. osscmd is not compatible with Python 3.x.
+-   osscmd does not allow you to configure new features such as the storage class of Infrequent Access \(IA\) or Archive, Cold Archive, cross-region replication \(CRR\), and mirroring-based back-to-origin.
 
- **Note:** Commands supported by the osscmd tool have been integrated with the [ossutil](reseller.en-US/Tools/ossutil/Quick start.md#) tool. The osscmd tool is no longer available for downloads as of July 31, 2019.
-
- |
-|[ossfs](reseller.en-US/Tools/ossfs/Quick installation.md#)|A tool that is used to attach a bucket to the local file system. After you attach OSS buckets to the local file system of Linux, you can perform operations on the objects in OSS through the local file system to access or share these objects.
-
- -   Supports most functions of POSIX-based file systems, including file read/write, directories, soft links, permissions, UID or GID, and extended attributes.
--   Allows you to use multipart upload to upload large files.
+**Note:** The osscmd operation commands have been integrated into [ossutil](/intl.en-US/Tools/ossutil/Overview.md). osscmd has been unavailable since July 31, 2019. Alibaba Cloud regrets the inconvenience caused, and appreciates your patience and understanding. |
+|[ossfs](/intl.en-US/Tools/ossfs/Overview.md)|A tool used to attach a bucket to the local file system. After you attach OSS buckets to the local file system of Linux, you can perform operations on the objects in OSS to access or share these objects by using the local file system. -   Supports most features of the POSIX-compliant file systems, including file reading/writing, directories, link-related operations, permissions, UID or GID, and extended attributes.
+-   Allows you to use multipart upload to upload large objects.
 -   Supports MD5 verification to ensure data integrity.
 
- Limits: -   You cannot attach an Archive bucket.
--   If you use ossfs tool to edit an uploaded file, the file is uploaded again.
--   The performance of metadata-related operations is compromised when you run the `list directory` command. In this case, you must remotely access the OSS server.
--   Errors may occur when you rename an object or a folder. Operation failures may cause data inconsistency.
--   The ossfs tool is not suitable for scenarios where read and write operations are highly concurrent.
--   You must maintain data consistency when an OSS bucket is attached to multiple clients. For example, you must schedule object use to prevent it from being written by multiple clients at the same time.
+Limits:-   You cannot attach Archive and Cold Archive buckets to ossfs.
+-   If you use ossfs to edit an object that was uploaded, the object is uploaded again.
+-   The performance of metadata-related operations such as `list directory` is compromised because you must remotely access the OSS server.
+-   Errors may occur if you rename an object or a folder. Operation failures may cause data inconsistencies.
+-   ossfs is unsuitable for scenarios that require highly concurrent read and write operations.
+-   If an OSS bucket is attached to multiple clients, you are responsible for maintaining data consistency. We recommend that you schedule the time when your users can use objects, which prevents multiple clients from writing to the same object at the same time.
 -   Hard links are not supported.
 
- |
-|[ossftp](reseller.en-US/Tools/ossftp/Quick installation for OSS FTP.md#)|An FTP-based tool that is used to manage objects in OSS. -   You can use FTP clients such as FileZilla, WinSCP, and FlashFXP to manage data in OSS.
--   The ossftp tool is an FTP server that receives FTP requests and performs operations on objects and folders in OSS.
--   The ossftp tool is based on Python V2.7 and later.
--   This tool supports Windows, Linux, and Mac.
-
- |
-|[ossimport](reseller.en-US/Tools/ossimport/Architecture and configuration.md#)|A tool that is used to synchronize data to OSS. -   Allows you to use the ossimport tool to synchronize data from a third-party data source to OSS.
--   Supports the distributed deployment mode. You can use multiple servers to migrate multiple data simultaneously.
--   Supports the migration of 1 TB of data at least.
+**Note:** We recommend that you use Cloud Storage Gateway \(CSG\) to attach buckets. For more information, see [Configure CSG](/intl.en-US/Console User Guide/Upload, download, and manage objects/Configure CSG.md). |
+|[ossftp](/intl.en-US/Tools/ossftp/Quick installation.md)|An FTP-based tool used to manage objects in OSS. -   You can use FTP clients such as FileZilla, WinSCP, and FlashFXP to manage objects in OSS.
+-   ossftp is an FTP server that receives FTP requests and performs operations on objects and folders in OSS.
+-   ossftp is based on Python 2.7 and later.
+-   ossftp supports Windows, Linux, and macOS. |
+|[ossimport](/intl.en-US/Tools/ossimport/Architectures and configurations.md)|A tool used to synchronize data to OSS.-   Allows you to synchronize data from a third-party data source to OSS.
+-   Supports distributed deployment. You can use multiple servers to migrate data simultaneously.
+-   Supports migration of more than terabytes of data.
 -   Supports Windows and Linux.
--   Applies to Java V1.7 and later.
-
- |
-|[Visual signature tool](https://bbs.aliyun.com/read/233851.html)|A third-party visual signature tool. -   This tool is used to generate a signed URL for operations on data in OSS.
--   You can debug the system to resolve problems you encounter when the signed URL is generated. If you encounter any problems when the signed URL is generated, compare the signed URL with the signature of the tool to troubleshoot the problems.
--   The browser edition of this tool supports the following browsers: Google Chrome, Firefox, and Safari.
-
- |
-|[RAM Policy Editor](http://gosspublic.alicdn.com/ram-policy-editor/index.html)|A tool that is used to achieve automatic generation of OSS-related authorization policies. -   This tool can automatically generate authorization policies based on specified information. You can add the generated policies to the [custom policy](https://ram.console.aliyun.com/policies/new) in the RAM console.
--   This tool supports the following browsers: Google Chrome, Firefox, and Safari.
-
- **Note:** We recommend that you use this tool to generate custom authorization policies.
-
- |
-|[oss-emulator](https://github.com/aliyun/oss-emulator)|A lightweight simulator of OSS. -   The oss-emulator tool provides the same API as that of OSS. This tool can be used to the debug and test OSS functions.
--   This tool is based on Ruby V2.2.8 and later.
--   This tool supports Windows and Linux.
-
- |
+-   Applicable to Java 1.7 and 1.8. |
+|[RAM Policy Editor](http://gosspublic.alicdn.com/ram-policy-editor/index.html)|A tool used to automatically generate OSS-related authorization policies. We recommend that you use this tool to generate custom authorization policies.-   Generates an authorization policy based on the specified requirements. You can call this operation to create a custom policy. Then, the policy can be added to the [custom policy](https://ram.console.aliyun.com/policies/new) in the RAM console.
+-   Supports the following browsers: Google Chrome, Firefox, and Safari. |
+|[oss-emulator](https://github.com/aliyun/oss-emulator)|A lightweight simulator of OSS. -   Provides the same API operations as those of OSS. oss-emulator can be used to debug and test functions.
+-   oss-emulator is based on Ruby 2.2.8 and later.
+-   Supports Windows and Linux. |
 
