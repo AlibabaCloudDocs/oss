@@ -17,10 +17,6 @@ When you use versioning, take note of the following items:
 -   Feature conflicts
     -   Versioning cannot be configured with retention policies or mirroring-based back-to-origin at the same time.
     -   If versioning is enabled for a bucket, the `x-oss-forbid-overwrite` request header that is specified when an object is uploaded to the bucket does not take effect. For more information, see [Request headers](/intl.en-US/API Reference/Object operations/Basic operations/PutObject.md).
--   Supported region
-
-    Versioning is supported in all regions except for Japan \(Tokyo\).
-
 
 ## Implementation modes
 
