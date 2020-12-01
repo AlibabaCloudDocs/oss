@@ -1,160 +1,120 @@
-# Quick start {#concept_xmg_h33_wdb .concept}
+# Quick start
 
-Ossbrowser is a graphical management tool developed by Alibaba Cloud. It provides features similar to those of Windows Explorer. Using ossbrowser, you can view, upload, download, and manage objects with ease.
+This topic describes how to install and use ossbrowser. ossbrowser is a graphical management tool developed by Alibaba Cloud. This tool provides functions similar to Windows Explorer. You can use ossbrowser to browse, upload, download, and manage objects.
 
-**Note:** 
+## Usage notes
 
--   You can only move or copy objects smaller than 5 GB by using ossbrowser. For objects larger than 5 GB, we recommend you use [ossutil](reseller.en-US/Tools/ossutil/Quick start.md#).
--   Ossbrowser supports Linux, Mac, and Windows \(Windows 7 and later\). We recommend you do not use ossbrowser in Windows XP and Windows Server.
+-   The object you want to upload is smaller than or equal to 48.8 TB in size.
+-   The object you want to move or copy is smaller than or equal to 5 GB in size. To upload an object larger than 5 GB in size, we recommend that you use [ossutil](/intl.en-US/Tools/ossutil/Overview.md).
+-   ossbrowser is supported on Linux, macOS, and Windows 7 or later. We recommend that you do not use ossbrowser on Windows XP or Windows Server.
 
-## Installation {#section_mq4_l33_wdb .section}
+## Installation
 
-1.  Download and install ossbrowser
+1.  Download and install ossbrowser.
 
-    |Supported operating system|Download URL|
-    |:-------------------------|:-----------|
-    |Windows x32|[Windows x32](http://gosspublic.alicdn.com/oss-browser/1.9.1/oss-browser-win32-ia32.zip)|
-    |Windows x64|[Windows x64](http://gosspublic.alicdn.com/oss-browser/1.9.1/oss-browser-win32-x64.zip)|
-    |MAC|[MAC](http://gosspublic.alicdn.com/oss-browser/1.9.1/oss-browser-darwin-x64.zip)|
-    |Linux x64|[Linux x64](http://gosspublic.alicdn.com/oss-browser/1.9.1/oss-browser-linux-x64.zip)|
+    |Supported operating system|Current version|Download URL|
+    |:-------------------------|---------------|:-----------|
+    |Windows x32|1.13.0|[Windows x32](http://gosspublic.alicdn.com/oss-browser/1.13.0/oss-browser-win32-ia32.zip)|
+    |Windows x64|[Windows x64](http://gosspublic.alicdn.com/oss-browser/1.13.0/oss-browser-win32-x64.zip)|
+    |Mac|[Mac](http://gosspublic.alicdn.com/oss-browser/1.13.0/oss-browser-darwin-x64.zip)|
+    |Linux x64|[Linux x64](http://gosspublic.alicdn.com/oss-browser/1.13.0/oss-browser-linux-x64.zip)|
 
-    **Note:** For more download URLs, see [GitHub](https://github.com/aliyun/oss-browser/blob/master/all-releases.md).
+    **Note:**
 
-2.  Start ossbrowser.
+    -   To use ossbrowser in macOS, you must modify the system security configurations. For more information, see [What do I do if I cannot run ossbrowser in macOS?](/intl.en-US/Tools/ossbrowser/FAQ.md).
+    -   To download more versions of ossbrowser, visit [GitHub](https://github.com/aliyun/oss-browser/blob/master/all-releases.md).
+2.  Start ossbrowser and configure the parameters to log on to ossbrowser.
 
-    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/4906/156040645040359_en-US.png)
+    ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/9814459951/p40359.png)
 
-    Set the following parameters to log on to ossbrowser:
-
-    -   **Endpoint**: Select the region \(endpoint\) that you want to log on.
-        -   Default: Log on to ossbrowser with the default endpoint.
-        -   Customize: Enter the endpoint you want to use to log on to ossbrowser. You can enter a URL starting with "http" or "https" to log on to ossbrowser through the HTTP or HTTPS method, for example, https://oss-cn-beijing.aliyuncs.com. For more information about the regions and endpoints, see [Regions and endpoints](../../../../reseller.en-US/Developer Guide/Endpoint/Regions and endpoints.md#).
-        -   cname: You can log on to ossbrowser with a custom domain name \(CNAME\) attached to your OSS resources. For more information about attaching a CNAME, see [Attach a custom domain name](../../../../reseller.en-US/Console User Guide/Manage buckets/Manage a domain/Attach a custom domain name.md#).
-    -   AccessKeyId/AccessKeySecret：Enter the Accesskey \(AK\) of your account. To ensure data security, we recommend that you use the AK of a RAM user to log on to ossbrowser. For more information about AK, see [Create an AccessKey](../../../../reseller.en-US/General Reference/Create an AccessKey.md#).
-    -   **Preset OSS Path**:
-        -   Administrator RAM users with administration permissions on all buckets: No configuration is required.
-        -   Operator RAM users: Configurations are required. Enter the path of the OSS bucket or sub-directory that you want to access \(the RAM user must have permission to access the OSS bucket or sub-directory\). The path format is as follows: **oss:// bucket name/sub-directory name/**.
-    -   **Region**: Select the region where the OSS resources belong to.
-    -   **Remember**: Select to save the AK. When you log on to ossbrowser later, you can simply click **AK Histories** and select the saved AK instead of entering the AK repeatedly. Do not select this option if you use a shared computer.
-
-## Usage {#section_opg_4mh_1hb .section}
-
-Ossbrowser supports simple management operations on OSS resources.
-
--   Manage a bucket
-    -   Create a bucket.
-        1.  On the main interface of ossbrowser, click **Create Bucket**.
-        2.  Set the following information about the bucket:
-            -   **Name**: The name of a bucket can be 63 characters in maximum and must be unique.
-            -   **Region**: Select the region where the bucket belongs to.
-            -   **ACL**: Select the ACL for the bucket. For more information about ACL, see [ACL](../../../../reseller.en-US/Developer Guide/Access and control/Access control based on ACLs.md#).
-            -   **Type**: Select the default storage class of the bucket. For more information about storage class, see [Introduction to storage classes](../../../../reseller.en-US/Developer Guide/Storage classes/Overview.md#).
-        3.  Click **OK**.
-    -   Delete a bucket.
-
-        Select the bucket that you want to delete, and then click **More** \> **Remove**.
-
-        **Note:** A bucket cannot be deleted when objects or parts are stored in it.
-
--   Manage objects/directories
-    -   Create a directory.
-        1.  On the main interface of ossbrowser, click the bucket in which you want to create a folder.
-        2.  Click **Directory**.
-        3.  Enter the name of the directory and click **OK**.
-
-            **Note:** 
-
-            -   Emoticons are not allowed in a directory name. Use compliant UTF-8 characters in directory names.
-            -   You can create only a single-level directory at a time. For example, you can create a single-level directory abc but not a multi-level directory abc/123.
-            -   A sub-directory named .. is not allowed.
-            -   The length of a directory name must be in a range of 1 to 254 characters.
-    -   Upload files/directories.
-
-        In the specified bucket or directory, click **Files**/**Folder**, and then select the files or folders that you want to upload.
-
-        **Note:** You can upload multiple files or folders at the same time.
-
-    -   Download objects/directories
-
-        In the specified bucket or directory, select the objects or directories that you want to download, and then click **Download**.
-
-        **Note:** You can download multiple objects or folders at the same time.
-
-    -   Copy objects/directories.
-        1.  In the specified bucket or directory, select the objects or directories that you want to copy, and then click **Copy**.
-        2.  Enter the bucket or directory where you want to copy the data to, and then click **Paste**.
-
-            **Note:** If the source address and target address of the copied object are the same, the original object is overwritten. If the storage class of the overwritten object is IA or Archive and the storage period of the object does not reach the required value, fees incur for the advanced deletion. For more information, see [Billing items](../../../../reseller.en-US/Pricing/Billing items.md#table_v24_5ft_lgb).
-
-    -   Move objects/directories.
-        1.  In the specified bucket or directory, select the objects or directories that you want to move, and then click **More** \> **Move**.
-        2.  Enter the bucket or directory where you want to move the data to, click **Paste**.
-
-            **Note:** When you move an object or a directory, the object or directory is copied from the source address to the target address, and the object or directory in the source address is deleted. If you move an object of the IA or Archive storage class and the storage period of the object does not reach the required value, fees incur for the advanced deletion.
-
-    -   Rename objects/directories
-
-        In the specified bucket or directory, select the objects or directories that you want to rename, click **More** \> **Rename**, and then enter the new name.
-
-        **Note:** 
-
-        -   You can only rename objects smaller than 1 GB.
-        -   When you rename an object or a directory, the object or directory is copied, renamed, and then saved. The original object or directory is deleted. If you rename an object of the IA or Archive storage class and the storage period of the object does not reach the required value, fees incur for the advanced deletion.
-    -   Delete objects/directories
-
-        Select the object or directory that you want to delete, and then click **More** \> **Remove**.
-
-        **Note:** If you delete an object of the IA or Archive storage class and the storage period of the object does not reach the required value, fees incur for the advanced deletion.
-
-    -   Generate an access URL for an object.
-
-        1.  Select the specified object, and then click **More** \> **Address**.
-        2.  Enter the valid period of the URL, and then click **Generate**.
-        3.  Click **Copy** or **Mail it** to send the URL to users who want to access the object. You can also scan the QR code to access the object.
-    -   Preview an object.
-
-        You can double-click an object to preview it. You can preview images and objects in the txt and pdf formats in ossbrowser.
-
-    -   Manage parts.
-
-        Select the specified bucket, and then click **Multipart**. You can delete unnecessary parts.
+    |Parameter|Description|
+    |---------|-----------|
+    |**Endpoint**|Select the endpoint that you want to access.     -   **Default \(Public Cloud\)**: Log on to ossbrowser by using the default endpoint.
+    -   **Customize**: Enter the endpoint that you want to use to log on to ossbrowser. You can use a URL that starts with "http" or "https" to log on to ossbrowser over HTTP or HTTPS. Example: https://oss-cn-beijing.aliyuncs.com. For more information about regions and endpoints, see [Regions and endpoints](/intl.en-US/Developer Guide/Endpoint/Regions and endpoints.md).
+    -   **cname**: Use the custom domain name that is bound to your OSS resources to log on to ossbrowser. For more information about how to bind custom domain names, see [Bind custom domain names](/intl.en-US/Console User Guide/Manage buckets/Manage a domain/Bind custom domain names.md). |
+    |**HTTPS encryption**|When you set **Endpoint** to **Default \(Public Cloud\)**, you can configure this option. If you select this option, you can log on to ossbrowser over HTTPS. Otherwise, you can log on to ossbrowser over HTTP.|
+    |**AccessKeyId** and **AccessKeySecret**|Enter the AccessKey pair of your account. To ensure data security, we recommend that you log on to ossbrowser by using the AccessKey pair of a RAM user. For more information about how to obtain AccessKey pairs, see [Create an AccessKey pair]().|
+    |**Preset OSS Path**|Configure OSS paths. Only the paths that you configure are displayed. The account that you use to log on to ossbrowser must have the permission to access the configured paths. When you configure the path, you must specify the path and the corresponding region.     -   The path is in the following format: oss://bucketname/path.
+    -   **Region**: Select the region to which the OSS resources belong.
+Select **request payer** if pay-by-requester is enabled for the corresponding path. For more information about the pay-by-requester mode, see [Enable pay-by-requester](/intl.en-US/Developer Guide/Buckets/Enable pay-by-requester.md). |
+    |**Keep me logged in**|If you select this option, ossbrowser remains logged on or automatically logs on when ossbrowser is opened.|
+    |**Remember**|If you select this option, your AccessKey pair is saved. When you log on to ossbrowser, click **AK Histories** and select the saved AccessKey pair instead of entering the AccessKey pair again. Do not select this check box if you use a shared computer.|
 
 
-## More operations {#section_g45_w13_1hb .section}
+## Manage buckets
 
--   Upload/Download performance optimization
+-   Create a bucket
+    1.  On the homepage of ossbrowser, click **Create Bucket**.
+    2.  Configure bucket information.
+        -   **Name**: The name of a bucket can be up to 63 characters in length. The name must be unique.
+        -   **Region**: Set the region for the bucket.
+        -   **ACL**: Set ACL for the bucket. For more information about ACLs, see [ACL](/intl.en-US/Developer Guide/Data security/Access and control/ACL.md).
+        -   **Type**: Set the default storage class for the bucket. For more information about storage classes, see [Overview](/intl.en-US/Developer Guide/Storage classes/Overview.md).
+    3.  After the configurations are complete, click **OK**.
+-   Delete a bucket
 
-    You can click **Settings** to configure the following parameters.
+    Select the bucket you want to delete. Choose **More** \> **Remove**. A bucket cannot be deleted when objects or parts are stored in it.
 
-    -   **Upload tasks concurrent number**: Specify the maximum number of upload tasks that can be performed at the same time. If the number of upload tasks is larger than the value, the additional tasks are scheduled into a queue and wait for the current tasks to be complete. Setting this parameter properly based on your bandwidth can improve the upload speed.
-    -   **Download tasks concurrent number**: Specify the maximum number of download tasks that can be performed at the same time. If the number of download tasks is larger than the value, the additional tasks are scheduled into a queue and wait for the current tasks to be complete. Setting this parameter properly based on your bandwidth can improve the upload speed.
-    -   **overtime**: Specify the timeout period for tasks.
-    -   **uploadpart size**: Specify the part size in multipart upload tasks. When the file to be uploaded is too large or the network condition is poor, you can set an appropriate part size to upload the object in multiple parts.
-    -   **retry times**: Specify the allowed retry times in upload or download tasks.
--   Mail settings
 
-    You can click **Settings** to set your E-mail account. All operations related to mails in ossbrowser are performed by the account.
+## Manage objects
 
--   Logging settings
-    -   Enable the debug mode.
+-   Create a folder
+    1.  On the homepage of ossbrowser, click the bucket in which you want to create a folder.
+    2.  Click **Directory**.
+    3.  Set the folder name and click **OK**.
 
-        You can enable the debug mode in the following two methods to view the logs generated by upload, download, and other operations.
+        **Note:**
 
-        -   Method 1: Click **Settings**, and then click **Open debug**.
+        -   The folder name must be UTF-8 characters and cannot contain emoticons.
+        -   You can create only a single-level folder each time. For example, you can create a single-level folder abc, but not a multi-level folder abc/123.
+        -   A subfolder cannot contain two consecutive periods \(..\) in its name.
+        -   The folder name must be 1 to 254 characters in length.
+-   Upload objects or folders
 
-            ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/4906/156040645043798_en-US.png)
+    In the specified bucket or folder, click **Files** or **Folder**. Select the objects or folders that you want to upload. You can upload multiple objects or folders at the same time.
 
-        -   Method 2: Continually click the OSS Browser logo at the upper left corner for 10 times.
+-   Download objects or folders
 
-            ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/4906/156040645143802_en-US.png)
+    In the specified bucket or folder, select the objects or folders that you want to download. Click **Download**. You can download multiple objects or folders at the same time.
 
-    -   Enable logging.
+-   Copy objects or folders
+    1.  In the specified bucket or folder, select the object or folder that you want to copy. Click **Copy**.
+    2.  Go to the bucket or folder to which you want to copy the data. Click **Paste**. If the source and destination addresses of the copied object are the same, the original object is overwritten. If the storage class of the overwritten object is IA, Archive, or Cold Archive, and the object has been stored for less than the specified number of days, early deletion fees are incurred. For more information, see [Billing items and methods](/intl.en-US/Pricing/Billing items and methods/Overview.md).
+-   Move objects or folders
+    1.  In the specified bucket or folder, select the objects or folders that you want to move and choose **More** \> **Move**.
+    2.  Go to the bucket or folder to which you want to copy the data. Click **Paste**.
 
-        You can select whether to enable the logging function in the **Settings** dialog box.
+        **Note:** If you move an object or folder, the object or folder is copied from the source address to the destination address. The object or folder in the source address is deleted. If the storage class of the moved object is IA, Archive, or Cold Archive, and the object has been stored for less than the specified number of days, early deletion fees are incurred.
 
-        -   Select **Local log** to enable the local logging function to collect error logs. Logs collected by ossbrowser are stored in the following paths by default:
-            -   Linux: ~/.config/oss-browser/log.log
-            -   Mac: ~/Library/Logs/oss-browser/log.log
-            -   Windows: %USERPROFILE%\\AppData\\Roaming\\oss-browser\\log.log
-        -   Select **local info file log** to collect normal local file information.
+-   Rename objects or folders
+
+    In the specified bucket or folder, select the object or folder that you want to rename and choose **More** \> **Rename**. Enter the new name.
+
+    **Note:**
+
+    -   You can rename only objects smaller than 1 GB.
+    -   If you rename an object or a folder, the object or folder is copied, renamed, and then saved. The original object or folder is deleted. If the storage class of the renamed object is IA, Archive, or Cold Archive, and the object has been stored for less than the specified number of days, early deletion fees are incurred.
+-   Delete objects or folders
+
+    Select the object or folder that you want to delete and choose **More** \> **Remove**. If the storage class of the deleted object is IA, Archive, or Cold Archive, and the object has been stored for less than the specified number of days, early deletion fees are incurred.
+
+-   Generate a URL for an object
+    1.  Select the specified object and choose **More** \> **Address**.
+    2.  Enter the validity period of the link. Click **Generate**.
+
+        **Note:** If the bucket is bound to a custom domain name, you can select the custom domain name to generate a URL for the object. For more information about how to bind a custom domain name, see [Bind custom domain names](/intl.en-US/Console User Guide/Manage buckets/Manage a domain/Bind custom domain names.md).
+
+    3.  Click **Copy** or **Mail it** to send the URL to users who want to access the object. The generated QR code can also be used to access the object.
+-   Modify HTTP headers for an object
+    1.  Select an object and choose **More** \> **Http Headers**.
+    2.  In the Http Headers dialog box, configure the HTTP header of the object. For more information about HTTP headers, see [Common HTTP headers](/intl.en-US/API Reference/Common HTTP headers.md).
+    3.  After the configurations are complete, click **OK**.
+-   Preview an object
+
+    To preview an object, click the name of the object. ossbrowser allows you to preview objects in the TXT format and image objects smaller than 5 MB.
+
+-   Manage parts
+
+    Select the specified bucket. Click **Multipart**. You can delete parts that you no longer use.
+
 
