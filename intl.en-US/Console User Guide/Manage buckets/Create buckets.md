@@ -27,14 +27,13 @@ The attributes of a bucket include the region, ACL, and storage class. You can c
 **Note:** The Cold Archive storage class is in public preview in the Australia \(Sydney\), Singapore, US \(Silicon Valley\), Germany \(Frankfurt\), Malaysia \(Kuala Lumpur\), Indonesia \(Jakarta\), India \(Mumbai\), and China \(Hong Kong\) regions. You can contact[technical support](https://workorder-intl.console.aliyun.com/#/ticket/createIndex) to apply for a trial.
 
 For more information, see [Overview](/intl.en-US/Developer Guide/Storage classes/Overview.md). |
-    |**Zone-redundant Storage**|For buckets in , you can select whether to enable zone-redundant storage \(ZRS\).     -   Enable: After ZRS is enabled, OSS backs up your data to three zones within the same region. If the storage class of the bucket is Standard, the objects in the bucket are Standard \(ZRS\) objects by default. For more information, see [Zone-redundant storage](/intl.en-US/Developer Guide/Data security/Disaster recovery/Zone-redundant storage.md).
+    |**Zone-redundant Storage**|For buckets in Singapore, China \(Shenzhen\), China \(Beijing\), China \(Hangzhou\), and China \(Shanghai\) regions, you can select whether to enable zone-redundant storage \(ZRS\).     -   Enable: After ZRS is enabled, OSS backs up your data to three zones within the same region. If the storage class of the bucket is Standard, the objects in the bucket are Standard \(ZRS\) objects by default. For more information, see [Zone-redundant storage](/intl.en-US/Developer Guide/Data security/Disaster recovery/Zone-redundant storage.md).
 
 **Note:** This feature incurs extra costs and cannot be disabled after it is enabled. Exercise caution when you enable this feature.
 
     -   Disable: After ZRS is disabled, the redundancy type of the objects in the bucket is locally redundant storage \(LRS\). If the storage class of the bucket is Standard, the objects in the bucket are Standard \(LRS\) objects by default. |
     |**Versioning**|Select whether to enable versioning.     -   **Enable**: When versioning is enabled for a bucket, an object that is overwritten or deleted is saved as a previous version of the object. Versioning allows you to restore objects in a bucket to any previous point in time, and protects your data from being accidentally overwritten or deleted. For more information, see [Overview](/intl.en-US/Developer Guide/Data security/Versioning/Overview.md).
-    -   **Disable**: disables versioning.
-**Note:** Versioning is supported in all regions except for Japan \(Tokyo\). |
+    -   **Disable**: disables versioning. |
     |**Access Control List \(ACL\)**|Select the bucket ACL.     -   **Private**: Only the bucket owner can perform read and write operations on objects in the bucket. Other users cannot access the objects in the bucket.
     -   **Public Read**: Only the bucket owner can perform write operations on objects in the bucket. Other users, including anonymous users, can perform only read operations on the objects in the bucket.
 
@@ -44,18 +43,18 @@ For more information, see [Overview](/intl.en-US/Developer Guide/Storage classes
 
 **Warning:** All Internet users can access objects in the bucket and write data to the bucket. This may cause unwanted access to the data in your bucket, and cause an increase in your fees. If a user uploads prohibited data or information, it may affect your legitimate interests and rights. Therefore, we recommend that you do not set your bucket ACL to Public Read/Write except in special cases. |
     |**Encryption Method**|Select whether to enable server-side encryption.     -   **Encryption Method**: Select an encryption method for the object.
-        -   **None**: Server-side encryption is disabled.
-        -   **OSS-Managed**: You can use keys managed by OSS for encryption. OSS server-side encryption uses AES-256 to encrypt objects by using different data keys. AES-256 uses master keys that are regularly rotated to encrypt data keys.
-        -   **KMS**: You can use a specified CMK ID or the default CMK stored in KMS to encrypt or decrypt data. For more information about KMS-based encryption, see [Implement server-side encryption with CMKs stored in KMS \(SSE-KMS\)](/intl.en-US/Developer Guide/Data security/Data encryption/Server-side encryption.md).
+        -   **None**: disables server-side encryption.
+        -   **OSS-Managed**: uses keys managed by OSS for encryption. OSS uses data keys to encrypt objects and manages the data keys. In addition, OSS uses master keys that are regularly rotated to encrypt data keys.
+        -   **KMS**: uses the default CMK stored in KMS or a specified CMK ID to encrypt and decrypt data. For more information about KMS-based encryption, see [Implement server-side encryption with CMKs stored in KMS \(SSE-KMS\)](/intl.en-US/Developer Guide/Data security/Data encryption/Server-side encryption.md).
 
 **Note:**
 
-            -   Before you use KMS-based encryption, you must [activate KMS](https://www.alibabacloud.com/zh/products/kms).
+            -   Before you use the KMS-based encryption, you must[activate KMS](https://www.alibabacloud.com/zh/products/kms).
             -   You are charged for calling API operations when you use CMKs to encrypt or decrypt data. For more information about the fees, see [KMS pricing](/intl.en-US/Pricing/Billing.md).
-    -   **Encryption Algorithm**: Only AES-256 is supported.
-    -   **CMK**: You can configure this parameter if you select **KMS** in the **Encryption Method** section. Parameter description:
+    -   **Encryption algorithm**:Only AES-256 is supported.
+    -   **CMK**: You can configure this parameter if you select **KMS** in the **Encryption Method** section. You can configure the following parameters for a CMK:
         -   **alias/acs/oss**: The default CMK stored in KMS is used to encrypt different objects and decrypt the objects when they are downloaded.
-        -   **CMK ID**: The keys generated by a specified CMK are used to encrypt different objects and the specified CMK ID is recorded in the metadata of the encrypted object. Objects are decrypted when they are downloaded by users who have decryption permissions. Before you specify a CMK ID, you must create a normal key or an [external key](/intl.en-US/User Guide/Use symmetric keys/Import key material.md) in the same region as the bucket in the [KMS console](https://kms.console.aliyun.com). |
+        -   CMK ID: The keys generated by a specified CMK are used to encrypt different objects and the specified CMK ID is recorded in the metadata of the encrypted object. Objects are decrypted when they are downloaded by users who are granted decryption permissions. Before you specify a CMK ID, you must create a normal key or an [external key](/intl.en-US/Key service/Key type/Use symmetric keys/Import key material.md) in the same region as the bucket in the [KMS console](https://kms.console.aliyun.com). |
     |**Real-time Log Query**|Select whether to enable real-time log query for OSS.     -   **Enable**: enables real-time log query for OSS. OSS uses Log Service to provide real-time OSS log queries for the last seven days free of charge. After this feature is enabled, you can query and analyze records of access to objects in OSS buckets by using the OSS console in real time. For more information, see [Real-time log query](/intl.en-US/Developer Guide/Manage logs/Real-time log query.md).
     -   **Disable**: disables real-time log query. |
     |**Scheduled Backup**|Select whether to create a scheduled backup plan to back up your OSS data by using Hybrid Backup Recovery \(HBR\).     -   **Enable**: After scheduled backup is enabled, OSS creates a backup plan to back up data once a day and retain the backup files for one week. You can choose **Files** \> **Scheduled Backup** to view the backup plan that is created.
