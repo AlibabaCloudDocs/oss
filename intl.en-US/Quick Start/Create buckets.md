@@ -35,8 +35,7 @@ For more information, see [Overview](/intl.en-US/Developer Guide/Storage classes
 
     -   Disable: After ZRS is disabled, the redundancy type of the objects in the bucket is locally redundant storage \(LRS\). If the storage class of the bucket is Standard, the objects in the bucket are Standard \(LRS\) objects by default. |
     |**Versioning**|Select whether to enable versioning.     -   **Enable**: When versioning is enabled for a bucket, an object that is overwritten or deleted is saved as a previous version of the object. Versioning allows you to restore objects in a bucket to any previous point in time, and protects your data from being accidentally overwritten or deleted. For more information, see [Overview](/intl.en-US/Developer Guide/Data security/Versioning/Overview.md).
-    -   **Disable**: disables versioning.
-**Note:** Versioning is supported in all regions except for Japan \(Tokyo\). |
+    -   **Disable**: disables versioning. |
     |**Access Control List \(ACL\)**|Select the bucket ACL.     -   **Private**: Only the bucket owner can perform read and write operations on objects in the bucket. Other users cannot access the objects in the bucket.
     -   **Public Read**: Only the bucket owner can perform write operations on objects in the bucket. Other users, including anonymous users, can perform only read operations on the objects in the bucket.
 
@@ -73,14 +72,14 @@ ossutil is a command line tool for OSS. You can use ossutil to create a bucket. 
 
 ## Use APIs and SDKs
 
-OSS provides APIs and SDKs that use a variety of programming languages to facilitate secondary development. For more information, see the following topics:
+OSS provides APIs and SDK packages in multiple programming languages to facilitate secondary development. For more information, see the following topics:
 
 -   API operation: [PutBucket](/intl.en-US/API Reference/Bucket operations/Basic operations/PutBucket.md)
--   Java SDK: [Create buckets](/intl.en-US/SDK Reference/Java/Buckets/Create buckets.md)
--   Python SDK: the "Create a bucket" section in [Manage buckets](/intl.en-US/SDK Reference/Python/Buckets/Create a bucket.md)
--   PHP SDK: the "Create a bucket" section in [Bucket](/intl.en-US/SDK Reference/PHP/Buckets/Create buckets.md)
--   Go SDK: the "Create a bucket" section in [Bucket](/intl.en-US/SDK Reference/Go/Buckets/Create buckets.md)
--   C SDK: the "Create a bucket" section in [Bucket](/intl.en-US/SDK Reference/C/Buckets/Create buckets.md)
+-   OSS SDK for Java: [Create buckets](/intl.en-US/SDK Reference/Java/Buckets/Create buckets.md)
+-   OSS SDK for Python: [Create a bucket](/intl.en-US/SDK Reference/Python/Buckets/Create a bucket.md)
+-   OSS SDK for PHP: [Create buckets](/intl.en-US/SDK Reference/PHP/Buckets/Create buckets.md)
+-   OSS SDK for Go: [Create buckets](/intl.en-US/SDK Reference/Go/Buckets/Create buckets.md)
+-   OSS SDK for C: [Create buckets](/intl.en-US/SDK Reference/C/Buckets/Create buckets.md)
 
 For more information about SDK examples in more programming languages, see [t22258.dita\#concept\_dcn\_tp1\_kfb](/intl.en-US/SDK Reference/Introduction.md).
 
