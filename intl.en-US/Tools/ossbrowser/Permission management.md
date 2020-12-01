@@ -1,65 +1,61 @@
-# Permission management {#concept_c3k_mvr_gfb .concept}
+# Permission management
 
-## Log on to ossbrowser as a RAM user {#section_zqj_4vr_gfb .section}
+This topic describes how to perform simple permission management by using ossbrowser.
 
-To ensure data security, we recommend that you log on to ossbrowser by using the AccessKey \(AK\) of a RAM user. To log on to ossbrowser, follow these steps:
+## Log on to ossbrowser as a RAM user
 
-1.  Create a RAM user and an AK. For more information, see [Create a RAM user](../../../../reseller.en-US/Quick Start/(Old Version) Quick Start/Create a RAM user.md#).
+For data security, we recommend that you use the AccessKey pair of a RAM user to log on to ossbrowser.
 
-    RAM users can be classified into two types based on their permissions:
+**Note:** For more information about how to create a RAM user and AccessKey pair, see [Create a RAM user](/intl.en-US/RAM User Management/Create a RAM user.md).
 
-    -   Administrator RAM user: Indicates a RAM user with administration permissions. For example, a RAM user that can manage all buckets and authorize other RAM users is an administrator RAM user. You can log on to the RAM console with your Alibaba Cloud account to create an administrator RAM user and grant permissions to the administrator RAM user, as shown in the following figure.
+RAM users can be classified into the following types based on their permissions:
 
-        ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/4906/15688789926324_en-US.png)
+-   Administrator RAM user: a RAM user who has administrative permissions. For example, a RAM user who can manage all buckets and authorize other RAM users is an administrator RAM user. You can log on to the RAM console by using your Alibaba Cloud account to create an administrator RAM user and grant permissions to the user, as shown in the following figure.
 
-    -   Operator RAM user: Indicates a RAM user that only has the read-only permission on a bucket or a directory. The administrator can [Grant permissions with a simple policy](#section_zyx_1k3_wdb) to authorize a RAM user.
+    ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/0914459951/p6324.png)
 
-        **Note:** You can grant lower-level permissions to RAM users. For details, see [Access control](../../../../reseller.en-US/Developer Guide/Hide/Access control/Overview.md#).
+-   Operator RAM user: a RAM user who has the read-only permission on a bucket or folder. Administrator RAM users can use the simple policy feature to grant RAM users permissions. For more information, see [Grant permissions by using a simple policy](#section_rc9_ydw_85t).
 
-2.  Set the following parameters to log on to ossbrowser:
-    -   **Endpoint**: Use the default value.
-    -   **AccessKeyId** and **AccessKeySecret**: Enter the AK of the RAM user.
-    -   **Preset OSS Path**:
-        -   Administrator RAM users with administration permissions on all buckets: No configuration is required.
-        -   Operator RAM users: Configurations are required. Enter the path of the OSS bucket or sub-directory that you want to access \(the RAM user must have permission to access the OSS bucket or sub-directory\). The path format is as follows: **oss:// bucket name/sub-directory name/**.
-    -   **Remember**: Select to save the AK. When you log on to ossbrowser later, you can simply click **AK Histories** and select the saved AK instead of entering the AK repeatedly. Do not select this option if you use a shared computer.
-    -   ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/21830/156887899333074_en-US.png)
+    **Note:** You can grant fine-grained permissions to RAM users. For more information, see [Implement access control based on RAM policies](/intl.en-US/Developer Guide/Data security/Access and control/RAM Policy/Implement access control based on RAM policies.md).
 
 
-## Log on to ossbrowser with a temporary authorization code {#section_nwj_fwr_gfb .section}
+## Log on to ossbrowser by using STS tokens
 
-You can use a temporary authorization code to log on to ossbrowser. You can provide authorized users with a temporary authorization code to allow them to access a directory under your bucket temporarily before the authorization code expires. The temporary authorization code automatically becomes invalid after it expires.
+You can use an STS token to log on to ossbrowser. STS tokens can be provided for other authorized users for temporary access to a folder in your bucket. The STS token automatically becomes invalid after it expires.
 
-1.  Generate a temporary authorization code.
+1.  Log on to ossbrowser as an administrator RAM user.
 
-    Use the AK of an administrator RAM user to log on to ossbrowser. Select the object or directory to be accessed temporarily by the authorized users, and generate a temporary authorization code, as shown in the following figure.
+    **Note:** When you log on to ossbrowser by using your Alibaba Cloud account or as an administrator RAM user, part of the features are inaccessible to ensure data security. Use the AccessKey pair of an administrator RAM user to log on to ossbrowser and generate a token. The administrator RAM user must have the permissions to manage a bucket or folder, manage RAM \(AliyunRAMFullAccess\), and call the STS AssumeRole operation \(AliyunSTSAssumeRoleAccess\).
 
-    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/4906/15688789936326_en-US.png)
+2.  Select the objects or folders to be temporarily accessed by the authorized users, and choose **More** \> **Authorization Token**, as shown in the following figure.
 
-2.  Log on to ossbrowser with the authorization code.
+    ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/0914459951/p6326.png)
 
-    The temporarily authorized users can use the authorization code to log on to ossbrowser before it expires, as shown in the following figure.
+3.  Save the obtained token.
 
-    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/4906/15688789936327_en-US.png)
+4.  Log off from ossbrowser and use the STS token to log on, as shown in the following figure.
+
+    ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/0914459951/p6327.png)
 
 
-## Grant permissions with a simple policy {#section_zyx_1k3_wdb .section}
+## Grant permissions by using a simple policy
 
-After logging on to ossbrowser as an administrator RAM user, you can **Grant permissions with a simple policy** to create an operator RAM user, or grant an operator RAM user the read-only or read/write permission on a bucket or a directory.
+After you log on to ossbrowser as an administrator RAM user, you can use the **Simplify Policy** feature to create an operator RAM user, or grant an operator RAM user the read-only or read/write permissions on a bucket or directory.
 
-**Note:** Alibaba Cloud ossbrowser provides simple policy authorization, which is an access control feature based on the Alibaba Cloud RAM service. You can also log on to the RAM console through the official website of Alibaba Cloud to manage your RAM user more precisely.
+**Note:** The simple policy feature of ossbrowser is designed based on Alibaba Cloud RAM to control access. You can log on to the RAM console from the Alibaba Cloud website to manage your RAM users more precisely.
 
-1.  Select one or more objects or directories to be accessed temporarily by the authorized users and then click **Simple Policy**, as shown in the following figure.
+1.  Log on to ossbrowser as an administrator RAM user.
 
-    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/4906/15688789936328_en-US.png)
+2.  Select one or more objects or folders to be temporarily accessed by the authorized users, and choose **More** \> **Simple Policy**.
 
-2.  On the **Simplify policy authorization** dialog box, select **Privileges**.
-3.  You can also grant permissions to an existing operator RAM user or create a new operator RAM user in this dialog box.
+3.  In the **Simplify policy authorization** dialog box, set Privileges.
 
-    **Note:** To use simple policy authorization, you must log on to ossbrowser by using the AK of an RAM user that has the RAM configuration permission, for example, the AK of an administrator RAM user that has the RAM configuration permission.
+4.  Grant permissions to an existing operator RAM user or create a new operator RAM user in this dialog box.
 
-    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/4906/15688789936329_en-US.png)
+    ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/0914459951/p6329.png)
 
-    The policy is generated in text. You can view, copy, and use the text as needed. For example, you can copy the policy text and use it to edit the authorization rules for RAM users and roles in the RAM console.
+    You can view, copy, and use the generated policy text. For example, you can copy the policy text and use it to edit the authorization policies for RAM users and roles in the RAM console.
+
+    **Note:** To use the simple policy feature, you must log on to ossbrowser by using the AccessKey pair of a RAM user who has the RAM configuration permissions. For example, use the AccessKey pair of an administrator RAM user who has the RAM configuration permissions.
 
 
