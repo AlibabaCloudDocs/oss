@@ -4,10 +4,7 @@ OSS allows you to configure versioning to protect data in buckets. When versioni
 
 When versioning is enabled, OSS specifies a unique ID for each version of all objects in a bucket. You can also download a previous version of an object or recover the previous version as the current version at any time based on the version ID. For more information, see [Overview](/intl.en-US/Developer Guide/Data security/Versioning/Overview.md).
 
-**Note:**
-
--   If you enable versioning for a bucket, you are charged only for the storage of the current versions and previous versions of all objects in the bucket. To avoid unnecessary storage costs, we recommend that you delete the previous versions of objects that you no longer need. If you download a previous version of an object or recover the previous version as the current version, fees are incurred by the requests and traffic. For more information, see [Billing items and methods](/intl.en-US/Pricing/Billing items and methods/Overview.md).
--   Versioning is supported in all regions except for Japan \(Tokyo\).
+**Note:** If you enable versioning for a bucket, you are charged only for the storage of the current versions and previous versions of all objects in the bucket. To avoid unnecessary storage costs, we recommend that you delete the previous versions of objects that you no longer need. If you download a previous version of an object or recover the previous version as the current version, fees are incurred by the requests and traffic. For more information, see [Billing items and methods](/intl.en-US/Pricing/Billing items and methods/Overview.md).
 
 ## Enable versioning
 
