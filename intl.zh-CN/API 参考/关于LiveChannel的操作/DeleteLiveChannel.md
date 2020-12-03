@@ -16,6 +16,14 @@ Host: BucketName.oss-cn-hangzhou.aliyuncs.com
 Authorization: SignatureValue
 ```
 
+## 请求头
+
+此接口仅涉及公共请求头。更多信息，请参见[公共请求头（Common Request Headers）](/intl.zh-CN/API 参考/公共HTTP头定义.md)。
+
+## 响应头
+
+此接口仅涉及公共响应头。更多信息，请参见[公共响应头（Common Response Headers）](/intl.zh-CN/API 参考/公共HTTP头定义.md)。
+
 ## 示例
 
 请求示例
@@ -37,8 +45,4 @@ connection: close
 x-oss-request-id: 57BE9F0AB92475920B0*****
 date: Thu, 25 Aug 2016 07:32:26 GMT
 ```
-
-## SDK
-
-[Java]()
 
