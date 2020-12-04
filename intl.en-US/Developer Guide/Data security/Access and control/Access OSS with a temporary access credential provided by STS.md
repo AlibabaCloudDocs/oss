@@ -16,7 +16,7 @@ A mobile app is used as an example. If you are a mobile app developer and plan t
 
 The following figure shows how to use STS to grant OSS access permissions to users.
 
-![](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/7495688951/p983.png)
+![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/7495688951/p983.png)
 
 1.  Log on as the app user. An app user is a user of the app and is irrelevant to an Alibaba Cloud account. An app user can log on to the app server. The app server must be capable of defining the minimum access permissions for each valid app user.
 2.  The application server requests a security token from STS. Before the app calls STS, the app server must determine the minimum access permissions for each app user \(described in the policy syntax\) and the expiration time of the credential. Then, the app server uses AssumeRole to obtain a security token which indicates a role.
@@ -41,7 +41,7 @@ After you combine OSS SDKs and STS SDKs, you can access OSS by using a temporary
     7.  Select the created RAM user. Click **Add Permissions**.
     8.  In the Add Permissions panel, add the **AliyunSTSAssumeRoleAccess** policy to the RAM user.
 
-        ![](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/7495688951/p35411.jpg)
+        ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/7495688951/p35411.jpg)
 
         **Note:** Do not grant other permissions to the RAM user because it automatically obtains all permissions of a role when it assumes the role.
 
@@ -53,7 +53,7 @@ After you combine OSS SDKs and STS SDKs, you can access OSS by using a temporary
     4.  On the Create Custom Policy page, specify the **Policy Name** and **Note** parameters.
     5.  Select **Visualized** or **Script** for Configuration Mode.
 
-        For example, if you select Script and want to grant permissions, such as ListObjects, PutObject, and GetObject, on ram-test, add the following script in the **Policy Document** section.
+        For example, if you select Script and want to grant permissions, such as PutObject and GetObject, on ram-test, add the following script in the **Policy Document** section.
 
         ```
         {
@@ -62,7 +62,6 @@ After you combine OSS SDKs and STS SDKs, you can access OSS by using a temporary
              {
                    "Effect": "Allow",
                    "Action": [
-                     "oss:ListObjects",
                      "oss:PutObject",
                      "oss:GetObject"
                    ],
@@ -75,7 +74,7 @@ After you combine OSS SDKs and STS SDKs, you can access OSS by using a temporary
         }
         ```
 
-        **Note:** For more information about how to configure fine-grained permission policies, see [Implement access control based on RAM policies](/intl.en-US/Developer Guide/Data security/Access and control/RAM Policy/Implement access control based on RAM policies.md).
+        **Note:** The example above is for reference only. You need to configure the permission policy according to your application requirements. For more information about how to configure fine-grained permission policies, see [Implement access control based on RAM policies](/intl.en-US/Developer Guide/Data security/Access and control/RAM Policy/Implement access control based on RAM policies.md).
 
 3.  Create a role and record the role ARN.
     1.  Log on to the [RAM console](https://ram.console.aliyun.com/) by using an Alibaba Cloud account.
@@ -88,7 +87,7 @@ After you combine OSS SDKs and STS SDKs, you can access OSS by using a temporary
 
         After the policy is added, the following page appears.
 
-        ![](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/8495688951/p35437.jpg)
+        ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/8495688951/p35437.jpg)
 
     8.  Copy the **ARN** of the created role, which is the ID of the role.
 4.  Obtain an STS AccessKey pair and a security token.
