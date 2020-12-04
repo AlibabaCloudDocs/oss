@@ -12,11 +12,11 @@ DeleteObject用于删除某个文件（Object）。
 
 ## 版本控制
 
-版本控制下的删除行为说明如下：
+版本控制状态下的删除行为说明如下：
 
 -   未指定versionId（临时删除）：
 
-    如果在未指定versionId的情况下执行删除操作时，默认不会删除Object的当前版本，而是对当前版本插入删除标记（Delete Marker）。当执行GetObject操作时，OSS会检测到当前版本为删除标记，并返回`404 Not Found`。此外，响应中会返回`header：x-oss-delete-marker = true`以及新生成的删除标记的版本号`x-oss-version-id`。
+    如果在未指定versionId的情况下执行删除操作时，默认不会删除Object的当前版本，而是对当前版本插入删除标记（Delete Marker）。此时，在未指定versionId的情况下执行GetObject操作，OSS会检测到当前版本为删除标记，并返回`404 Not Found`。此外，响应中还会返回`header：x-oss-delete-marker = true`以及新生成的删除标记的版本号`x-oss-version-id`。
 
     `x-oss-delete-marker`的值为true，表示与返回的`x-oss-version-id`对应的版本为删除标记。
 
@@ -25,23 +25,29 @@ DeleteObject用于删除某个文件（Object）。
     如果在指定versionId的情况下执行删除操作时，OSS会根据`params`中指定的`versionId`参数永久删除该版本。如果要删除ID为“null”的版本，请在`params`参数中添加`params['versionId'] = “null”`，OSS将“null”字符串当成“null”的versionId，从而删除versionId为“null”的Object。
 
 
+## 请求头
+
+此接口涉及的公共请求头的更多信息，请参见[公共请求头（Common Request Headers）](/intl.zh-CN/API 参考/公共HTTP头定义.md)。
+
 ## 响应头
 
-|名称|类型|描述|
-|:-|:-|:-|
-|x-oss-delete-marker|bool|-   未指定versionId执行DeleteObject 操作时，OSS会创建删除标记，响应中会返回此header，且值为true。
--   指定versionId来永久删除指定Object版本时，如果该版本是删除标记，响应中会返回此header，且值为true。
+|名称|类型|示例值|描述|
+|:-|:-|---|:-|
+|x-oss-delete-marker|布尔型|true|-   未指定versionId执行DeleteObject 操作时，OSS会创建删除标记，响应中会返回此Header，且值为true。
+-   指定versionId来永久删除指定Object版本时，如果该版本是删除标记，响应中会返回此Header，且值为true。
 
 有效值：true|
-|x-oss-version-id|字符串|-   未指定versionId执行DeleteObject操作时，OSS会创建删除标记，响应中会返回此header，表示新创建的删除标记的versionId。
--   指定versionId来永久删除指定Object版本时，响应中会返回此header，表示删除Object的versionId。 |
+|x-oss-version-id|字符串|CAEQMxiBgIDh3ZCB0BYiIGE4YjIyMjExZDhhYjQxNzZiNGUyZTI4ZjljZDcz\*\*\*\*|-   未指定versionId执行DeleteObject操作时，OSS会创建删除标记，响应中会返回此Header，表示新创建的删除标记的versionId。
+-   指定versionId来永久删除Object指定版本时，响应中会返回此Header，表示删除Object的versionId。 |
+
+有关其他公共响应头的更多信息，请参见[公共响应头（Common Response Headers）](/intl.zh-CN/API 参考/公共HTTP头定义.md)。
 
 ## 请求语法
 
 ```
 DELETE /ObjectName HTTP/1.1
 Host: BucketName.oss-cn-hangzhou.aliyuncs.com
-Date: GMT Date
+Date: Wed, 02 Jan 2019 13:28:38 GMT
 Authorization: SignatureValue
 ```
 
@@ -54,7 +60,7 @@ Authorization: SignatureValue
     Host: test.oss-cn-zhangjiakou.aliyuncs.com
     Accept-Encoding: identity
     User-Agent: aliyun-sdk-python/2.6.0(Windows/7/AMD64;3.7.0)
-    Accept: */*
+    Accept: text/html
     Connection: keep-alive
     date: Wed, 02 Jan 2019 13:28:38 GMT
     authorization: OSS qn6qrrqxo2oawuk53otfjbyc:zUglwRPGkbByZxm1+y4eyu+NIUs=zV0****
@@ -121,9 +127,7 @@ Authorization: SignatureValue
 
 -   指定versionId删除“删除标记”的请求示例
 
-    **说明：** 仅允许对删除标记执行删除操作。
-
-    以下示例中指定删除的版本为删除标记，则响应中将返回x-oss-delete-marker=true。
+    以下示例中指定删除的版本为删除标记，则响应中将返回`x-oss-delete-marker=true`。
 
     ```
     DELETE /example?versionId=CAEQOBiBgIDNlJeB0BYiIDAwYjJlNDQ4YjJkMzQxMmY5NTM5N2UzZWNiZTQ2**** HTTP/1.1
