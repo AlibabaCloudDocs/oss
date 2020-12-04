@@ -14,10 +14,10 @@ This topic describes how to install and use ossbrowser. ossbrowser is a graphica
 
     |Supported operating system|Current version|Download URL|
     |:-------------------------|---------------|:-----------|
-    |Windows x32|1.13.0|[Windows x32](http://gosspublic.alicdn.com/oss-browser/1.13.0/oss-browser-win32-ia32.zip)|
-    |Windows x64|[Windows x64](http://gosspublic.alicdn.com/oss-browser/1.13.0/oss-browser-win32-x64.zip)|
-    |Mac|[Mac](http://gosspublic.alicdn.com/oss-browser/1.13.0/oss-browser-darwin-x64.zip)|
-    |Linux x64|[Linux x64](http://gosspublic.alicdn.com/oss-browser/1.13.0/oss-browser-linux-x64.zip)|
+    |Windows x32|1.13.0|[Windows x32](https://gosspublic.alicdn.com/oss-browser/1.13.0/oss-browser-win32-ia32.zip)|
+    |Windows x64|[Windows x64](https://gosspublic.alicdn.com/oss-browser/1.13.0/oss-browser-win32-x64.zip)|
+    |macOS|[macOS](https://gosspublic.alicdn.com/oss-browser/1.13.0/oss-browser-darwin-x64.zip)|
+    |Linux x64|[Linux x64](https://gosspublic.alicdn.com/oss-browser/1.13.0/oss-browser-linux-x64.zip)|
 
     **Note:**
 
