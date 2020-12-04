@@ -16,7 +16,7 @@ OSS可以通过阿里云STS（Security Token Service）进行临时授权访问�
 
 使用STS授权用户直接访问OSS的流程如下：
 
-![](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/4647559951/p983.png)
+![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/4647559951/p983.png)
 
 1.  App用户登录。App用户和云账号无关，它是App的终端用户，App服务器支持App用户登录。对于每个有效的App用户来说，需要App服务器能定义出每个App用户的最小访问权限。
 2.  App服务器请求STS服务获取一个安全令牌（SecurityToken）。在调用STS之前，App服务器需要确定App用户的最小访问权限（用RAM Policy来自定义授权策略）以及凭证的过期时间。然后通过扮演角色（AssumeRole）来获取一个代表角色身份的安全令牌（SecurityToken）。
@@ -41,7 +41,7 @@ OSS可以通过阿里云STS（Security Token Service）进行临时授权访问�
     7.  选中创建的子账号，单击**添加权限**。
     8.  在添加权限页面，为已创建的子账号添加**AliyunSTSAssumeRoleAccess**权限。
 
-        ![](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/4647559951/p35411.jpg)
+        ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/4647559951/p35411.jpg)
 
         **说明：** 不要赋予子账号其他权限，因为在扮演角色的时候会自动获得被扮演角色的所有权限。
 
@@ -53,7 +53,7 @@ OSS可以通过阿里云STS（Security Token Service）进行临时授权访问�
     4.  填写**策略名称**和**备注**。
     5.  配置模式选择**可视化配置**或**脚本配置**。
 
-        以脚本配置为例，为ram-test添加ListObjects、PutObject、GetObject等权限，在**策略内容**中配置脚本示例如下：
+        以脚本配置为例，为ram-test添加PutObject、GetObject等权限，在**策略内容**中配置脚本示例如下：
 
         ```
         {
@@ -62,7 +62,6 @@ OSS可以通过阿里云STS（Security Token Service）进行临时授权访问�
              {
                    "Effect": "Allow",
                    "Action": [
-                     "oss:ListObjects",
                      "oss:PutObject",
                      "oss:GetObject"
                    ],
@@ -75,7 +74,7 @@ OSS可以通过阿里云STS（Security Token Service）进行临时授权访问�
         }
         ```
 
-        **说明：** 如需配置更细粒度的授权策略，请参见[基于RAM Policy的权限控制](/cn.zh-CN/开发指南/数据安全/访问控制/RAM Policy/基于RAM Policy的权限控制.md)。
+        **说明：** 以上仅为参考示例，您需要根据自己的应用需求来确定所需要的权限。关于如何配置更细粒度的授权策略，请参见[基于RAM Policy的权限控制](/cn.zh-CN/开发指南/数据安全/访问控制/RAM Policy/基于RAM Policy的权限控制.md)。
 
 3.  创建角色并记录角色ARN。
     1.  云账号登录[RAM控制台](https://ram.console.aliyun.com/)。
@@ -88,12 +87,12 @@ OSS可以通过阿里云STS（Security Token Service）进行临时授权访问�
 
         添加权限策略后，页面如下图所示：
 
-        ![](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/4647559951/p35437.jpg)
+        ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/4647559951/p35437.jpg)
 
     8.  记录角色的**ARN**，即需要扮演角色的ID。
 4.  获取临时访问凭证STS AK与SecurityToken。
 
-    您可以通过调用STS服务接口[AssumeRole](/cn.zh-CN/API 参考（STS）/操作接口/AssumeRole.md) 或者使用[各语言STS SDK](/cn.zh-CN/SDK参考/SDK参考（STS）/STS SDK概览.md)来获取临时访问凭证。
+    您可以通过调用STS服务接口[AssumeRole](/cn.zh-CN/API参考/API 参考（STS）/操作接口/AssumeRole.md) 或者使用[各语言STS SDK](/cn.zh-CN/SDK参考/SDK参考（STS）/STS SDK概览.md)来获取临时访问凭证。
 
     以Java SDK为例：
 
@@ -158,7 +157,7 @@ OSS可以通过阿里云STS（Security Token Service）进行临时授权访问�
 
     参数说明如下：
 
-    -   endpoint：STS接入地址，例如sts.cn-hangzhou.aliyuncs.com。各地域的STS接入地址请参见[接入地址](/cn.zh-CN/API 参考（STS）/接入地址.md)。
+    -   endpoint：STS接入地址，例如sts.cn-hangzhou.aliyuncs.com。各地域的STS接入地址请参见[接入地址](/cn.zh-CN/API参考/API 参考（STS）/接入地址.md)。
     -   AccessKeyId、AccessKeySecret：步骤1中保存的访问密钥。
     -   RoleArn：步骤3中保存的角色ARN。
     -   RoleSessionName：用来标识临时访问凭证的名称，建议使用不同的应用程序用户来区分。
@@ -216,5 +215,5 @@ OSS可以通过阿里云STS（Security Token Service）进行临时授权访问�
 
 获取STS时出现NoSuchBucket报错如何处理？
 
-出现这种报错一般是STS的`endpoint`填写错误。请根据您的地域，填写正确的STS接入地址。各地域的STS接入地址请参见[接入地址](/cn.zh-CN/API 参考（STS）/接入地址.md)。
+出现这种报错一般是STS的`endpoint`填写错误。请根据您的地域，填写正确的STS接入地址。各地域的STS接入地址请参见[接入地址](/cn.zh-CN/API参考/API 参考（STS）/接入地址.md)。
 
