@@ -6,8 +6,8 @@ This topic describes how to use OSS SDK for Java to perform routine operations, 
 
 OSS SDK for Java provides sample projects for Maven and Ant. You can compile and run the sample projects on local devices or develop your own applications based on the sample projects. For more information about how to compile and run a project, see README.md in the project directory.
 
--   Sample project for Maven: [aliyun-oss-java-sdk-demo-mvn.zip](http://gosspublic.alicdn.com/sdks/java/aliyun-oss-java-sdk-demo-mvn-3.10.2.zip)
--   Sample project for Ant: [aliyun-oss-java-sdk-demo-ant.zip](http://gosspublic.alicdn.com/sdks/java/aliyun-oss-java-sdk-demo-ant-3.10.2.zip)
+-   Sample project for Maven: [aliyun-oss-java-sdk-demo-mvn.zip](https://gosspublic.alicdn.com/sdks/java/aliyun-oss-java-sdk-demo-mvn-3.10.2.zip)
+-   Sample project for Ant: [aliyun-oss-java-sdk-demo-ant.zip](https://gosspublic.alicdn.com/sdks/java/aliyun-oss-java-sdk-demo-ant-3.10.2.zip)
 
 ## Create buckets
 
