@@ -40,7 +40,7 @@ ossutil是OSS的命令行工具，支持Windows、Linux、macOS系统。您可�
 
 ## 使用API和SDK
 
-OSS提供Java、Python、PHP、Go等多种语言的API和SDK包，方便您快速进行二次开发。各语言SDK示例，请参见[OSS SDK示例](/cn.zh-CN/SDK 示例/简介.md) 。各API接口的详细信息，请参见 [OSS API文档](/cn.zh-CN/API 参考/简介.md)。
+OSS提供Java、Python、PHP、Go等多种语言的API和SDK包，方便您快速进行二次开发。各语言SDK示例，请参见[OSS SDK示例](/cn.zh-CN/SDK 示例/简介.md) 。各API接口的详细信息，请参见[OSS API文档](/cn.zh-CN/API 参考/简介.md)。
 
 ## 基于OSS的文件系统管理
 
