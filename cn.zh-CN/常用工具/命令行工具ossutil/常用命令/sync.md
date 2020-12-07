@@ -37,9 +37,9 @@ sync命令与cp命令的用法相似，但有如下区别：
     ```
     examplebucket           本地根目录
     └── example/             └── example/
-         ├── a.txt                └── d.txt
-         ├── b.txt
-         └── C/
+           ├── a.txt                └── d.txt
+           ├── b.txt
+           └── C/
     ```
 
     示例场景及命令如下：
@@ -55,10 +55,10 @@ sync命令与cp命令的用法相似，但有如下区别：
         ```
         examplebucket           本地根目录
         └── example/             └── example/
-             ├── a.txt                └── d.txt
-             ├── b.txt
-             ├── d.txt
-             └── C/
+               ├── a.txt                └── d.txt
+               ├── b.txt
+               ├── d.txt
+               └── C/
         ```
 
     -   同步本地文件夹到OSS，并省略问询操作
@@ -74,10 +74,10 @@ sync命令与cp命令的用法相似，但有如下区别：
         ```
         examplebucket           本地根目录
         └── example/             └── example/
-             ├── a.txt                └── d.txt
-             ├── b.txt
-             ├── d.txt
-             └── C/
+               ├── a.txt                └── d.txt
+               ├── b.txt
+               ├── d.txt
+               └── C/
         ```
 
     -   同步本地文件夹到OSS，并删除OSS指定路径下已有而本地端没有的文件
@@ -93,7 +93,7 @@ sync命令与cp命令的用法相似，但有如下区别：
         ```
         examplebucket           本地根目录
         └── example/             └── example/
-             └── d.txt                └── d.txt
+               └── d.txt                └── d.txt
         ```
 
 
@@ -116,9 +116,9 @@ sync命令与cp命令的用法相似，但有如下区别：
     ```
     examplebucket           本地根目录
     └── example/             └── example/
-         ├── a.txt                └── d.txt
-         ├── b.txt
-         └── C/
+           ├── a.txt                └── d.txt
+           ├── b.txt
+           └── C/
     ```
 
     示例场景及命令如下：
@@ -134,10 +134,10 @@ sync命令与cp命令的用法相似，但有如下区别：
         ```
         examplebucket           本地根目录
         └── example/             └── example/
-             ├── a.txt                ├── a.txt 
-             ├── b.txt                ├── b.txt
-             └── C/                   ├── d.txt
-                                      └── C/ 
+               ├── a.txt                ├── a.txt 
+               ├── b.txt                ├── b.txt
+               └── C/                   ├── d.txt
+                                           └── C/ 
         ```
 
     -   将OSS端example文件夹同步到本地，并迁移本地端指定路径下已有而OSS端没有的文件到backup文件夹
@@ -151,11 +151,11 @@ sync命令与cp命令的用法相似，但有如下区别：
         ```
         examplebucket           本地根目录
         └── example/             ├── example/
-             ├── a.txt           │     ├── a.txt 
-             ├── b.txt           │     ├── b.txt
-             └── C/              │     └── C/                             
-                                 └── backup/
-                                       └──d.txt
+               ├── a.txt         │     ├── a.txt 
+               ├── b.txt         │     ├── b.txt
+               └── C/            │     └── C/                             
+                                    └── backup/
+                                           └──d.txt
         ```
 
 
@@ -176,10 +176,10 @@ sync命令与cp命令的用法相似，但有如下区别：
     ```
     examplebucket1          examplebucket2
     ├── example/            └── example/
-    │    ├── a.txt               ├── a.txt
-    │    └── b.txt               └── c.txt
+    │      ├── a.txt               ├── a.txt
+    │      └── b.txt               └── c.txt
     └── test/     
-         └── d.txt       
+            └── d.txt       
     ```
 
     示例场景及命令如下：
@@ -195,12 +195,12 @@ sync命令与cp命令的用法相似，但有如下区别：
         ```
         examplebucket1          examplebucket2
         ├── example/            └── example/
-        │    ├── a.txt               ├── a.txt
-        │    └── b.txt               └── c.txt
+        │      ├── a.txt               ├── a.txt
+        │      └── b.txt               └── c.txt
         └── test/        
-              ├── a.txt
-              ├── b.txt
-              └── d.txt      
+                ├── a.txt
+                ├── b.txt
+                └── d.txt      
         ```
 
     -   将examplebucket1的example文件夹同步到examplebucket2的example文件夹
@@ -214,10 +214,10 @@ sync命令与cp命令的用法相似，但有如下区别：
         ```
         examplebucket1          examplebucket2
         ├── example/            └── example/
-        │    ├── a.txt               ├── a.txt  
-        │    └── b.txt               ├── b.txt
-        └── test/                    └── c.txt 
-             └── d.txt
+        │      ├── a.txt               ├── a.txt  
+        │      └── b.txt               ├── b.txt
+        └── test/                       └── c.txt 
+                └── d.txt
         ```
 
     -   将examplebucket1的所有文件同步到examplebucket2内，并删除examplebucket2有而examplebucket1没有的文件
@@ -231,10 +231,10 @@ sync命令与cp命令的用法相似，但有如下区别：
         ```
         examplebucket1          examplebucket2
         ├── example/            ├── example/
-        │    ├── a.txt          │     ├── a.txt  
-        │    └── b.txt          │     └── b.txt
+        │      ├── a.txt       │      ├── a.txt  
+        │      └── b.txt       │      └── b.txt
         └── test/               └── test/  
-             └── d.txt               └── d.txt                  
+                └── d.txt               └── d.txt                  
         ```
 
 
