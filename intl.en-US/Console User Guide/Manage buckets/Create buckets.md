@@ -43,8 +43,7 @@ For more information, see [Overview](/intl.en-US/Developer Guide/Storage classes
 
     -   Disable: After ZRS is disabled, the redundancy type of the objects in the bucket is locally redundant storage \(LRS\). By default, if the storage class of the bucket is Standard, the objects in the bucket are Standard \(LRS\) objects. |
     |**Versioning**|No|Select whether to enable versioning.     -   **Enable**: When versioning is enabled for a bucket, an object that is overwritten or deleted is saved as a previous version of the object. Versioning allows you to recover objects in a bucket to any previous version, and protects your data from being accidentally overwritten or deleted. For more information, see [Overview](/intl.en-US/Developer Guide/Data security/Versioning/Overview.md).
-    -   **Disable**: Versioning is disabled.
-**Note:** Versioning is supported in all regions except for Japan \(Tokyo\). |
+    -   **Disable**: Versioning is disabled. |
     |**Access Control List \(ACL\)**|Yes|Select the bucket ACL.     -   **Private**: Only the bucket owner can perform read and write operations on objects in the bucket. Other users cannot access the objects in the bucket.
     -   **Public Read**: Only the bucket owner can perform write operations on objects in the bucket. Other users, including anonymous users, can perform only read operations on the objects in the bucket.
 
