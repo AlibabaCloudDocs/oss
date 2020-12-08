@@ -1,4 +1,4 @@
-# Upload callback {#concept_amg_wbp_mfb .concept}
+# Upload callback
 
 This topic describes how to use the upload callback function.
 
@@ -10,31 +10,31 @@ The following code enables the upload callback function:
 PutObjectRequest put = new PutObjectRequest(testBucket, testObject, uploadFilePath);
 
 put.setCallbackParam(new HashMap<String, String>() {
-	{
-		put("callbackUrl", "110.75.82.106/callback");
-        put("callbackHost", "oss-cn-hangzhou.aliyuncs.com");
+    {
+        put("callbackUrl", "110.75.82.106/callback");
+        put("callbackHost", "yourCallbackHost");
         put("callbackBodyType", "application/json");
-		put("callbackBody", "{\"mimeType\":${mimeType},\"size\":${size}}");
-	}
+        put("callbackBody", "{\"mimeType\":${mimeType},\"size\":${size}}");
+    }
 });
 
 OSSAsyncTask task = oss.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
-	@Override
-	public void onSuccess(PutObjectRequest request, PutObjectResult result) {
-		Log.d("PutObject", "UploadSuccess");
+    @Override
+    public void onSuccess(PutObjectRequest request, PutObjectResult result) {
+        Log.d("PutObject", "UploadSuccess");
 
-		// This parameter has value only when the servercallback parameter is set.
-		String serverCallbackReturnJson = result.getServerCallbackReturnBody();
+        // This parameter has value only when the servercallback parameter is set.
+        String serverCallbackReturnJson = result.getServerCallbackReturnBody();
 
-		Log.d("servercallback", serverCallbackReturnJson);
-	}
+        Log.d("servercallback", serverCallbackReturnJson);
+    }
 
-	@Override
-	public void onFailure(PutObjectRequest request, ClientException clientExcepion, ServiceException serviceException) {
-		// Handle exceptions.
-	}
+    @Override
+    public void onFailure(PutObjectRequest request, ClientException clientExcepion, ServiceException serviceException) {
+        // Handle exceptions.
+    }
 });
-
+		
 ```
 
 If you want to configure custom parameters in the callback information, see the following code:
@@ -43,7 +43,7 @@ If you want to configure custom parameters in the callback information, see the 
 put.setCallbackParam(new HashMap<String, String>() {
     {
         put("callbackUrl", "http://182.92.192.125/leibin/notify.php");
-        put("callbackHost", "oss-cn-hangzhou.aliyuncs.com");
+        put("callbackHost", "yourCallbackHost");
         put("callbackBodyType", "application/json");
         put("callbackBody", "{\"object\":${object},\"size\":${size},\"my_var1\":${x:var1},\"my_var2\":${x:var2}}");
     }
@@ -55,8 +55,8 @@ put.setCallbackVars(new HashMap<String, String>() {
         put("x:var2", "value2");
     }
 });
-
+		
 ```
 
-For more information about the callback function, see [Callback](../../../../../reseller.en-US/API Reference/Object operations/Callback.md#).
+For more information about the callback function, see [Callback](/intl.en-US/API Reference/Object operations/Basic operations/Callback.md).
 
