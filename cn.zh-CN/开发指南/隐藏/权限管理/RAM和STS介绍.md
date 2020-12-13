@@ -1,6 +1,6 @@
 # RAM和STS介绍 {#concept_nsb_brz_5db .concept}
 
-RAM （Resource Access Management）和STS（Security Token Service）是阿里云提供的权限管理系统。
+[RAM](https://help.aliyun.com/product/28625.html?spm=a2c4g.11186623.2.9.e3504c07WriuuS) （Resource Access Management）和 [STS](https://help.aliyun.com/document_detail/28756.html?spm=a2c4g.11186623.2.7.a32ca4bbGdyt2m#reference-ong-5nv-xdb)（Security Token Service）是阿里云提供的权限管理系统。
 
 RAM主要的作用是控制账号系统的权限。您可以使用RAM在主账号的权限范围内创建子用户，给不同的子用户分配不同的权限从而达到授权管理的目的。STS是一个安全凭证（Token）的管理系统。您可以使用STS来完成对于临时用户的访问授权。
 
