@@ -28,7 +28,7 @@ Company A must create a RAM role that has permissions to access the OSS resource
     AliyunOSSReadOnlyAccess allows your customers to access all your buckets in OSS. You can customize a policy to grant permissions to read only a part of your buckets or folders. For more information, see [Implement access control based on RAM policies](/intl.en-US/Developer Guide/Data security/Access and control/RAM Policy/Implement access control based on RAM policies.md).
 
 
-If you want to specify that the RAM role can be assumed only by specified RAM users, you can modify the trusted entity of the RAM role. For more information, see [Change the trusted entity of a RAM role](/intl.en-US/RAM Role Management/Change the trusted entity of a RAM role.md).
+If you want to specify that the RAM role can be assumed only by specified RAM users, you can modify the trusted entity of the RAM role. For more information, see [Edit the trust policy of a RAM role](/intl.en-US/RAM Role Management/Edit the trust policy of a RAM role.md).
 
 ## Step 2: Company B creates a RAM user and grants the RAM user permissions to assume RAM roles
 
@@ -67,8 +67,6 @@ Company B uses the created RAM user to log on to the Alibaba Cloud Management co
 
     -   **Role Name**: Enter `admin-oss`, which is the name of the RAM role created by Company A.
 4.  Click [OSS console](https://oss.console.aliyun.com) to log on to the OSS console and manage the OSS resources owned by Company A.
-
-5.  Click [OSS console](https://partners-intl.console.aliyun.com/#/oss) to log on to the OSS console and manage the OSS resources owned by Company A.
 
 
 ## References
