@@ -24,7 +24,7 @@ Access over HTTPS is allowed in the classic network. The following table describ
 -   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com |
 |China \(Shenzhen\)|oss-cn-shenzhen|oss-cn-shenzhen.aliyuncs.com|oss-cn-shenzhen-internal.aliyuncs.com|-   Global accelerate endpoint: oss-accelerate.aliyuncs.com
 -   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com |
-|China \(Heyuan\)|oss-cn-heyuan|oss-cn-heyuan.aliyuncs.com|oss-cn-heyuan-internal.aliyuncs.com|None|
+|China \(Heyuan\)|oss-cn-heyuan|oss-cn-heyuan.aliyuncs.com|oss-cn-heyuan-internal.aliyuncs.com|N/A|
 |China \(Guangzhou\)|oss-cn-guangzhou|oss-cn-guangzhou.aliyuncs.com|oss-cn-guangzhou-internal.aliyuncs.com|-   Global accelerate endpoint: oss-accelerate.aliyuncs.com
 -   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com |
 |China \(Chengdu\)|oss-cn-chengdu|oss-cn-chengdu.aliyuncs.com|oss-cn-chengdu-internal.aliyuncs.com|-   Global accelerate endpoint: oss-accelerate.aliyuncs.com
@@ -51,7 +51,7 @@ Access over HTTPS is allowed in the classic network. The following table describ
 -   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com |
 |UK \(London\)|oss-eu-west-1|oss-eu-west-1.aliyuncs.com|oss-eu-west-1-internal.aliyuncs.com|-   Global accelerate endpoint: oss-accelerate.aliyuncs.com
 -   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com |
-|UAE \(Dubai\)|oss-me-east-1|oss-me-east-1.aliyuncs.com|oss-me-east-1-internal.aliyuncs.com|None|
+|UAE \(Dubai\)|oss-me-east-1|oss-me-east-1.aliyuncs.com|oss-me-east-1-internal.aliyuncs.com|N/A|
 
 **Note:**
 
@@ -65,7 +65,7 @@ Access over HTTPS is allowed in the classic network. The following table describ
 
 Access over HTTPS is allowed in VPCs. You can use the following endpoints to access OSS from an ECS instance in the same region.
 
-**Warning:** When you connect to OSS internal endpoints by using Cloud Enterprise Network \(CEN\), Express Connect, leased lines, or VPN, you must configure routes for network products. OSS divides internal VIP address ranges for each region into fixed address ranges. When you configure routes based on regions, you must configure four or six complete Class C IP address ranges as listed in the following table.
+**Warning:** When you connect to OSS internal endpoints by using Cloud Enterprise Network \(CEN\), Express Connect, leased lines, or VPN, you must configure routes for network products. OSS divides internal VIP address ranges for each region into fixed address ranges. When you configure routes based on regions, you must configure complete VIP address ranges as listed in the following table.
 
 |Region|Region ID|Endpoint in VPCs|VIP address range|
 |:-----|:--------|----------------|-----------------|
@@ -104,7 +104,8 @@ Access over HTTPS is allowed in VPCs. You can use the following endpoints to acc
 -   100.118.204.0/24
 -   100.118.217.0/24 |
 |China \(Heyuan\)|oss-cn-heyuan|oss-cn-heyuan-internal.aliyuncs.com|Submit a ticket to obtain VIP address ranges.|
-|China \(Guangzhou\)|oss-cn-guangzhou|oss-cn-guangzhou-internal.aliyuncs.com|Submit a ticket to obtain VIP address ranges.|
+|China \(Guangzhou\)|oss-cn-guangzhou|oss-cn-guangzhou-internal.aliyuncs.com|-   100.115.33.0/24
+-   100.114.101.0/24 |
 |China \(Chengdu\)|oss-cn-chengdu|oss-cn-chengdu-internal.aliyuncs.com|-   100.115.155.0/24
 -   100.99.107.0/24
 -   100.99.108.0/24
