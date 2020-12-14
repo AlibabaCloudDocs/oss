@@ -6,7 +6,7 @@
 
 ## 步骤1：公司A创建RAM角色并授予OSS访问权限
 
-公司A需要先创建一个拥有OSS访问权限的RAM角色，用于给公司B的RAM用户扮演。
+公司A需要先创建一个拥有OSS访问权限的RAM角色，提供给公司B的RAM用户扮演。
 
 1.  公司A登录[RAM控制台](https://ram.console.aliyun.com/)。
 
@@ -25,10 +25,10 @@
 
 7.  在添加权限面板选择策略为**系统策略**，找到并单击AliyunOSSReadOnlyAccess（只读访问对象存储服务（OSS）的权限）策略。在右侧**已选择**列表看到该策略后，单击**确定**。
 
-    AliyunOSSReadOnlyAccess为访问OSS下所有Bucket的策略，若您仅希望您的客户访问部分Bucket或部分目录，可自定义策略。详情请参见[基于RAM Policy的权限控制](/intl.zh-CN/开发指南/数据安全/访问控制/RAM Policy/基于RAM Policy的权限控制.md)。
+    AliyunOSSReadOnlyAccess为访问OSS下所有Bucket的策略，若您仅希望您的客户访问部分Bucket或部分目录，可创建自定义策略。更多信息，请参见[基于RAM Policy的权限控制](/intl.zh-CN/开发指南/数据安全/访问控制/RAM Policy/基于RAM Policy的权限控制.md)。
 
 
-如果您需要指定该RAM角色只能被指定的RAM用户扮演，可修改RAM角色的信任策略。详情请参见[修改RAM角色的信任策略](/intl.zh-CN/角色管理/修改RAM角色的可信实体.md)。
+如果您需要指定该RAM角色只能被指定的RAM用户扮演，可修改RAM角色的信任策略。操作步骤，请参见[修改RAM角色的信任策略](/intl.zh-CN/角色管理/修改RAM角色的信任策略.md)。
 
 ## 步骤2：公司B创建RAM用户并授予允许扮演RAM角色的权限
 
@@ -68,10 +68,8 @@
     -   **角色名**：输入公司A创建的RAM角色`admin-oss`。
 4.  打开[OSS管理控制台](https://oss.console.aliyun.com)即可管理公司A的OSS资源。
 
-5.  打开[OSS管理控制台](https://partners-intl.console.aliyun.com/#/oss)即可管理公司A的OSS资源。
-
 
 ## 更多参考
 
-您也可以通过Bucket Policy实现以上需求，详情请参见[教程示例：基于Bucket Policy实现跨账号访问OSS](/intl.zh-CN/开发指南/数据安全/访问控制/Bucket Policy/教程示例：基于Bucket Policy实现跨账号访问OSS.md)。
+您也可以通过Bucket Policy实现以上需求。操作步骤，请参见[教程示例：基于Bucket Policy实现跨账号访问OSS](/intl.zh-CN/开发指南/数据安全/访问控制/Bucket Policy/教程示例：基于Bucket Policy实现跨账号访问OSS.md)。
 
