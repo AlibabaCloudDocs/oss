@@ -17,7 +17,7 @@ OSS的基本操作流程如下：
 
 ![quickstart](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/0955536061/p140852.png)
 
-1.  [开通OSS服务](/cn.zh-CN/快速入门/开通OSS服务.md)
+1.  [开通OSS服务](/cn.zh-CN/控制台用户指南/开通OSS服务.md)
 2.  [创建存储空间](/cn.zh-CN/快速入门/创建存储空间.md)
 3.  [上传对象](/cn.zh-CN/快速入门/上传文件.md)
 4.  [下载或分享对象](/cn.zh-CN/快速入门/下载文件.md)
