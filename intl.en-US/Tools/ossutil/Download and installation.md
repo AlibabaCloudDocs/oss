@@ -1,13 +1,13 @@
 # Download and installation
 
-This topic describes how to download and install ossutil.
+ossutil supports the following operating systems: Windows, Linux, and macOS. You can download and install the ossutil version that best suits your requirements.
 
 ## Version and runtime environment
 
--   The current version: 1.7.0
+-   Current version: 1.7.0
 -   Source code: [ossutil](https://github.com/aliyun/ossutil)
 -   Runtime environment
-    -   Windows/Linux/Mac
+    -   Windows/Linux/macOS
     -   Supported architectures: x86 \(32-bit and 64-bit\) and ARM \(32-bit and 64-bit\)
 
 ## Download URLs
@@ -15,7 +15,7 @@ This topic describes how to download and install ossutil.
 -   [Linux x86 32bit](https://gosspublic.alicdn.com/ossutil/1.7.0/ossutil32)
 -   [Linux x86 64bit](https://gosspublic.alicdn.com/ossutil/1.7.0/ossutil64)
 
-    **Note:** When you copy the URLs to the wget command to download ossutil, delete the ? spm=xxxx section from the URLs.
+    **Note:** When you copy the URLs to the wget command to download ossutil, delete the `? spm=xxxx` section from the URLs.
 
 -   [Windows x86 32bit](https://gosspublic.alicdn.com/ossutil/1.7.0/ossutil32.zip)
 -   [Windows x86 64bit](https://gosspublic.alicdn.com/ossutil/1.7.0/ossutil64.zip)
@@ -28,62 +28,94 @@ This topic describes how to download and install ossutil.
 
 Download the package based on your operating system and run the corresponding binary file.
 
--   Install ossutil in Linux \(the 64-bit Linux system is used as an example\)
+-   Install ossutil on Linux \(a 64-bit Linux system is used as an example\)
     1.  Download the ossutil installation package.
 
         ```
         wget http://gosspublic.alicdn.com/ossutil/1.7.0/ossutil64                           
         ```
 
-    2.  Modify the file execution permissions.
+    2.  Modify the execution permissions of the file.
 
         ```
         chmod 755 ossutil64
         ```
 
-    3.  Generate a configuration file based on the interactive processing.
+    3.  Generate a configuration file in interactive mode.
 
-        ```
-        ./ossutil64 config
-        Enter the name of the configuration file. The file name can contain a path. The default path is /home/user/.ossutilconfig. If you press Enter without specifying a different destination, the file is generated in the default path. If you want to generate the file in another path, set the --config-file option to the path. 
-        If you do not specify the path of the configuration file, the default path is used. The default path is /home/user/.ossutilconfig. 
-        The following parameters are ignored if you press Enter without configuring them. To obtain more information about the parameters, run the help config command.
-        Enter the language: CH or EN. The default language is CH. This parameter takes effect after the config command is run. 
-        Enter the endpoint: http://oss-cn-shenzhen.aliyuncs.com 
-        Enter the AccessKey ID: yourAccessKeyID 
-        Enter the AccessKey secret: yourAccessKeySecret
-        Enter the STS token: 
-        ```
+        1.  Run the following command:
 
-        -   endpoint: specifies the domain name of the region to which the bucket belongs. For more information, see [Regions and endpoints](/intl.en-US/Developer Guide/Endpoint/Regions and endpoints.md). You can also add `http://` or `https://` to specify the protocol that ossutil uses to access OSS. The default protocol is HTTP.
-        -   accessKeyID: For more information about how to view the AccessKey ID, see [Create an AccessKey pair]().
-        -   accessKeySecret: For more information about how to view the AccessKey secret, see [Create an AccessKey pair]().
-        -   stsToken: This option is required only when you use a temporary STS token to access OSS buckets. Otherwise, you can leave this parameter empty. For more information about how to generate an STS token, see [Authorized third-party upload](/intl.en-US/Developer Guide/Objects/Upload files/Authorized third-party upload.md).
-        **Note:** For more information about the configuration file, see [config](/intl.en-US/Tools/ossutil/Common commands/config.md).
+            ```
+            ./ossutil64 config
+            ```
 
--   Install ossutil in Windows \(the 64-bit Windows system is used as an example\)
-    1.  Download the ossutil installation package.
-    2.  Decompress the package to a specified folder. Double-click and run theossutil.bat file.
-    3.  Generate the configuration file. For more information about the parameters, see the configuration parameters described in the preceding Linux section.
+        2.  Configure the path of the configuration file as prompted.
+
+            We recommend that you use the default path for the configuration file by pressing the Enter key.
+
+            ```
+            Please enter the config file name, the file name can include path (default C:\\Users\Administrator\.ossutilconfig, carriage return will use the default file.
+            If you specified this option to other file, you should specify --config-file option to the file when you use other commands): 
+            ```
+
+            **Note:** ossutil uses the default configuration file /home/user/.ossutilconfig if you do not specify a configuration file in the command. To force ossutil to use a custom configuration file, specify the file by adding the -c option in each command. For example, if you want to use the configuration file /home/config when you run the ls command, add the -c option in the following format:
+
+            ```
+            ./ossutil64 ls oss://examplebucket -c /home/config
+            ```
+
+        3.  Set the language of ossutil as prompted.
+
+            ```
+            Enter the language: CH or EN. The default language is CH. This parameter takes effect after the config command is run. 
+            ```
+
+        4.  Configure the parameters including endpoint, AccessKey ID, AccessKey secret, and STS token.
+
+            ```
+            Please enter endpoint: Endpoint
+            
+            ```
+
+            参数说明如下：
+
+            -   endpoint：填写Bucket所在地域的Endpoint。 各地域Endpoint详情，请参见[访问域名和数据中心](/intl.en-US/Developer Guide/Endpoint/Regions and endpoints.md)。
+
+                您也可以增加`http://`或`https://`指定ossutil访问OSS使用的协议，默认使用HTTP协议。 例如使用HTTPS协议访问杭州的Bucket，可设置为`https://oss-cn-shenzhen.aliyuncs.com`。
+
+            -   accessKeyID、accessKeySecret：填写账号的AccessKey。
+                -   使用阿里云账号或RAM用户访问时，AccessKey的获取方式，请参见[Create an AccessKey pair]()。
+                -   使用STS临时授权账号访问时，AccessKey的获取方式，请参见[Access OSS with a temporary access credential provided by STS](/intl.en-US/Developer Guide/Data security/Access and control/Access OSS with a temporary access credential provided by STS.md)。
+            -   stsToken：使用STS临时授权账号访问OSS时需要配置该项，否则置空即可。 stsToken生成方式参见[临时访问凭证](/intl.en-US/Developer Guide/Objects/Upload files/Authorized third-party upload.md)。
+        **Note:** 配置文件更详细的说明，请参见[config](/intl.en-US/Tools/ossutil/Common commands/config.md)。
+
+-   Windows系统（以64位系统为例）
+    1.  单击下载链接下载工具。
+    2.  将工具解压，并双击运行ossutil.bat文件。
+    3.  生成配置文件。 配置方法，请参见[Linux系统生配置文件](#li_j6f_g28_vfx)。
+
+        命令如下：
 
         ```
         D:\ossutil>ossutil64.exe config
         ```
 
--   Install ossutil in macOS \(the 64-bit macOS system is used as an example\)
-    1.  Download the ossutil installation package.
+-   macOS系统（以64位系统为例）
+    1.  下载工具。
 
         ```
         curl -o ossutilmac64 http://gosspublic.alicdn.com/ossutil/1.7.0/ossutilmac64
         ```
 
-    2.  Modify the file execution permissions.
+    2.  修改文件执行权限。
 
         ```
         chmod 755 ossutilmac64
         ```
 
-    3.  Generate the configuration file. For more information about the parameters, see the configuration parameters described in the preceding Linux section.
+    3.  生成配置文件。 配置方法，请参见[Linux系统生配置文件](#li_j6f_g28_vfx)。
+
+        命令如下：
 
         ```
         ./ossutilmac64 config
