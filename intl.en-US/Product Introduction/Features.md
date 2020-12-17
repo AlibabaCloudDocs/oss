@@ -41,7 +41,8 @@ The following table lists the features provided by OSS.
 
 |-   [Configure bucket tagging](/intl.en-US/Developer Guide/Buckets/Configure bucket tagging.md)
 -   [Configure object tagging](/intl.en-US/Developer Guide/Objects/Manage files/Configure object tagging.md) |
-|Record the access information for OSS resources|OSS supports logging. You can configure logging to audit operations, collect access statistics, track exceptions, and troubleshoot problems in OSS.| |
+|Record the access information for OSS resources|OSS supports logging. You can configure logging to audit operations, collect access statistics, track exceptions, and troubleshoot problems in OSS.|-   [Real-time log query](/intl.en-US/Developer Guide/Manage logs/Real-time log query.md)
+-   [Logging](/intl.en-US/Developer Guide/Manage logs/Logging.md) |
 |Use custom domain names to access OSS resources|OSS allows you to bind custom domain names to OSS buckets, and use custom domain names to access data in the buckets. If you want to use your custom domain name to access OSS by using HTTPS, you can host your SSL certificate in OSS.|-   [Bind custom domain names](/intl.en-US/Developer Guide/Buckets/Bind custom domain names.md)
 -   [Host SSL certificates](/intl.en-US/Console User Guide/Manage buckets/Manage a domain/Host SSL certificates.md) |
 |Configure static website hosting|OSS supports static website hosting. You can configure static website hosting for your bucket and access static websites by using the bucket domain name.|[Static website hosting](/intl.en-US/Developer Guide/Static website hosting/Static website hosting.md)|
@@ -53,11 +54,9 @@ The following table lists the features provided by OSS.
 |Traffic throttling|OSS supports single-connection bandwidth throttling. You can configure single-connection bandwidth throttling for upload, download, and copy operations on OSS to ensure sufficient bandwidth for other applications.|[Single-connection bandwidth throttling](/intl.en-US/Developer Guide/Objects/Single-connection bandwidth throttling.md)|
 |Analyze and process data|OSS supports Image Processing \(IMG\) and video snapshot capturing for you to analyze and process data stored in OSS:-   IMG: You can perform operations such as format conversion, cropping, scaling, rotating, watermarking, and style encapsulation on images stored in OSS.
 -   Capture video snapshots: You can capture images from video objects in the H.264 format.
--   Intelligent Media Management \(IMM\): OSS uses IMM to support various data analysis and processing operations such as document preview, document format conversion, facial recognition, image analysis, and QR code recognition.
 
 |-   [IMG](/intl.en-US/Developer Guide/Data Processing/Image Processing/IMG implementation modes.md)
--   [Capture video snapshots](/intl.en-US/Developer Guide/Data Processing/Capture video snapshots.md)
--   [IMM](/intl.en-US/Developer Guide/Data Processing/Intelligent Media Management (IMM)/Quick start.md) |
+-   [Capture video snapshots](/intl.en-US/Developer Guide/Data Processing/Capture video snapshots.md) |
 |Use tools to manage OSS resources|OSS provides graphical, CLI, file mounting, and FTP tools for you to manage OSS resources.|[OSS tools](/intl.en-US/Tools/OSS tools.md)|
 |Use SDKs to manage OSS resources|OSS provides SDKs for a variety of programming languages to facilitate secondary development.|[SDK sample code](SDK sample codet22258.dita#concept_dcn_tp1_kfb)|
 
