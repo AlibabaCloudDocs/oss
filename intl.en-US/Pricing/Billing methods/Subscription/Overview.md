@@ -10,19 +10,6 @@ The following table lists the resource plans supported by OSS and corresponding 
 |-------------|--------------|-------|-----|--------------------------------|
 |Standard locally redundant storage \(LRS\) plan|Fees for storage usage of Standard LRS: the fees incurred when you store Standard LRS objects in a bucket.|√|√|×|
 |IA LRS plan|Fees for storage usage of IA LRS: the fees incurred when you store IA LRS objects in a bucket.|√|√|×|
-|Storage capacity unit \(SCU\)|If you purchase an SCU that is in the same region as an OSS bucket, the SCU can be used to deduct the following fees: -   Fees for storage usage of Standard LRS
--   Fees for storage usage of Standard zone-redundant storage \(ZRS\)
--   Fees for storage usage of IA LRS
--   Fees for storage usage of IA ZRS
--   Fees for storage usage of Archive LRS
--   Fees for storage usage of ECS snapshots
-
-**Note:**
-
--   If an OSS storage plan and an SCU are belong to the same region at the same time, the OSS storage plan is used to deduct the storage fees. If the storage plan is insufficient, the SCU can be used to deduct fees. For more information, see [Overview](/intl.en-US/Block Storage/Storage capacity units/Overview.md).
--   SCUs does not apply to the operations in this topic such as purchase, renewal, and upgrade. For more information, see [Create an SCU](/intl.en-US/Block Storage/Storage capacity units/Create an SCU.md).
-
-|×|×|√|
 |Downstream data transfer plan|Fees for outbound traffic over the Internet: the fees incurred when you browse or download data from OSS over the Internet.|×|√|√|
 
 **Note:**
