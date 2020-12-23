@@ -1,45 +1,58 @@
-# PutLiveChannelStatus {#reference_r5k_kcd_xdb .reference}
+# PutLiveChannelStatus
 
-LiveChannel有两种Status：enabled和disabled，用户可以使用本接口在两种Status之间进行切换。
+LiveChannel分为启用（enabled）和禁用（disabled）两种状态。您可以使用PutLiveChannelStatus接口在两种状态之间进行切换。
 
-处于disabled状态时，OSS会禁止用户向该LiveChannel进行推流操作；如果有用户正在向该LiveChannel推流，那么推流的客户端会被强制断开（可能会有10s左右的延迟）。
+## 注意事项
 
-## 请求语法 {#section_pjq_4cd_xdb .section}
+LiveChannel有如下注意事项：
 
-PUT /ChannelName?live&status=NewStatus HTTP/1.1Date: GMT dateHost: BucketName.oss-cn-hangzhou.aliyuncs.comAuthorization: SignatureValue
+-   LiveChannel处于disabled状态时，OSS会禁止您向该LiveChannel进行推流操作。如果您正在向该LiveChannel推流，那么推流的客户端会被强制断开（会有10s左右的延迟）。
+-   当没有客户端向该LiveChannel推流时，调用PutLiveChannelStatus重新创建LiveChannel也可以达到修改Status的目的。
+-   当有客户端向该LiveChannel推流时，只能将LiveChannel的状态修改为disabled，无法调用PutLiveChannelStatus重新创建LiveChannel。
 
-## 请求参数 {#section_uqp_pcd_xdb .section}
+## 请求语法
 
-|名称|描述|是否必需|
-|:-|:-|:---|
-|NewStatus|指定LiveChannel的目标Status。有效值：enabled、disabled
+```
+PUT /ChannelName?live&status=NewStatus HTTP/1.1
+Date: Tue, 25 Dec 2018 17:35:24 GMT
+Host: BucketName.oss-cn-hangzhou.aliyuncs.com
+Authorization: SignatureValue
+```
 
-|是|
+## 请求头
 
-## 细节分析 {#section_vxd_scd_xdb .section}
+|名称|类型|是否必选|描述|
+|:-|--|----|--|
+|NewStatus|字符串|是|设置LiveChannel的Status。 有效值：
 
--   当没有客户端向该LiveChannel推流时，调用PutLiveChannel重新创建LiveChannel也可以达到修改Status的目的。
--   当有客户端向该LiveChannel推流时，无法调用PutLiveChannel重新创建LiveChannel，只能通过本接口修改LiveChannel的状态为disabled。
+-   enabled：启用LiveChannel
+-   disabled：禁用LiveChannel |
 
-## 示例 {#section_wvh_5cd_xdb .section}
+有关此接口涉及的其他公共请求头，请参见[公共请求头（Common Request Headers）](/intl.zh-CN/API 参考/公共HTTP头定义.md)。
 
-**请求示例**
+## 响应头
+
+此接口仅涉及公共响应头，详情请参见[公共响应头（Common Response Headers）](/intl.zh-CN/API 参考/公共HTTP头定义.md)。
+
+## 示例
+
+请求示例
 
 ```
 PUT /test-channel?live&status=disabled HTTP/1.1
-Date: Thu, 25 Aug 2016 05:37:38 GMT
+Date: Tue, 25 Dec 2018 17:35:24 GMT
 Host: test-bucket.oss-cn-hangzhou.aliyuncs.com
-Authorization: OSS YJjHKOKWDWINLKXv:X/mBrSbkNoqM/JoAfRC0ytyQ5pY=
+Authorization: OSS YJjHKOKWDWIN****:X/mBrSbkNoqM/JoAfRC0ytyQ****
 ```
 
-**返回示例**
+返回示例
 
 ```
 HTTP/1.1 200
-content-length: 0
-server: AliyunOSS
-connection: close
-x-oss-request-id: 57BE8422B92475920B002030
-date: Thu, 25 Aug 2016 05:37:39 GMT
+Content-Length: 0
+Server: AliyunOSS
+Connection: close
+x-oss-request-id: 57BE8422B92475920B00****
+Date: Tue, 25 Dec 2018 17:35:24 GMT
 ```
 
