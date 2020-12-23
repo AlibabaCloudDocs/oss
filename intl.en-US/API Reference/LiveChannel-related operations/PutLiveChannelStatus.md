@@ -1,45 +1,58 @@
-# PutLiveChannelStatus {#reference_r5k_kcd_xdb .reference}
+# PutLiveChannelStatus
 
-A LiveChannel can be enabled or disabled. You can use PutLiveChannelStatus to switch the status of a LiveChannel.
+A LiveChannel can be in one of the following states: enabled or disabled. You can call this operation to set a LiveChannel to one of the two states.
 
-If a LiveChannel is in the disabled status, you cannot push streams to the LiveChannel. If you are pushing a stream to a LiveChannel when the status of the LiveChannel is switched to disabled, your client is disconnected from the LiveChannel \(there may be a delay of 10 seconds\).
+## Usage notes
 
-## Request syntax {#section_pjq_4cd_xdb .section}
+When you call PutLiveChannelStatus, take note of the following items:
 
-PUT /ChannelName?live&status=NewStatus HTTP/1.1Date: GMT dateHost: BucketName.oss-cn-hangzhou.aliyuncs.comAuthorization: SignatureValue
+-   If a LiveChannel is in the disabled state, OSS prohibits you from ingesting streams to the LiveChannel. If you are ingesting a stream to a LiveChannel when the status of the LiveChannel is switched to disabled, your client is disconnected from the LiveChannel after about 10 seconds.
+-   When no stream is ingested to a LiveChannel, You can also re-create the LiveChannel by calling PutLiveChannel to change the status of the LiveChannel.
+-   When a stream is being ingested to a LiveChannel, you can only call PutLiveChannelStatus to set the LiveChannel to the disabled state.
 
-## Request parameter {#section_uqp_pcd_xdb .section}
-
-|Parameter|Description|Required|
-|:--------|:----------|:-------|
-|NewStatus|Specifies the status of the LiveChannel.Valid values: enabled and disabled
-
-|Yes|
-
-## Detail analysis {#section_vxd_scd_xdb .section}
-
--   If no client is pushing streams to a LivaChannel, you can switch the status of the LiveChannel by using PutLiveChannel, which creates a new LiveChannel.
--   If a stream is being pushed to a LiveChannel by other clients, you cannot use PutLiveChannel to create a new LiveChannel. You can switch the status of the LiveChannel to disabled only by using PutLiveChannelStatus.
-
-## Examples {#section_wvh_5cd_xdb .section}
-
-Request example
+## Request structure
 
 ```
-PUT /test-channel?live&status=disabled HTTP/1.1
-Date: Thu, 25 Aug 2016 05:37:38 GMT
+PUT /ChannelName? live&status=NewStatus HTTP/1.1
+Date: Tue, 25 Dec 2018 17:35:24 GMT
+Host: BucketName.oss-cn-hangzhou.aliyuncs.com
+Authorization: SignatureValue
+```
+
+## Request headers
+
+|Header|Type|Required|Description|
+|:-----|----|--------|-----------|
+|NewStatus|String|Yes|Specifies the status of the LiveChannel. Valid values:
+
+-   enabled: enables the LiveChannel.
+-   disabled: disables the LiveChannel. |
+
+For more information about the common request headers contained in a PutLiveChannelStatus request, see [Common request headers](/intl.en-US/API Reference/Common HTTP headers.md).
+
+## Response headers
+
+The response to a PutLiveChannelStatus request contains only common response headers. For more information, see [Common response headers](/intl.en-US/API Reference/Common HTTP headers.md).
+
+## Examples
+
+Sample request
+
+```
+PUT /test-channel? live&status=disabled HTTP/1.1
+Date: Tue, 25 Dec 2018 17:35:24 GMT
 Host: test-bucket.oss-cn-hangzhou.aliyuncs.com
-Authorization: OSS YJjHKOKWDWINLKXv:X/mBrSbkNoqM/JoAfRC0ytyQ5pY=
+Authorization: OSS YJjHKOKWDWIN****:X/mBrSbkNoqM/JoAfRC0ytyQ****
 ```
 
-Response example
+Sample response
 
 ```
 HTTP/1.1 200
-content-length: 0
-server: AliyunOSS
-connection: close
-x-oss-request-id: 57BE8422B92475920B002030
-date: Thu, 25 Aug 2016 05:37:39 GMT
+Content-Length: 0
+Server: AliyunOSS
+Connection: close
+x-oss-request-id: 57BE8422B92475920B00****
+Date: Tue, 25 Dec 2018 17:35:24 GMT
 ```
 
