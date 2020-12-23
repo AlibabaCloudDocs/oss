@@ -1,13 +1,16 @@
 # Append upload
 
-You can use AppendObject to append content to append objects that are uploaded.
+You can use AppendObject to append content to appendable objects that are uploaded.
 
 ## Usage notes
 
 When you call AppendObject to upload an object, take note of the following items:
 
--   If the object to append does not exist, an append object is created.``
+-   If the object to append does not exist, an append object is created.
+-   If the object to append is an existing append object and the specified position from which the append operation starts is not equal to the current object size, the PositionNotEqualToLength error is returned. If the object to append is a non-append object, the ObjectNotAppendable error is returned.
 -   The CopyObject operation cannot be performed on append objects.
+
+For more information about how to perform append upload, see [AppendObject](/intl.en-US/API Reference/Object operations/Basic operations/AppendObject.md).
 
 ## Sample codes
 
@@ -39,7 +42,7 @@ func main() {
     }
 
     var nextPos int64 = 0
-    // If the object is appended for the first time, the append position is 0. The returned value is the position for the next append. The position to start the next append is the total length of appended bytes and the append object.
+    // If the object is appended for the first time, the append position is 0. The position for the next append operation is included in the response. The position from which the next append operation starts is the current length of the object.
     // <yourObjectName> indicates the complete path of the object you want to append, and must include the extension of the object. Example: example/test.txt
     nextPos, err = bucket.AppendObject("<yourObjectName>", strings.NewReader("YourObjectAppendValue1"), nextPos)
     if err ! = nil {
@@ -47,7 +50,7 @@ func main() {
         os.Exit(-1)
     }
     
-    // If the object is not appended for the first time, you can obtain the append position by using bucket.GetObjectDetailedMeta or querying the value of X-Oss-Next-Append-Position returned in the last append upload.
+    // If you have appended content to the object, you can obtain the position from which the current append operation starts from the next_position field in the response returned by the last operation or by using the bucket.head_object method.
     //props, err := bucket.GetObjectDetailedMeta("<yourObjectName>")
     //if err ! = nil {
     //    fmt.Println("Error:", err)
@@ -59,16 +62,16 @@ func main() {
     //    os.Exit(-1)
     //}    
 
-    // Perform the second append upload.
+    // Perform the second append operation.
     nextPos, err = bucket.AppendObject("<yourObjectName>", strings.NewReader("YourObjectAppendValue2"), nextPos)
     if err ! = nil {
         fmt.Println("Error:", err)
         os.Exit(-1)
     }
 
-    // You can perform append upload multiple times.
+    // You can perform append operations on an object for multiple times.
 }
 ```
 
-For more information about how to perform append upload, see [AppendObject](/intl.en-US/API Reference/Object operations/Basic operations/AppendObject.md).
+For more information about the naming conventions for buckets, see [bucket](/intl.en-US/Developer Guide/Terms.md). For more information about the naming conventions for objects, see [object](/intl.en-US/Developer Guide/Terms.md).
 
