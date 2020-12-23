@@ -64,6 +64,8 @@ OSS支持HTTP协议规定的5个请求头：Cache-Control、Expires、Content-En
 |x-oss-meta-\*|字符串|否|使用PutObject接口时，如果配置以x-oss-meta-\*为前缀的参数，则该参数视为元数据，例如`x-oss-meta-location`。一个Object可以有多个类似的参数，但所有的元数据总大小不能超过8 KB。 元数据支持短划线（-）、数字、英文字母（a~z）。英文字符的大写字母会被转成小写字母，不支持下划线（\_）在内的其他字符。 |
 |x-oss-tagging|字符串|否|指定Object的标签，可同时设置多个标签，例如：TagA=A&TagB=B。 **说明：** Key和Value需要先进行URL编码，如果某项没有”=“，则看作Value为空字符串。 |
 
+此接口涉及的其他公共请求头，例如Host、Date等。更多信息，请参见[公共请求头（Common Request Headers）](/intl.zh-CN/API 参考/公共HTTP头定义.md)。
+
 ## 响应头
 
 此接口仅包含公共响应头。更多信息，请参见[公共响应头（Common Response Headers）](/intl.zh-CN/API 参考/公共HTTP头定义.md)。
