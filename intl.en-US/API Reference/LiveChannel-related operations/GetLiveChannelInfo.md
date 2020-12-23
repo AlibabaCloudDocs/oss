@@ -1,75 +1,86 @@
 # GetLiveChannelInfo
 
-Obtains the configuration information about a specified LiveChannel.
+You can call this operation to query the configuration information about a specified LiveChannel.
 
-## Request syntax
+## Request structure
 
 ```
-GET /ChannelName?live HTTP/1.1
+GET /ChannelName? live HTTP/1.1
 Date: GMT date
 Host: BucketName.oss-cn-hangzhou.aliyuncs.com
 Authorization: SignatureValue
 ```
 
-## Response element
+## Request headers
 
-|Element|Type|Description|
-|:------|:---|:----------|
-|LiveChannelConfiguration|Container|Specifies the container that stores the response to the GetLiveChannelInfo request.Sub-node: Description, Status, and Target
+A GetLiveChannelInfo request contains only common request headers. For more information, see [Common request headers](/intl.en-US/API Reference/Common HTTP headers.md).
 
-Parent node: None |
-|Description|String|Specifies the description of the LiveChannel.Sub-node: None
+## Response headers
+
+The response to a GetLiveChannelInfo request contains only common response headers. For more information, see [Common response headers](/intl.en-US/API Reference/Common HTTP headers.md).
+
+## Response elements
+
+|Element|Type|Example|Description|
+|:------|:---|-------|:----------|
+|LiveChannelConfiguration|Container|N/A|The container that stores the returned results of the GetLiveChannelInfo request. Child nodes: Description, Status, and Target
+
+Parent node: none |
+|Description|String|test|The description of the LiveChannel. Child node: none
 
 Parent node: LiveChannelConfiguration |
-|Status|Enumerated string|Indicates the status of the LiveChannel.Sub-node: None
+|Status|Enumerated string|enabled|The status of the LiveChannel. Child node: none
 
 Parent node: LiveChannelConfiguration
 
-Valid value: enabled and disabled |
-|Target|Container|Specifies the container used to store the settings for storing uploaded data.Sub-node: Type, FragDuration, FragCount, and PlaylistName
+Valid values:
+
+-   enabled: indicates that the LiveChannel is enabled.
+-   disabled: indicates that the LiveChannel is disabled. |
+|Target|Container|N/A|The container that stores the configurations used by the LiveChannel to store uploaded data. Child nodes: Type, FragDuration, FragCount, and PlaylistName
+
+**Note:** FragDuration, FragCount, and PlaylistName are returned only when the value of Type is HLS.
 
 Parent node: LiveChannelConfiguration |
-|Type|Enumerated string|Specifies the format that the uploaded data is stored as when its value is HLS.Sub-node: None
+|Type|Enumerated string|HLS|The format in which the uploaded data is stored when the value of Type is HLS. Child node: none
 
-Parent-node: Target
+Parent node: Target
 
 Valid value: HLS |
-|FragDuration|String|Specifies the duration \(in seconds\) of each ts file when the value of Type is HLS.Sub-node: None
+|FragDuration|String|2|The duration of each ts file when the value of Type is HLS. Unit: seconds
+
+Child node: none
 
 Parent node: Target |
-|FragCount|String|Specifies the number of ts files included in the m3u8 file when the value of Type is HLS.Sub-node: None
+|FragCount|String|3|The number of ts files included in the m3u8 file when the value of Type is HLS. Child node: none
 
 Parent node: Target |
-|PlaylistName|String|Specifies the name of the m3u8 file generated when the value of Type is HLS.Sub-node: None
+|PlaylistName|String|playlist.m3u8|The name of the generated m3u8 file when the value of Type is HLS. Child node: none
 
 Parent node: Target |
-
-## Detail analysis
-
-The sub-nodes of Target, including FragDuration, FragCount, and PlaylistName, are returned only when the value of Type is HLS.
 
 ## Examples
 
-Request example
+Sample requests
 
 ```
-GET /test-channel?live HTTP/1.1
+GET /test-channel? live HTTP/1.1
 Date: Thu, 25 Aug 2016 05:52:40 GMT
 Host: test-bucket.oss-cn-hangzhou.aliyuncs.com
-Authorization: OSS YJjHKOKWDWINLKXv:D6bDCRXKht58hin1BL83wxyGvl0=
+Authorization: OSS YJjHKOKWDWIN****:D6bDCRXKht58hin1BL83wxyG****
 ```
 
-Response example
+Sample responses
 
 ```
 HTTP/1.1 200
 content-length: 475
 server: AliyunOSS
 connection: close
-x-oss-request-id: 57BE87A8B92475920B002098
+x-oss-request-id: 57BE87A8B92475920B00****
 date: Thu, 25 Aug 2016 05:52:40 GMT
 content-type: application/xml
-<?xml version="1.0" encoding="UTF-8"?>
+<? xml version="1.0" encoding="UTF-8"? >
 <LiveChannelConfiguration>
   <Description></Description>
   <Status>enabled</Status>
