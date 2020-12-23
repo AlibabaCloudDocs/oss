@@ -1,6 +1,6 @@
 # Append upload
 
-You can use AppendObject to append content to append objects that are uploaded.
+You can use AppendObject to append content to appendable objects that are uploaded.
 
 ## Usage notes
 
