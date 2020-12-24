@@ -55,9 +55,7 @@ OSS可以通过阿里云STS（Security Token Service）进行临时授权访问�
 
         以脚本配置为例，授权用户可以在ram-test/examplefolder/文件夹中上传文件，在**策略内容**中配置脚本示例如下。
 
-        警告：
-
-        以下仅为参考示例，您需要根据自己的应用需求来配置更细粒度的授权策略，防止出现权限过大的风险。关于如何配置细粒度的授权策略，请参见*基于RAM Policy的权限控制*中的[示例5：通过RAM或STS服务向其他用户授权](/cn.zh-CN/开发指南/数据安全/访问控制/RAM Policy/基于RAM Policy的权限控制.mdsection_lda_vgc_p09)。
+        **警告：** 以下仅为参考示例，您需要根据自己的应用需求来配置更细粒度的授权策略，防止出现权限过大的风险。关于如何配置细粒度的授权策略，请参见*基于RAM Policy的权限控制*中的[示例5：通过RAM或STS服务向其他用户授权](/cn.zh-CN/开发指南/数据安全/访问控制/RAM Policy/基于RAM Policy的权限控制.mdsection_lda_vgc_p09)。
 
         ```
         {
