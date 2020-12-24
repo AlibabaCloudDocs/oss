@@ -37,7 +37,7 @@ OSS可以通过阿里云STS（Security Token Service）进行临时授权访问�
 
     4.  输入**登录名称**和**显示名称**。
     5.  在**访问方式**区域下，选择**编程访问**。
-    6.  单击**确定**，然后单击**复制**保存访问密钥（AccessKeyId 和 AccessKeySecret）。
+    6.  单击**确定**，然后单击**复制**保存访问密钥（AccessKey ID 和 AccessKey Secret）。
     7.  选中创建的子账号，单击**添加权限**。
     8.  在添加权限页面，为已创建的子账号添加**AliyunSTSAssumeRoleAccess**权限。
 
@@ -53,7 +53,11 @@ OSS可以通过阿里云STS（Security Token Service）进行临时授权访问�
     4.  填写**策略名称**和**备注**。
     5.  配置模式选择**可视化配置**或**脚本配置**。
 
-        以脚本配置为例，为ram-test添加PutObject、GetObject等权限，在**策略内容**中配置脚本示例如下：
+        以脚本配置为例，授权用户可以在ram-test/examplefolder/文件夹中上传文件，在**策略内容**中配置脚本示例如下。
+
+        警告：
+
+        以下仅为参考示例，您需要根据自己的应用需求来配置更细粒度的授权策略，防止出现权限过大的风险。关于如何配置细粒度的授权策略，请参见*基于RAM Policy的权限控制*中的[示例5：通过RAM或STS服务向其他用户授权](/intl.zh-CN/开发指南/数据安全/访问控制/RAM Policy/基于RAM Policy的权限控制.mdsection_lda_vgc_p09)。
 
         ```
         {
@@ -62,19 +66,16 @@ OSS可以通过阿里云STS（Security Token Service）进行临时授权访问�
              {
                    "Effect": "Allow",
                    "Action": [
-                     "oss:PutObject",
-                     "oss:GetObject"
+                     "oss:PutObject"
                    ],
                    "Resource": [
-                     "acs:oss:*:*:ram-test",
-                     "acs:oss:*:*:ram-test/*"
+                     "acs:oss:*:*:ram-test/examplefolder",
+                     "acs:oss:*:*:ram-test/examplefolder/*"//限制到最后一级可访问路径。
                    ]
              }
             ]
         }
         ```
-
-        **说明：** 以上仅为参考示例，您需要根据自己的应用需求来确定所需要的权限。关于如何配置更细粒度的授权策略，请参见[基于RAM Policy的权限控制](/intl.zh-CN/开发指南/数据安全/访问控制/RAM Policy/基于RAM Policy的权限控制.md)。
 
 3.  创建角色并记录角色ARN。
     1.  云账号登录[RAM控制台](https://ram.console.aliyun.com/)。
