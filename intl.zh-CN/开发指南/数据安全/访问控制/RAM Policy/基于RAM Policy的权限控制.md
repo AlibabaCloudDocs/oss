@@ -42,7 +42,11 @@ RAM（Resource Access Management）是阿里云提供的资源访问控制服务
 
 ## 示例1：授权RAM用户对某个Bucket的完全控制权限
 
-以下示例为授权RAM用户对名为`myphotos`的Bucket拥有完全控制的权限：
+以下示例为授权RAM用户对名为`myphotos`的Bucket拥有完全控制的权限。
+
+警告：
+
+对于移动应用来说，授予用户对Bucket的完全控制权限有极高风险，应尽量避免。
 
 ```
 {
