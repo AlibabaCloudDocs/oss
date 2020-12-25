@@ -2,7 +2,7 @@
 
 You can use Alibaba Cloud Security Token Service \(STS\) to authorize temporary access to OSS. You can use STS to grant a third-party application or your RAM user an access credential that has custom permissions and a custom validity period.
 
-## Scenarios
+## Operation
 
 Users managed by your local identity system are referred to as federated users, such as the users of your applications, local accounts owned by your enterprise, or users of third-party applications. In addition, federated users can also be users that are created by you and who have access to your applications and resources in Alibaba Cloud. Federated users may need to access your OSS resources directly.
 
@@ -24,7 +24,7 @@ The following figure shows how to use STS to grant OSS access permissions to use
 4.  The app server returns the temporary access credential to the app client. The app client can cache the credential. After the credential expires, the app client must apply for a new temporary access credential from the app server. For example, if the temporary access credential is valid for one hour, the app client can send a request to the app server to update the credential every 30 minutes.
 5.  The app client uses the cached temporary access credential to initiate a request to call OSS API operations. After OSS receives the request, OSS uses STS to verify the access credential in the request and responds to the request.
 
-## Procedure
+## Procedures
 
 After you combine OSS SDKs and STS SDKs, you can access OSS by using a temporary access credential provided by STS. For example, a bucket named ram-test is used to store user data. STS is used to grant permissions to a RAM user so that the user can access OSS buckets.
 
@@ -37,7 +37,7 @@ After you combine OSS SDKs and STS SDKs, you can access OSS by using a temporary
 
     4.  Specify the **Logon Name** and **Display Name** parameters.
     5.  Under **Access Mode**, select **Programmatic Access**.
-    6.  Click **OK**. Click **Copy** in the Actions column corresponding to the created RAM user and save the AccessKey pair.
+    6.  Click **OK**. Click **Copy** in the Actions column that corresponds to the created RAM user and save the AccessKey pair.
     7.  Select the created RAM user. Click **Add Permissions**.
     8.  In the Add Permissions panel, add the **AliyunSTSAssumeRoleAccess** policy to the RAM user.
 
@@ -46,14 +46,16 @@ After you combine OSS SDKs and STS SDKs, you can access OSS by using a temporary
         **Note:** Do not grant other permissions to the RAM user because it automatically obtains all permissions of a role when it assumes the role.
 
     9.  Click **OK**.
-2.  Create a policy.
+2.  Create a RAM policy.
     1.  Log on to the [RAM console](https://ram.console.aliyun.com/) by using an Alibaba Cloud account.
     2.  In the left-side navigation pane, click **Policies** under **Permissions**.
     3.  On the page that appears, click **Create Policy**.
     4.  On the Create Custom Policy page, specify the **Policy Name** and **Note** parameters.
     5.  Select **Visualized** or **Script** for Configuration Mode.
 
-        For example, if you select Script and want to grant permissions, such as PutObject and GetObject, on ram-test, add the following script in the **Policy Document** section.
+        For example, to authorize users to upload objects to the ram-test/examplefolder folder, you can select Script and add the following script in the **Policy Document** section.
+
+        **Warning:** The following script is for reference only. You must configure fine-grained RAM policies based on your requirements to avoid granting excessive permissions to users. For more information about how to configure fine-grained RAM policies, see the [Example 5: Use RAM or STS to grant other users permissions to access OSS resources](/intl.en-US/Developer Guide/Data security/Access and control/RAM Policy/Implement access control based on RAM policies.mdsection_lda_vgc_p09) section in the *Implement access control based on RAM policies* topic.
 
         ```
         {
@@ -62,19 +64,16 @@ After you combine OSS SDKs and STS SDKs, you can access OSS by using a temporary
              {
                    "Effect": "Allow",
                    "Action": [
-                     "oss:PutObject",
-                     "oss:GetObject"
+                     "oss:PutObject"
                    ],
                    "Resource": [
-                     "acs:oss:*:*:ram-test",
-                     "acs:oss:*:*:ram-test/*"
+                     "acs:oss:*:*:ram-test/examplefolder",
+                     "acs:oss:*:*:ram-test/examplefolder/*"// Authorize users to access the lowest-level folders under the examplefolder folder.
                    ]
              }
             ]
         }
         ```
-
-        **Note:** The example above is for reference only. You need to configure the permission policy according to your application requirements. For more information about how to configure fine-grained permission policies, see [Implement access control based on RAM policies](/intl.en-US/Developer Guide/Data security/Access and control/RAM Policy/Implement access control based on RAM policies.md).
 
 3.  Create a role and record the role ARN.
     1.  Log on to the [RAM console](https://ram.console.aliyun.com/) by using an Alibaba Cloud account.
@@ -173,7 +172,7 @@ After you combine OSS SDKs and STS SDKs, you can access OSS by using a temporary
     ```
     // The endpoint of the China (Hangzhou) region is used in this example. Specify the actual endpoint.
     String endpoint = "http://oss-cn-hangzhou.aliyuncs.com";
-    // Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS because the account has permissions on all API operations. We recommend that you use a RAM user to call API operations or perform routine operations and maintenance. To create a RAM user, log on to https://ram.console.aliyun.com.
+    // Security risks may arise if you log on with the AccessKey pair of an Alibaba Cloud account because the account has permissions on all API operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create a RAM user, log on to the RAM console.
     String AccessKeyId = "<yourAccessKeyId>";
     String accessKeySecret = "<yourAccessKeySecret>";
     String securityToken = "<yourSecurityToken>";
