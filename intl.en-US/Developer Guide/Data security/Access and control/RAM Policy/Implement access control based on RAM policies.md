@@ -23,7 +23,7 @@ You understand the following basic concepts:
     For more information about access control methods supported by OSS, see [Overview](/intl.en-US/Developer Guide/Data security/Access and control/Overview.md).
 
 
-## Create a custom RAM policy for a RAM user
+## Assign a custom RAM policy for a RAM user
 
 1.  Create a custom RAM policy based on the examples described in the following sections.
 
@@ -43,6 +43,8 @@ You understand the following basic concepts:
 ## Example 1: Grant a RAM user permissions to completely control a bucket
 
 The following RAM policy grants a RAM user permissions to completely control a bucket named `myphotos`:
+
+**Warning:** We recommend that you do not grant RAM users permissions to completely control a bucket used by mobile applications because it is highly risky.
 
 ```
 {
@@ -416,7 +418,7 @@ The Action field in RAM policies for OSS supports the following operations:
 -   Bucket operations: correspond to operations such as oss:PutBucketAcl and oss:GetBucketLocation on buckets. The names of operations correspond to those of the actions.
 -   Object operations: correspond to operations such as oss:GetObject, oss:PutObject, oss:DeleteObject, and oss:AbortMultipartUpload on objects.
 
-The following tables describe the mapping relationship between the values of Action and API operations.
+The following table describes the mapping between the values of Action and API operations.
 
 -   Service operations
 
@@ -424,7 +426,7 @@ The following tables describe the mapping relationship between the values of Act
     |:--|:-----|
     |GetService \(ListBuckets\)|oss:ListBuckets|
 
--   Bucket operations
+-   Buckets
 
     |API|Action|
     |:--|:-----|
@@ -473,7 +475,7 @@ The following tables describe the mapping relationship between the values of Act
     |GetBucketReplicationLocation|oss:GetBucketReplicationLocation|
     |GetBucketReplicationProgress|oss:GetBucketReplicationProgress|
 
--   Object operations
+-   Objects
 
     |API|Action|
     |:--|:-----|
@@ -527,7 +529,7 @@ In RAM policies for OSS, the Resource field indicates a specific resource or spe
 
 The Resource field is specified in the following format: `acs:oss:{region}:{bucket_owner}:{bucket_name}/{object_name}`.
 
-When you specify the Resource field in a RAM policy for a bucket, you do not need to add a slash \(/\) and `{object_name}` after `{bucket_name}`. In this case, you can specify the Resource field in the following format: `acs:oss:{region}:{bucket_owner}:{bucket_name}`. The region field can be set only to an asterisk \(\*\) as a wildcard.
+When you specify the Resource field in a RAM policy for a bucket, you do not need to add a slash \(/\) and `{object_name}` after `{bucket_name}`. In this case, you can specify the Resource field in the following format: `acs:oss:{region}:{bucket_owner}:{bucket_name}`. The region field can be set only to a asterisk \(\*\) as a wildcard.
 
 ## Appendix 3: Condition in RAM policies for OSS
 
@@ -556,7 +558,7 @@ This condition applies to operations used to read objects, such as GetObject and
 
 This condition applies to operations used to write objects, such as PutObject and PostObject, and operations related to object tags, such as PutObjectTagging and GetObjectTagging. |
 
-For example, to prohibit a RAM user from accessing objects that have the status:ok and key1:value1 tags in the examplebucket bucket, create the following RAM policy that contains a Deny statement:
+For example, to prohibit a RAM user from accessing objects with the status:ok and key1:value1 tags in the examplebucket bucket, create the following RAM policy that contains a Deny statement:
 
 ```
 {
