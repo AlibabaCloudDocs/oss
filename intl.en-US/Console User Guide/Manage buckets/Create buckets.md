@@ -37,7 +37,7 @@ For more information about buckets, see [Create buckets](/intl.en-US/Developer G
 **Note:** Cold Archive is in public preview in the following regions: China \(Beijing\), China \(Zhangjiakou\), China \(Hangzhou\), China \(Shanghai\), China \(Shenzhen\), China \(Chengdu\), Australia \(Sydney\), Singapore, US \(Silicon Valley\), Germany \(Frankfurt\), Malaysia \(Kuala Lumpur\), Indonesia \(Jakarta\), India \(Mumbai\), and China \(Hong Kong\). Contact[technical support](https://workorder-intl.console.aliyun.com/#/ticket/createIndex) to apply for a trial.
 
 For more information, see [Overview](/intl.en-US/Developer Guide/Storage classes/Overview.md). |
-    |**Zone-redundant Storage**|No|For buckets in , you can select whether to enable zone-redundant storage \(ZRS\).     -   Enable: After ZRS is enabled, OSS backs up your data to three zones within the same region. By default, if the storage class of the bucket is Standard, the objects in the bucket are Standard \(ZRS\) objects. For more information, see [ZRS](/intl.en-US/Developer Guide/Data security/Disaster recovery/ZRS.md).
+    |**Zone-redundant Storage**|No|For buckets in Singapore, China \(Shenzhen\), China \(Beijing\), China \(Hangzhou\), China \(Hong Kong\), and China \(Shanghai\), you can select whether to enable zone-redundant storage \(ZRS\).     -   Enable: After ZRS is enabled, OSS backs up your data to three zones within the same region. By default, if the storage class of the bucket is Standard, the objects in the bucket are Standard \(ZRS\) objects. For more information, see [ZRS](/intl.en-US/Developer Guide/Data security/Disaster recovery/ZRS.md).
 
 **Note:** This feature incurs extra costs and cannot be disabled after it is enabled. Exercise caution when you enable this feature.
 
