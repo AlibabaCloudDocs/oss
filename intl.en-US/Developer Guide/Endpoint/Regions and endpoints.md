@@ -6,64 +6,105 @@ Regions indicate where the OSS data center is located. Endpoints are the domain 
 
 Access over HTTPS is allowed in the classic network. The following table describes the public and internal endpoints of OSS in each region for access over the classic network.
 
-|Region|Region ID|Public endpoint|Internal endpoint for access from ECS1|Accelerate endpoint2|
-|:-----|:--------|:--------------|--------------------------------------|--------------------|
+|Region|Region ID|Public endpoint|Internal endpoint1|Accelerate endpoint2|IPv6|
+|:-----|:--------|:--------------|------------------|--------------------|----|
 |China \(Hangzhou\)|oss-cn-hangzhou|oss-cn-hangzhou.aliyuncs.com|oss-cn-hangzhou-internal.aliyuncs.com|-   Global accelerate endpoint: oss-accelerate.aliyuncs.com
--   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com |
+-   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com
+
+|Supported|
 |China \(Shanghai\)|oss-cn-shanghai|oss-cn-shanghai.aliyuncs.com|oss-cn-shanghai-internal.aliyuncs.com|-   Global accelerate endpoint: oss-accelerate.aliyuncs.com
--   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com |
+-   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com
+
+|Supported|
 |China \(Qingdao\)|oss-cn-qingdao|oss-cn-qingdao.aliyuncs.com|oss-cn-qingdao-internal.aliyuncs.com|-   Global accelerate endpoint: oss-accelerate.aliyuncs.com
--   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com |
+-   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com
+
+|Not supported|
 |China \(Beijing\)|oss-cn-beijing|oss-cn-beijing.aliyuncs.com|oss-cn-beijing-internal.aliyuncs.com|-   Global accelerate endpoint: oss-accelerate.aliyuncs.com
--   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com |
+-   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com
+
+|Supported|
 |China \(Zhangjiakou\)|oss-cn-zhangjiakou|oss-cn-zhangjiakou.aliyuncs.com|oss-cn-zhangjiakou-internal.aliyuncs.com|-   Global accelerate endpoint: oss-accelerate.aliyuncs.com
--   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com |
+-   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com
+
+|Not supported|
 |China \(Hohhot\)|oss-cn-huhehaote|oss-cn-huhehaote.aliyuncs.com|oss-cn-huhehaote-internal.aliyuncs.com|-   Global accelerate endpoint: oss-accelerate.aliyuncs.com
--   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com |
+-   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com
+
+|Supported|
 |China \(Ulanqab\)|oss-cn-wulanchabu|oss-cn-wulanchabu.aliyuncs.com|oss-cn-wulanchabu-internal.aliyuncs.com|-   Global accelerate endpoint: oss-accelerate.aliyuncs.com
--   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com |
+-   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com
+
+|Not supported|
 |China \(Shenzhen\)|oss-cn-shenzhen|oss-cn-shenzhen.aliyuncs.com|oss-cn-shenzhen-internal.aliyuncs.com|-   Global accelerate endpoint: oss-accelerate.aliyuncs.com
--   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com |
-|China \(Heyuan\)|oss-cn-heyuan|oss-cn-heyuan.aliyuncs.com|oss-cn-heyuan-internal.aliyuncs.com|N/A|
+-   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com
+
+|Supported|
+|China \(Heyuan\)|oss-cn-heyuan|oss-cn-heyuan.aliyuncs.com|oss-cn-heyuan-internal.aliyuncs.com|None|Not supported|
 |China \(Guangzhou\)|oss-cn-guangzhou|oss-cn-guangzhou.aliyuncs.com|oss-cn-guangzhou-internal.aliyuncs.com|-   Global accelerate endpoint: oss-accelerate.aliyuncs.com
--   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com |
+-   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com
+
+|Not supported|
 |China \(Chengdu\)|oss-cn-chengdu|oss-cn-chengdu.aliyuncs.com|oss-cn-chengdu-internal.aliyuncs.com|-   Global accelerate endpoint: oss-accelerate.aliyuncs.com
--   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com |
+-   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com
+
+|Not supported|
 |China \(Hong Kong\)|oss-cn-hongkong|oss-cn-hongkong.aliyuncs.com|oss-cn-hongkong-internal.aliyuncs.com|-   Global accelerate endpoint: oss-accelerate.aliyuncs.com
--   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com |
+-   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com
+
+|Supported|
 |US \(Silicon Valley\)|oss-us-west-1|oss-us-west-1.aliyuncs.com|oss-us-west-1-internal.aliyuncs.com|-   Global accelerate endpoint: oss-accelerate.aliyuncs.com
--   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com |
+-   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com
+
+|Not supported|
 |US \(Virginia\)|oss-us-east-1|oss-us-east-1.aliyuncs.com|oss-us-east-1-internal.aliyuncs.com|-   Global accelerate endpoint: oss-accelerate.aliyuncs.com
--   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com |
+-   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com
+
+|Not supported|
 |Singapore|oss-ap-southeast-1|oss-ap-southeast-1.aliyuncs.com|oss-ap-southeast-1-internal.aliyuncs.com|-   Global accelerate endpoint: oss-accelerate.aliyuncs.com
--   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com |
+-   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com
+
+|Not supported|
 |Australia \(Sydney\)|oss-ap-southeast-2|oss-ap-southeast-2.aliyuncs.com|oss-ap-southeast-2-internal.aliyuncs.com|-   Global accelerate endpoint: oss-accelerate.aliyuncs.com
--   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com |
+-   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com
+
+|Not supported|
 |Malaysia \(Kuala Lumpur\)|oss-ap-southeast-3|oss-ap-southeast-3.aliyuncs.com|oss-ap-southeast-3-internal.aliyuncs.com|-   Global accelerate endpoint: oss-accelerate.aliyuncs.com
--   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com |
+-   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com
+
+|Not supported|
 |Indonesia \(Jakarta\)|oss-ap-southeast-5|oss-ap-southeast-5.aliyuncs.com|oss-ap-southeast-5-internal.aliyuncs.com|-   Global accelerate endpoint: oss-accelerate.aliyuncs.com
--   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com |
+-   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com
+
+|Not supported|
 |Japan \(Tokyo\)|oss-ap-northeast-1|oss-ap-northeast-1.aliyuncs.com|oss-ap-northeast-1-internal.aliyuncs.com|-   Global accelerate endpoint: oss-accelerate.aliyuncs.com
--   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com |
+-   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com
+
+|Not supported|
 |India \(Mumbai\)|oss-ap-south-1|oss-ap-south-1.aliyuncs.com|oss-ap-south-1-internal.aliyuncs.com|-   Global accelerate endpoint: oss-accelerate.aliyuncs.com
--   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com |
+-   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com
+
+|Not supported|
 |Germany \(Frankfurt\)|oss-eu-central-1|oss-eu-central-1.aliyuncs.com|oss-eu-central-1-internal.aliyuncs.com|-   Global accelerate endpoint: oss-accelerate.aliyuncs.com
--   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com |
+-   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com
+
+|Not supported|
 |UK \(London\)|oss-eu-west-1|oss-eu-west-1.aliyuncs.com|oss-eu-west-1-internal.aliyuncs.com|-   Global accelerate endpoint: oss-accelerate.aliyuncs.com
--   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com |
-|UAE \(Dubai\)|oss-me-east-1|oss-me-east-1.aliyuncs.com|oss-me-east-1-internal.aliyuncs.com|N/A|
+-   Accelerate endpoint of regions outside mainland China: oss-accelerate-overseas.aliyuncs.com
+
+|Not supported|
+|UAE \(Dubai\)|oss-me-east-1|oss-me-east-1.aliyuncs.com|oss-me-east-1-internal.aliyuncs.com|None|Not supported|
 
 **Note:**
 
--   1ECS instances can use internal endpoints to communicate with OSS only when the ECS instances and buckets are in the same region.
--   2Transfer acceleration endpoints include global accelerate endpoints and accelerate endpoints of regions outside mainland China. Accelerate endpoints take effect after transfer acceleration is enabled. For more information, see [Transfer acceleration](/intl.en-US/Developer Guide/Buckets/Transfer acceleration.md).
--   We recommend that you use third-level domains that are in the `Bucket` + `Endpoint` format to share links or bind custom domain names \(CNAME\). For example, the third-level domain for the oss-sample bucket in the China \(Shanghai\) region is `oss-sample.oss-cn-shanghai.aliyuncs.com`.
--   When you initialize endpoints for OSS SDKs, we recommend that you specify the parameter in the following format: `http(s)://` + `Endpoint`. For example, we recommend that you set the initialization parameter to `http://oss-cn-shanghai.aliyuncs.com` or `https://oss-cn-shanghai.aliyuncs.com` for the endpoint of the China \(Shanghai\) region, instead of the `http://bucket.oss-cn-shanghai.aliyuncs.com` third-level domain.
--   By default, the `oss.aliyuncs.com` endpoint maps to the public endpoint of the China \(Hangzhou\) region, and the `oss-internal.aliyuncs.com` endpoint maps to the internal endpoint of the China \(Hangzhou\) region.
+-   1: The internal endpoint can be used by other Alibaba Cloud services in the same region to access OSS.
+-   2: Transfer acceleration endpoints include global accelerate endpoints and accelerate endpoints of regions outside mainland China. Accelerate endpoints take effect after transfer acceleration is enabled. For more information, see [Transfer acceleration](/intl.en-US/Developer Guide/Buckets/Transfer acceleration.md).
+-   If you use an IPv6 address to access the public endpoint of a region that supports IPv6, the DNS server resolves the endpoint to the IPv6 address of the region.
+-   By default, `oss.aliyuncs.com` maps to the public endpoint of the China \(Hangzhou\) region and `oss-internal.aliyuncs.com` maps to the internal endpoint of the China \(Hangzhou region\).
 
 ## Regions and OSS endpoints in VPCs
 
-Access over HTTPS is allowed in VPCs. You can use the following endpoints to access OSS from an ECS instance in the same region.
+Access over HTTPS is allowed in VPCs. The following table describes the public and internal endpoints of OSS in each region for access over VPCs.
 
 **Warning:** When you connect to OSS internal endpoints by using Cloud Enterprise Network \(CEN\), Express Connect, leased lines, or VPN, you must configure routes for network products. OSS divides internal VIP address ranges for each region into fixed address ranges. When you configure routes based on regions, you must configure complete VIP address ranges as listed in the following table.
 
