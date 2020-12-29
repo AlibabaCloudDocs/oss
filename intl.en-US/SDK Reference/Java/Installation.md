@@ -10,7 +10,7 @@ You can run the java -version command to check the Java version.
 
 ## Download OSS SDK for Java
 
--   [Download SDK installation package](http://gosspublic.alicdn.com/sdks/java/aliyun_java_sdk_3.10.2.zip)
+-   [Download SDK installation package](https://gosspublic.alicdn.com/sdks/java/aliyun_java_sdk_3.10.2.zip)
 -   [Download from GitHub](https://github.com/aliyun/aliyun-oss-java-sdk)
 -   [Download previous versions](https://github.com/aliyun/aliyun-oss-java-sdk/releases)
 
@@ -55,7 +55,7 @@ You can use one of the following method to install OSS SDK for Java:
 
     For OSS SDK for Java V3.10.2, perform the following operations to import the JAR package to your Eclipse project:
 
-    1.  Download the [OSS SDK for Java package](http://gosspublic.alicdn.com/sdks/java/aliyun_java_sdk_3.10.2.zip).
+    1.  Download the [OSS SDK for Java package](https://gosspublic.alicdn.com/sdks/java/aliyun_java_sdk_3.10.2.zip).
     2.  Decompress the package.
     3.  Copy the aliyun-sdk-oss-3.10.2.jar file and all files in the lib folder to your project.
     4.  Right-click your project name in Eclipse and choose **Properties** \> **Java Build Path** \> **Add JARs**.
@@ -64,7 +64,7 @@ You can use one of the following method to install OSS SDK for Java:
 
     For OSS SDK for Java V3.10.2, perform the following operations to import the JAR package to IntelliJ IDEA:
 
-    1.  Download the [OSS SDK for Java package](http://gosspublic.alicdn.com/sdks/java/aliyun_java_sdk_3.10.2.zip).
+    1.  Download the [OSS SDK for Java package](https://gosspublic.alicdn.com/sdks/java/aliyun_java_sdk_3.10.2.zip).
     2.  Decompress the package.
     3.  Copy the aliyun-sdk-oss-3.10.2.jar file and all JAR files in the lib folder to your project.
     4.  In IntelliJ IDEA, select your project and choose **File** \> **Project Structure** \> **Modules** \> **Dependencies** \> **+** \> **JARs or directories** in the right-click menu.
