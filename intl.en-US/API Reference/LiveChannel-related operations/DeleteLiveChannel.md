@@ -38,7 +38,3 @@ x-oss-request-id: 57BE9F0AB92475920B0*****
 date: Thu, 25 Aug 2016 07:32:26 GMT
 ```
 
-## SDK
-
-[Java]()
-
