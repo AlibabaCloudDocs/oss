@@ -4,8 +4,6 @@ OSS charges storage fees based on the size of objects you store and the storage 
 
 **Note:** This topic describes the definition and billing methods of OSS storage fees. For more information about the detailed price, see [OSS pricing page](https://www.alibabacloud.com/product/oss/pricing).
 
-OSS provides the following storage classes: Standard, IA, Archive, and Cold Archive. For more information, see [Overview](https://help.aliyun.com/document_detail/51374.html#concept-fcn-3xt-tdb).
-
 Storage fees are charged based on actual storage usage and duration. The following table describes the storage fees incurred for different storage classes.
 
 |Billable item|Description|Billing method|
