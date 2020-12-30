@@ -67,7 +67,7 @@ For more examples of uploading objects, see [Upload objects](/intl.en-US/Tools/o
 -   Command syntax
 
     ```
-    ./ossutil cp cloud\_urllocal\_file
+    ./ossutil cp cloud\_url local\_file
     ```
 
 -   Examples
