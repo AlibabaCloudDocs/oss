@@ -1,10 +1,12 @@
-# FAQ {#concept_32024_zh .concept}
+# FAQ
 
-## Jar conflicts {#section_u5d_qgd_kfb .section}
+This topic lists the causes and solutions for common errors you may encounter when you use OSS SDK for Java.
 
--   Cause analysis
+## JAR conflicts
 
-    If the following errors occur when you use OSS Java SDK, jar conflicts may exist in your project.
+-   Cause
+
+    If a similar output is displayed when you use OSS SDK for Java, it indicates that your project has a JAR conflict.
 
     ```
     Exception in thread "main" java.lang.NoClassDefFoundError: org/apache/http/ssl/TrustStrategy
@@ -20,7 +22,7 @@
         at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
         at java.lang.ClassLoader.loadClass(ClassLoader.java:358)
         ... 3 more
-    					
+                        
     ```
 
     Or
@@ -45,27 +47,29 @@
      at com.aliyun.oss.OSSClient.<init>(OSSClient.java:193)
      at OSSManagerImpl.upload(OSSManagerImpl.java:42)
      at OSSManagerImpl.main(OSSManagerImpl.java:63)
-    					
+                        
     ```
 
-    The cause is that OSS Java SDK uses Apache httpclient 4.4.1, while your project uses Apache httpclient or commons-httpclient jar that conflicts with Apache httpclient 4.4.1. To view the jar file and its version used for a project, open OSS Java SDK and run the `mvn dependency:tree` command. The following figure shows that a project that uses Apache httpclient 4.3.
+    The error occurs because of a version conflict between the Apache HttpClient or Commons HttpClient of your project and Apache HttpClient 4.4.1 of OSS SDK for Java. To view the JAR package and its version that is used in your project, run the `mvn dependency:tree` command in the directory of the project. The following figure shows that the project uses Apache HttpClient 4.3.
 
-    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/22308/155728411413397_en-US.png)
+    ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/1074459951/p13397.png)
 
--   There are two solutions to jar conflicts.
+-   Solution
 
-    -   Use a unified version. If your project uses the version that conflicts with Apache httpclient 4.4.1, use Apache httpclient 4.4.1 and delete Apache httpclient dependencies of other versions in the pom.xml file. If your project uses commons-httpclient, jar conflicts may also exist. In this case, delete commons-httpclient.
-    -   Resolve dependency conflicts. If your project uses multiple third-party dependencies that have various Apache httpclient versions, dependency conflicts may exist in your project. Use exclusion to resolve the conflicts. For more information, see [Maven Guides](https://maven.apache.org/guides/introduction/introduction-to-optional-and-excludes-dependencies.html).
-    OSS Java SDK is dependent on the following jar versions. Conflict solutions are similar to the httpclien method.
+    You can use one of the following methods to resolve the JAR package conflict:
 
-    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/22308/155728411413398_en-US.png)
+    -   Use consistent versions of Apache HttpClient. If your project uses a version of Apache HttpClient that conflicts with Apache HttpClient 4.4.1, use Apache HttpClient 4.4.1 and delete all other Apache HttpClient version dependencies from the pom.xml file. If your project uses Commons HttpClient, conflicts may also occur. To resolve these conflicts, delete Commons HttpClient.
+    -   Resolve dependency conflicts. If your project is dependent on multiple third-party packages and the third-party packages are dependent on different versions of Apache HttpClient, your project may contain dependency conflicts. Use exclusion to resolve these conflicts. For more information, visit [Maven Guides](https://maven.apache.org/guides/introduction/introduction-to-optional-and-excludes-dependencies.html).
+    OSS SDK for Java is dependent on the following package versions. The solution to conflicts is similar to that for HttpClient.
+
+    ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/1074459951/p13398.png)
 
 
-## Missing files { .section}
+## Missing packages
 
--   Cause analysis
+-   Cause
 
-    If the following errors occur when you use OSS Java SDK, your project may lack the necessary files for OSS Java SDK compilation and execution.
+    If a similar output is displayed when you use OSS SDK for Java, your project may lack the necessary packages to compile or run OSS SDK for Java:
 
     ```
     Exception in thread "main" java.lang.NoClassDefFoundError: org/apache/http/auth/Credentials
@@ -81,7 +85,7 @@
             at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
             at java.lang.ClassLoader.loadClass(ClassLoader.java:358)
             ... 3 more
-    					
+                        
     ```
 
     Or
@@ -100,7 +104,7 @@
             at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
             at java.lang.ClassLoader.loadClass(ClassLoader.java:358)
             ... 3 more
-    					
+                        
     ```
 
     Or
@@ -121,10 +125,10 @@
             at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:308)
             at java.lang.ClassLoader.loadClass(ClassLoader.java:358)
             ... 11 more
-    					
+                        
     ```
 
-    Dependencies of OSS Java SDK are as follows:
+    Dependencies of OSS SDK for Java:
 
     -   aliyun-sdk-oss-2.2.1.jar
     -   hamcrest-core-1.1.jar
@@ -134,21 +138,21 @@
     -   commons-logging-1.2.jar
     -   httpcore-4.4.1.jar
     -   log4j-1.2.15.jar
-    In the preceding dependencies, all files except the log4j-1.2.15.jar file are required. You need to add this file to enable access logging.
+    All packages except the log4j-1.2.15.jar package are required for OSS SDK for Java. However, if you want to enable logging, you must also include the log4j-1.2.15.jar package.
 
--   Solutions
+-   Solution
 
-    Add OSS Java SDK dependencies to your project. Methods:
+    You can use one of the following methods to add OSS SDK for Java dependencies to your project:
 
-    -   If your project is in Eclipse, see [Method 2: Import a JAR package](reseller.en-US/SDK Reference/Java/Installation.md#section_dqn_fpm_1z) to your Eclipse project in Java SDK.
-    -   If your project is in Ant, add OSS Java SDK dependencies to the lib directory.
-    -   If you directly use the .javac or .java files, run the `-classpath` command or the `-cp` command to specify the path where OSS Java SDK dependencies are stored or save the Java SDK dependencies to classpath.
+    -   If your project is in Eclipse, import dependencies to Eclipse, as instructed in the Method 2 section of [Installation](/intl.en-US/SDK Reference/Java/Installation.md).
+    -   If your project is in Ant, add OSS SDK for Java dependencies to the lib directory.
+    -   If you directly use the .javac or .java file, run the `-classpath` or `-cp` command to specify the path where OSS SDK for Java dependencies are stored, or save SDK for Java dependencies to classpath.
 
-## Connection timeout { .section}
+## Connection timeout
 
--   Cause analysis
+-   Cause
 
-    If the following errors occur when the OSS Java SDK program is run, possible causes are endpoint errors or unavailable networks:
+    If a similar output is displayed when you run the OSS SDK for Java program, possible causes are endpoint errors or unavailable networks:
 
     ```
     com.aliyun.oss.ClientException: SocketException
@@ -174,34 +178,45 @@
         at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
         at com.aliyun.oss.common.comm.DefaultServiceClient.sendRequestCore(DefaultServiceClient.java:113)
         ... 9 more
-    					
+                        
     ```
 
 -   Solution
 
-    You can use [ossutil](../../../../reseller.en-US/Tools/ossutil/Bucket-related commands.md#section_njd_yzz_zgb) for fast troubleshooting.
+    You can use [ossutil](/intl.en-US/Tools/ossutil/Common commands/probe.md) to identify and troubleshoot problems.
 
 
-## org.apache.http.NoHttpResponseException: The target server failed to respond {#section_wgy_2kd_kfb .section}
-
--   Cause analysis
-
-    The following error occurs when the OSS Java SDK program is run:
-
-    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/22308/155728411413399_en-US.png)
-
-    The preceding error may occur if expired connections are used. This error occurs only when an earlier version of Java SDK 2.1.2 is used.
-
--   Solutions
-
-    Upgrade OSS Java SDK to 2.1.2 or a later version.
-
-
-## OSS Java SDK stops responding when the Java program is called { .section}
+## org.apache.http.NoHttpResponseException: The target server failed to respond
 
 -   Cause analysis
 
-    OSS Java SDK stops responding when the Java program is called. Run the `jstack -l pid` command to view the stacks. The exception is as follows:
+    If a similar output is displayed when you run the OSS SDK for Java program:
+
+    ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/1074459951/p13399.png)
+
+    The preceding error may occur if expired connections are used. This error occurs only when an SDK for Java version earlier than 2.1.2 is used.
+
+-   Solution
+
+    You can upgrade OSS SDK for Java to V2.1.2 or later.
+
+
+## What do I do if JVM contains a large number of org.apache.http.impl.conn.PoolingHttpClientConnectionManager instances?
+
+-   Cause
+
+    ossClient is not disabled.
+
+-   Solution
+
+    You can disable the ossClient that is executed or use the single instance mode.
+
+
+## What do I do if OSS SDK for Java stops responding when OSS SDK for Java is called?
+
+-   Cause
+
+    OSS SDK for Java stops responding when OSS SDK for Java is called. Run the `jstack -l pid` command to view the stack. A similar error is displayed:
 
     ```
     "main" prio=6 tid=0x000000000291e000 nid=0xc40 waiting on condition [0x0000000002dae000]
@@ -233,33 +248,33 @@
         at com.aliyun.oss.OSSClient.getObject(OSSClient.java:629)
         at com.aliyun.oss.OSSClient.getObject(OSSClient.java:617)
         at samples.HelloOSS.main(HelloOSS.java:49)
-    					
+                        
     ```
 
-    The cause is due to the connection leak in the connection pool \(possibly because ossObject is left unclosed after it is used\).
+    The error is caused by connection leaks in the connection pool, which occur when the ossObject is not closed after usage.
 
--   Solutions
+-   Solution
 
-    Check your program and ensure that no connection leak occurs. Use the following code to close ossObject:
+    Check your program to ensure that no connection leaks occur. The following code provides an example on how to close ossObject:
 
     ```
     // Read an object.
     OSSObject ossObject = ossClient.getObject(bucketName, objectName);
     // Perform operations on OSS.
-    // Close your ossObject.
+    // Shut down the ossObject.
     ossObject.close();
-    					
+                        
     ```
 
 
-## Connection closure { .section}
+## Connection closure
 
--   Cause analysis
+-   Cause
 
-    If the following errors occur when you use ossClient.getObject:
+    If a similar output is displayed when you use ossClient.getObject:
 
     ```
-    Exception in thread "main" org.apache.http.ConnectionClosedException: Premature end of Content-Length delimited message body (expected: 11990526; received: 202880
+    Exception in thread "main" org.apache.http.ConnectionClosedException: Premature end of Content-Length delimited message body (expected: 11990526; received: 202880)
         at org.apache.http.impl.io.ContentLengthInputStream.read(ContentLengthInputStream.java:180)
         at org.apache.http.impl.io.ContentLengthInputStream.read(ContentLengthInputStream.java:200)
         at org.apache.http.impl.io.ContentLengthInputStream.close(ContentLengthInputStream.java:103)
@@ -271,62 +286,204 @@
         at com.aliyun.oss.event.ProgressInputStream.close(ProgressInputStream.java:147)
         at java.io.FilterInputStream.close(FilterInputStream.java:181)
         at samples.HelloOSS.main(HelloOSS.java:39)
-    					
+                        
     ```
 
-    The cause is that the time between two consecutive data reading exceeds one minute. OSS will close the connections if the time between two consecutive data reading exceeds one minute.
+    The error occurs because the interval between the two data reading attempts exceeds one minute. OSS closes the connection if no data is sent or received for more than one minute.
 
 -   Solution
 
-    If you only need to read part of the data during unfixed periods of time, use [Range download](reseller.en-US/SDK Reference/Java/Download objects/Range download.md#) to avoid connection closure during data reading.
+    If you must read part of the data during unspecified time periods, we recommend that you use range download to avoid connection closure during data reading. For more information, see [Range download](/intl.en-US/SDK Reference/Java/Download objects/Range download.md).
 
 
-## Memory leaks { .section}
+## Memory leaks
 
--   Cause analysis
+-   Cause
 
-    Memory leaks occur when the OSS Java SDK program is run for a period of time \(from several hours to several days based on access traffic\). We recommend that you use [Eclipse Memory Analyzer \(MAT](http://www.eclipse.org/mat/downloads.php?)\) to analyze memory usage. For more information about usage methods, see [Use MAT for Head Dump File Analysis](https://www.ibm.com/developerworks/cn/opensource/os-cn-ecl-ma/).
+    Memory leaks occur when the OSS SDK for Java program runs for an extended period of time. This period can range from a few hours to several days based on the amount of access traffic. We recommend that you use the [Eclipse Memory Analyzer \(MAT\)](http://www.eclipse.org/mat/downloads.php?) to analyze memory usage. For more information, visit [Use MAT for Heap Dump File Analysis](https://www.ibm.com/developerworks/cn/opensource/os-cn-ecl-ma/).
 
-    If the analysis result is similar to the following figure \(PoolingHttpClientConnectionManager occupies 96 percent of memory\), the cause may be that new OSSClient is run multiple times while ossClient.shutdown is not called. Consequently, memory leaks occur.
+    If a similar analysis result is shown in the following figure, PoolingHttpClientConnectionManager takes up 96% of memory. The possible cause is that the new OSSClient command is run multiple times whereas ossClient.shutdown is not called. As a result, memory leaks occur.
 
-    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/22308/155728411413400_en-US.png)
+    ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/2074459951/p13400.png)
 
--   a
+-   Solution
 
-    Ensure that ossClient.shutdown is enabled after OSSClient is enabled.
+    Make sure that ossClient.shutdown is called after the new OSSClient command is run.
 
 
-## InterruptedException occurs when ossClient.shutdown is called { .section}
+## InterruptedException occurs when ossClient.shutdown is called
 
--   Error Cause
+-   Cause
 
-    The following exception is thrown when OSSClient.shutdown is called:
+    A similar error is displayed when ossClient.shutdown is called:
 
     ```
     java.lang.InterruptedException: sleep interrupted
             at java.lang.Thread.sleep(Native Method)
             at com.aliyun.oss.common.comm.IdleConnectionReaper.run(IdleConnectionReaper:76)
-    					
+                        
     ```
 
-    The cause is that the backend thread \(IdleConnectionReaper\) of ossClient will close connections periodically. If ossClient.shutdown is called when IdleConnectionReaper is in the Sleep mode, the preceding exception occurs.
+    The error occurs because the backend thread \(IdleConnectionReaper\) of ossClient closes idle connections periodically. If ossClient.shutdown is called when IdleConnectionReaper is in Sleep mode, the preceding exception occurs.
 
 -   Solution
 
-    OSS Java SDK 2.3.0 has rectified this error.
+    This exception has been resolved in OSS SDK for Java V2.3.0.
 
-    For versions earlier than OSS Java SDK 2.3.0, use the following code to ignore the error:
+    For versions earlier than OSS SDK for Java V2.3.0, use the following code to ignore the exception:
 
     ```
     try {
         ossClient.shutdown();
     } catch(Exception e) {
     }
-    					
+                        
     ```
 
 
-## Other errors { .section}
+## What do I do if the "SDK.ServerUnreachable: Specified endpoint or uri is not valid" exception occurs?
 
-For more information about how to rectify other errors returned by OSS, see [Errors and troubleshooting](../../../../reseller.en-US/Errors and Troubleshooting/OSS 403.md#).
+![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/7576498951/p38848.png)
+
+-   Cause
+
+    Possible causes: requests sent from the client to STS with high concurrency, timeout of connections to the server, and the invalid STS SDK or the SDK core version. Consequently, the connections to the Alibaba Cloud endpoint fail.
+
+-   Solution
+    -   When ECS instances on the client or local PC are unable to support bursts of requests, you can reduce the amount of concurrent requests sent to STS.
+    -   If the connection to the server times out, you can check and analyze captured packets.
+    -   We recommend that you upgrade STS SDK or SDK core to the latest version.
+
+## NoSuchKey
+
+![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/7576498951/p38849.jpg)
+
+-   Cause
+
+    This error is displayed because the source file does not exist.
+
+-   Solution
+
+    For more information, visit [Troubleshoot 404 errors](https://yq.aliyun.com/articles/657166).
+
+
+## SocketException
+
+![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/7576498951/p38851.png)
+
+-   Cause
+
+    The error is displayed because the socket failed to be specified during initialization. As a result, the request was not received by OSS.
+
+-   Solution
+
+    We recommend that you troubleshoot the exception based on the following aspects:
+
+    -   Check whether jitters occur.
+    -   Check whether socket resources are used up by other processes.
+    -   Check the maximum number of connections configured in the SDK. If the actual number of connections exceeds this connection limit, a socket exception occurs.
+    If the problem persists, we recommend that you use tcpdump or wireshark to capture packets, reproduce the exception, and analyze the packets.
+
+
+## What do I do if the callback operation of OSS PostObject fails but the callback operation of PutObject succeeds?
+
+![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/7576498951/p38913.png)
+
+In most cases, if the JSON format is invalid or a callback fails, an error message is returned. In this case, you must test whether the callback operations of PUT and POST are triggered.
+
+![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/7576498951/p38868.png)
+
+-   Cause
+
+    The callback parameter follows the file parameter when you send the request.
+
+    ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/8576498951/p38909.png)
+
+-   Solution
+
+    You can adjust the position of the callback parameter.
+
+    ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/8576498951/p38910.png)
+
+    The test result shows that the server captures the request.
+
+    ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/8576498951/p38911.png)
+
+
+## Connection pool shut down
+
+```
+Caused by: java.lang.IllegalStateException: Connection pool shut down
+  at org.apache.http.util.Asserts.check(Asserts.java:34)
+  at org.apache.http.pool.AbstractConnPool.lease(AbstractConnPool.java:184)
+  at org.apache.http.impl.conn.PoolingHttpClientConnectionManager.requestConnection(PoolingHttpClientConnectionManager.java:251)
+  at org.apache.http.impl.execchain.MainClientExec.execute(MainClientExec.java:175)
+  at org.apache.http.impl.execchain.ProtocolExec.execute(ProtocolExec.java:184)
+  at org.apache.http.impl.execchain.RedirectExec.execute(RedirectExec.java:110)
+  at org.apache.http.impl.client.InternalHttpClient.doExecute(InternalHttpClient.java:184)
+  at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:82)
+  at com.aliyun.oss.common.comm.DefaultServiceClient.sendRequestCore(DefaultServiceClient.java:124)
+  at com.aliyun.oss.common.comm.ServiceClient.sendRequestImpl(ServiceClient.java:133)
+  ... 8 more
+```
+
+-   Cause
+
+    After ossClient.shutdown\(\) is called, requests are sent by using ossClient.
+
+-   Solution
+
+    You can check the call logic. Ensure that no requests are sent by using ossClient after ossClient.shutdown\(\) is called.
+
+
+## What do I do if "Request has expired" is returned when the request is generated by using generatePresignedUrl of OSS SDK for Java?
+
+-   Cause
+
+    An integer overflow occurs, which results in the Year 2038 problem.
+
+    An upload request is initiated when the expiration time specified for the URL is exceeded.
+
+-   Solution
+
+    If the integer overflows, we recommend that you set the expiration time for the URL in OSS SDK for Java to a value earlier than the year 2038.
+
+    If an upload request is initiated after the expiration time specified by the URL is exceeded, we recommend that you set a proper expiration time that is later than the time when you initiated the request.
+
+
+## What do I do if the "SignatureDoesNotMatch" error is returned?
+
+-   Cause 1
+
+    -   The version of the OSS SDK for Java that you use is earlier than 3.7.0 and the httpclient of version 4.5.9 and later is used in your project.
+    -   The name of the uploaded object contains a plus sign \(`+`\). However, the httpclient of version 4.5.9 does not encode the plus sign \(`+`\) by using URL encoding. Therefore, this error is returned to indicate that the signatures on the client and server does not match.
+    ![1](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/9831239061/p184586.png)
+
+    Solution
+
+    -   We recommend that you upgrade your OSS SDK for Java to version 3.11.1 or later to ensure the compatibility with the httpclient of version 4.5.9.
+    -   Remove the unnecessary dependency on httpclient. The dependency on httpclient is automatically imported when you import OSS SDK for Java. If httpclient is imported by third-party libraries, see the solution described in [JAR conflicts](#section_u5d_qgd_kfb).
+-   Cause 2
+
+    The httpclient of version 4.5.10 or later is imported in your project and the request headers contain characters that are not supported by ISO/9959-1. For example, the headers whose names start with `x-oss-meta-` contain Chinese characters.
+
+    Solution
+
+    -   Follow the solution described in [JAR conflicts](#section_u5d_qgd_kfb) to remove the httpclient of version 4.5.10 or later.
+    -   Ensure that the characters contained in request headers are supported by ISO/9959-1.
+
+## What do I do if the "Invalid Response" or "Implementation of JAXB-API has not been found on module path or classpath" exception occurs?
+
+-   Cause
+
+    Java 9 or later is installed and the dependencies on JAXB are not added.
+
+-   Solution
+
+    For more information about how to add the dependencies on JAXB, see [Install OSS SDK for Java](/intl.en-US/SDK Reference/Java/Installation.md).
+
+
+## Other errors
+
+For more information about how to resolve other errors returned by OSS, see [OSS 403]().
 
