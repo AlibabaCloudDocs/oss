@@ -249,7 +249,7 @@ Authorization: SignatureValue
 
 |错误码|HTTP 状态码|描述|
 |:--|:-------|:-|
-|NoSuchKey|404|请求的文件不存在。|
+|Not Found|404|请求的文件不存在。|
 |SymlinkTargetNotExist|404|请求的文件类型为软链接。|
 |InvalidTargetType|400|请求的文件类型为软链接，且对应的目标文件类型也为软链接。|
 |Not Modified|304|-   指定了If-Modified-Since请求头，但源Object在指定的时间后没被修改过。
