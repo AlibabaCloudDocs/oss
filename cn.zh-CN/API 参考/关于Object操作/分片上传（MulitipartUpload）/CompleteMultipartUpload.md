@@ -16,7 +16,9 @@
 
 -   PartNumber
 
-    用户提交的Part列表中，PartNumber可以不连续。例如第一个Part的PartNumber是1，第二个Part的PartNumber可以是5。
+    服务端在调用CompleteMultipartUpload接口时会对PartNumber做校验。
+
+    PartNumber取值为1~10000。PartNumber可以不连续，但必须升序排列。例如第一个Part的PartNumber是1，第二个Part的PartNumber可以是5。
 
 -   UploadId
 
@@ -54,7 +56,7 @@ Authorization: Signature
 
 |名称|类型|描述|
 |:-|:-|:-|
-|Encoding-type|字符串|指定对返回的Key进行编码，目前支持URL编码。Key使用UTF-8字符，但XML 1.0标准不支持解析一些控制字符，例如ascii值从0到10的字符。对于Key中包含XML 1.0标准不支持的控制字符，可以通过指定Encoding-type对返回的Key进行编码。
+|encoding-type|字符串|指定对返回的Key进行编码，目前支持URL编码。Key使用UTF-8字符，但XML 1.0标准不支持解析一些控制字符，例如ascii值从0到10的字符。对于Key中包含XML 1.0标准不支持的控制字符，可以通过指定Encoding-type对返回的Key进行编码。
 
 默认值：无
 
@@ -112,7 +114,7 @@ Authorization: Signature
 -   请求示例
 
     ```
-    POST /multipart.data? uploadId=0004B9B2D2F7815C432C9057C031****  HTTP/1.1
+    POST /multipart.data?uploadId=0004B9B2D2F7815C432C9057C031****&encoding-type=url HTTP/1.1
     Host: oss-example.oss-cn-hangzhou.aliyuncs.com
     Content-Length: 1056
     Date: Fri, 24 Feb 2012 10:19:18 GMT
@@ -145,6 +147,7 @@ Authorization: Signature
     Date: Fri, 24 Feb 2012 10:19:18 GMT
     <?xml version="1.0" encoding="UTF-8"?>
     <CompleteMultipartUploadResult xmlns=”http://doc.oss-cn-hangzhou.aliyuncs.com”>
+        <EncodingType>url</EncodingType>
         <Location>http://oss-example.oss-cn-hangzhou.aliyuncs.com /multipart.data</Location>
         <Bucket>oss-example</Bucket>
         <Key>multipart.data</Key>
