@@ -1,104 +1,101 @@
-# Data security {#concept_cmk_hgg_4fb .concept}
+# Data security
 
-The iOS SDK provides data integrity checks to secure data during uploads and downloads.
+OSS SDK for iOS provides data integrity checks to ensure data security in uploads and downloads.
 
-## Data integrity checks during file uploads {#section_plw_3gg_4fb .section}
+## Data integrity checks in uploads
 
-Due to the complexities in mobile network environments, an error can occur when data is transmitted between the client and the server. The OSS iOS SDK provides end-to-end data integrity checks based on MD5 and CRC64 values.
+Due to the complex environment of mobile networks, an error may occur when data is transferred between the client and server. OSS provides end-to-end data integrity checks based on MD5 hashes and 64-bit CRC values.
 
 -   MD5 verification
 
-    You must provide the Content-MD5 value of the file during the upload. The OSS server performs the MD5 verification after the file is uploaded. The upload can succeed only when the MD5 value of the file received by the OSS server is equal to the MD5 value provided before the upload. In this way, the integrity of uploaded data is guaranteed.
+    If you specify the Content-MD5 header in the request when you upload an object, OSS performs MD5 verification on the object to ensure data integrity. The object is uploaded only when the MD5 hash of the received object is consistent with the Content-MD5 value specified in the request.
 
-    ```language-java
+    ```
     OSSPutObjectRequest * request = [OSSPutObjectRequest new];
     request.bucketName = BUCKET_NAME;
     ...
-    request.contentMd5 = [OSSUtil fileMD5String:filepath];
-    
+    request.contentMd5 = [base64Md5ForFilePath];                    
     ```
 
--   CRC
+-   CRC verification
 
-    Compared with MD5 values, CRC64 values can be calculated during file uploads.
+    The 64-bit CRC value of an object can be calculated when the object is being uploaded. The following code provides an example on how to perform CRC when you upload an object:
 
     ```
-    // Construct an upload request.
+    // Construct a request to upload the object.
     OSSPutObjectRequest * request = [OSSPutObjectRequest new];
-    request.bucketName = OSS_BUCKET_PRIVATE;
+    request.bucketName = BUCKET_NAME;
     ///....
     request.crcFlag = OSSRequestCRCOpen;
-    // After the CRC is enabled, If data inconsistency is found during the upload, OSSClientErrorCodeInvalidCRC is thrown.
+    // Enable CRC verification.
     OSSTask * task = [_client putObject:request];
     [[task continueWithBlock:^id(OSSTask *task) {
-        // If the CRC fails, an error is reported.
+        // If the data is inconsistent during upload, the CRC verification fails and the OSSClientErrorCodeInvalidCRC error is returned.
         XCTAssertNil(task.error);
         return nil;
     }] waitUntilFinished];
     ```
 
 
-## Data integrity checks during file downloads {#section_vbh_23g_4fb .section}
+## Data integrity checks in downloads
 
-The OSS iOS SDK provides end-to-end data integrity checks based on CRC64 values.
+OSS SDK for iOS provides end-to-end data integrity checks based on 64-bit CRC values in downloads.
 
-When you read a downloaded data stream, the data integrity check is automatically performed if the CRC is enabled.
+If CRC verification is enabled, OSS automatically checks data integrity after it reads data from a stream.
 
-Use the following code to enable the CRC:
+The following code provides an example on how to enable CRC verification in downloads:
 
-```language-java
+```
 OSSGetObjectRequest * request = [OSSGetObjectRequest new];
-request.bucketName = ... ;
-// Enable the CRC.
+request.bucketName = BUCKET_NAME;
+// Enable CRC verification.
 request.crcFlag = OSSRequestCRCOpen;
 
 OSSTask * task = [testProxyClient getObject:request];
 
 [[task continueWithBlock:^id(OSSTask *task) {
-	// If the CRC is enabled and a data error occurs during transmission, OSSClientErrorCodeInvalidCRC is thrown.
+    // If an error occurs during transmission after CRC verification is enabled, OSSClientErrorCodeInvalidCRC is returned.
     XCTAssertNil(task.error);
     return nil;
 }] waitUntilFinished];
 
-Note: If the onReceiveData block field is set, you must check the consistency of CRC64 values after the CRC is enabled. Example:
+// If the onReceiveData block is set, you must check whether the CRC value is the same.
 OSSGetObjectRequest * request = [OSSGetObjectRequest new];
-request.bucketName = ....
+request.bucketName = BUCKET_NAME;
 request.crcFlag = OSSRequestCRCOpen;
 ....
     
-__block uint64_t localCrc64 = 0;
-	// If the onReceiveData block field is set,
+__block uint64_t localCrc64 = 0;    
 NSMutableData *receivedData = [NSMutableData data];
 request.onRecieveData = ^(NSData *data) {
-	if (data)
-	{
-		NSMutableData *mutableData = [data mutableCopy];
-    	void *bytes = mutableData.mutableBytes;
-    	localCrc64 = [OSSUtil crc64ecma:localCrc64 buffer:bytes length:data.length];
-    	[receivedData appendData:data];
+    if (data)
+    {
+        NSMutableData *mutableData = [data mutableCopy];
+        void *bytes = mutableData.mutableBytes;
+        localCrc64 = [OSSUtil crc64ecma:localCrc64 buffer:bytes length:data.length];
+        [receivedData appendData:data];
     }
 };
     
 __block uint64_t remoteCrc64 = 0;
 OSSTask * task = [_client getObject:request];
 [[task continueWithBlock:^id(OSSTask *task) {
-	XCTAssertNil(task.error);
-   	OSSGetObjectResult *result = task.result;
+    XCTAssertNil(task.error);
+       OSSGetObjectResult *result = task.result;
     if (result.remoteCRC64ecma) 
-	{
-    	NSScanner *scanner = [NSScanner scannerWithString:result.remoteCRC64ecma];
-		[scanner scanUnsignedLongLong:&remoteCrc64];
+    {
+        NSScanner *scanner = [NSScanner scannerWithString:result.remoteCRC64ecma];
+        [scanner scanUnsignedLongLong:&remoteCrc64];
         if (remoteCrc64 == localCrc64)
         {
-        	NSLog(@"CRC64 verification succeeded!"); ;
+            NSLog(@ "crc64 verification successful.") ;
         }
-		else
+        else
         {
-        	NSLog(@"CRC64 verification failed!"); ;
+            NSLog(@"crc64 verification failed!") ;
         }
    }
    return nil;
-}] waitUntilFinished];
-
+}] waitUntilFinished];            
 ```
 
