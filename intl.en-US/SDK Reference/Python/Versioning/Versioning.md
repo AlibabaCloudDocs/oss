@@ -13,8 +13,7 @@ The following code provides an example on how to configure versioning for a buck
 import oss2
 from oss2.models import BucketVersioningConfig
 
-# Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS, because the account has permissions on all API operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create your RAM user, log on to https://ram.console.aliyun.com.
-auth = oss2.Auth('<yourAccessKeyId>', '<yourAccessKeySecret>')
+# Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS, because the account has permissions on all API operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create your RAM user, log on to the RAM console.
 # This example uses the endpoint of the China (Hangzhou) region. Specify the actual endpoint based on your requirements.
 bucket = oss2.Bucket(auth, 'http://oss-cn-hangzhou.aliyuncs.com', '<yourBucketName>')
 
@@ -39,7 +38,7 @@ The following code provides an example on how to obtain the versioning state of 
 # -*- coding: utf-8 -*-
 import oss2
 
-# Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS, because the account has permissions on all API operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create your RAM user, log on to https://ram.console.aliyun.com.
+# Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS, because the account has permissions on all API operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create your RAM user, log on to the RAM console.
 auth = oss2.Auth('<yourAccessKeyId>', '<yourAccessKeySecret>')
 # This example uses the endpoint of the China (Hangzhou) region. Specify the actual endpoint based on your requirements.
 bucket = oss2.Bucket(auth, 'http://oss-cn-hangzhou.aliyuncs.com', '<yourBucketName>')
