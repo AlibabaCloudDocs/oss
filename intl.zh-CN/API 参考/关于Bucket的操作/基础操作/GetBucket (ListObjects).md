@@ -2,9 +2,11 @@
 
 GetBucket \(ListObjects\)接口用于列举存储空间（Bucket）中所有文件（Object）的信息。
 
-**说明：**
+## 注意事项
 
--   GetBucket \(ListObjects\)接口已修订为GetBucketV2 \(ListObjectsV2\)。建议您在开发应用程序时使用较新的版本GetBucketV2 \(ListObjectsV2\)。为保证向后兼容性，OSS继续支持GetBucket \(ListObjects\)。有关GetBucketV2 \(ListObjectsV2\)的详情，请参见[GetBucketV2 \(ListObjectsV2\)](/intl.zh-CN/API 参考/关于Bucket的操作/基础操作/GetBucketV2 (ListObjectsV2).md)。
+调用该接口时，有如下注意事项：
+
+-   GetBucket \(ListObjects\)接口已修订为GetBucketV2 \(ListObjectsV2\)。建议您在开发应用程序时使用较新的版本GetBucketV2 \(ListObjectsV2\)。为保证向后兼容性，OSS继续支持GetBucket \(ListObjects\)。有关GetBucketV2 \(ListObjectsV2\)的更多信息，请参见[GetBucketV2 \(ListObjectsV2\)](/intl.zh-CN/API 参考/关于Bucket的操作/基础操作/GetBucketV2 (ListObjectsV2).md)。
 -   执行GetBucket \(ListObjects\)请求时不会返回Object中自定义的元信息。
 
 ## 请求语法
@@ -16,74 +18,76 @@ Date: GMT Date
 Authorization: SignatureValue
 ```
 
+## 请求头
+
+此接口仅涉及公共请求头，例如`Authorization`、`Host`等更多信息，请参见[公共请求头（Common Request Headers）](/intl.zh-CN/API 参考/公共HTTP头定义.md)。
+
 ## 请求参数
 
-|名称|类型|是否必选|描述|
-|:-|:-|:---|:-|
-|Delimiter|字符串|否|对Object名字进行分组的字符。所有Object名字包含指定的前缀，第一次出现Delimiter字符之间的Object作为一组元素（即CommonPrefixes）。 默认值：无 |
-|Marker|字符串|否|设定从Marker之后按字母排序开始返回Object。 Marker用来实现分页显示效果，参数的长度必须小于1024字节。
+|名称|类型|是否必选|示例值|描述|
+|:-|:-|:---|---|:-|
+|delimiter|字符串|否|/|对Object名字进行分组的字符。所有Object名字包含指定的前缀，第一次出现delimiter字符之间的Object作为一组元素（即CommonPrefixes）。 默认值：无 |
+|marker|字符串|否|test1.txt|设定从marker之后按字母排序开始返回Object。 marker用来实现分页显示效果，参数的长度必须小于1024字节。
 
- 做条件查询时，即使Marker在列表中不存在，也会从符合Marker字母排序的下一个开始打印。
+做条件查询时，即使marker在列表中不存在，也会从符合marker字母排序的下一个开始打印。
 
- 默认值：无 |
-|Max-keys|字符串|否|指定返回Object的最大数。 取值：大于0小于1000
+默认值：无 |
+|max-keys|字符串|否|200|指定返回Object的最大数。 如果因为max-keys的设定无法一次完成列举，返回结果会附加NextMarker元素作为下一次列举的marker。取值：大于0小于1000
 
- 默认值：100
+默认值：100 |
+|prefix|字符串|否|fun|限定返回文件的Key必须以prefix作为前缀。 -   prefix参数的长度必须小于1024字节。
+-   使用prefix查询时，返回的Key中仍会包含prefix。
 
- **说明：** 如果因为Max-keys的设定无法一次完成列举，返回结果会附加一个`<NextMarker>`作为下一次列举的Marker。 |
-|Prefix|字符串|否|限定返回文件的Key必须以Prefix作为前缀。 如果把Prefix设为某个文件夹名，则列举以此Prefix开头的文件，即该文件夹下递归的所有文件和子文件夹。
+如果把prefix设为某个文件夹名，则列举以此Prefix开头的文件，即该文件夹下递归的所有文件和子文件夹。
 
- 在设置Prefix的基础上，将Delimiter设置为正斜线（/）时，返回值中只列举该文件夹下的文件，文件夹下的子文件夹名返回在CommonPrefixes中，子文件夹下递归的所有文件和文件夹不显示。
+在设置prefix的基础上，将delimiter设置为正斜线（/）时，返回值中只列举该文件夹下的文件，文件夹下的子文件夹名返回在CommonPrefixes中，子文件夹下递归的所有文件和文件夹不显示。
 
- 例如，一个Bucket中有三个Object ，分别为fun/test.jpg、 fun/movie/001.avi和fun/movie/007.avi。如果设定Prefix为fun/，则返回三个Object；如果在Prefix设置为fun/的基础上，将Delimiter设置为正斜线（/），则返回fun/test.jpg和fun/movie/。
+例如，一个Bucket中有三个Object ，分别为fun/test.jpg、 fun/movie/001.avi和fun/movie/007.avi。如果设定prefix为fun/，则返回三个Object；如果在prefix设置为fun/的基础上，将delimiter设置为正斜线（/），则返回fun/test.jpg和fun/movie/。
 
- **说明：**
+默认值：无 |
+|encoding-type|字符串|否|URL|对返回的内容进行编码并指定编码的类型。 默认值：无
 
--   参数的长度必须小于1024字节。
--   使用Prefix查询时，返回的Key中仍会包含Prefix。
+可选值：URL
 
- 默认值：无 |
-|Encoding-type|字符串|否|对返回的内容进行编码并指定编码的类型。 默认值：无
-
- 可选值：url
-
- **说明：** Delimiter、Marker、Prefix、NextMarker以及Key使用UTF-8字符。如果Delimiter、Marker、Prefix、NextMarker以及Key中包含XML 1.0标准不支持的控制字符，您可以通过指定Encoding-type对返回结果中的Delimiter、Marker、Prefix、NextMarker以及Key进行编码。 |
+**说明：** delimiter、marker、prefix、NextMarker以及Key使用UTF-8字符。如果delimiter、marker、prefix、NextMarker以及Key中包含XML 1.0标准不支持的控制字符，您可以通过指定encoding-type对返回结果中的Delimiter、Marker、Prefix、NextMarker以及Key进行编码。 |
 
 ## 响应元素
 
-|名称|类型|描述|
-|--|--|--|
-|Contents|容器|保存每个返回Object元信息的容器。 父节点：ListBucketResult |
-|CommonPrefixes|字符串|如果请求中指定了Delimiter参数，则会在返回的响应中包含CommonPrefixes元素。该元素表明以Delimiter结尾，并有共同前缀的Object名称的集合。 父节点：ListBucketResult |
-|Delimiter|字符串|对Object名字进行分组的字符。所有名字包含指定的前缀且第一次出现Delimiter字符之间的Object作为一组元素CommonPrefixes。 父节点：ListBucketResult |
-|EncodingType|字符串|指明了返回结果中编码使用的类型。如果请求的参数中指定了Encoding-type，则会对返回结果中的Delimiter、Marker、Prefix、NextMarker和Key这些元素进行编码。 父节点：ListBucketResult |
-|DisplayName|字符串|Object拥有者名称。 父节点：ListBucketResult.Contents.Owner |
-|ETag|字符串|ETag \(Entity Tag\) 在每个Object生成时创建，用于标识一个Object的内容。 -   对于PutObject请求创建的Object，ETag值是其内容的MD5值。
+|名称|类型|示例值|描述|
+|--|--|---|--|
+|Contents|容器|不涉及|保存每个返回Object元信息的容器。 父节点：ListBucketResult |
+|CommonPrefixes|字符串|不涉及|如果请求中指定了Delimiter参数，则会在返回的响应中包含CommonPrefixes元素。该元素表明以Delimiter结尾，并有共同前缀的Object名称的集合。 父节点：ListBucketResult |
+|Delimiter|字符串|/|对Object名字进行分组的字符。所有名字包含指定的前缀且第一次出现Delimiter字符之间的Object作为一组元素CommonPrefixes。 父节点：ListBucketResult |
+|EncodingType|字符串|不涉及|指明了返回结果中编码使用的类型。如果请求的参数中指定了encoding-type，则会对返回结果中的Delimiter、Marker、Prefix、NextMarker和Key这些元素进行编码。 父节点：ListBucketResult |
+|DisplayName|字符串|user\_example|Object拥有者名称。 父节点：ListBucketResult.Contents.Owner |
+|ETag|字符串|5B3C1A2E053D763E1B002CC607C5A0FE1\*\*\*\*|ETag \(Entity Tag\) 在每个Object生成时创建，用于标识一个Object的内容。 -   对于PutObject请求创建的Object，ETag值是其内容的MD5值。
 -   对于其他方式创建的Object，ETag值是其内容的UUID。
 -   ETag值可以用于检查Object内容是否发生变化。不建议使用ETag值作为Object内容的MD5校验数据完整性的依据。
 
- 父节点：ListBucketResult.Contents |
-|ID|字符串|Bucket拥有者的用户ID。 父节点：ListBucketResult.Contents.Owner |
-|IsTruncated|枚举字符串|请求中返回的结果是否被截断。 返回值：true、false
+父节点：ListBucketResult.Contents |
+|ID|字符串|0022012\*\*\*\*|Bucket拥有者的用户ID。 父节点：ListBucketResult.Contents.Owner |
+|IsTruncated|枚举字符串|false|请求中返回的结果是否被截断。 返回值：true、false
 
 -   true表示本次没有返回全部结果。
 -   false表示本次已经返回了全部结果。
 
- 父节点：ListBucketResult |
-|Key|字符串|Object的Key。 父节点：ListBucketResult.Contents |
-|LastModified|时间|Object最后被修改的时间。 父节点：ListBucketResult.Contents |
-|ListBucketResult|容器|保存GetBucket请求结果的容器。 子节点：Name、Prefix、 Marker、MaxKeys、 Delimiter、IsTruncated、Nextmarker、Contents
+父节点：ListBucketResult |
+|Key|字符串|fun/test.jpg|Object的Key。 父节点：ListBucketResult.Contents |
+|LastModified|时间|2012-02-24T08:42:32.000Z|Object最后被修改的时间。 父节点：ListBucketResult.Contents |
+|ListBucketResult|容器|不涉及|保存GetBucket请求结果的容器。 子节点：Name、Prefix、 Marker、MaxKeys、 Delimiter、IsTruncated、Nextmarker、Contents
 
- 父节点：None |
-|Marker|字符串|标识此次GetBucket（ListObjects）的起点。 父节点：ListBucketResult |
-|MaxKeys|字符串|响应请求内返回结果的最大数目。 父节点：ListBucketResult |
-|Name|字符串|Bucket名称。 父节点：ListBucketResult |
-|Owner|容器|保存Bucket拥有者信息的容器。 子节点：DisplayName、ID
+父节点：None |
+|Marker|字符串|test1.txt|标识此次GetBucket（ListObjects）的起点。 父节点：ListBucketResult |
+|MaxKeys|字符串|100|响应请求内返回结果的最大数目。 父节点：ListBucketResult |
+|Name|字符串|oss-example|Bucket名称。 父节点：ListBucketResult |
+|Owner|容器|不涉及|保存Bucket拥有者信息的容器。 子节点：DisplayName、ID
 
- 父节点：ListBucketResult |
-|Prefix|字符串|本次查询结果的前缀。 父节点：ListBucketResult |
-|Size|字符串|Object的字节数。 父节点：ListBucketResult.Contents |
-|StorageClass|字符串|Object的存储类型。 父节点：ListBucketResult.Contents |
+父节点：ListBucketResult |
+|Prefix|字符串|fun/|本次查询结果的前缀。 父节点：ListBucketResult |
+|Size|字符串|344606|返回Object大小，单位为字节。 父节点：ListBucketResult.Contents |
+|StorageClass|字符串|Standard|Object的存储类型。 父节点：ListBucketResult.Contents |
+
+此接口涉及的其他公共响应头，例如`x-oss-request-id`、`Content-Type`等的更多信息，请参见[公共响应头（Common Response Headers）](/intl.zh-CN/API 参考/公共HTTP头定义.md)。
 
 ## 示例
 
@@ -165,7 +169,7 @@ Authorization: SignatureValue
     </ListBucketResult>
     ```
 
--   带Prefix参数的请求示例
+-   带prefix参数的请求示例
 
     ```
     GET /?prefix=fun HTTP/1.1
@@ -231,7 +235,7 @@ Authorization: SignatureValue
     </ListBucketResult>
     ```
 
--   带Prefix和Delimiter参数的请求示例
+-   带prefix和delimiter参数的请求示例
 
     ```
     GET /?prefix=fun/&delimiter=/ HTTP/1.1
@@ -276,7 +280,7 @@ Authorization: SignatureValue
     </ListBucketResult>
     ```
 
--   指定Marker分页列举的请求示例
+-   指定marker分页列举的请求示例
 
     此示例中指定了max-keys=2，即最多返回2条列举信息。
 
@@ -360,10 +364,10 @@ Authorization: SignatureValue
 
 ## 错误码
 
-|错误码|HTTP 状态码|描述|
-|:--|:-------|:-|
+|错误码|HTTP状态码|描述|
+|:--|:------|:-|
 |NoSuchBucket|404|目标Bucket不存在。|
 |AccessDenied|403|没有访问该Bucket的权限。|
-|InvalidArgument|400|-   Max-keys小于0或者大于1000。
--   Prefix、Marker、Delimiter参数的长度不符合要求。 |
+|InvalidArgument|400|-   max-keys小于0或者大于1000。
+-   prefix、marker、delimiter参数的长度不符合要求。 |
 
