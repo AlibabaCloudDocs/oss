@@ -1,77 +1,217 @@
-# Multipart upload {#concept_hgg_3vb_dhb .concept}
+# Multipart upload
 
-This topic describes how to use multipart upload.
+By using the multipart upload feature provided by OSS, you can split a large object into multiple parts and upload them separately. After all parts are uploaded, call the CompleteMultipartUpload operation to combine these parts into a single object to implement resumable upload.
 
-**Note:** The following sample code uses the catch syntax. Learn ES6 Promise and ES6 Async/Await on your own. For more information about how to use the SDK, see [Installation](reseller.en-US/SDK Reference/Node. js/Installation.md#).
+## Background information
 
-To upload a large file, you can use `multipartUpload`. The advantage of multipart upload is to divide the upload request of a large file into multiple small requests and run each small request. This method guarantees that when some of the requests fail, you need only to upload the failed parts instead of the entire file. We recommend that you use multipart upload for files that are larger than 100 MB.
+To upload a large file, you can call [MultipartUpload]() to perform multipart upload. In multipart upload, a file is divided into multiple parts for upload. If some parts fail to upload, you can continue the upload based on the recorded upload progress to upload only the parts fail to upload. We recommend that you use multipart upload to upload files larger than 100 MB to improve the upload success rate.
 
-If `ConnectionTimeoutError` occurs during the use of multipartUpload, the business side must process the timeout logic on its own. You can scale in the part size, prolong the timeout period, retry the request, or analyze the specific cause by capturing `ConnectionTimeoutError`.
+You must handle the `ConnectionTimeoutError` error by yourself when you call the MultipartUpload operation. You can handle timeout errors by reducing part size, increasing expiration period, sending the request again, or identifying `ConnectionTimeoutError` error messages. For more information, see [Network connection timeout handling]().
 
-Relevant parameters are described as follows:
+The following table describes the parameters that you can configure for multiple upload.
 
--   name \{String\}: specifies the object name.
--   file \{String|File\}: specifies the file path or the HTML5 file.
--   \[options\] \{Object\}: specifies optional parameters.
-    -   \[checkpoint\] \{Object\}: specifies the checkpoint information. If this parameter is set, the upload starts from the recorded checkpoint information. If this parameter is not set, the entire file needs to be uploaded.
-    -   \[parallel\] \{Number\}: specifies the number of parts that are to be uploaded simultaneously.
-    -   \[partSize\] \{Number\}: specifies the size of each part.
-    -   \[progress\] \{Function\}: specifies the async function mode. The callback function involves three parameters:
-        -   \(percentage \{Number\}: specifies the percentage of the upload progress \(or a decimal from 0 to 1\).
-        -   checkpoint \{Object\}: specifies the checkpoint information.
-        -   res \{Object\}\): specifies the response to a part upload request.
-    -   \[meta\] \{Object\}: specifies the Object Meta you can set in the header. The prefix of Object Meta in the header is `x-oss-meta-`.
-    -   \[mime\] \{String\}: specifies the `Content-Type` value you can define in the header.
-    -   \[headers\] \{Object\}: specifies other field information in the header. For more information, see [RFC 2616](http://www.w3.org/Protocols/rfc2616/rfc2616.html).
-        -   'Cache-Control': specifies the cache mechanism that is added to HTTP request or response headers. The cache mechanism is implemented through commands. Example: `Cache-Control: public, no-cache`.
-        -   'Content-Disposition': specifies the form in which the reply content is displayed. The reply content can be displayed on a Web page, or downloaded and saved locally as an attachment. Example: `Content-Disposition: somename`.
-        -   'Content-Encoding': compresses the data of a specific medium type, such as `Content-Encoding: gzip`.
-        -   'Expires': specifies the validity period, such as `Expires: 3600000`.
+|Type|Parameter|Description|
+|----|---------|-----------|
+|Required parameters|name \{String\}|The name of the object. The object name includes the complete object path excluding the bucket name.|
+|file \{String\|File\}|The path of the local file or HTML5 file to upload.|
+|\[options\] \{Object\} Optional parameters|\[checkpoint\] \{Object\}|The checkpoint file that records the result of the multipart upload task. You must set this parameter if you want to perform resumable upload by using multipart upload. The checkpoint file stores the progress information about a multipart upload task. If a part fails to be uploaded, the task can be continued based on the progress recorded in the checkpoint file. After you have uploaded the file, the file is deleted.|
+|\[parallel\] \{Number\}|The number of parts that can be uploaded concurrently. Default value: 5. Do not modify the value of this parameter unless necessary.|
+|\[partSize\] \{Number\}|The size of each part to upload. Valid values: 100 KB to 5 GB. Default value: 1 MB. Do not modify the value of this parameter unless necessary.|
+|\[progress\] \{Function\}|The callback function used to query the progress of the upload task. The callback function can be an async function. The callback function includes the following parameters: -   percentage \{Number\}: the progress of the upload task in percentage. Valid values: decimals from 0 to 1.
+-   checkpoint \{Object\}: the checkpoint file that records the result of multipart upload.
+-   res \{Object\}: the response returned when a part is uploaded. |
+|\[meta\] \{Object\}|The user metadata, which is prefixed with `x-oss-meta`.|
+|\[mime\] \{String\}|The Content-Type request header.|
+|\[headers\] \{Object\}|Other headers. For more information, visit [RFC 2616](http://www.w3.org/Protocols/rfc2616/rfc2616.html). Some headers are described as follows: -   Cache-Control: specifies the caching behavior by using specified commands in HTTP requests or responses. Example: `Cache-Control: public, no-cache`.
+-   Content-Disposition: specifies whether the returned content is displayed as a web page or downloaded as an attachment. Example: `Content-Disposition: somename`.
+-   Content-Encoding: the method to compress data of the specified media type. Example: `Content-Encoding: gzip`.
+-   Expires: the validity period of the request. Unit: milliseconds. |
 
-Use the following code for multipart upload:
+The sample code in this topic uses the catch method. To obtain the syntax of this method, learn the Promise function defined in ECMAScript 6 and the async and await methods of this function. For more information about how to use OSS SDKs, see [Installation](/intl.en-US/SDK Reference/Node. js/Installation.md).
 
-```language-js
-let OSS = require('ali-oss')
+## Complete sample code
 
-let client = new OSS({
+The following code provides a complete example that describes the process of multipart upload:
+
+```
+const OSS = require('ali-oss');
+
+const client = new OSS({
+  // The endpoint of the China (Hangzhou) region is used in this example. Specify the actual endpoint.
   region: '<Your region>',
+  // Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS because the account has permissions on all API operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create a RAM user, log on to the RAM console.
   accessKeyId: '<Your AccessKeyId>',
   accessKeySecret: '<Your AccessKeySecret>',
-  bucket: 'Your bucket name'
+  bucket: '<Your bucket name>',
 });
 
-async function multipartUpload () {
+const progress = (p, _checkpoint) => {
+  console.log(p); // The upload progress of the object.
+  console.log(_checkpoint); // The checkpoint information of the multipart upload task.
+};
+
+// Start the multipart upload task.
+async function multipartUpload() {
   try {
-    let result = await client.multipartUpload('object-name', 'local-file', {
-    progress,
-	meta: {
-	  year: 2017,
-	  people: 'test'
-	}
-  });
-  console.log(result);
-  let head = await client.head('object-name');
-  console.log(head);
+    // Set object-name to a name such as file.txt or a folder such as abc/test/file.txt to upload the object to the root folder or the specified folder of the bucket.
+    const result = await client.multipartUpload('<Object Name>', 'file-object', {
+      progress,
+      // meta specifies the user metadata. You can query the object metadata by calling the HeadObject operation.
+      meta: {
+        year: 2020,
+        people: 'test',
+      },
+    });
+    console.log(result);
+    const head = await client.head('object-name');
+    console.log(head);
   } catch (e) {
-   // Catch the timeout exception.
-	if (e.code === 'ConnectionTimeoutError') {
-	  console.log("Woops,timeout exception!") ;
-	  // do ConnectionTimeoutError operation
-	}
-    console.log(e)
+    // Handle timeout exceptions.
+    if (e.code === 'ConnectionTimeoutError') {
+      console.log('TimeoutError');
+      // do ConnectionTimeoutError operation
+    }
+    console.log(e);
   }
 }
 
+multipartUpload();
 ```
 
-progress is a progress upload callback function that is used to obtain the upload progress. progress can be an async function:
+**Note:** OSS SDK for Node.js does not support MD5 verification in multipart upload tasks. We recommend that you call the CRC64 library to determine whether to perform CRC64 checks after the multipart upload task is complete.
 
-```language-js
-const progress = async function (p) {
-  console.log(p);
+## Cancel a multipart upload task
+
+You can call `client.AbortMultipartUpload` to cancel a multipart upload task. If you cancel a multipart upload task, you cannot use the upload ID to upload any parts. The uploaded parts are deleted.
+
+The following code provides an example on how to cancel a multipart upload task:
+
+```
+const OSS = require('ali-oss');
+
+const client = new OSS({
+  // The endpoint of the China (Hangzhou) region is used in this example. Specify the actual endpoint.
+  region: '<Your region>',
+  // Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS because the account has permissions on all API operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create a RAM user, log on to the RAM console.
+  accessKeyId: '<Your AccessKeyId>',
+  accessKeySecret: '<Your AccessKeySecret>',
+  bucket: '<Your bucket name>',
+});
+
+async function abortMultipartUpload() {
+  const name = '<Object Name>'; // The full path of the object in a bucket.
+  const uploadId = '<Upload Id>'; // The upload ID of the multipart upload task.
+  const result = await client.abortMultipartUpload(name, uploadId);
+  console.log(result);
+}
+
+abortMultipartUpload();
+```
+
+## List multipart upload tasks
+
+The following sample code provides an example on how to call `client.listUploads` to list multipart upload tasks:
+
+```
+const OSS = require('ali-oss');
+
+const client = new OSS({
+  // The endpoint of the China (Hangzhou) region is used in this example. Specify the actual endpoint.
+  region: '<Your region>',
+  // Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS because the account has permissions on all API operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create a RAM user, log on to the RAM console.
+  accessKeyId: '<Your AccessKeyId>',
+  accessKeySecret: '<Your AccessKeySecret>',
+  bucket: '<Your bucket name>',
+});
+
+async function listUploads(query = {}) {
+  // You can configure parameters such as prefix, marker, delimiter, upload-id-marker, and max-uploads for query.
+  const result = await client.listUploads(query);
+
+  result.uploads.forEach(upload => {
+    console.log(upload.uploadId); // The upload ID of the multipart upload task.
+    console.lo g(upload.name); // Combine all uploaded parts into a complete object and specify the full path of the object in a bucket.
+  });
+}
+
+const query = {
+  'max-uploads': 1000, // Specify the maximum number of multipart upload tasks to return at a time. The default value and the maximum value of max-uploads are both 1000.
 };
-
+listUploads(query);
 ```
 
-meta specifies Object Meta. You can use head to obtain Object Meta.
+## List uploaded parts
+
+You can call the `client.listParts` method to list all parts that are uploaded by using the specified upload ID.
+
+-   Simple list
+
+    The following code provides an example on how to list uploaded parts:
+
+    ```
+    const OSS = require('ali-oss');
+    
+    const client = new OSS({
+      // The endpoint of the China (Hangzhou) region is used in this example. Specify the actual endpoint.
+      region: '<Your region>',
+      // Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS because the account has permissions on all API operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create a RAM user, log on to the RAM console.
+      accessKeyId: '<Your AccessKeyId>',
+      accessKeySecret: '<Your AccessKeySecret>',
+      bucket: '<Your bucket name>',
+    });
+    
+    async function listParts() {
+      const query = {
+        'max-parts': 1000, // Specify the maximum number of parts that can be returned in the OSS response. The default value and the maximum value of max-uploads are both 1000.
+      };
+      const result = await client.listParts('<Object Name>', '<Upload Id>', query);
+    
+      result.parts.forEach(part => {
+        console.log(part.PartNumber);
+        console.log(part.LastModified);
+        console.log(part.ETag);
+        console.log(part.Size);
+      });
+    }
+    
+    listParts();
+    ```
+
+-   List all uploaded parts
+
+    By default, `client.listParts` can list up to 1,000 parts at a time. The following code provides an example on how to list more than 1,000 parts:
+
+    ```
+    const OSS = require('ali-oss')
+    
+    const client = new OSS({
+      // The endpoint of the China (Hangzhou) region is used in this example. Specify the actual endpoint.
+      region: '<Your region>',
+      // Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS because the account has permissions on all API operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create a RAM user, log on to the RAM console.
+      accessKeyId: '<Your AccessKeyId>',
+      accessKeySecret: '<Your AccessKeySecret>',
+      bucket: '<Your bucket name>',
+    });
+    
+    async function listParts() {
+      const query = {
+        'max-parts': 1000, // Specify the maximum number of parts that can be returned in the OSS response. The default value and the maximum value of max-uploads are both 1000.
+      };
+      let result;
+      do {
+        result = await client.listParts('<Object Name>', '<Upload Id>', query);
+        // Set the position from which the list begins.
+        query['part-number-marker'] = result.nextPartNumberMarker;
+        result.parts.forEach(part => {
+          console.log(part.PartNumber);
+          console.log(part.LastModified);
+          console.log(part.ETag);
+          console.log(part.Size);
+        });
+      } while (result.isTruncated === "true");
+    }
+    
+    listParts();
+    ```
+
 
