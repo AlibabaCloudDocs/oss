@@ -17,7 +17,7 @@ CopyObject接口用于拷贝同一地域下相同或不同存储空间（Bucket�
     使用CopyObject或UploadPartCopy接口均要求对源Object有读权限。
 
 -   在非版本控制的Bucket中，当拷贝的源Object与目标Object为同一个Object，调用CopyObject接口时，不拷贝源Object的内容，仅修改源Object的元数据。
--   不支持拷贝通过追加上传方式产生的Object。
+-   在版本控制的Bucket中，不支持拷贝通过追加上传方式产生的Object。
 -   如果源Object为软链接，则只拷贝软链接，无法拷贝软链接指向的文件内容。
 
 ## 计量计费
