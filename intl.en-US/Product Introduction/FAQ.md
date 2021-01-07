@@ -60,7 +60,7 @@ This topic provides answers to commonly asked questions about how to get started
 
 -   How do I get started with OSS?
 
-    Before you use OSS, ensure that you have created an Alibaba Cloud account and completed real-name verification. If you do not have an Alibaba Cloud account, the system prompts you to create an Alibaba Cloud account when you activate OSS. For more information, see [Create Your Alibaba Cloud Account](https://account.aliyun.com/register/register.htm). After you create the Alibaba Cloud account, open the [Object Storage Service product homepage](https://www.aliyun.com/product/oss). Click **Activate Now**. By default, the billing method after you activate OSS is [Pay-as-you-go](/intl.en-US/Pricing/Billing methods/Pay-as-you-go.md). To further minimize OSS costs, we recommend that you purchase resource plans. For more information, see [OSS Resource Plan](https://common-buy-intl.alibabacloud.com/?spm=a3c0i.7950270.3682168050.4.7174ab91cz9kJX&commodityCode=oss_bag_intl#/buy).
+    Before you use OSS, ensure that you have created an Alibaba Cloud account and completed real-name verification. If you do not have an Alibaba Cloud account, the system prompts you to create an Alibaba Cloud account when you activate OSS. For more information, see [Create Your Alibaba Cloud Account](https://account.aliyun.com/register/register.htm). After you create the Alibaba Cloud account, open the [Object Storage Service product homepage](https://www.alibabacloud.com/product/oss). Click **Activate OSS**. By default, the billing method after you activate OSS is [Pay-as-you-go](/intl.en-US/Pricing/Billing methods/Pay-as-you-go.md). To further minimize OSS costs, we recommend that you purchase resource plans. For more information, see [OSS Resource Plan](https://common-buy-intl.alibabacloud.com/?spm=a3c0i.7950270.3682168050.4.7174ab91cz9kJX&commodityCode=oss_bag_intl#/buy).
 
     You can get started with OSS by using the OSS console, graphical management tool, command-line management tool, and SDKs for various programming languages. For more information, see [Get started with OSS](/intl.en-US/Quick Start/Get started with OSS.md).
 
@@ -99,7 +99,7 @@ This topic provides answers to commonly asked questions about how to get started
 
 -   How do I control access to my OSS data?
 
-    OSS provides multiple methods to control access to objects in a bucket, such as ACL, RAM policies, and bucket policies. For more information, see [Overview](/intl.en-US/Developer Guide/Data security/Access and control/Overview.md).
+    OSS provides multiple methods to control access to objects in a bucket, such as ACL, RAM policies, and bucket policies. For more information, see [Overview of access control](/intl.en-US/Developer Guide/Data security/Access and control/Overview.md).
 
 -   What data encryption methods does OSS provide?
 
