@@ -6,7 +6,7 @@ JDK 1.7 and 1.8 have been installed.
 
 ## Quick start
 
-1.  Download [ossimport-2.3.5.zip](http://gosspublic.alicdn.com/ossimport/international/standalone/ossimport-2.3.5.zip) and decompress the file.
+1.  Download [ossimport-2.3.5.zip](https://gosspublic.alicdn.com/ossimport/international/standalone/ossimport-2.3.5.zip) and decompress the file.
 
     The structure of the decompressed file is as follows:
 
