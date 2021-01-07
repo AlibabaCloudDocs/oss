@@ -64,24 +64,20 @@ Authorization: SignatureValue
 |默认主页 如果设置，则访问以正斜线（/）结尾的Object时都会返回此默认主页。
 
 父节点：IndexDocument |
-    |SupportSubDir|字符串|否|表示是否支持访问子目录时转到子目录下的默认主页。 取值：
+    |SupportSubDir|字符串|否|表示是否支持访问子目录时转至子目录下的默认主页。 取值：
 
-    -   true：则表示转到子目录下的默认主页。
-    -   false：表示不转到子目录下的默认主页，而是转到根目录下的默认主页。
-假设访问bucket.oss-cn-hangzhou.aliyuncs.com/subdir/时，默认主页设置为index.html，则false表示转到bucket.oss-cn-hangzhou.aliyuncs.com/index.html，true表示转到bucket.oss-cn-hangzhou.aliyuncs.com/subdir/index.html。
-
-默认值：false
+    -   true：表示转至子目录下的默认主页。
+    -   false（默认值）：表示不转至子目录下的默认主页，而是转至根目录下的默认主页。
+假设访问`bucket.oss-cn-hangzhou.aliyuncs.com/subdir/`时，默认主页设置为index.html，则false表示转到`bucket.oss-cn-hangzhou.aliyuncs.com/index.html`，true表示转到`bucket.oss-cn-hangzhou.aliyuncs.com/subdir/index.html`。
 
 父节点：IndexDocument |
     |Type|枚举值|否|表示设置了默认主页后，访问以非正斜线（/）结尾的Object，且该Object不存在时的行为。 **说明：** 只有在SupportSubDir为true时生效，且生效的顺序在RoutingRule之后、ErrorFile之前。
 
 假设默认主页设置为index.html，访问的文件路径是bucket.oss-cn-hangzhou.aliyuncs.com/abc，且abc这个Object不存在，此时type三种取值类型对应的行为如下：
 
-    -   0：检查abc/index.html是否存在（即`Object + 正斜线（/）+ 主页`的形式），如果存在则返回302，Location头为`/abc/`的URL编码（即`正斜线（/） + Object + 正斜线（/）`的形式），如果不存在则返回404，继续检查ErrorFile。
+    -   0（默认值）：检查abc/index.html是否存在（即`Object + 正斜线（/）+ 主页`的形式），如果存在则返回302，Location头为`/abc/`的URL编码（即`正斜线（/） + Object + 正斜线（/）`的形式），如果不存在则返回404，继续检查ErrorFile。
     -   1：直接返回404，报错NoSuchKey，继续检查ErrorFile。
     -   2：检查abc/index.html是否存在，如果存在则返回该Object的内容；如果不存在则返回404，继续检查ErrorFile。
-默认值：0
-
 父节点：IndexDocument |
 
 -   ErrorDocument的内容
@@ -120,7 +116,7 @@ Authorization: SignatureValue
 父节点：RoutingRule |
     |KeyPrefixEquals|字符串|否|只有匹配此前缀的Object才能匹配此规则。 父节点：Condition |
     |HttpErrorCodeReturnedEquals|HTTP状态码|否|访问指定Object时返回此status才能匹配此规则。当跳转规则是镜像回源类型时，此字段必须为404。 父节点：Condition |
-    |IncludeHeader|容器|否|只有请求中包含了指定Header，且值为指定值时，才能匹配此规则。该容器最多可指定5个。 父节点：Condition |
+    |IncludeHeader|容器|否|只有请求中包含了指定Header，且值为指定值时，才能匹配此规则。该容器最多可指定10个。 父节点：Condition |
     |Key|字符串|有条件若指定了父节点IncludeHeader，则必须指定此项。
 
 |只有请求中包含了此Header，且值为Equals的指定值时，才能匹配此规则。 父节点：IncludeHeader |
@@ -144,10 +140,9 @@ Authorization: SignatureValue
 
     -   Mirror：镜像回源
     -   External：外部跳转，即OSS会返回一个3xx请求，指定跳转到另外一个地址。
-    -   Internal：内部跳转，即OSS会根据此规则将访问的Object1转换成另外一个Object2，相当于用户访问的是Object2。
     -   AliCDN：阿里云CDN跳转，主要用于阿里云的CDN。与External不同的是，OSS会额外添加一个Header。阿里云CDN识别到此Header后会主动跳转到指定的地址，返回给用户获取到的数据，而不是将3xx跳转请求返回给用户。
 父节点：Redirect |
-    |PassQueryString|布尔|否|执行跳转或者镜像回源时，是否携带请求参数。 用户请求OSS时携带了请求参数`?a=b&c=d`，并且此项设置为true，当规则为302跳转，则跳转的Location头中会添加此请求参数。例如`Location:www.test.com?a=b&c=d`，跳转类型是镜像回源，则在发起的回源请求中也会携带此请求参数。
+    |PassQueryString|布尔|否|执行跳转或者镜像回源规则时，是否携带请求参数。 用户请求OSS时携带了请求参数`?a=b&c=d`，并且此项设置为true，当规则为302跳转，则跳转的Location头中会添加此请求参数。例如`Location:www.test.com?a=b&c=d`，跳转类型是镜像回源，则在发起的回源请求中也会携带此请求参数。
 
 取值：true、false
 
@@ -168,10 +163,10 @@ Authorization: SignatureValue
 父节点：Redirect |
     |MirrorFollowRedirect|布尔|否|如果镜像回源获取的结果是3xx，是否要继续跳转到指定的Location获取数据。 例如发起镜像回源请求时，如果源站返回了302，并且指定了Location。
 
-    -   如果设置为true，则oss会继续请求Location指定的地址（最多跳转10次，如果超过10次，则返回镜像回源失败）。
-    -   如果设置为false，则OSS返回302，并将Location透传出去。只有在RedirectType为Mirror时生效。
-默认值：true
+取值如下：
 
+    -   true（默认值）：OSS会继续请求Location指定的地址（最多跳转10次，如果超过10次，则无法返回镜像回源请求）。
+    -   false：OSS返回302，并透传Location透传。只有在RedirectType为Mirror时生效。
 父节点：Redirect |
     |MirrorCheckMd5|布尔|否|是否检查回源body的MD5。 当此项为true且源站返回的response中含有Content-Md5头时，OSS检查拉取的数据MD5是否与此Header匹配，如果不匹配，则不保存在OSS上。仅在RedirectType为Mirror时生效。
 
@@ -260,7 +255,7 @@ Authorization: SignatureValue
     Host: oss-example.oss-cn-hangzhou.aliyuncs.com
     Content-Length: 209
     Date: Fri, 04 May 2012 03:21:12 GMT
-    Authorization: OSS qn6qrrqx******k53otfjbyc:KU5h8YM******0dXqf3JxrTZHiA=
+    Authorization: OSS nxj7dtwhcyl5hp****:sNKIHT6ci/z231yIT5vYnetD****
     
     <?xml version="1.0" encoding="UTF-8"?>
     <WebsiteConfiguration>
@@ -293,7 +288,7 @@ Authorization: SignatureValue
     Date: Fri, 27 Jul 2018 09:03:18 GMT
     Content-Length: 2064
     Host: test.oss-cn-hangzhou-internal.aliyuncs.com
-    Authorization: OSS a1nBN******QMf8u:sNKIHT6ci/z231yIT5vYnetD****
+    Authorization: OSS nxj7dtwhcyl5hp****:sNKIHT6ci/z231yIT5vYnetD****
     User-Agent: aliyun-sdk-python-test/0.4.0
     
     <WebsiteConfiguration>
@@ -349,6 +344,21 @@ Authorization: SignatureValue
             <PassQueryString>false</PassQueryString>
             <ReplaceKeyWith>prefix/${key}.suffix</ReplaceKeyWith>
             <HttpRedirectCode>301</HttpRedirectCode>
+          </Redirect>
+        </RoutingRule>
+        <RoutingRule>
+          <Condition>
+            <HttpErrorCodeReturnedEquals>404</HttpErrorCodeReturnedEquals>
+          </Condition>
+          <RuleNumber>3</RuleNumber>
+          <Redirect>
+            <ReplaceKeyWith>prefix/${key}</ReplaceKeyWith>
+            <HttpRedirectCode>302</HttpRedirectCode>
+            <EnableReplacePrefix>false</EnableReplacePrefix>
+            <PassQueryString>false</PassQueryString>
+            <Protocol>http</Protocol>
+            <HostName>www.test.com</HostName>
+            <RedirectType>External</RedirectType>
           </Redirect>
         </RoutingRule>
       </RoutingRules>
