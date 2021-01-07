@@ -1,141 +1,121 @@
-# Distributed deployment {#concept_axx_n3h_wdb .concept}
+# Distributed deployment
 
-## Download {#section_nvo_fb8_8j6 .section}
+This topic describes how to deploy ossimport in a distributed method. You can deploy ossimport in the distributed method only in Linux.
 
-Distributed deployment currently only supports Linux, and does not support Windows.
+## Download
 
-Download the tool for distributed deployment: [ossimport-2.3.4.tar.gz](http://gosspublic.alicdn.com/ossimport/international/distributed/ossimport-2.3.4.tar.gz).
-
-Download the tool to a local directory and use the command `tar -zxvf ossimport-2.3.4.tar.gz -C $HOME/ossimport` to unzip the files. The file structure after the unzipping is as follows:
+Download the tool for distributed deployment: [ossimport-2.3.5.tar.gz](http://gosspublic.alicdn.com/ossimport/international/distributed/ossimport-2.3.5.tar.gz). Download the tool to a local directory and run the command `tar -zxvf ossimport-2.3.5.tar.gz -C $HOME/ossimport` to decompress the file. The file structure of the decompressed tool is as follows:
 
 ```
 ossimport
 ├── bin
-│   ├── console.jar     # The JAR package of the console module
-│   ├── master.jar      # The JAR package of the master module
-│   ├── tracker.jar     # The JAR package of the tracker module
-│   └── worker.jar      # The JAR package of the worker module
+│ ├── console.jar     # The JAR package for the Console module.
+│ ├── master.jar      # The JAR package for the Master module.
+│ ├── tracker.jar     # The JAR package for the Tracker module.
+│ └── worker.jar      # The JAR package for the Worker module.
 ├── conf
-│   ├── job.cfg         # The template of the job configuration file
-│   ├── sys.properties  # Configuration file of the system running parameters
-│   └── workers         # Worker list
-├── console.sh          # The command line tool. Currently it only supports Linux
-├── logs                # Log directory
-└── README.md           # Description documentation. Read it carefully before use
+│ ├── job.cfg         # The Job configuration file template.
+│ ├── sys.properties  # The configuration file that contains system parameters.
+│ └── workers         # The list of Workers.
+├── console.sh          # The command-line tool. Currently, only Linux is supported.
+├── logs                # The directory that contains logs.
+└── README.md           # The file that introduces or explains ossimport. We recommend that you read this file before you use ossimport.
 ```
 
 Note:
 
--   OSS\_IMPORT\_HOME: The root directory of ossImport. By default the directory is the $HOME/ossimport in the unzip command. You can also run the `export OSS_IMPORT_HOME=<dir>` command or modify the system configuration file $HOME/.bashrc to set the directory.
--   OSS\_IMPORT\_WORK\_DIR: The ossImport working directory. You can specify the directory through the configuration item workingDir in conf/sys.properties. The recommended values is $HOME/ossimport/workdir.
--   Use absolute paths for OSS\_IMPORT\_HOME or OSS\_IMPORT\_WORK\_DIR, such as /home/<user\>/ossimport or /home/<user\>/ossimport/workdir.
+-   OSS\_IMPORT\_HOME: The root directory of ossImport. By default the directory is the `$HOME/ossimport` in the decompress command. You can also run the `export OSS_IMPORT_HOME=<dir>` command or modify the system configuration file `$HOME/.bashrc` to set the directory. We recommend that you keep the default value.
+-   OSS\_IMPORT\_WORK\_DIR: The working directory of ossimport. You can specify the directory by setting the value of `workingDir` in `conf/sys.properties`. We recommend that you set the value to `$HOME/ossimport/workdir`.
+-   Specify absolute paths for OSS\_IMPORT\_HOME or OSS\_IMPORT\_WORK\_DIR, such as `/home/<user>/ossimport` or `/home/<user>/ossimport/workdir`.
 
-## Configuration {#section_d73_njv_khp .section}
+## Parameter
 
-The distributed version has three configuration files: `conf/sys.properties`, `conf/job.cfg`, and `conf/workers`. For descriptions of the configuration items, see the Introduction chapter.
+The distributed deployment of ossimport is performed based on three configuration files: `conf/sys.properties`, `conf/job.cfg`, and `conf/workers`.
 
--   `conf/job.cfg`: The configuration file template for the job in distributed mode. Modify the values according to the actual parameters before data migration.
--   `conf/sys.properties`: The configuration file for the system run parameters, such as the working directory and the worker running parameters.
--   `conf/workers`: The worker list.
+-   `conf/job.cfg`: The configuration file template used to configure jobs in distributed mode. Modify the values according to the actual parameters before data migration.
+-   `conf/sys.properties`: The configuration file used to configure system operating parameters, such as working directory and worker.
+-   `conf/workers`: : The worker list.
 
-**Note:** 
+**Note:**
 
--   Confirm the parameters in sys.properties and job.cfg before submitting the job. The parameters in the job are not allowed to be changed after the job is submitted.
--   Determine the worker list `workers` before starting the service. After the service is started, workers are not allowed to be added or deleted.
+-   Confirm the parameters in `sys.properties` and `job.cfg` before submitting a job. The parameters for a job cannot be changed after the job is submitted.
+-   Configure `workers` before you start the service. The configuration in this file cannot be added or deleted after the service is started.
 
-## Running {#section_ej8_rdo_z8v .section}
+## Running
 
--   Run commands.
+-   Perform migration tasks
 
-    In distributed deployment, the general steps for job execution are as follows:
+    The distributed deployment of ossimport is performed in the following steps:
 
-    -   Modify the job configuration file.
-    -   Deploy the service.
+    -   Deploy the service. Run the bash console.sh deploy command in Linux.
 
-        Run `bash console.sh deploy` in Linux.
+        **Note:** Ensure the configuration files such as conf/job.cfg and conf/workers are properly configured before you deploy the service.
 
-        **Note:** Make sure the configuration files Conf/job. cfg and CONF/workers have been modified before deployment.
+    -   Clear jobs with the same name. If you have run a job with the same name and want to run the job again, clear the job with the same name first. If you have not run the job or you want to retry the tasks of a failed job, do not run the clear command. To clear jobs with the same name, run the `bash console.sh clean job_name` command in Linux.
+    -   Submit the data migration job. You cannot submit jobs with the same name. In this case, run the `clean` command to clear the jobs. To submit a job, you must specify the configuration file of the job. You can create the configuration file of a job by modifying the `conf/job.cfg` template. Run `bash console.sh submit [job_cfg_file]` in Linux to submit a job that uses job\_cfg\_file as its configuration file. In the command, `job_cfg_file` is optional and is set to `$OSS_IMPORT_HOME/conf/job.cfg` by default. By default, the value of `$OSS_IMPORT_HOME` is the path where `console.sh` is located.
+    -   Start the service. Run the `bash console.sh start` command in Linux.
+    -   View job status. Run the `bash console.sh stat` command in Linux.
+    -   Retry failed tasks. Tasks may fail because of network issues or other reasons. When you run the retry command, only failed tasks are retried. Run the `bash console.sh retry [job_name]` command in Linux. In the command, `job_name` is an optional parameter that specifies the jobs in which failed tasks need to retry. If this parameter is not specified, failed tasks of all jobs are retried.``
+    -   Stop the service. Run the `bash console.sh stop` command in Linux.
+    Note:
 
-    -   Clear jobs of the same name.
+    -   If an error occurs because of incorrect parameters in a command, `bash console.sh` prompts you the correct command format.
+    -   We recommend that you specify absolute paths for the paths in configuration files and submitted jobs.
+    -   The configurations in `job.cfg`
 
-        If you ran a job of the same name before and want to run the job again, clear the job with the same name first. If you have never run the job or you want to retry the tasks of a failed job, do not run the clear command. Run `bash console.sh clean job_name` in Linux.
+        **Note:** cannot be modified after the file is submitted. Confirm the items in the file before you submit the file.
 
-    -   Submit the data migration job.
-
-        OssImport does not support submitting jobs of the same name. If jobs with the same name exist, use the `clean` command to clean the job with the same name first. To submit a job, you must specify the job configuration file. The job’s configuration file template is conf/job.cfg. We recommend that you modify the settings based on the template. Run `bash console.sh submit [job_cfg_file]` in Linux and submit the job with the configuration file job\_cfg\_file. The `job_cfg_file` is an optional parameter. If not specified, the parameter is `$OSS_IMPORT_HOME/conf/job.cfg` by default. The `$OSS_IMPORT_HOME` is by default the directory where the console.sh file is located.
-
-    -   Start the migration service.
-
-        Run `bash console.sh start` in Linux.
-
-    -   View the job state.
-
-        Run `bash console.sh stat` in Linux.
-
-    -   Retry failed tasks.
-
-        Tasks may fail to run because of network issues or other causes. Only failed tasks are retried. Run `bash console.sh retry [job_name]` in Linux. The job\_name parameter is optional. If it is specified, tasks of failed jobs are retried. If it is not specified, tasks of all jobs are retried.
-
-    -   Stop the migration job.
-
-        Run `bash console.sh stop` in Linux.
-
-        **Note:** 
-
-        -   When the `bash console.sh` parameter has an error, `console.sh` automatically prompts the command format.
-        -   We recommend that you use absolute paths for directories of the configuration file and submitted jobs.
-        -   The configuration for jobs \(that is, the configuration items in job.cfg\) cannot be modified after submitted.
--   Common causes of job failure
-    -   A file in the source directory was modified during the upload process. This cause is indicated by a `SIZE_NOT_MATCH` error in `log/audit.log`. In this case, the old file has been uploaded successfully, but the changes have not been synchronized to the OSS.
-    -   A source file was deleted during the upload process, leading to the download failure.
-    -   A source file name does not conform to naming rules of the OSS \(file name cannot start with / or be empty\), leading to the upload failure to the OSS.
-    -   The data source file fails to be downloaded.
+-   Common causes of job failures
+    -   If the files in the source path are modified during upload, an error that contains `SIZE_NOT_MATCH` are recorded in `log/audit.log`. In this case, only the files before modification are uploaded to OSS.
+    -   If the source file is deleted during upload, you may fail to download the file.
+    -   If the name of the file to upload does not conform to the naming conventions of OSS \(for example, start with a forward slash or be empty\), the upload fails.
+    -   Fail to download the source file from OSS.
     -   The program exits unexpectedly and the job state is Abort. If this happens, contact after-sales technical support.
--   Job states and logs
+-   Job status and logs
 
-    After a job is submitted, the master splits the job into tasks, the workers run the tasks and the tracker collects the task states. After a job is completed, the workdir directory contains the following:
+    After a job is submitted, the master splits the job into tasks, the workers run the tasks and the tracker collects the task status. After a job is completed, the structure of the workdir directory is as follows:
 
     ```
     workdir
     ├── bin
-    │   ├── console.jar     # The JAR package of the console module
-    │   ├── master.jar      # The JAR package of the master module
-    │   ├── tracker.jar     # The JAR package of the tracker module
-    │   └── worker.jar      # The JAR package of the worker module
+    │ ├── console.jar     # The JAR package for the Console module.
+    │ ├── master.jar      # The JAR package for the Master module.
+    │ ├── tracker.jar     # The JAR package for the Tracker module.
+    │ └── worker.jar      # The JAR package for the Worker module.
     ├── conf
-    │   ├── job.cfg         # The template of the job configuration file
-    │   ├── sys.properties  # Configuration file of the system running parameters
-    │   └── workers         # Worker list
+    │ ├── job.cfg         # The Job configuration file template.
+    │ ├── sys.properties  # The configuration file that contains system parameters.
+    │ └── workers         # The list of Workers.
     ├── logs
-    │   ├── import.log      # Migration logs
-    │   ├── master.log      # Master logs
+    │   ├── import.log      # Migration logs.
+    │   ├── master.log      # Master logs.
     │   ├── tracker.log     # Tracker logs
-    │   └── worker.log      # Worker logs
+    │ └── workers         # Worker logs.
     ├── master
-    │   ├── jobqueue                 # Store jobs that have not been fully split
-    │   └── jobs                     # Store the job running state
-    │       └── xxtooss              # Job name
-    │           ├── checkpoints      # The checkpoint record that the master splits the job to tasks
+    │   ├── jobqueue                 # Jobs that are not split.
+    │   └── jobs                     # Job status.
+    │       └── xxtooss              # Job names.
+    │           ├── checkpoints      # Checkpoints generated when Master splits jobs into tasks. 
     │           │   └── 0
     │           │       └── ED09636A6EA24A292460866AFDD7A89A.cpt
-    │           ├── dispatched       # Tasks that have been assigned to the workers but haven't been fully run
+    │           ├── dispatched       # Tasks dispatched to workers but are not complete.
     │           │   └── 192.168.1.6
-    │           ├── failed_tasks     # Tasks that failed to run
+    │           ├── failed_tasks     # Failed tasks.
     │           │   └── A41506C07BF1DF2A3EDB4CE31756B93F_1499348973217@192.168.1.6
-    │           │       ├── audit.log     # The task running log. You can view the error causes in the log
-    │           │       ├── DONE          # Mark of successful tasks. If the task fails, the mark is empty
-    │           │       ├── error.list    # The task error list. You can view the error file list
-    │           │       ├── STATUS        # The task state mark file. The content is Failed or Completed, indicating that the task failed or succeeded
-    │           │       └── TASK          # The task description information
-    │           ├── pending_tasks    # Tasks that have not been assigned
-    │           └── succeed_tasks    # Tasks that run successfully
+    │           │       ├── audit.log     # The running logs of tasks. You can view the logs to identify error causes.
+    │           │       ├── DONE          # The mark file of successful tasks. If the task fails, the content is empty.
+    │           │       ├── error.list    # Error list of tasks. You can view the errors in the file.
+    │           │       ├── STATUS        # The mark file that indicates task status. The content of this file is Failed or Completed, indicating that the task failed or succeeded.
+    │           │       └── TASK          # Description of the tasks.
+    │           ├── pending_tasks    # Tasks that are not dispatched.
+    │           └── succeed_tasks    # Tasks that run successfully.
     │               └── A41506C07BF1DF2A3EDB4CE31756B93F_1499668462358@192.168.1.6
-    │                   ├── audit.log    # The task running log. You can view the error causes in the log
-    │                   ├── DONE         # Mark of successful tasks
-    │                   ├── error.list   # Task error list. If the task is successful, the list is empty
-    │                   ├── STATUS       # The task state mark file. The content is Failed or Completed, indicating that the task failed or succeeded
-    │                   └── TASK         # The task description information
-    └── worker  # state of the task being run by the worker. After running, tasks are managed by the master
+    │                   ├── audit.log    # The running logs of tasks. You can view the logs to identify error causes.
+    │                   ├── DONE         # The mark file of successful tasks.
+    │                   ├── error.list   # Error list of tasks. If the tasks are successful ,the error list is empty.
+    │                   ├── STATUS       # The mark file that indicates task status. The content of this file is Failed or Completed, indicating that the subtask failed or succeeded.
+    │                   └── TASK         # Description of the tasks.
+    └── worker  # Status of the task being run by the worker. After running, tasks are managed by the master.
         └── jobs
             ├── local_test2
             │   └── tasks
@@ -143,14 +123,14 @@ The distributed version has three configuration files: `conf/sys.properties`, `c
                 └── tasks
     ```
 
-    **Note:** 
+    **Note:**
 
-    -   For job running information, view logs/import.log.
-    -   For the task failure cause, view master/jobs/$\{JobName\}/failed\_tasks/$\{TaskName\}/audit.log.
-    -   For failed task files, view master/jobs/$\{JobName\}/failed\_tasks/$\{TaskName\}/error.list.
-    -   The preceding log files are for reference only. Do not deploy your services and application entirely based on them.
+    -   To view the running information about jobs, view `logs/import.log`.
+    -   To know the causes of failed tasks, view `master/jobs/${JobName}/failed_tasks/${TaskName}/audit.log`.
+    -   To view errors occurred during the task, view `master/jobs/${JobName}/failed_tasks/${TaskName}/error.list`.
+    -   The preceding log files are for reference only. Do not deploy your services and application based on them.
 
-## FAQ {#section_4v5_djg_rc1 .section}
+## Common errors and troubleshooting
 
-See [FAQ](reseller.en-US/Tools/ossimport/FAQ.md#).
+For more information about common errors and troubleshooting, see [FAQ](/intl.en-US/Tools/ossimport/Troubleshooting.md).
 
