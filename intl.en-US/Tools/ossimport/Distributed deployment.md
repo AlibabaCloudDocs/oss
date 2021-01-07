@@ -4,7 +4,7 @@ This topic describes how to deploy ossimport in a distributed method. You can de
 
 ## Download
 
-Download the tool for distributed deployment: [ossimport-2.3.5.tar.gz](http://gosspublic.alicdn.com/ossimport/international/distributed/ossimport-2.3.5.tar.gz). Download the tool to a local directory and run the command `tar -zxvf ossimport-2.3.5.tar.gz -C $HOME/ossimport` to decompress the file. The file structure of the decompressed tool is as follows:
+Download the tool for distributed deployment: [ossimport-2.3.5.tar.gz](https://gosspublic.alicdn.com/ossimport/international/distributed/ossimport-2.3.5.tar.gz). Download the tool to a local directory and run the command `tar -zxvf ossimport-2.3.5.tar.gz -C $HOME/ossimport` to decompress the file. The file structure of the decompressed tool is as follows:
 
 ```
 ossimport
