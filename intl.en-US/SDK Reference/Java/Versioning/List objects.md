@@ -8,7 +8,7 @@ The following code provides an example on how to list the versions of all object
 
 ```
 // The endpoint of the China (Hangzhou) region is used in this example. Specify the actual endpoint.
-String endpoint = "httpss://oss-cn-hangzhou.aliyuncs.com";
+String endpoint = "https://oss-cn-hangzhou.aliyuncs.com";
 // Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS because the account has permissions on all API operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create a RAM user, log on to the RAM console.
 String accessKeyId = "<yourAccessKeyId>";
 String accessKeySecret = "<yourAccessKeySecret>";
