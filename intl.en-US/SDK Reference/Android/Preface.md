@@ -1,47 +1,29 @@
-# Preface {#concept_32042_zh .concept}
+# Preface
 
-This article describes how to install and use the OSS Android SDK.
+This topic is based on OSS Android SDK 2.9.5.
 
-## Introduction {#section_klp_h2f_lfb .section}
+## Compatibility
 
-This document assumes that you have already activated the Alibaba Cloud OSS service and created an AccessKeyID and an AccessKeySecret. In the document, ID refers to the AccessKeyID and KEY indicates the AccessKeySecret.
+Later versions of OSS Android SDK are backward-compatible with earlier versions.
 
-If you have not yet activated or do not know about the OSS service, log on to the [OSS product page](https://www.alibabacloud.com/product/oss) for more help.
+## Source code
 
-## Environment requirements {#section_q4s_p2f_lfb .section}
+For the source code of OSS Android SDK, see [GitHub](https://github.com/aliyun/aliyun-oss-android-sdk).
 
--   Android 2.3 or later
--   You must have registered an Alibaba Cloud account with the OSS activated.
+## Code samples
 
-## Download the SDK { .section}
+OSS SDK for Android provides a variety of code samples for your reference.
 
--   Android SDK
+The following table describes the content of code samples.
 
-    Android Studio environment:
-
-    ```
-    dependencies { compile 'com.aliyun.dpa:oss-android-sdk:+' }
-    ```
-
--   GitHub address: [click to view details](https://github.com/aliyun/aliyun-oss-android-sdk).
--   Sample address: [click to view details](https://github.com/aliyun/aliyun-oss-android-sdk/tree/master/app/src/main/java/com/alibaba/sdk/android/oss).
-
-## Compile the JAR package from the source code { .section}
-
-You can run the gradle command for packaging after cloning the project source code:
-
-```
-# Clone the project.
-$ git clone https://github.com/aliyun/aliyun-oss-android-sdk.git
-
-# Enter the directory.
-$ cd aliyun-oss-android-sdk/oss-android-sdk/
-
-# Run the packaging script. JDK 1.7 is required.
-$ ./gradlew releaseJar
-
-# Enter the directory generated after packaging and the JAR package will be generated in this directory.
-$ cd build/libs && ls
-
-```
+|Sample file|Content|
+|:----------|:------|
+|[BaseTestCase.java](https://github.com/aliyun/aliyun-oss-android-sdk/blob/master/oss-android-sdk/src/androidTest/java/com/alibaba/sdk/android/BaseTestCase.java)|[Initialization](/intl.en-US/SDK Reference/Android/Initialization.md)|
+|[OSSPutObjectTest.java](https://github.com/aliyun/aliyun-oss-android-sdk/blob/master/oss-android-sdk/src/androidTest/java/com/alibaba/sdk/android/OSSPutObjectTest.java)|[Upload objects](/intl.en-US/SDK Reference/Android/Upload objects/Overview.md)|
+|[OSSGetObjectTest.java](https://github.com/aliyun/aliyun-oss-android-sdk/blob/master/oss-android-sdk/src/androidTest/java/com/alibaba/sdk/android/OSSGetObjectTest.java)|[Download objects](/intl.en-US/SDK Reference/Android/Download objects/Overview.md)|
+|[ManageObjectTest.java](https://github.com/aliyun/aliyun-oss-android-sdk/blob/master/oss-android-sdk/src/androidTest/java/com/alibaba/sdk/android/ManageObjectTest.java)|[Manage objects](/intl.en-US/SDK Reference/Android/Manage objects/Overview.md)|
+|[OSSBucketTest.java](https://github.com/aliyun/aliyun-oss-android-sdk/blob/master/oss-android-sdk/src/androidTest/java/com/alibaba/sdk/android/OSSBucketTest.java)|[Bucket](/intl.en-US/SDK Reference/Android/Buckets/Create buckets.md)|
+|[ResumableUploadTest.java](https://github.com/aliyun/aliyun-oss-android-sdk/blob/master/oss-android-sdk/src/androidTest/java/com/alibaba/sdk/android/ResumableUploadTest.java)|[Resumable upload](/intl.en-US/SDK Reference/Android/Upload objects/Resumable upload.md)|
+|[CRC64Test.java](https://github.com/aliyun/aliyun-oss-android-sdk/blob/master/oss-android-sdk/src/androidTest/java/com/alibaba/sdk/android/CRC64Test.java)|[Data security](/intl.en-US/SDK Reference/Android/Data security.md)|
+|[ImagePersistTest.java](https://github.com/aliyun/aliyun-oss-android-sdk/blob/master/oss-android-sdk/src/androidTest/java/com/alibaba/sdk/android/ImagePersistTest.java)|[Image processing](/intl.en-US/SDK Reference/Android/Image processing.md)|
 
