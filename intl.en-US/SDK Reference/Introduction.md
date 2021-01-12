@@ -25,5 +25,4 @@ The following table describes the installation, operations, parameters, example 
 |Node.js|[OSS SDK for Node.js](/intl.en-US/SDK Reference/Node. js/Installation.md)|
 |Browser.js|[OSS SDK for Browser.js](/intl.en-US/SDK Reference/Browser.js/Installation.md)|
 |Ruby|[OSS SDK for Ruby](/intl.en-US/SDK Reference/Ruby/Installation.md)|
-|React Native|[OSS SDK for React Native](https://github.com/aliyun/aliyun-oss-react-native)|
 
