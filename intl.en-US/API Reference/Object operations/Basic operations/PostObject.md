@@ -4,7 +4,7 @@ You can call this operation to upload an object to a specified bucket by using a
 
 ## Usage notes
 
-Note the following items when you call the PostObject operation.
+When you call the PostObject operation, take note of the following items:
 
 -   To perform the PostObject operation on a bucket, you must have write permissions on the bucket. If the ACL of the bucket is public read/write, you do not need to upload the signature information. If the ACL of the bucket is not public read/write, signature verification is required for this operation.
 -   Unlike PutObject, PostObject uses an AccessKey secret to calculate the signature for policy. The calculated signature string is used as the value of the Signature form field. OSS checks this value to verify the validity of the signature.
@@ -17,7 +17,7 @@ If you initiate a PostObject request to a versioned bucket, OSS generates a uniq
 
 If you initiate a PostObject request to a bucket with versioning suspended, OSS generates a version ID null for the uploaded object and returns the version ID as the x-oss-version-id header in the response. An object can have only one version whose version ID is null.
 
-## Request syntax
+## Request structure
 
 ```
 POST / HTTP/1.1 
@@ -63,8 +63,8 @@ Upload to OSS
 
 **Note:** The message body of a PostObject request is encoded in the multipart/form-data format. In PostObject operations, parameters are passed as form fields in the request message body, whereas parameters are passed as HTTP request headers in PutObject operations.
 
-|Parameter|Type|Required|Description|
-|:--------|:---|--------|:----------|
+|Header|Type|Required|Description|
+|:-----|:---|--------|:----------|
 |OSSAccessKeyId|String|Conditional|The AccessKey ID of the bucket owner. Default value: null
 
 Constraint: This form field is required when the bucket ACL is not public read/write or when the policy or Signature form field is provided. |
@@ -84,11 +84,11 @@ The form submitted by the PostObject operation must be encoded in the `multipart
 |x-oss-content-type|String|No|You can add the x-oss-content-type header in the message body of a PostObject request to specify the Content-Type of the object to upload. The Content-Type value specified by the x-oss-content-type header has the highest priority.The content type of the object is determined by three headers in the following priority: x-oss-content-type \> Content-Type in the form field \> Content-Type.
 
 Default value: null |
-|key|String|Yes|The name of the object to upload. If the object name includes a path such as a/b/c/b.jpg, OSS automatically creates the corresponding folder. Default value: null |
+|key|String|Yes|The name of the object to upload. If the object name includes a path such as a/b/c/b.jpg, OSS automatically creates corresponding folders. Default value: null |
 |success\_action\_redirect|String|No|The URL to which the client is redirected after the object is uploaded. If this form field is not specified, the returned result is specified by success\_action\_status. If the upload fails, OSS returns an error code, and the client is not redirected to any URL. Default value: null |
-|success\_action\_status|String|No|The status code returned to the client when the success\_action\_redirect form field is not specified and the object is uploaded. Default value: null
+|success\_action\_status|String|No|The status code returned to the client when the success\_action\_redirect form field is not specified and the object is uploaded. Default value: 204
 
-Valid values: 200, 201, and 204. Default value: 204.
+Valid values: 200, 201, and 204.
 
 -   If the value of this form field is set to 200 or 204, OSS returns an empty file and the 200 or 204 status code.
 -   If the value of this form field is set to 201, OSS returns an XML file and the 201 status code.
@@ -100,27 +100,22 @@ If the request contains a form field prefixed with x-oss-meta-, the form field i
 **Note:** An object may have multiple similar parameters prefixed with x-oss-meta-, but the total size of the user metadata cannot exceed 8 KB. |
 |x-oss-server-side-encryption|String|No|The server-side encryption algorithm that is used when OSS creates the object. Valid values: AES256 and KMS
 
-**Note:** You must activate KMS before you can set the value of this parameter to KMS.
-
 If you specify this parameter, it is returned in the response header and the uploaded object is encrypted. When you download the encrypted object, the x-oss-server-side-encryption field is included in the response header and its value is set to the algorithm used to encrypt the object. |
 |x-oss-server-side-encryption-key-id|String|No|The ID of the customer master key \(CMK\) hosted in KMS. This parameter is valid only when the value of x-oss-server-side-encryption is set to KMS. |
-|x-oss-object-acl|String|No|The ACL configured when OSS creates the object. Valid values: public-read, private, and public-read-write |
+|x-oss-object-acl|String|No|The ACL of the object when the object is created. Valid values: public-read, private, and public-read-write |
 |x-oss-security-token|String|No|The security token for temporary authorization. If an STS temporary security credential is used for this access, you must set this field to the SecurityToken value and set OSSAccessKeyId to the value of the paired temporary AccessKey ID. The method for calculating a signature based on a temporary AccessKey ID is the same as that based on a typical AccessKey ID. Default value: null |
-|x-oss-forbid-overwrite|String|No|Specifies whether the PostObject operation overwrites the object with the same name. -   If x-oss-forbid-overwrite is not specified, the object with the same name is overwritten.
--   If the value of x-oss-forbid-overwrite is set to true, the object that has the same object name cannot be overwritten. If the value of x-oss-forbid-overwrite is set to false, the object that has the same object name can be overwritten.
+|x-oss-forbid-overwrite|String|No|Specifies whether the PostObject operation overwrites objects of the same name. When the versioning status of the requested bucket is enabled or suspended, the x-oss-forbid-overwrite request header is invalid. In this case, the PostObject operation overwrites objects of the same name.-   By default, if x-oss-forbid-overwrite is not specified, objects of the same name is overwritten.
+-   If the value of x-oss-forbid-overwrite is set to true, the object that has the same object name cannot be overwritten. If the value of x-oss-forbid-overwrite is set to false, objects of the same object name can be overwritten.
 
-**Note:**
-
--   The x-oss-forbid-overwrite request header is invalid when the versioning state of the target bucket is Enabled or Suspended. In this case, the PostObject operation overwrites the object with the same name.
--   If you specify the x-oss-forbid-overwrite request header, the query per second \(QPS\) performance of OSS may be degraded. If you want to use the x-oss-forbid-overwrite request header for a large number of operations \(QPS greater than 1000\), submit a ticket. |
+If you specify the x-oss-forbid-overwrite request header, the queries per second \(QPS\) performance of OSS may be degraded. If you want to use the x-oss-forbid-overwrite request header to perform a large number of operations \(QPS greater than 1000\), submit a ticket. |
 |file|String|Yes|The file or text content. Browsers automatically set the Content-Type header based on the file type and overwrite the user setting. Only one file can be uploaded to OSS at a time. Default value: null
 
-**Note:** It must be the last field in the form. |
+**Note:** This header must be the last field in the form. |
 
 ## Response headers
 
-|Parameter|Type|Description|
-|:--------|:---|:----------|
+|Header|Type|Description|
+|:-----|:---|:----------|
 |x-oss-server-side-encryption|String|If x-oss-server-side-encryption is specified in the request, the response contains this header to indicate the encryption algorithm used to encrypt the object at the server side.|
 
 ## Response elements
@@ -188,7 +183,7 @@ If you specify this parameter, it is returned in the response header and the upl
     ```
 
 
-## Error codes
+## Errors codes
 
 |Error code|HTTP status code|Description|
 |----------|----------------|-----------|
@@ -196,9 +191,9 @@ If you specify this parameter, it is returned in the response header and the upl
 |InvalidDigest|400|The error message returned because the Content-MD5 value of the request body that is calculated by OSS is not the same as the value of the Content-MD5 header field in the request.|
 |EntityTooLarge|400|The error message returned because the total size of the PostObject request body is greater than 5 GB.|
 |InvalidEncryptionAlgorithmError|400|The error message returned because the x-oss-server-side-encryption header field is set to a value other than AES256 or KMS.|
-|FileAlreadyExists|409|The error message returned because an object with the same name already exists when the request contains the x-oss-forbid-overwrite header and the value of this header is set to true.|
+|FileAlreadyExists|409|The error message returned because the request contains the x-oss-forbid-overwrite=true header and an object of the same name already exists.|
 |KmsServiceNotEnabled|403|The error message returned because x-oss-server-side-encryption is set to KMS but KMS is not activated in advance.|
-|FileImmutable|409|The error message returned because you delete or modify the data that is protected by a retention policy.|
+|FileImmutable|409|The error message returned the object you want to delete or modify is protected by a retention policy.|
 
 ## Appendix: Policy
 
@@ -254,12 +249,12 @@ In the policy form field of a PostObject request, the dollar sign \($\) is used 
 |Escape character|Description|
 |:---------------|:----------|
 |\\/|Forward slash|
-|\\|Backslash|
+|\\\\|Backslash|
 |\\"|Double quotation marks|
 |\\$|Dollar sign|
-|\\b|Backspace|
+|\\b|Space|
 |\\f|Form feed|
-|\\n|New line|
+|\\n|Line feed|
 |\\r|Carriage return|
 |\\t|Horizontal tab|
 |\\uxxxx|Unicode character|
