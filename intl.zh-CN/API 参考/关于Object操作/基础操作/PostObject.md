@@ -63,7 +63,7 @@ Upload to OSS
 
 **说明：** PostObject的消息实体通过多重表单格式（multipart/form-data）编码，在PutObject操作中参数通过HTTP请求头传递，在PostObject操作中则作为消息体中的表单域传递。
 
-|名称|类型|是否必须|描述|
+|名称|类型|是否必选|描述|
 |:-|:-|----|:-|
 |OSSAccessKeyId|字符串|有条件|Bucket拥有者的AccessKeyId。 默认值：无
 
@@ -98,21 +98,16 @@ Post操作提交表单编码必须为`multipart/form-data`，即Header中Content
 如果请求中携带以x-oss-meta-为前缀的表单域，则视为user meta，比如x-oss-meta-location。
 
 **说明：** 一个Object可以有多个类似的参数，但所有的user meta总大小不能超过8 KB。 |
-|x-oss-server-side-encryption|字符串|可选|指定OSS创建Object时的服务器端加密编码算法。 取值：AES256或KMS
-
-**说明：** 当您指定为KMS加密算法时，必须预先购买KMS套件。
+|x-oss-server-side-encryption|字符串|可选|创建Object时，指定服务器端加密方式。 取值：AES256、KMS
 
 指定此参数后，在响应头中会返回此参数，OSS会对上传的Object进行加密编码存储。当下载该Object时，响应头中会包含x-oss-server-side-encryption，且该值会被设置成该Object的加密算法。 |
 |x-oss-server-side-encryption-key-id|字符串|可选|表示KMS托管的用户主密钥。 该参数在x-oss-server-side-encryption的值为KMS时有效。 |
-|x-oss-object-acl|字符串|可选|指定OSS创建Object时的访问权限。 有效值：public-read、private、public-read-write |
+|x-oss-object-acl|字符串|可选|创建Object时，指定Object的访问权限。 有效值：public-read、private、public-read-write |
 |x-oss-security-token|字符串|可选|若本次访问是使用STS临时授权方式，则需要指定该项为SecurityToken的值，同时OSSAccessKeyId需要使用与之配对的临时AccessKeyId。计算签名时，与使用普通AccessKeyId签名方式一致。 默认值：无 |
-|x-oss-forbid-overwrite|字符串|可选|指定PostObject操作时是否覆盖同名Object。 -   不指定x-oss-forbid-overwrite时，默认覆盖同名Object。
+|x-oss-forbid-overwrite|字符串|可选|指定PostObject操作时是否覆盖同名Object。 当目标Bucket处于已开启或已暂停的版本控制状态时，x-oss-forbid-overwrite请求Header设置无效，即允许覆盖同名Object。-   不指定x-oss-forbid-overwrite时，默认覆盖同名Object。
 -   指定x-oss-forbid-overwrite为true时，表示禁止覆盖同名Object；指定x-oss-forbid-overwrite为false时，表示允许覆盖同名Object。
 
-**说明：**
-
--   当目标Bucket的版本控制状态为“开启”或“暂停”时，x-oss-forbid-overwrite请求Header设置无效，即允许覆盖同名Object。
--   设置x-oss-forbid-overwrite请求Header会导致QPS处理性能下降，如果您有大量的操作需要使用x-oss-forbid-overwrite请求Header（QPS \> 1000），请工单联系我们进行确认，避免影响您的业务。 |
+设置x-oss-forbid-overwrite请求Header会导致QPS处理性能下降，如果您有大量的操作需要使用x-oss-forbid-overwrite请求Header（QPS \> 1000），请联系技术支持，避免影响您的业务。 |
 |file|字符串|必选|文件或文本内容。浏览器会自动根据文件类型来设置Content-Type，并覆盖用户的设置。OSS一次只能上传一个文件。 默认值：无
 
 **说明：** file必须是表单中的最后一个域。 |
@@ -190,11 +185,11 @@ Post操作提交表单编码必须为`multipart/form-data`，即Header中Content
 
 ## 错误码
 
-|错误码|HTTP 状态码|描述|
-|---|--------|--|
+|错误码|HTTP状态码|描述|
+|---|-------|--|
 |InvalidArgument|400|无论Bucket是否为public-read-write，一旦上传OSSAccessKeyId、Policy、Signature表单域中的任意一个，则另两个表单域为必选项。若缺失，将返回此错误。|
 |InvalidDigest|400|如果用户上传了Content-MD5请求Header，OSS会计算body的Content-MD5并检查一致性，如果不一致，将返回此错误。|
-|EntityTooLarge|400|Post请求的body总长度不允许超过5GB。若文件长度过大，将返回此错误。|
+|EntityTooLarge|400|Post请求的body总长度不允许超过5 GB。若文件长度过大，将返回此错误。|
 |InvalidEncryptionAlgorithmError|400|如果上传时指定了x-oss-server-side-encryption Header请求域，则必须设置其值为AES256或KMS。若设置为其他值，将返回此错误。|
 |FileAlreadyExists|409|当请求的Header中携带x-oss-forbid-overwrite=true时，表示禁止覆盖同名文件。如果文件已存在，将返回此错误。|
 |KmsServiceNotEnabled|403|将x-oss-server-side-encryption指定为KMS，但没有预先购买KMS套件。|
@@ -233,7 +228,7 @@ Post Policy中必须包含Expiration和Conditions。
     |:-|:-|
     |content-length-range|上传Object的最小和最大允许大小。 该Condition支持contion-length-range匹配方式。|
     |Cache-Control, Content-Type, Content-Disposition, Content-Encoding, Expires|HTTP请求Header。 该Condition支持精确匹配和starts-with匹配方式。 **说明：** 建议您在Policy中增加Content-Type限制，防止通过表单上传时Content-Type被恶意修改。 |
-    |key|上传Object的object名称。 该Condition支持精确匹配和starts-with匹配方式。|
+    |key|Object名称。 该Condition支持精确匹配和starts-with匹配方式。|
     |success\_action\_redirect|上传成功后的跳转URL地址。 该Condition支持精确匹配和starts-with匹配方式。|
     |success\_action\_status|未指定success\_action\_redirect时，上传成功后的返回状态码。 该Condition支持精确匹配和starts-with匹配方式。|
     |x-oss-meta-\*|用户指定的user meta。 该Condition支持精确匹配和starts-with匹配方式。|
@@ -244,9 +239,9 @@ Post Policy中必须包含Expiration和Conditions。
 
     |Conditions匹配方式|描述|
     |:-------------|:-|
-    |精确匹配|表单域的值必须精确匹配Conditions中声明的值。如指定key表单域的值必须为a： \{“key”: “a”\} ，则可以写为： \[“eq”, “$key”, “a”\]|
-    |Starts With|表单域的值必须以指定值开始。例如指定key的值必须以user/user1开始： \[“starts-with”, “$key”, “user/user1”\]|
-    |指定文件大小范围|指定所允许上传的文件最大和最小范围，例如允许的文件大小为1~10字节： \[“content-length-range”, 1, 10\]|
+    |精确匹配|表单域的值必须精确匹配Conditions中声明的值。如指定key表单域的值必须为a：\{“key”: “a”\} ，则可以写为\[“eq”, “$key”, “a”\]|
+    |Starts With|表单域的值必须以指定值开始。例如指定key的值必须以user/user1开始：\[“starts-with”, “$key”, “user/user1”\]|
+    |指定文件大小范围|指定所允许上传的文件最大和最小范围，例如允许的文件大小为1~10字节：\[“content-length-range”, 1, 10\]|
 
 
 在Post Policy中$表示变量。如果要描述$，需要使用转义字符\\$。下表描述了在Post Policy的JSON中需要进行转义的字符。
@@ -254,7 +249,7 @@ Post Policy中必须包含Expiration和Conditions。
 |转义字符|描述|
 |:---|:-|
 |\\/|斜杠|
-|\\|反斜杠|
+|\\\\|反斜杠|
 |\\”|双引号|
 |\\$|美元符|
 |\\b|空格|
