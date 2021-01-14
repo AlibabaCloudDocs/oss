@@ -1,27 +1,27 @@
-# Commands for operations on buckets {#concept_av1_r1c_wdb .concept}
+# Commands for operations on buckets
 
 This topic describes commands that can be used to manage buckets.
 
-**Note:** Commands supported by the osscmd tool have been integrated with the [ossutil](reseller.en-US/Tools/ossutil/Quick start.md#) tool. The osscmd tool is no longer available for downloads as of July 31, 2019.
+**Note:** Commands supported by the osscmd tool have been integrated with the [ossutil](/intl.en-US/Tools/ossutil/Overview.md) tool. The osscmd tool is no longer available for downloads as of July 31, 2019.
 
-## config {#section_bbx_w1c_wdb .section}
+## config
 
 Command:
 
-``` {#codeblock_ttv_ayl_16n}
+```
 config --id=[accessid] --key=[accesskey] --host=[host] --sts_token=[sts_token]
 ```
 
 Example:
 
 -   `python osscmd config --id=your_id --key=your_key`
--   ``` {#codeblock_tg3_w21_tou}
+-   ```
 python osscmd config --id=your_id --key=your_key
         --host=oss-internal.aliyuncs.com
 ```
 
 
-## getallbucket\(gs\) {#section_alb_gbc_wdb .section}
+## getallbucket\(gs\)
 
 Command:
 
@@ -34,7 +34,7 @@ Example:
 -   `python osscmd getallbucket`
 -   `python osscmd gs`
 
-## createbucket\(cb,mb,pb\) {#section_uhk_mbc_wdb .section}
+## createbucket\(cb,mb,pb\)
 
 Command:
 
@@ -53,7 +53,7 @@ Example:
 -   `python osscmd mb oss://mysecondbucket --acl=private`
 -   `python osscmd pb oss://mythirdbucket`
 
-## deletebucket\(db\) {#section_hzk_rbc_wdb .section}
+## deletebucket\(db\)
 
 Command:
 
@@ -66,7 +66,7 @@ Example:
 -   `python osscmd deletebucket oss://mybucket`
 -   `python osscmd db oss://myfirstbucket`
 
-## deletewholebucket {#section_cgy_5bc_wdb .section}
+## deletewholebucket
 
 **Warning:** All data is deleted if you run this command. Deleted data cannot be recovered. Exercise caution when you run this command.
 
@@ -78,9 +78,9 @@ Delete a bucket, and all objects and fragments in the bucket.
 
 Example:
 
- `python osscmd deletewholebucket oss://mybucket`
+`python osscmd deletewholebucket oss://mybucket`
 
-## getacl {#section_mmg_zbc_wdb .section}
+## getacl
 
 Command:
 
@@ -90,9 +90,9 @@ Obtain the bucket ACL.
 
 Example:
 
- `python osscmd getacl oss://mybucket`
+`python osscmd getacl oss://mybucket`
 
-## setacl {#section_wly_kcc_wdb .section}
+## setacl
 
 Command:
 
@@ -102,23 +102,23 @@ Modify the bucket ACL. You can set the bucket ACL to private, public-read, or pu
 
 Example:
 
- `python osscmd setacl oss://mybucket --acl=private`
+`python osscmd setacl oss://mybucket --acl=private`
 
-## putlifecycle {#section_mjs_4cc_wdb .section}
+## putlifecycle
 
 Command:
 
 `putlifecycle oss://mybucket lifecycle.xml`
 
-Set lifecycle rules. In the command, lifecycle.xml indicates a file that is used to configure lifecycle rules. For more information, see [API Reference](../../../../reseller.en-US/API Reference/Bucket operations/PutBucketLifecycle.md#).
+Set lifecycle rules. In the command, lifecycle.xml indicates a file that is used to configure lifecycle rules. For more information, see [API Reference](/intl.en-US/API Reference/Bucket operations/Lifecycle/PutBucketLifecycle.md).
 
 Example:
 
- `python osscmd putlifecycle oss://mybucket lifecycle.xml` 
+`python osscmd putlifecycle oss://mybucket lifecycle.xml`
 
 Example:
 
-``` {#codeblock_n0i_2me_1ti}
+```
 <LifecycleConfiguration>
     <Rule>
         <ID>1125</ID>
@@ -131,7 +131,7 @@ Example:
 </LifecycleConfiguration>
 ```
 
-## getlifecycle {#section_cnj_wcc_wdb .section}
+## getlifecycle
 
 Command:
 
@@ -141,9 +141,9 @@ Obtain lifecycle rules of a bucket.
 
 Example:
 
- `python osscmd getlifecycle oss://mybucket`
+`python osscmd getlifecycle oss://mybucket`
 
-## deletelifecycle {#section_zym_zcc_wdb .section}
+## deletelifecycle
 
 Command:
 
@@ -153,27 +153,27 @@ Delete all lifecycle rules of a bucket.
 
 Example:
 
- `python osscmd deletelifecycle oss://mybucket`
+`python osscmd deletelifecycle oss://mybucket`
 
-## putreferer {#section_rqv_cdc_wdb .section}
+## putreferer
 
 Command:
 
-``` {#codeblock_a88_oyw_xe9}
+```
 osscmd putreferer oss://bucket --allow_empty_referer=[true|false]
         --referer=[referer]
 ```
 
-Set hotlinking protection rules. The `allow_empty_referer` parameter is required and is used to specify whether an empty Referer field is allowed. The `referer` parameter is used to set the Referer whitelist. For example, you can add www.test1.com,www.test2.com to the Referer whitelist. To add multiple domain names, separate the domain names with commas \(,\). For more information about configuration rules, see [Configure hotlinking protection](../../../../reseller.en-US/Developer Guide/Buckets/Configure hotlinking protection.md#).
+Set hotlinking protection rules. The `allow_empty_referer` parameter is required and is used to specify whether an empty Referer field is allowed. The `referer` parameter is used to set the Referer whitelist. For example, you can add www.test1.com,www.test2.com to the Referer whitelist. To add multiple domain names, separate the domain names with commas \(,\). For more information about configuration rules, see [Configure hotlinking protection](/intl.en-US/Developer Guide/Data security/Access and control/Configure hotlink protection.md).
 
 Example:
 
-``` {#codeblock_osy_iaf_zpr}
+```
 python osscmd putreferer oss://mybucket --allow_empty_referer=true
           --referer="www.test1.com,www.test2.com"
 ```
 
-## getreferer {#section_nts_gdc_wdb .section}
+## getreferer
 
 Command:
 
@@ -183,9 +183,9 @@ Obtain the hotlinking protection rule of the bucket.
 
 Example:
 
--   `python osscmd getreferer oss://mybucket`
+`python osscmd getreferer oss://mybucket`
 
-## putlogging {#section_v22_jdc_wdb .section}
+## putlogging
 
 Command:
 
@@ -195,9 +195,9 @@ source\_bucket specifies the bucket that is accessed. target\_bucket specifies t
 
 Example:
 
- `python osscmd getlogging oss://mybucket`
+`python osscmd getlogging oss://mybucket`
 
-## getlogging {#section_igc_rdc_wdb .section}
+## getlogging
 
 Command:
 
@@ -207,5 +207,5 @@ Obtain the access log setting rule of the bucket.
 
 Example:
 
- `python osscmd getlogging oss://mybucket`
+`python osscmd getlogging oss://mybucket`
 
