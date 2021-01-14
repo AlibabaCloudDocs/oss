@@ -1,27 +1,27 @@
-# 有关Bucket命令 {#concept_av1_r1c_wdb .concept}
+# 有关Bucket命令
 
 本文主要介绍与存储空间（Bucket）相关的命令。
 
-**说明：** osscmd操作命令已整合到[ossutil](intl.zh-CN/常用工具/命令行工具ossutil/概述.md#)中，工具已于2019年7月31日下线，给您带来不便敬请谅解。
+**说明：** osscmd操作命令已整合到[ossutil](/intl.zh-CN/常用工具/命令行工具ossutil/概述.md)中，工具已于2019年7月31日下线，给您带来不便敬请谅解。
 
-## config {#section_bbx_w1c_wdb .section}
+## config
 
 命令说明：
 
-``` {#codeblock_ttv_ayl_16n}
+```
 config --id=[accessid] --key=[accesskey] --host=[host] --sts_token=[sts_token]
 ```
 
 使用示范：
 
 -   `python osscmd config --id=your_id --key=your_key`
--   ``` {#codeblock_tg3_w21_tou}
+-   ```
 python osscmd config --id=your_id --key=your_key
         --host=oss-internal.aliyuncs.com
 ```
 
 
-## getallbucket\(gs\) {#section_alb_gbc_wdb .section}
+## getallbucket\(gs\)
 
 命令说明：
 
@@ -34,7 +34,7 @@ python osscmd config --id=your_id --key=your_key
 -   `python osscmd getallbucket`
 -   `python osscmd gs`
 
-## createbucket\(cb,mb,pb\) {#section_uhk_mbc_wdb .section}
+## createbucket\(cb,mb,pb\)
 
 命令说明：
 
@@ -53,7 +53,7 @@ python osscmd config --id=your_id --key=your_key
 -   `python osscmd mb oss://mysecondbucket --acl=private`
 -   `python osscmd pb oss://mythirdbucket`
 
-## deletebucket\(db\) {#section_hzk_rbc_wdb .section}
+## deletebucket\(db\)
 
 命令说明：
 
@@ -66,7 +66,7 @@ python osscmd config --id=your_id --key=your_key
 -   `python osscmd deletebucket oss://mybucket`
 -   `python osscmd db oss://myfirstbucket`
 
-## deletewholebucket {#section_cgy_5bc_wdb .section}
+## deletewholebucket
 
 **警告：** 该命令将会删除所有的数据，且不可恢复。请慎重使用。
 
@@ -78,9 +78,9 @@ python osscmd config --id=your_id --key=your_key
 
 使用示范：
 
- `python osscmd deletewholebucket oss://mybucket`
+`python osscmd deletewholebucket oss://mybucket`
 
-## getacl {#section_mmg_zbc_wdb .section}
+## getacl
 
 命令说明：
 
@@ -90,9 +90,9 @@ python osscmd config --id=your_id --key=your_key
 
 使用示范：
 
- `python osscmd getacl oss://mybucket`
+`python osscmd getacl oss://mybucket`
 
-## setacl {#section_wly_kcc_wdb .section}
+## setacl
 
 命令说明：
 
@@ -102,23 +102,23 @@ python osscmd config --id=your_id --key=your_key
 
 使用示范：
 
- `python osscmd setacl oss://mybucket --acl=private`
+`python osscmd setacl oss://mybucket --acl=private`
 
-## putlifecycle {#section_mjs_4cc_wdb .section}
+## putlifecycle
 
 命令说明：
 
 `putlifecycle oss://mybucket lifecycle.xml`
 
-设置lifecycle规则。其中lifecycle.xml为XML格式的lifecycle配置文件，详细的规则配置可以参考[API文档](../../../../intl.zh-CN/API 参考/关于Bucket的操作/PutBucketLifecycle.md#)。
+设置lifecycle规则。其中lifecycle.xml为XML格式的lifecycle配置文件，详细的规则配置可以参考[API文档](/intl.zh-CN/API 参考/关于Bucket的操作/生命周期（Lifecycle）/PutBucketLifecycle.md)。
 
 使用示范：
 
- `python osscmd putlifecycle oss://mybucket lifecycle.xml` 
+`python osscmd putlifecycle oss://mybucket lifecycle.xml`
 
 示例：
 
-``` {#codeblock_n0i_2me_1ti}
+```
 <LifecycleConfiguration>
     <Rule>
         <ID>1125</ID>
@@ -131,7 +131,7 @@ python osscmd config --id=your_id --key=your_key
 </LifecycleConfiguration>
 ```
 
-## getlifecycle {#section_cnj_wcc_wdb .section}
+## getlifecycle
 
 命令说明：
 
@@ -141,9 +141,9 @@ python osscmd config --id=your_id --key=your_key
 
 使用示范：
 
- `python osscmd getlifecycle oss://mybucket`
+`python osscmd getlifecycle oss://mybucket`
 
-## deletelifecycle {#section_zym_zcc_wdb .section}
+## deletelifecycle
 
 命令说明：
 
@@ -153,27 +153,27 @@ python osscmd config --id=your_id --key=your_key
 
 使用示范：
 
- `python osscmd deletelifecycle oss://mybucket`
+`python osscmd deletelifecycle oss://mybucket`
 
-## putreferer {#section_rqv_cdc_wdb .section}
+## putreferer
 
 命令说明：
 
-``` {#codeblock_a88_oyw_xe9}
+```
 osscmd putreferer oss://bucket --allow_empty_referer=[true|false]
         --referer=[referer]
 ```
 
-设置防盗链规则。其中参数`allow_empty_referer`用来设置是否允许为空，为必选参数。参数`referer`用来设置允许访问的白名单，比如“www.test1.com,www.test2.com”，以“,”作为分隔。详细的配置规则参考[产品文档](../../../../intl.zh-CN/开发指南/存储空间（Bucket）/设置防盗链.md#)。
+设置防盗链规则。其中参数`allow_empty_referer`用来设置是否允许为空，为必选参数。参数`referer`用来设置允许访问的白名单，例如“www.test1.com,www.test2.com”，以“,”作为分隔。详细的配置规则参考[产品文档](/intl.zh-CN/开发指南/数据安全/访问控制/防盗链.md)。
 
 使用示范：
 
-``` {#codeblock_osy_iaf_zpr}
+```
 python osscmd putreferer oss://mybucket --allow_empty_referer=true
           --referer="www.test1.com,www.test2.com"
 ```
 
-## getreferer {#section_nts_gdc_wdb .section}
+## getreferer
 
 命令说明：
 
@@ -183,9 +183,9 @@ python osscmd putreferer oss://mybucket --allow_empty_referer=true
 
 使用示范：
 
--   `python osscmd getreferer oss://mybucket`
+`python osscmd getreferer oss://mybucket`
 
-## putlogging {#section_v22_jdc_wdb .section}
+## putlogging
 
 命令说明：
 
@@ -195,9 +195,9 @@ python osscmd putreferer oss://mybucket --allow_empty_referer=true
 
 使用示范：
 
- `python osscmd getlogging oss://mybucket`
+`python osscmd getlogging oss://mybucket`
 
-## getlogging {#section_igc_rdc_wdb .section}
+## getlogging
 
 命令说明：
 
@@ -207,5 +207,5 @@ python osscmd putreferer oss://mybucket --allow_empty_referer=true
 
 使用示范：
 
- `python osscmd getlogging oss://mybucket`
+`python osscmd getlogging oss://mybucket`
 
