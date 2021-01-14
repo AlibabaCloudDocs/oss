@@ -59,9 +59,6 @@ Use cross-region replication with server-side encryption
 -----------------------------------------------------------------------------
 
 Cross-region replication supports unencrypted objects and objects encrypted by using SSE-KMS and SSE-OSS. For more information, see [Server-side encryption](/intl.en-US/Developer Guide/Data security/Data encryption/Server-side encryption.md).
-**Note**
-
-You can specify a CMK ID to use SSE-KMS to encrypt objects replicated from a bucket in the China (Hong Kong) region to a bucket in regions outside China (except for Singapore) or between regions outside China (except for Singapore).
 
 The following table describes the encryption status of the destination object when cross-region replication is used with server-side encryption.
 
