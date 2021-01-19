@@ -1,12 +1,12 @@
 # PostObject
 
-You can call this operation to upload an object to a specified bucket by using a HTML form.
+You can call this operation to upload an object to a specified bucket by using an HTML form.
 
 ## Usage notes
 
 When you call the PostObject operation, take note of the following items:
 
--   To perform the PostObject operation on a bucket, you must have write permissions on the bucket. If the ACL of the bucket is public read/write, you do not need to upload the signature information. If the ACL of the bucket is not public read/write, signature verification is required for this operation.
+-   To initiate a PostObject request to a bucket, you must have write permissions on the bucket. If the ACL of the bucket is public read/write, you do not need to upload the signature information. If the ACL of the bucket is not public read/write, signature verification is required for this operation.
 -   Unlike PutObject, PostObject uses an AccessKey secret to calculate the signature for policy. The calculated signature string is used as the value of the Signature form field. OSS checks this value to verify the validity of the signature.
 -   The URL of the submitted form can be the domain name of the bucket. You do not need to specify the object in the URL. In other words, the request line is in the format of `POST / HTTP/1.1` instead of `POST /ObjectName HTTP/1.1`.
 -   OSS does not check the signature included in headers or URLs in PostObject requests.
@@ -84,8 +84,8 @@ The form submitted by the PostObject operation must be encoded in the `multipart
 |x-oss-content-type|String|No|You can add the x-oss-content-type header in the message body of a PostObject request to specify the Content-Type of the object to upload. The Content-Type value specified by the x-oss-content-type header has the highest priority.The content type of the object is determined by three headers in the following priority: x-oss-content-type \> Content-Type in the form field \> Content-Type.
 
 Default value: null |
-|key|String|Yes|The name of the object to upload. If the object name includes a path such as a/b/c/b.jpg, OSS automatically creates corresponding folders. Default value: null |
-|success\_action\_redirect|String|No|The URL to which the client is redirected after the object is uploaded. If this form field is not specified, the returned result is specified by success\_action\_status. If the upload fails, OSS returns an error code, and the client is not redirected to any URL. Default value: null |
+|key|String|Yes|The name of the object to upload. If the object name includes a path such as `destfolder/example.jpg`, OSS automatically creates corresponding folders. Default value: null |
+|success\_action\_redirect|String|No|The URL to which the client is redirected after the object is uploaded. If this form field is not specified, the returned result is specified by success\_action\_status. If the upload fails, OSS returns an error code, and the client is not redirected to a URL. Default value: null |
 |success\_action\_status|String|No|The status code returned to the client when the success\_action\_redirect form field is not specified and the object is uploaded. Default value: 204
 
 Valid values: 200, 201, and 204.
@@ -95,17 +95,17 @@ Valid values: 200, 201, and 204.
 -   If the value of this form field is not specified or set to an invalid value, OSS returns an empty file and the 204 status code. |
 |x-oss-meta-\*|String|No|The metadata customized by the user. Default value: null
 
-If the request contains a form field prefixed with x-oss-meta-, the form field is considered to be the user metadata. Example: x-oss-meta-location.
+If the request contains a form field prefixed with x-oss-meta-, the form field is considered to be the user metadata. Example: `x-oss-meta-location`.
 
 **Note:** An object may have multiple similar parameters prefixed with x-oss-meta-, but the total size of the user metadata cannot exceed 8 KB. |
 |x-oss-server-side-encryption|String|No|The server-side encryption algorithm that is used when OSS creates the object. Valid values: AES256 and KMS
 
-If you specify this parameter, it is returned in the response header and the uploaded object is encrypted. When you download the encrypted object, the x-oss-server-side-encryption field is included in the response header and its value is set to the algorithm used to encrypt the object. |
-|x-oss-server-side-encryption-key-id|String|No|The ID of the customer master key \(CMK\) hosted in KMS. This parameter is valid only when the value of x-oss-server-side-encryption is set to KMS. |
+If you specify this parameter, it is returned in the response header and the uploaded object is encrypted and stored. When you download the encrypted object, the x-oss-server-side-encryption field is included in the response header and its value is set to the algorithm used to encrypt the object. |
+|x-oss-server-side-encryption-key-id|String|No|The ID of the customer master key \(CMK\) hosted in KMS. This header is valid only when x-oss-server-side-encryption is set to KMS.|
 |x-oss-object-acl|String|No|The ACL of the object when the object is created. Valid values: public-read, private, and public-read-write |
-|x-oss-security-token|String|No|The security token for temporary authorization. If an STS temporary security credential is used for this access, you must set this field to the SecurityToken value and set OSSAccessKeyId to the value of the paired temporary AccessKey ID. The method for calculating a signature based on a temporary AccessKey ID is the same as that based on a typical AccessKey ID. Default value: null |
-|x-oss-forbid-overwrite|String|No|Specifies whether the PostObject operation overwrites objects of the same name. When the versioning status of the requested bucket is enabled or suspended, the x-oss-forbid-overwrite request header is invalid. In this case, the PostObject operation overwrites objects of the same name.-   By default, if x-oss-forbid-overwrite is not specified, objects of the same name is overwritten.
--   If the value of x-oss-forbid-overwrite is set to true, the object that has the same object name cannot be overwritten. If the value of x-oss-forbid-overwrite is set to false, objects of the same object name can be overwritten.
+|x-oss-security-token|String|No|If an STS temporary security credential is used for this access, you must set this field to the SecurityToken value and set OSSAccessKeyId to the value of the paired temporary AccessKey ID. The method for calculating a signature based on a temporary AccessKey ID is the same as that based on a typical AccessKey ID. Default value: null |
+|x-oss-forbid-overwrite|String|No|Specifies whether the PostObject operation overwrites objects of the same name. When the versioning status of the requested bucket is enabled or suspended, the x-oss-forbid-overwrite request header is invalid. In this case, the PostObject operation overwrites objects of the same name.-   By default, if x-oss-forbid-overwrite is not specified, the object that has the same name is overwritten.
+-   If the value of x-oss-forbid-overwrite is set to true, objects of the same name cannot be overwritten. If the value of x-oss-forbid-overwrite is set to false, objects of the same name can be overwritten.
 
 If you specify the x-oss-forbid-overwrite request header, the queries per second \(QPS\) performance of OSS may be degraded. If you want to use the x-oss-forbid-overwrite request header to perform a large number of operations \(QPS greater than 1000\), submit a ticket. |
 |file|String|Yes|The file or text content. Browsers automatically set the Content-Type header based on the file type and overwrite the user setting. Only one file can be uploaded to OSS at a time. Default value: null
@@ -124,12 +124,12 @@ If you specify the x-oss-forbid-overwrite request header, the queries per second
 |:------|:---|:----------|
 |PostResponse|Container|Indicates the container that stores the result of the PostObject request. Child nodes: Bucket, ETag, Key, and Location |
 |Bucket|String|Indicates the bucket name. Parent node: PostResponse |
-|ETag|String|Indicates the entity tag \(ETag\) that is created when an object is generated. For an object that is created through the PostObject operation, the ETag value is the object UUID, which can be used to check whether the object content is changed. Parent node: PostResponse |
+|ETag|String|Indicates the entity tag \(ETag\) that is created when an object is generated. For an object that is created by using the PostObject operation, the ETag value is the object UUID, which can be used to check whether the object content is changed. Parent node: PostResponse |
 |Location|String|Indicates the URL of the new object that is created. Parent node: PostResponse |
 
 ## Examples
 
--   Sample request
+-   Sample requests
 
     ```
     POST / HTTP/1.1
@@ -170,7 +170,7 @@ If you specify the x-oss-forbid-overwrite request header, the queries per second
     --9431149156168--
     ```
 
--   Sample response
+-   Sample responses
 
     ```
     HTTP/1.1 200 OK
@@ -183,14 +183,15 @@ If you specify the x-oss-forbid-overwrite request header, the queries per second
     ```
 
 
-## Errors codes
+## Error codes
 
 |Error code|HTTP status code|Description|
 |----------|----------------|-----------|
-|InvalidArgument|400|The error message returned because one of the OSSAccessKeyId, policy, and Signature form fields is specified and the remaining two form fields are not specified. Regardless of whether the bucket ACL is public read/write, if any one of the OSSAccessKeyId, policy, and Signature form fields is specified, the remaining two form fields must be specified.|
+|InvalidArgument|400|The error message returned because one of the OSSAccessKeyId, policy, and Signature form fields is specified and the remaining two form fields are not specified. Regardless of whether the bucket ACL is public read/write, if one of the OSSAccessKeyId, policy, and Signature form fields is specified, the remaining two form fields must be specified.|
 |InvalidDigest|400|The error message returned because the Content-MD5 value of the request body that is calculated by OSS is not the same as the value of the Content-MD5 header field in the request.|
 |EntityTooLarge|400|The error message returned because the total size of the PostObject request body is greater than 5 GB.|
-|InvalidEncryptionAlgorithmError|400|The error message returned because the x-oss-server-side-encryption header field is set to a value other than AES256 or KMS.|
+|InvalidEncryptionAlgorithmError|400|The error message returned because the x-oss-server-side-encryption header field is set to a valueother than AES256 or KMS .|
+|IncorrectNumberOfFilesInPOSTRequest|400|The error message returned because the key form field is not specified in the request.|
 |FileAlreadyExists|409|The error message returned because the request contains the x-oss-forbid-overwrite=true header and an object of the same name already exists.|
 |KmsServiceNotEnabled|403|The error message returned because x-oss-server-side-encryption is set to KMS but KMS is not activated in advance.|
 |FileImmutable|409|The error message returned the object you want to delete or modify is protected by a retention policy.|
@@ -214,7 +215,7 @@ The policy form field must contain the expiration and conditions parameters.
 
 -   Expiration
 
-    The expiration parameter specifies the expiration time of the request. The time follows the ISO 8601 standard and must be in the GMT format. For example, `2014-12-01T12:00:00.000Z` indicates that the PostObject request must be sent before 12:00 on December 1, 2014.
+    The expiration parameter specifies the expiration time of the request. The time follows the ISO 8601 standard and must be in GMT. For example, `2014-12-01T12:00:00.000Z` indicates that the PostObject request must be sent before 12:00 on December 1, 2014.
 
 -   Conditions
 
@@ -227,7 +228,7 @@ The policy form field must contain the expiration and conditions parameters.
     |Condition|Description|
     |:--------|:----------|
     |content-length-range|The minimum and maximum sizes of the object to upload. This condition supports the content-length-range matching mode.|
-    |Cache-Control, Content-Type, Content-Disposition, Content-Encoding, Expires|HTTP request headers. This condition supports the exact matching and starts-with matching modes. **Note:** We recommend that you include the Content-Type parameter in the policy form field to prevent malicious modification to the Content-Type header during form upload. |
+    |Cache-Control, Content-Type, Content-Disposition, Content-Encoding, Expires|HTTP request headers. This condition supports the exact matching and starts-with matching modes. **Note:** To prevent malicious modification to the Content-Type header during form upload, we recommend that you include the Content-Type parameter in the policy form field. |
     |key|The name of the object to upload. This condition supports the exact matching and starts-with matching modes.|
     |success\_action\_redirect|The URL to which the client is redirected after the object is uploaded. This condition supports the exact matching and starts-with matching modes.|
     |success\_action\_status|The status code to return after the object is uploaded if success\_action\_redirect is not specified. This condition supports the exact matching and starts-with matching modes.|
@@ -266,8 +267,8 @@ To verify a PostObject request, you must include the policy and Signature form f
 You can perform the following steps to calculate the value of the Signature form field:
 
 1.  Create a UTF-8 encoded policy.
-2.  Encode the policy in Base64. The encoding result is the value of the policy form field, and this value is used as the string to be signed.
-3.  Use the AccessKey secret to sign the string. The signing method is the same as the calculating method of the signature in the header, which is replacing the string-to-sign with the policy form field. For more information, see [Add signatures to headers](/intl.en-US/API Reference/Access control/Add signatures to headers.md).
+2.  Encode the policy in Base64. The encoding result is the value of the policy form field, and this value is used as the string-to-sign.
+3.  Use the AccessKey secret to sign the string in the following format: `Signature = base64(hmac-sha1(base64(policy), AccessKeySecret))`.
 
 ## References
 
