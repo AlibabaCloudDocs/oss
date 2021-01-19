@@ -6,8 +6,8 @@ PostObject用于通过HTML表单上传的方式将文件（Object）上传至指
 
 调用此接口时，有如下注意事项：
 
--   Post操作需要对Bucket拥有写权限。如果Bucket为public-read-write，可以不上传签名信息，否则要求对该操作进行签名验证。
--   与Put操作不同，Post操作使用AccessKeySecret对Policy进行签名，计算出签名字符串作为Signature表单域的值，OSS通过验证该值从而判断签名的合法性。
+-   Post请求需要对Bucket拥有写权限。如果Bucket为public-read-write，可以不上传签名信息，否则要求对该操作进行签名验证。
+-   与Put操作不同，Post操作使用AccessKey Secret对Policy进行签名，计算出签名字符串作为Signature表单域的值，OSS通过验证该值从而判断签名的合法性。
 -   提交表单的URL为Bucket域名，不需要在URL中指定Object。即请求行是`POST / HTTP/1.1`，不能写为`POST /ObjectName HTTP/1.1`。
 -   如果POST请求中包含Header签名信息或URL签名信息，OSS不会对此类信息做检查。
 
@@ -15,7 +15,7 @@ PostObject用于通过HTML表单上传的方式将文件（Object）上传至指
 
 在开启了版本控制的Bucket中发起PostObject请求时，OSS将为新添加的Object自动生成唯一的版本ID，并在响应Header中通过x-oss-version-id的形式返回。
 
-在暂停了版本控制的Bucket中发起PostObject请求时，OSS将为新添加的Object自动生成一个null的版本ID，并在响应Header中通过x-oss-version-id的形式返回。同一个Object仅有一个null的版本ID。
+在暂停了版本控制的Bucket中发起PostObject请求时，OSS将为新添加的Object自动生成一个null的版本ID，并在响应Header中通过x-oss-version-id的形式返回。同一个Object仅允许一个null的版本ID。
 
 ## 请求语法
 
@@ -65,7 +65,7 @@ Upload to OSS
 
 |名称|类型|是否必选|描述|
 |:-|:-|----|:-|
-|OSSAccessKeyId|字符串|有条件|Bucket拥有者的AccessKeyId。 默认值：无
+|OSSAccessKeyId|字符串|有条件|Bucket拥有者的AccessKey Id。 默认值：无
 
 限制：当Bucket为非public-read-write或者提供了Policy（或Signature）表单域时，必须提供OSSAccessKeyId表单域。 |
 |policy|字符串|有条件|Policy规定了请求表单域的合法性。不包含Policy表单域的请求被认为是匿名请求，并只能访问public-read-write的Bucket。 默认值：无
@@ -73,37 +73,37 @@ Upload to OSS
 限制：当Bucket为非public-read-write或者提供了OSSAccessKeyId（或Signature）表单域时，必须提供Policy表单域。
 
 **说明：** 表单和Policy必须使用UTF-8编码。 |
-|Signature|字符串|有条件|根据AccessKeySecret和Policy计算的签名信息，OSS验证该签名信息从而验证该Post请求的合法性。更详细描述请参见[附录：Post Signature](#section_wny_mww_wdb)。 默认值：无
+|Signature|字符串|有条件|根据AccessKeySecret和Policy计算的签名信息，OSS验证该签名信息从而验证该Post请求的合法性。详情请参见[附录：Post Signature](#section_wny_mww_wdb)。 默认值：无
 
 限制：当Bucket为非public-read-write或者提供了OSSAccessKeyId（或Policy）表单域时，必须提供Signature表单域。
 
 **说明：** 表单域对大小写不敏感，但表单域的值对大小写敏感。 |
-|Cache-Control, Content-Type, Content-Disposition, Content-Encoding, Expires|字符串|可选|HTTP请求Header，详细信息请参见[PutObject](/intl.zh-CN/API 参考/关于Object操作/基础操作/PutObject.md)。 默认值：无
+|Cache-Control, Content-Type, Content-Disposition, Content-Encoding, Expires|字符串|可选|HTTP请求Header。详情请参见[PutObject](/intl.zh-CN/API 参考/关于Object操作/基础操作/PutObject.md)。 默认值：无
 
-Post操作提交表单编码必须为`multipart/form-data`，即Header中Content-Type为`multipart/form-data;boundary=xxxxxx` 这样的形式，boundary为边界字符串。 |
+Post操作提交表单编码必须为`multipart/form-data`，即Header中Content-Type为`multipart/form-data;boundary=xxxxxx`的形式，boundary为边界字符串。 |
 |x-oss-content-type|字符串|可选|由于浏览器会自动在文件表单域中增加Content-Type，为了解决此问题，OSS支持用户在Post请求体中增加x-oss-content-type，该项允许用户指定Content-Type，且拥有最高优先级。优先级顺序：x-oss-content-type \> 文件表单域的Content-Type \> Content-Type
 
 默认值：无 |
-|key|字符串|必须|上传Object的名称。如果名称包含路径，例如a/b/c/b.jpg，则OSS会自动创建相应的文件夹。 默认值：无 |
+|key|字符串|必须|上传Object的名称。如果名称包含路径，例如`destfolder/example.jpg`，则OSS会自动创建相应的文件夹。 默认值：无 |
 |success\_action\_redirect|字符串|可选|上传成功后客户端跳转到的URL。如果未指定该表单域，返回结果由success\_action\_status表单域指定。如果上传失败，OSS返回错误码，并不进行跳转。 默认值：无 |
 |success\_action\_status|字符串|非选|未指定success\_action\_redirect表单域时，该表单域指定了上传成功后返回给客户端的状态码。 默认值：无
 
 有效值：200、201、204（默认）。
 
--   如果该域的值为200或者204，OSS返回一个空文档和相应的状态码。
+-   如果该域的值设置为200或者204，OSS返回一个空文档和相应的状态码。
 -   如果该域的值设置为201，OSS返回一个XML文件和201状态码。
--   如果该域的值未设置或者设置成一个非法值，OSS返回一个空文档和204状态码。 |
+-   如果该域的值未设置或者设置为一个非法值，OSS返回一个空文档和204状态码。 |
 |x-oss-meta-\*|字符串|可选|用户指定的user meta值。 默认值：无
 
-如果请求中携带以x-oss-meta-为前缀的表单域，则视为user meta，比如x-oss-meta-location。
+如果请求中携带以x-oss-meta-为前缀的表单域，则视为user meta，例如`x-oss-meta-location`。
 
 **说明：** 一个Object可以有多个类似的参数，但所有的user meta总大小不能超过8 KB。 |
 |x-oss-server-side-encryption|字符串|可选|创建Object时，指定服务器端加密方式。 取值：AES256、KMS
 
 指定此参数后，在响应头中会返回此参数，OSS会对上传的Object进行加密编码存储。当下载该Object时，响应头中会包含x-oss-server-side-encryption，且该值会被设置成该Object的加密算法。 |
-|x-oss-server-side-encryption-key-id|字符串|可选|表示KMS托管的用户主密钥。 该参数在x-oss-server-side-encryption的值为KMS时有效。 |
+|x-oss-server-side-encryption-key-id|字符串|可选|表示KMS托管的用户主密钥。 此选项仅当x-oss-server-side-encryption值为KMS时有效。|
 |x-oss-object-acl|字符串|可选|创建Object时，指定Object的访问权限。 有效值：public-read、private、public-read-write |
-|x-oss-security-token|字符串|可选|若本次访问是使用STS临时授权方式，则需要指定该项为SecurityToken的值，同时OSSAccessKeyId需要使用与之配对的临时AccessKeyId。计算签名时，与使用普通AccessKeyId签名方式一致。 默认值：无 |
+|x-oss-security-token|字符串|可选|若本次访问是使用STS临时授权方式，则需要指定该项为SecurityToken的值，同时OSSAccessKeyId需要使用与之配对的临时AccessKey Id。计算签名时，与使用普通AccessKey Id签名方式一致。 默认值：无 |
 |x-oss-forbid-overwrite|字符串|可选|指定PostObject操作时是否覆盖同名Object。 当目标Bucket处于已开启或已暂停的版本控制状态时，x-oss-forbid-overwrite请求Header设置无效，即允许覆盖同名Object。-   不指定x-oss-forbid-overwrite时，默认覆盖同名Object。
 -   指定x-oss-forbid-overwrite为true时，表示禁止覆盖同名Object；指定x-oss-forbid-overwrite为false时，表示允许覆盖同名Object。
 
@@ -188,10 +188,11 @@ Post操作提交表单编码必须为`multipart/form-data`，即Header中Content
 |错误码|HTTP状态码|描述|
 |---|-------|--|
 |InvalidArgument|400|无论Bucket是否为public-read-write，一旦上传OSSAccessKeyId、Policy、Signature表单域中的任意一个，则另两个表单域为必选项。若缺失，将返回此错误。|
-|InvalidDigest|400|如果用户上传了Content-MD5请求Header，OSS会计算body的Content-MD5并检查一致性，如果不一致，将返回此错误。|
-|EntityTooLarge|400|Post请求的body总长度不允许超过5 GB。若文件长度过大，将返回此错误。|
+|InvalidDigest|400|用户上传了Content-MD5请求Header，OSS会计算body的Content-MD5并检查一致性，如果不一致，将返回此错误。|
+|EntityTooLarge|400|请求的body总长度不允许超过5 GB。若文件长度过大，将返回此错误。|
 |InvalidEncryptionAlgorithmError|400|如果上传时指定了x-oss-server-side-encryption Header请求域，则必须设置其值为AES256或KMS。若设置为其他值，将返回此错误。|
-|FileAlreadyExists|409|当请求的Header中携带x-oss-forbid-overwrite=true时，表示禁止覆盖同名文件。如果文件已存在，将返回此错误。|
+|IncorrectNumberOfFilesInPOSTRequest|400|请求必须指定key表单域。若缺失，将返回此错误。|
+|FileAlreadyExists|409|请求的Header中携带x-oss-forbid-overwrite=true时，表示禁止覆盖同名文件。若文件已存在，将返回此错误。|
 |KmsServiceNotEnabled|403|将x-oss-server-side-encryption指定为KMS，但没有预先购买KMS套件。|
 |FileImmutable|409|Bucket内的数据处于被保护状态时，若您尝试删除或修改这些数据，将返回此错误码。|
 
@@ -226,12 +227,12 @@ Post Policy中必须包含Expiration和Conditions。
 
     |名称|描述|
     |:-|:-|
-    |content-length-range|上传Object的最小和最大允许大小。 该Condition支持contion-length-range匹配方式。|
-    |Cache-Control, Content-Type, Content-Disposition, Content-Encoding, Expires|HTTP请求Header。 该Condition支持精确匹配和starts-with匹配方式。 **说明：** 建议您在Policy中增加Content-Type限制，防止通过表单上传时Content-Type被恶意修改。 |
-    |key|Object名称。 该Condition支持精确匹配和starts-with匹配方式。|
-    |success\_action\_redirect|上传成功后的跳转URL地址。 该Condition支持精确匹配和starts-with匹配方式。|
-    |success\_action\_status|未指定success\_action\_redirect时，上传成功后的返回状态码。 该Condition支持精确匹配和starts-with匹配方式。|
-    |x-oss-meta-\*|用户指定的user meta。 该Condition支持精确匹配和starts-with匹配方式。|
+    |content-length-range|上传Object的最小和最大允许大小。该Condition支持contion-length-range匹配方式。|
+    |Cache-Control, Content-Type, Content-Disposition, Content-Encoding, Expires|HTTP请求Header。该Condition支持精确匹配和starts-with匹配方式。 **说明：** 建议您在Policy中增加Content-Type限制，防止通过表单上传时Content-Type被恶意修改。 |
+    |key|Object名称。该Condition支持精确匹配和starts-with匹配方式。|
+    |success\_action\_redirect|上传成功后的跳转URL地址。该Condition支持精确匹配和starts-with匹配方式。|
+    |success\_action\_status|未指定success\_action\_redirect时，上传成功后的返回状态码。该Condition支持精确匹配和starts-with匹配方式。|
+    |x-oss-meta-\*|用户指定的user meta。该Condition支持精确匹配和starts-with匹配方式。|
 
     如果Post请求中包含额外的表单域，OSS可以将这些额外的表单域加入到Policy的Conditions中并检查合法性。
 
@@ -263,11 +264,11 @@ Post Policy中必须包含Expiration和Conditions。
 
 对于验证的Post请求，HTML表单中必须包含Policy和Signature信息。Policy控制请求中哪些值是允许的。
 
-计算Signature的具体流程为：
+计算Signature的具体流程如下：
 
 1.  创建一个UTF-8编码的Policy。
 2.  将Policy进行Base64编码，其值即为Policy表单域填入的值，将该值作为将要签名的字符串。
-3.  使用AccessKeySecret对要签名的字符串进行签名，签名方法与Header中签名的计算方法相同（将要签名的字符串替换为Policy即可），请参见[在Header中包含签名](/intl.zh-CN/API 参考/访问控制/在Header中包含签名.md)。
+3.  使用AccessKeySecret对要签名的字符串进行签名，签名方法为`Signature = base64(hmac-sha1(base64(policy), AccessKeySecret))`。
 
 ## 更多参考
 
