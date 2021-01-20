@@ -1,104 +1,94 @@
 # Bind custom domain names
 
-After you upload an object to a bucket in OSS, a URL is generated for the object. You can use this URL to access the object in the bucket. To access an uploaded object by using a custom domain name, you must bind the custom domain name to the bucket that contains the object and add a CNAME record that points to the public endpoint of the bucket.
-
-A bucket is created. For more information, see [Create buckets](/intl.en-US/Console User Guide/Manage buckets/Create buckets.md).
-
-For more information about how to bind a custom domain name, see [Bind custom domain names](/intl.en-US/Developer Guide/Buckets/Bind custom domain names.md).
+After you upload objects to a bucket, OSS automatically generates URLs that include the public endpoint of the bucket for the uploaded objects. You can use these URLs to access the objects. If you want to access the objects by using custom domain names \(CNAMEs\), you must bind the custom domain names to the bucket in which the objects are stored.
 
 ## Procedure
 
-1.  Log on to the [OSS console](https://oss.console.aliyun.com/).
+1.  Bind a custom domain name to a bucket.
 
-2.  Click **Buckets**, and then click the name of the target bucket.
+    1.  Log on to the [OSS console](https://oss.console.aliyun.com/).
 
-3.  In the left-side navigation pane, choose **Transmission** \> **Domain Names**.
+    2.  In the left-side navigation pane, click **Buckets**. On the Buckets page, click the name of the bucket to which you want bind the custom domain name.
 
-4.  Click **Bind Custom Domain Name**. In the Bind Custom Domain Name panel, configure the following parameters:
+    3.  In the left-side navigation pane, choose **Transmission** \> **Domain Names**.
 
-    -   **Custom Domain Name**: Enter the domain name that you want to bind such as hello-world.com. The domain name can be a maximum of 63 characters in length.
-    -   **Add CNAME Record Automatically**: The CNAME record can be automatically added if the domain name is managed by your Alibaba Cloud account. To add a record of a domain name that is not managed by your Alibaba Cloud account, you must manually configure the DNS of your DNS provider. For more information, see [Manually add a CNAME record](#section_6e9_89r_0y2).
-    **Note:**
+    4.  Click **Bind Custom Domain Name**.
 
-    -   If a domain name conflict message appears, the domain name is already bound to another bucket. To resolve this issue, you can use one of the following methods:
-        -   Use another domain name.
-        -   Verify the ownership of the domain name and forcibly bind the domain name to your bucket. This operation unbinds the domain name from the previous bucket. For more information, see [Verify the ownership of a domain name](#section_n3e_bp4_l5n).
-    -   If you turn on Add CNAME Record Automatically and a CNAME record has already been added for the domain name that you bind to the bucket, the original CNAME record is overwritten.
-5.  Click **Submit**.
+    5.  In the Bind Custom Domain Name panel, enter the domain name that you want to bind in the **Custom Domain Name** field.
 
-    You can view the bound domain name in domain name list.
+        Domain names that contain wildcards are not supported. Example: `*.example.com`.
 
+        If a domain name conflict message appears, the domain name is already bound to another bucket. To resolve this issue, you can use another domain name or verify the ownership of the domain name and forcibly bind the domain name to the bucket. This operation unbinds the domain name from the previous bucket. For more information, see [Verify the ownership of a domain name](#section_n3e_bp4_l5n).
 
-## Manually add a CNAME record
+2.  Add a CNAME record.
 
-Skip this step if a CNAME record is automatically added.
+    -   If the domain name is managed by your Alibaba Cloud account, perform the following steps to automatically add a CNAME record.
+        1.  In the Bind Custom Domain Name panel, turn on **Add CNAME Record Automatically**.
 
-You must add a CNAME record to the DNS of your DNS provider. Alibaba Cloud DNS is used in this example to describe the process of adding a CNAME record.
+            **Note:** If a CNAME record has already been added for the domain name that you bind to the bucket, the original CNAME record is overwritten.
 
-1.  Log on to the [Alibaba Cloud DNS console](https://dns.console.aliyun.com/#/dns/domainList).
+        2.  Click **Submit**.
+    -   If the domain name is not managed by your Alibaba Cloud account, manually add a CNAME record.
 
-2.  On the Manage DNS page, click **Configure** in the Actions column corresponding to a domain name.
+        If your domain name is not managed by Alibaba Cloud DNS, you must configure the DNS of your DNS provider, such as Tencent Cloud DNS \(DNSPod\) or Xinnet. For more information, see [Configure a CNAME record on Tencent Cloud \(DNSPod\)](https://help.aliyun.com/document_detail/27145.html) or [Configure a CNAME on Xinnet](https://help.aliyun.com/document_detail/27146.html).
 
-3.  On the DNS Settings page, click **Add Record**. In the Add Record dialog box, configure parameters listed in the following table.
+        Alibaba Cloud DNS is used in this example to describe how to manually add a CNAME record for a domain name that is not owned by the current Alibaba Cloud account.
 
-    |Parameter|Description|
-    |:--------|:----------|
-    |**Type**|Select the type of the record. In this example, select CNAME. |
-    |**Host**|Enter the host record based on the prefix of the domain name.     -   To add a top-level domain such as `aliyun.com`, enter **@**.
-    -   To add a second-level domain, enter the prefix of the second-level domain name. For example, if the domain is `abc.aliyun.com`, enter **abc**.
-    -   If all second-level domains match the public endpoints of the bucket, enter **\***. |
-    |**ISP Line**|Select the ISP line used to resolve the domain name. We recommend that you select Default to allow the system to select the optimal line. |
-    |**Value**|Enter the value of the record based on the selected record type. In this example, enter the public endpoint of the bucket. |
-    |**TTL**|Select the update interval of the record. In this example, keep the default value.|
+        1.  Log on to the [Alibaba Cloud DNS console](https://dns.console.aliyun.com/#/dns/domainList).
+        2.  On the Manage DNS page, click **Configure** in the Actions column corresponding to the domain name to which you want to add a CNAME record.
+        3.  On the DNS Settings page, click **Add Record**. In the Add Record dialog box, configure parameters listed in the following table.
 
-4.  Click **OK**.
+            |Parameter|Description|
+            |:--------|:----------|
+            |**Type**|Select the type of the record. In this example, select **CNAME**.|
+            |**Host**|Enter the host record based on the prefix of the domain name.             -   To add a top-level domain such as `aliyun.com`, enter **@**.
+            -   To add a second-level domain, enter the prefix of the second-level domain name. Example: If the domain is `abc.aliyun.com`, enter **abc**.
+            -   To map all second-level domains to the public endpoint of the bucket, enter **\***. |
+            |**ISP Line**|Select the ISP line used to resolve the domain name. We recommend that you select **Default** to allow the system to select the optimal line.|
+            |**Value**|Enter the public endpoint of the bucket.|
+            |**TTL**|Select the update interval of the record. In this example, keep the default value.|
 
-    **Note:** A new CNAME record takes effect immediately. It takes up to 72 hours for the modified CNAME record to take effect.
+        4.  Click **OK**.
+
+            A new CNAME record takes effect immediately. A modified CNAME record requires up to 72 hours to take effect.
 
 
 ## Verify CNAME status
 
-After a CNAME record is configured, the period required for the record to take effect varies depending on different DNS providers. You can run the ping or lookup command to check the status of an added CNAME. If the request is redirected to \*.oss-cn-\*.aliyuncs.com, the CNAME is in effect.
+You can run the ping or lookup command to check the status of an added CNAME. If the request is redirected to `*.oss-cn-*.aliyuncs.com`, the CNAME is in effect.
 
 ## Verify the ownership of a domain name
 
-If your domain name is bound to a bucket owned by another user, you can perform the following steps to verify the ownership of the domain name and forcibly unbind the domain name from the current bucket.
+If a domain name conflict message appears, you can verify the ownership of the domain name and forcibly bind the domain name to the bucket.
 
-**Note:** The following steps apply only to scenarios where a domain name conflict message appears when you bind a custom domain name. For more information, see the [Procedure](#step_cxo_1cr_izy) section.
+1.  Click **Obtain TXT**.
 
-1.  Click Obtain TXT to obtain a TXT record generated by the system based on your information.
+    OSS randomly generates a token for the domain name, which includes the following fields: **Domain**, **Host**, and **Value**. You must record the values of the fields.
 
     ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/0767549951/p32020.png)
 
-2.  Add a CNAME record to the DNS of your DNS provider. If a domain name is added to Alibaba Cloud DNS, you can configure the following parameters in the **Add Record** dialog box.
+2.  Add a CNAME record to the DNS of your DNS provider. Enter the recorded values of the **Host** and **Value** fields and keep the default settings of other parameters.
 
-    ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/0767549951/p32022.png)
+    For more information about how to add a CNAME record, see [Manually add a CNAME record](#li_v8f_hvb_9xt).
 
-    -   **Type**: Select TXT.
-    -   **Host**: Enter the host generated in Step 1.
-    -   **Value**: Enter the value generated in Step 1.
-    -   Use the default values for other parameters.
-3.  In the Bind Custom Domain Name panel, read ans select **I have added the TXT record. Continue submission**. If the system checks that the information is correct, the verification is passed.
+3.  In the Bind Custom Domain Name panel, read and select **I have added the TXT record. Continue submission**.
+
+    If your configuration is correct, OSS binds the custom domain name to the bucket.
 
 
 ## Unbind a domain name
 
-You can unbind a custom domain name from the bucket when you no longer use it.
+You can unbind a custom domain name from a bucket when you no longer use it.
 
-1.  Log on to the [OSS console](https://oss.console.aliyun.com/).
+1.  On the Overview page of the bucket from which you want to unbind the custom domain name, choose **Transmission** \> **Domain Names**.
 
-2.  Click **Buckets**, and then click the name of the target bucket.
+2.  On the Domain Names tab, click **Manage Binding Configurations** in the Actions column corresponding to the domain name that you want to unbind.
 
-3.  In the left-side navigation pane, choose **Transmission** \> **Domain Names**.
-
-4.  On the Domain Names tab, click **Manage Binding Configurations** in the Actions column corresponding to the domain name that you want to unbind.
-
-5.  In the Manage Binding Configurations panel, click **Unbind**. Click **OK**.
+3.  In the Manage Binding Configurations panel, click **Unbind**. Click **OK**.
 
 
 ## References
 
--   For more information about how to configure CDN to accelerate uploads and downloads, see [Bind accelerate endpoints](/intl.en-US/Console User Guide/Manage buckets/Manage a domain/Bind accelerate endpoints.md).
--   For more information about how to access OSS resources from a static page, see [Configure static website hosting](/intl.en-US/Console User Guide/Manage buckets/Basic settings/Configure static website hosting.md).
--   For more information about how to access OSS resources over HTTPS, see [Host SSL certificates](/intl.en-US/Console User Guide/Manage buckets/Manage a domain/Host SSL certificates.md).
+-   To improve the experience in uploads and downloads, you can bind an accelerate endpoint to the bucket. For more information, see [Bind accelerate endpoints](/intl.en-US/Console User Guide/Manage buckets/Manage a domain/Bind accelerate endpoints.md).
+-   To use HTTPS to access a custom domain name, you must upload your HTTPS certificate in the OSS console. For more information, see [Host SSL certificates](/intl.en-US/Console User Guide/Manage buckets/Manage a domain/Host SSL certificates.md).
 
