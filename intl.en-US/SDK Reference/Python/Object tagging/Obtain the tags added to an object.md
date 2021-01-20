@@ -1,12 +1,12 @@
-# Obtain the tags added to an object {#concept_645145 .concept}
+# Obtain the tags added to an object
 
 This topic describes how to obtain the tags added to an object.
 
-The object tagging function uses a key-value pair to tag an object. For more information about the object tagging function, see [Object tagging](../../../../intl.en-US/Developer Guide/Objects/Manage files/Object tagging.md#).
+The object tagging function uses a key-value pair to tag an object. For more information about the object tagging function, see [Configure object tagging](/intl.en-US/Developer Guide/Objects/Manage files/Configure object tagging.md).
 
 Run the following code to obtain the tags added to an object:
 
-``` {#codeblock_xzw_dfg_mh0}
+```
 # -*- coding: utf-8 -*-
 
 import oss2
@@ -25,5 +25,5 @@ for key in result.tag_set.tagging_rule:
     print('tagging key: {}, value: {}'.format(key, result.tag_set.tagging_rule[key]))
 ```
 
-For more information about how to obtain the tags added to an object, see [GetObjectTagging](../../../../intl.en-US/API Reference/Object operations/GetObjectTagging.md#).
+For more information about how to obtain the tags added to an object, see [GetObjectTagging](/intl.en-US/API Reference/Object operations/Tagging/GetObjectTagging.md).
 
