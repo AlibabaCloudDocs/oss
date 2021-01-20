@@ -4,14 +4,14 @@ OSS高防是OSS结合DDoS高防推出的DDoS攻击代理防护服务。当受保
 
 Bucket已绑定自定义域名。操作步骤，请参见[绑定自定义域名](/cn.zh-CN/控制台用户指南/存储空间管理/传输管理/绑定自定义域名.md)。
 
-OSS高防已在华东2（上海）、华北1（青岛）、华南1（深圳）地域公测，请联系[技术支持](https://selfservice.console.aliyun.com/ticket/createIndex)申请试用。
+OSS高防已在华东1（杭州）、华东2（上海）、华北1（青岛）、华北2（北京）、华南1（深圳）地域公测，请联系[技术支持](https://selfservice.console.aliyun.com/ticket/createIndex)申请试用。
 
 您在使用OSS高防时需注意以下事项：
 
 -   高防OSS实例创建后需至少使用7天，若实例在7天内被删除，OSS会收取剩余时间的高防基础资源费用。
 -   每个地域可以创建一个高防OSS实例，每个实例最多只能绑定同一地域下的10个Bucket。
 
-更多信息，请参见[OSS高防]()。
+更多信息，请参见[OSS高防](/cn.zh-CN/开发指南/数据安全/OSS高防.md)。
 
 ## 操作步骤
 
