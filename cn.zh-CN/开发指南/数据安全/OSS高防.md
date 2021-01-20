@@ -2,7 +2,7 @@
 
 OSS高防是OSS结合DDoS高防推出的DDoS攻击代理防护服务。当受保护的存储空间（Bucket）遭受大流量攻击时，OSS高防会将攻击流量牵引至高防集群进行清洗，并将正常访问流量回源到目标Bucket，确保业务的正常进行。
 
-**说明：** OSS高防已在华东2（上海）、华北1（青岛）、华南1（深圳）地域公测，请联系[技术支持](https://selfservice.console.aliyun.com/ticket/createIndex)申请试用。
+**说明：** OSS高防已在华东1（杭州）、华东2（上海）、华北1（青岛）、华北2（北京）、华南1（深圳）地域公测，请联系[技术支持](https://selfservice.console.aliyun.com/ticket/createIndex)申请试用。
 
 ## 适用场景
 
