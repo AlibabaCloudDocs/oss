@@ -59,6 +59,7 @@ This topic uses **Basic Statistics** as an example to show you how to view resou
             |API request|Operation|
             |-----------|---------|
             |PutBucket|Creates a bucket.|
+            |GetService\(ListBuckets\)|Lists all buckets.|
             |GetBucket\(ListObject\)|Lists all objects.|
             |PutBucketACL|Configures bucket ACL.|
             |PutBucketLogging|Configures bucket logging.|
@@ -107,7 +108,6 @@ This topic uses **Basic Statistics** as an example to show you how to view resou
 
             |API request|Operation|
             |-----------|---------|
-            |GetService\(ListBuckets\)|Lists all buckets.|
             |GetBucketAcl|Queries the bucket ACL.|
             |GetBucketLocation|Queries the data center where a bucket is located.|
             |GetBucketInfo|Queries bucket information.|
