@@ -48,13 +48,13 @@ Authorization: SignatureValue
 
 -   WebsiteConfiguration的内容
 
-    |名称|类型|是否必须|描述|
+    |名称|类型|是否必选|描述|
     |--|--|----|--|
     |WebsiteConfiguration|容器|是|根节点 父节点：无 |
 
 -   IndexDocument的内容
 
-    |名称|类型|是否必须|描述|
+    |名称|类型|是否必选|描述|
     |--|--|----|--|
     |IndexDocument|容器|有条件至少指定IndexDocument、ErrorDocument、RoutingRules三个容器中的一个。
 
@@ -82,7 +82,7 @@ Authorization: SignatureValue
 
 -   ErrorDocument的内容
 
-    |名称|类型|是否必须|描述|
+    |名称|类型|是否必选|描述|
     |--|--|----|--|
     |ErrorDocument|容器|有条件至少指定IndexDocument、ErrorDocument、RoutingRules三个容器中的一个。
 
@@ -95,7 +95,7 @@ Authorization: SignatureValue
 
 -   RoutingRules\|RoutingRule\|RuleNumber的内容
 
-    |名称|类型|是否必须|描述|
+    |名称|类型|是否必选|描述|
     |--|--|----|--|
     |RoutingRules|容器|有条件至少指定IndexDocument、ErrorDocument、RoutingRules三个容器中的一个。
 
@@ -107,7 +107,7 @@ Authorization: SignatureValue
 
 -   RoutingRules\|RoutingRule\|Condition的内容
 
-    |名称|类型|是否必须|描述|
+    |名称|类型|是否必选|描述|
     |--|--|----|--|
     |Condition|容器|有条件若指定了父节点RoutingRule，则必须指定此项。
 
@@ -117,19 +117,15 @@ Authorization: SignatureValue
     |KeyPrefixEquals|字符串|否|只有匹配此前缀的Object才能匹配此规则。 父节点：Condition |
     |HttpErrorCodeReturnedEquals|HTTP状态码|否|访问指定Object时返回此status才能匹配此规则。当跳转规则是镜像回源类型时，此字段必须为404。 父节点：Condition |
     |IncludeHeader|容器|否|只有请求中包含了指定Header，且值为指定值时，才能匹配此规则。该容器最多可指定10个。 父节点：Condition |
-    |Key|字符串|有条件若指定了父节点IncludeHeader，则必须指定此项。
-
-|只有请求中包含了此Header，且值为Equals的指定值时，才能匹配此规则。 父节点：IncludeHeader |
-    |Equals|字符串|有条件若指定了父节点IncludeHeader，则必须指定此项。
-
-|只有请求中包含了Key指定的Header，且值为指定值时，才能匹配此规则。 父节点：IncludeHeader |
+    |Key|字符串|是|只有请求中包含了此Header，且值为Equals的指定值时，才能匹配此规则。 父节点：IncludeHeader |
+    |Equals|字符串|否|只有请求中包含了Key指定的Header，且值为指定值时，才能匹配此规则。 父节点：IncludeHeader |
     |KeySuffixEquals|字符串|否|只有匹配此字段指定的后缀才能匹配此规则。 默认值为空，表示不匹配指定的后缀
 
 父节点：Condition |
 
 -   RoutingRules\|RoutingRule\|Redirect的内容
 
-    |名称|类型|是否必须|描述|
+    |名称|类型|是否必选|描述|
     |--|--|----|--|
     |Redirect|容器|有条件若指定了父节点RoutingRule，则必须指定此项。
 
@@ -204,18 +200,14 @@ Authorization: SignatureValue
 |设置Header的value，最多1024个字节，不能出现`\r\n`。仅在RedirectType为Mirror时生效。
 
 父节点：Set |
-    |Protocol|字符串|有条件若RedirectType指定为External或者AliCDN，则必须指定此项。
-
-|跳转时的协议。假设访问的文件为test，设定跳转到`www.test.com`，而且Protocol字段为https，那么Location头为`https://www.test.com/test`。
+    |Protocol|字符串|否|跳转时的协议。假设访问的文件为test，设定跳转到`www.test.com`，而且Protocol字段为https，那么Location头为`https://www.test.com/test`。
 
 仅在RedirectType为External或者AliCDN时生效。
 
 取值：http或https。
 
 父节点：Redirect |
-    |HostName|字符串|有条件若RedirectType指定为External或者AliCDN，则必须指定此项。
-
-|跳转时的域名，需符合域名规范。例如访问的Object为test，Protocol为https，Hostname指定为`www.test.com`，那么Location头为`https://www.test.com/test`。
+    |HostName|字符串|否|跳转时的域名，需符合域名规范。例如访问的Object为test，Protocol为https，Hostname指定为`www.test.com`，那么Location头为`https://www.test.com/test`。
 
 父节点：Redirect |
     |ReplaceKeyPrefixWith|字符串|否|Redirect时Object名称的前缀将替换成该值。如果前缀为空，则将这个字符串插入Object 名称的前面。 **说明：** 仅允许存在ReplaceKeyWith或ReplaceKeyPrefixWith节点。
@@ -231,11 +223,9 @@ Authorization: SignatureValue
     |ReplaceKeyWith|字符串|否|Redirect时Object名称将替换成ReplaceKeyWith指定的值，ReplaceKeyWith支持设置变量。目前支持的变量是$\{key\}，表示该请求中的Object名称。 假设设置ReplaceKeyWith为`prefix/${key}.suffix`，访问的Object为test，那么Location头则为`http://www.test.com/prefix/test.suffix`。
 
 父节点：Redirect |
-    |HttpRedirectCode|HTTP状态码|有条件若RedirectType指定为External或者AliCDN，则必须指定此项。
+    |HttpRedirectCode|HTTP状态码|否|跳转时返回的状态码。仅在RedirectType为External或者AliCDN时生效。
 
-|跳转时返回的状态码。仅在RedirectType为External或者AliCDN时生效。
-
-取值：301、302或307。
+取值：301（默认值）、302或307。
 
 父节点：Redirect |
 
