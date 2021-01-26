@@ -14,7 +14,7 @@ When you perform the GetBucketVersions\(ListObjectVersions\) and GetBucket\(List
 
 ## Request headers
 
-An GetBucketVersions\(ListObjectVersions\) request contains only common request headers, such as `Authorization` and `Host`. For more information, see [Common request headers](/intl.en-US/API Reference/Common HTTP headers.md).
+A GetBucketVersions\(ListObjectVersions\) request contains only common request headers such as `Authorization` and `Host`. For more information, see [Common request headers](/intl.en-US/API Reference/Common HTTP headers.md).
 
 ## Request parameters
 
@@ -25,7 +25,7 @@ When you call the GetBucketVersions\(ListObjectVersions\) operation, you can spe
 |delimiter|String|No|/|The character used to group objects by name. If you specify the delimiter parameter in the request, the response contains the CommonPrefixes element. Objects whose names contain the same string that ranges from the prefix to the next occurrence of the delimiter are grouped as a single result element in CommonPrefixes.If you set prefix to a folder name and delimiter to a forward slash \(/\), only objects in the folder are returned. The names of the subfolders within the folder are returned in CommonPrefixes. However, the objects and folders within the subfolders are not returned.
 
 Default value: null |
-|key-marker|String|The key-marker parameter must be specified if version-id-marker is specified.|example|If this parameter is specified, objects whose names are alphabetically greater than the value of key-marker are returned in alphabetic order. This parameter is specified together with version-id-marker.The value of key-marker must be smaller than 1,024 bytes in length.
+|key-marker|String|The key-marker parameter is required if version-id-marker is specified.|example|If this parameter is specified, objects whose names are alphabetically greater than the value of key-marker are returned in alphabetic order. This parameter is specified together with version-id-marker.The value of key-marker must be smaller than 1,024 bytes in length.
 
 Default value: null |
 |version-id-marker|String|No|CAEQMxiBgICbof2D0BYiIGRhZjgwMzJiMjA3MjQ0ODE5MWYxZDYwMzJlZjU1\*\*\*\*|If this parameter is specified, versions of the key-marker object created after the version specified by version-id-marker are returned in an order of created time. By default, if this parameter is not specified, the results are returned from the latest version of the object whose name follows the object specified by key-marker in alphabetic order. Default value: null
@@ -54,34 +54,34 @@ Valid value: URL
 |:------|:---|-------|:----------|
 |ListVersionsResult|Container|N/A|The container used to store the results of the GetBucketVersions request.Child nodes: Name, Prefix, Marker, MaxKeys, Delimiter, IsTruncated, NextMarker, Version, and DeleteMarker
 
-Parent node: none |
-|CommonPrefixes|String|N/A|If the delimiter parameter is specified in the request, the response contains the CommonPrefixes element. Objects whose names contain the same string that ranges from the prefix to the next occurrence of the delimiter are grouped as a single result element in CommonPrefixes.Parent node: ListVersionsResult |
-|Delimiter|String|/|The character used to group objects by name. If you specify the delimiter parameter in the request, the response contains the CommonPrefixes element. Objects whose names contain the same string that ranges from the prefix to the next occurrence of the delimiter are grouped as a single result element in CommonPrefixes.Parent node: ListVersionsResult |
-|EncodingType|String|URL|The encoding type of the object names in the response. If you specify encoding-type in the request, Delimiter, Marker, Prefix, NextMarker, and Key are encoded in the returned results.Parent node: ListVersionsResult |
+Parent nodes: none |
+|CommonPrefixes|String|N/A|If the delimiter parameter is specified in the request, the response contains the CommonPrefixes element. Objects whose names contain the same string that ranges from the prefix to the next occurrence of the delimiter are grouped as a single result element in CommonPrefixes.Parent nodes: ListVersionsResult |
+|Delimiter|String|/|The character used to group objects by name. If you specify the Delimiter parameter in the request, the response contains the CommonPrefixes element. Objects whose names contain the same string that ranges from the prefix to the next occurrence of the delimiter are grouped as a single result element in CommonPrefixes.Parent nodes: ListVersionsResult |
+|EncodingType|String|URL|The encoding type of the object names in the response. If you specify encoding-type in the request, Delimiter, Marker, Prefix, NextMarker, and Key are encoded in the returned results.Parent nodes: ListVersionsResult |
 |IsTruncated|String|true|Indicates whether the returned results are truncated. -   true: indicates that not all results are returned this time.
 -   false: indicates that all results are returned this time.
 
 Valid values: true and false
 
-Parent node: ListVersionsResult |
-|KeyMarker|String|example|Indicates the object from which the GetBucketVersions operation starts.Parent node: ListVersionsResult |
-|VersionIdMarker|String|CAEQMxiBgICbof2D0BYiIGRhZjgwMzJiMjA3MjQ0ODE5MWYxZDYwMzJlZjU1\*\*\*\*|This parameter is returned with KeyMarker together to indicate the version from which the GetBucketVersions operation starts.Parent node: ListVersionsResult |
-|NextKeyMarker|String|test|If not all results are returned for the request, the NextUploadMarker element is contained in the response to indicate the key-marker of the next request.Parent node: ListVersionsResult |
-|NextVersionIdMarker|String|CAEQGBiBgIC\_jq7P9xYiIDRiZWJkNjY2Y2Q4NDQ5ZTI5ZGE5ODIxMTIyZThl\*\*\*\*|If not all results are returned for the request, the NextUploadMarker element is contained in the response to indicate the version-id-marker of the next request.Parent node: ListVersionsResult |
-|MaxKeys|String|1000|The maximum number of returned objects in the response.Parent node: ListVersionsResult |
-|Name|String|examplebucket-1250000000|The bucket name.Parent node: ListVersionsResult |
-|Owner|Container|N/A|The container that stores the information about the bucket owner.Parent node: ListVersionsResult |
-|Prefix|String|fun|The prefix that the names of returned objects must contain.Parent node: ListVersionsResult |
-|Version|Container|N/A|The container that stores the versions of objects except for delete markers.Parent node: ListVersionsResult |
-|DeleteMarker|Container|N/A|The container that stores delete markers.Parent node: ListVersionsResult |
+Parent nodes: ListVersionsResult |
+|KeyMarker|String|example|Indicates the object from which the GetBucketVersions operation starts.Parent nodes: ListVersionsResult |
+|VersionIdMarker|String|CAEQMxiBgICbof2D0BYiIGRhZjgwMzJiMjA3MjQ0ODE5MWYxZDYwMzJlZjU1\*\*\*\*|This parameter is returned with KeyMarker together to indicate the version from which the GetBucketVersions operation starts.Parent nodes: ListVersionsResult |
+|NextKeyMarker|String|test|If not all results are returned for the request, the NextKeyMarker element is contained in the response to indicate the key-marker of the next request.Parent nodes: ListVersionsResult |
+|NextVersionIdMarker|String|CAEQGBiBgIC\_jq7P9xYiIDRiZWJkNjY2Y2Q4NDQ5ZTI5ZGE5ODIxMTIyZThl\*\*\*\*|If not all results are returned for the request, the NextVersionIdMarker element is contained in the response to indicate the version-id-marker of the next request.Parent nodes: ListVersionsResult |
+|MaxKeys|String|1000|The maximum number of returned objects in the response.Parent nodes: ListVersionsResult |
+|Name|String|examplebucket-1250000000|The bucket name.Parent nodes: ListVersionsResult |
+|Owner|Container|N/A|The container that stores the information about the bucket owner.Parent nodes: ListVersionsResult |
+|Prefix|String|fun|The prefix that the names of returned objects must contain.Parent nodes: ListVersionsResult |
+|Version|Container|N/A|The container that stores the versions of objects except for delete markers.Parent nodes: ListVersionsResult |
+|DeleteMarker|Container|N/A|The container that stores delete markers.Parent nodes: ListVersionsResult |
 |ETag|String|250F8A0AE989679A22926A875F0A2\*\*\*\*|The entity tag \(ETag\). An ETag is generated when an object is created to identify the content of the object. -   If an object is created by using a PutObject request, the ETag value is the MD5 hash of the object content.
 -   If an object is created by using other methods, the ETag value is the UUID of the object content.
 
-**Note:** The ETag value of an object can be used to check whether the object content changes. However, we recommend that you do not use the ETag value of an object as the MD5 hash of the object content to verify data integrity.
+**Note:** The ETag value of an object can be used only to check whether the object content changes. To verify data integrity, we recommend that you do not use the ETag value of an object as the MD5 hash of the object content.
 
-Parent node: ListVersionsResult.Version |
+Parent nodes: ListVersionsResult.Version |
 |Key|String|example|The name of the object.Parent nodes: ListVersionsResult.Version and ListVersionsResult.DeleteMarker |
-|LastModified|Time|2019-04-09T07:27:28.000Z|The last modified time of the object.Parent nodes: ListVersionsResult.Version and ListVersionsResult.DeleteMarker |
+|LastModified|The time|2019-04-09T07:27:28.000Z|The last modified time of the object.Parent nodes: ListVersionsResult.Version and ListVersionsResult.DeleteMarker |
 |VersionId|String|CAEQMxiBgMDNoP2D0BYiIDE3MWUxNzgxZDQxNTRiODI5OGYwZGMwNGY3MzZjN\*\*\*\*|The version ID of the object.Parent nodes: ListVersionsResult.Version and ListVersionsResult.DeleteMarker |
 |IsLatest|String|true|Indicates whether the version is the current version.Valid values:
 
@@ -246,7 +246,7 @@ For more information about the common response headers included in the response 
 
 ## SDK
 
-You can use OSS SDKs for the following programming languages to call the GetBucketVersions operation:
+You can use OSS SDKs for the following programming languages to call the GetBucketVersions\(ListObjectVersions\) operation:
 
 -   [Java](/intl.en-US/SDK Reference/Java/Versioning/Versioning.md)
 -   [Python](/intl.en-US/SDK Reference/Python/Versioning/Versioning.md)
@@ -255,11 +255,11 @@ You can use OSS SDKs for the following programming languages to call the GetBuck
 -   [.NET](/intl.en-US/SDK Reference/. NET/Versioning/Versioning.md)
 -   [Node.js](/intl.en-US/SDK Reference/Node. js/Configure versioning/Versioning.md)
 
-## Errors codes
+## Error codes
 
 |Error code|HTTP status code|Description|
 |:---------|:---------------|:----------|
-|NoSuchBucket|404|The error message returned because the bucket that you attempt to access does not exist. This error message also returned when the bucket that you access cannot be created because the bucket name does not comply with the naming conventions.|
+|NoSuchBucket|404|The error message returned because the bucket that you access does not exist. This error message also returned when the bucket that you access cannot be created because the bucket name does not comply with the naming conventions.|
 |AccessDenied|403|The error message returned because you are not authorized to access the bucket.|
 |InvalidArgument|400|-   The error message returned because the value of max-keys in the request is smaller than 0 or greater than 1000.
 -   The error message returned because the length of the value of prefix, key-marker, or delimiter is invalid.
