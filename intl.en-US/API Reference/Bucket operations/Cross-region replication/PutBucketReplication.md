@@ -12,7 +12,7 @@ Cross-region replication enables the automatic and asynchronous (near real-time)
 
   
 
-* The names of the source bucket and destination bucket must be different. The source bucket and destination bucket must be in different regions.
+* The source bucket and destination bucket must be in different regions. The names of the source bucket and destination bucket must be different. 
 
   For more information, see [Cross-region replication](/intl.en-US/Developer Guide/Data security/Disaster recovery/Cross-region replication.md).
   
