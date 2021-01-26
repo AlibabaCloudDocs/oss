@@ -54,7 +54,7 @@ PutBucketInventory接口用于为某个存储空间（Bucket）配置清单（In
 
 |名称|类型|是否必选|示例值|描述|
 |--|--|----|---|--|
-|Id|字符串|是|56594298207FB304438516F9|由用户指定的清单名称，清单名称在当前Bucket下必须全局唯一。|
+|Id|字符串|是|report1|由用户指定的清单名称，清单名称在当前Bucket下必须全局唯一。|
 |IsEnabled|布尔|是|true|清单功能是否启用的标识。 有效值：
 
 -   true：启用清单功能。
@@ -117,7 +117,7 @@ PutBucketInventory接口用于为某个存储空间（Bucket）配置清单（In
     
       <?xml version="1.0" encoding="UTF-8"?>
       <InventoryConfiguration>
-         <Id>56594298207FB304438516F9</Id>
+         <Id>report1</Id>
          <IsEnabled>true</IsEnabled>
          <Filter>
             <Prefix>Pics</Prefix>
