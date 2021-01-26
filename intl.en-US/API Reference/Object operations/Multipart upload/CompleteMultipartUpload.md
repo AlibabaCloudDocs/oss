@@ -1,6 +1,6 @@
 # CompleteMultipartUpload
 
-You can call this operation to complete the multipart upload tasks of an object.
+You can call this operation to complete the multipart upload task of an object.
 
 ## Usage notes
 
@@ -52,11 +52,11 @@ Authorization: Signature
 
 ## Request parameters
 
-You can configure the Encoding-type parameter in a CompleteMultipartUpload request. OSS uses the specified encoding type to encode the object name in the response.
+You can configure the encoding-type parameter in a CompleteMultipartUpload request. OSS uses the specified encoding type to encode the object name in the response.
 
 |Parameter|Type|Description|
 |:--------|:---|:----------|
-|Encoding-type|String|The encoding type of the object name in the response. Only URL encoding is supported.The object name can contain any characters that are encoded in UTF-8. However, the XML 1.0 standard cannot be used to parse control characters such as characters whose ASCII values range from 0 to 10. You can configure this parameter to encode the object names in the response.
+|encoding-type|String|The encoding type of the object name in the response. Only URL encoding is supported.The object name can contain any characters that are encoded in UTF-8. However, the XML 1.0 standard cannot be used to parse control characters such as characters whose ASCII values range from 0 to 10. You can configure this parameter to encode the object names in the response.
 
 Default value: null
 
@@ -73,8 +73,8 @@ For more information about other common request headers such as Host and Date, s
 
 **Note:**
 
--   The x-oss-forbid-overwrite request header is invalid when the versioning state of the target bucket is Enabled or Suspended. In this case, the CompleteMultipartUpload operation overwrites the object with the same name.
--   If you specify the x-oss-forbid-overwrite request header, the query per second \(QPS\) performance of OSS may be degraded. If you want to use the x-oss-forbid-overwrite request header for a large number of operations \(QPS greater than 1000\), submit a ticket. |
+-   The x-oss-forbid-overwrite request header is invalid when the versioning is enabled or suspended for the bucket. In this case, the CompleteMultipartUpload operation overwrites the object that has the same name.
+-   If you specify the x-oss-forbid-overwrite request header, the query per second \(QPS\) performance of OSS may be degraded. If you want to use the x-oss-forbid-overwrite request header for a large number of operations \(QPS greater than 1,000\), submit a ticket. |
 |x-oss-complete-all:yes|String|No|Specifies whether to list all parts uploaded by using the current upload ID.-   If x-oss-complete-all:yes is specified in the request, OSS lists all parts that are uploaded by using the current upload ID, sorts the parts by their part numbers, and then performs the CompleteMultipartUpload operation. OSS cannot detect parts that are not uploaded or being uploaded in the CompleteMultipartUpload operation. Therefore, you must ensure that all parts are uploaded before you perform the CompleteMultipartUpload operation.
 -   If x-oss-complete-all:yes is specified in the request, the request body cannot be specified. Otherwise, an error occurs.
 -   The format of the response remains unchanged if x-oss-complete-all:yes is specified in the request. |
@@ -83,38 +83,38 @@ For more information about other common request headers such as Host and Date, s
 
 |Element|Type|Description|
 |:------|:---|:----------|
-|CompleteMultipartUpload|Container|The container that stores the content of the CompleteMultipartUpload request. Child node: Part
+|CompleteMultipartUpload|Container|The container that stores the content of the CompleteMultipartUpload request. Child nodes: Part
 
-Parent node: none |
-|ETag|String|The ETag values that are returned by OSS after parts are uploaded. Parent node: Part |
+Parent nodes: none |
+|ETag|String|The ETag values that are returned by OSS after parts are uploaded. Parent nodes: Part |
 |Part|Container|The container that stores the information about the uploaded part. Child nodes: ETag and PartNumber
 
-Parent node: CompleteMultipartUpload |
-|PartNumber|Integer|The number of parts.Parent node: Part |
+Parent nodes: CompleteMultipartUpload |
+|PartNumber|Integer|The number of parts.Parent nodes: Part |
 
 ## Response elements
 
 |Element|Type|Description|
 |:------|:---|:----------|
-|Bucket|String|The name of the bucket.Parent node: CompleteMultipartUploadResult |
+|Bucket|String|The name of the bucket.Parent nodes: CompleteMultipartUploadResult |
 |CompleteMultipartUploadResult|Container|The container that stores the result of the CompleteMultipartUpload request. Child nodes: Bucket, Key, ETag, and Location
 
-Parent node: none |
+Parent nodes: none |
 |ETag|String|The ETag that is generated when an object is created. Etags are used to identify the content of the objects.The ETag value of an object created by CompleteMultipartUpload is the UUID of the object.
 
-**Note:** The ETag value of an object can be used to check whether the object content is changed. However, we recommend that you do not use the ETag of an object as the MD5 hash of the object to verify data integrity.
+**Note:** The ETag value of an object can be used to check whether the object content is changed. To verify data integrity, we recommend that you do not use the ETag of an object as the MD5 hash of the object.
 
-Parent node: CompleteMultipartUploadResult |
-|Location|String|The URL used to access the uploaded object. Parent node: CompleteMultipartUploadResult |
-|Key|String|The name of the uploaded object. Parent node: CompleteMultipartUploadResult |
-|EncodingType|String|The encoding type of the object names in the response. If this parameter is specified in the request, the object name is encoded in the response. Parent node: InitiateMultipartUploadResult |
+Parent nodes: CompleteMultipartUploadResult |
+|Location|String|Indicates the URL of the new object that is created. Parent nodes: CompleteMultipartUploadResult |
+|Key|String|The name of the uploaded object. Parent nodes: CompleteMultipartUploadResult |
+|EncodingType|String|The encoding type of the object name in the response. If this parameter is specified in the request, the object name is encoded in the response. Parent nodes: InitiateMultipartUploadResult |
 
 ## Examples
 
--   Sample request
+-   Sample requests
 
     ```
-    POST /multipart.data? uploadId=0004B9B2D2F7815C432C9057C031****  HTTP/1.1
+    POST /multipart.data? uploadId=0004B9B2D2F7815C432C9057C031****&encoding-type=url HTTP/1.1
     Host: oss-example.oss-cn-hangzhou.aliyuncs.com
     Content-Length: 1056
     Date: Fri, 24 Feb 2012 10:19:18 GMT
@@ -135,7 +135,7 @@ Parent node: CompleteMultipartUploadResult |
     </CompleteMultipartUpload>
     ```
 
-    Sample response
+    Sample responses
 
     ```
     HTTP/1.1 200 OK
@@ -147,6 +147,7 @@ Parent node: CompleteMultipartUploadResult |
     Date: Fri, 24 Feb 2012 10:19:18 GMT
     <? xml version="1.0" encoding="UTF-8"? >
     <CompleteMultipartUploadResult xmlns="http://doc.oss-cn-hangzhou.aliyuncs.com">
+        <EncodingType>url</EncodingType>
         <Location>http://oss-example.oss-cn-hangzhou.aliyuncs.com /multipart.data</Location>
         <Bucket>oss-example</Bucket>
         <Key>multipart.data</Key>
@@ -197,7 +198,7 @@ Parent node: CompleteMultipartUploadResult |
 
 ## SDK
 
-You can use SDKs for the following programming languages to call the CompleteMultipartUpload operation:
+You can use OSS SDKs for the following programming languages to call the CompleteMultipartUpload operation:
 
 -   [Java](/intl.en-US/SDK Reference/Java/Upload objects/Multipart upload.md)
 -   [Python](/intl.en-US/SDK Reference/Python/Upload objects/Multipart upload.md)
@@ -214,5 +215,5 @@ You can use SDKs for the following programming languages to call the CompleteMul
 |Error code|HTTP status code|Description|
 |:---------|:---------------|:----------|
 |InvalidDigest|400|The error message returned because the Content-MD5 value in the request and the MD5 hash calculated by OSS are inconsistent. To ensure that no errors occur during data transmission over the network, you can include the Content-MD5 value in the request. OSS calculates the MD5 hash of the uploaded data and compares it with the Content-MD5 value.|
-|FileAlreadyExists|409|The error message returned because an object with the same name already exists when the request contains the x-oss-forbid-overwrite header and the value of this header is set to true.|
+|FileAlreadyExists|409|The error message returned because an object that has the same name already exists when the request contains the x-oss-forbid-overwrite header and the value of this header is true.|
 
