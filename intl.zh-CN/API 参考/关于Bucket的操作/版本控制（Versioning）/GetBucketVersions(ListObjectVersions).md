@@ -66,8 +66,8 @@ GetBucketVersions\(ListObjectVersions\)接口用于列出Bucket中包括删除�
 父节点：ListVersionsResult |
 |KeyMarker|字符串|example|标识此次GetBucketVersions的起点Object。父节点：ListVersionsResult |
 |VersionIdMarker|字符串|CAEQMxiBgICbof2D0BYiIGRhZjgwMzJiMjA3MjQ0ODE5MWYxZDYwMzJlZjU1\*\*\*\*|与KeyMarker参数一同使用，以指定GetBucketVersions的起点。父节点：ListVersionsResult |
-|NextKeyMarker|字符串|test|如果本次没有返回全部结果，响应请求中将包含NextUploadMarker元素，用于标明接下来请求的Key-marker。父节点：ListVersionsResult |
-|NextVersionIdMarker|字符串|CAEQGBiBgIC\_jq7P9xYiIDRiZWJkNjY2Y2Q4NDQ5ZTI5ZGE5ODIxMTIyZThl\*\*\*\*|如果本次没有返回全部结果，响应请求中将包含NextUploadMarker元素，用于标明接下来请求的Version-id-marker。父节点：ListVersionsResult |
+|NextKeyMarker|字符串|test|如果本次没有返回全部结果，响应请求中将包含NextKeyMarker元素，用于标明接下来请求的key-marker。父节点：ListVersionsResult |
+|NextVersionIdMarker|字符串|CAEQGBiBgIC\_jq7P9xYiIDRiZWJkNjY2Y2Q4NDQ5ZTI5ZGE5ODIxMTIyZThl\*\*\*\*|如果本次没有返回全部结果，响应请求中将包含NextVersionIdMarker元素，用于标明接下来请求的version-id-marker。父节点：ListVersionsResult |
 |MaxKeys|字符串|1000|响应请求内返回结果的最大数目。父节点：ListVersionsResult |
 |Name|字符串|examplebucket-1250000000|Bucket名称。父节点：ListVersionsResult |
 |Owner|容器|不涉及|保存Bucket拥有者信息的容器。父节点：ListVersionsResult |
