@@ -100,11 +100,11 @@ Host: BucketName.oss.aliyuncs.com
 子节点：Key， Value |
 |Key|字符串|若父节点Tag已设置，则必选|TagKey1|Tag Key 父节点：Tag |
 |Value|字符串|若父节点Tag已设置，则必选|TagValue1|Tag Value 父节点：Tag |
-|NoncurrentDays|字符串|若父节点NoncurrentVersionTransition或NoncurrentVersionExpiration已设置，则必选|5|指定生命周期规则在Object成为非当前版本多少天后生效。 父节点：NoncurrentVersionTransition、NoncurrentVersionExpiration |
+|NoncurrentVersionExpiration|容器|否|不涉及|指定Object非当前版本生命周期规则的过期属性。 子节点：NoncurrentDays |
 |NoncurrentVersionTransition|容器|否|不涉及|在有效的生命周期规则中，OSS何时将指定Object的非当前版本转储为IA或者Archive存储类型 。 Standard类型的Object转储为Archive类型的时间必须大于转储为IA类型的时间。
 
 子节点：NoncurrentDays、StorageClass |
-|NoncurrentVersionExpiration|容器|否|不涉及|指定Object非当前版本生命周期规则的过期属性。 子节点：NoncurrentDays |
+|NoncurrentDays|字符串|若父节点NoncurrentVersionExpiration或NoncurrentVersionTransition已设置，则必选|5|指定生命周期规则在Object成为非当前版本多少天后生效。 父节点：NoncurrentVersionTransition、NoncurrentVersionExpiration |
 
 ## 响应头
 
