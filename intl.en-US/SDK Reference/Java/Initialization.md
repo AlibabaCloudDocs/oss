@@ -1,181 +1,235 @@
-# Initialization {#concept_32010_zh .concept}
+# Initialization
 
-OSSClient serves as the OSS Java client to manage OSS resources such as buckets and objects. To initiate an OSS request with Java SDK, you need to initiate an OSSClient instance first and then modify the default configuration items of ClientConfiguration.
+OSSClient serves as the Java client to manage OSS resources such as buckets and objects. To use OSS SDK for Java to initiate a request, you must initialize an OSSClient instance and modify the default configuration items of ClientConfiguration.
 
-## Create an OSSClient instance {#section_ngr_tjb_kfb .section}
+## Create an OSSClient instance
 
-To create an OSSClient instance, you need to specify an endpoint. For more information about endpoints, see [Regions and endpoints](../../../../reseller.en-US/Developer Guide/Regions and endpoints.md#) and [Bind a custom domain name](../../../../reseller.en-US/Developer Guide/Access and control/Bind a custom domain name.md#).
+To create an OSSClient instance, you must specify an endpoint. For more information about endpoints, see [Regions and endpoints](/intl.en-US/Developer Guide/Endpoint/Regions and endpoints.md) and [Bind a custom domain name](/intl.en-US/Developer Guide/Buckets/Bind custom domain names.md).
 
--   Use an OSS domain to create an OSSClient instance
+-   Create the OSSClient instance based on an OSS endpoint
 
-    Use the following code to create an OSSClient instance with a domain assigned by OSS:
+    The following code provides an example on how to create an OSSClient instance based on an OSS endpoint:
 
-    ```language-java
-    // This example uses endpoint China (Hangzhou). Specify the actual endpoint based on your requirements.
-    String endpoint = "http://oss-cn-hangzhou.aliyuncs.com";
-    // It is highly risky to log on with AccessKey of an Alibaba Cloud account because the account has permissions on all the APIs in OSS. We recommend that you log on as a RAM user to access APIs or perform routine operations and maintenance. To create a RAM account, log on to https://ram.console.aliyun.com.
+    ```
+    // The endpoint of the China (Hangzhou) region is used in this example. Specify the actual endpoint.
+    String endpoint = "https://oss-cn-hangzhou.aliyuncs.com";
+    // Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS because the account has permissions on all API operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create a RAM user, log on to the RAM console.
     String accessKeyId = "<yourAccessKeyId>";
     String accessKeySecret = "<yourAccessKeySecret>";
     
     // Create an OSSClient instance.
-    OSSClient ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret);
+    OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
     
-    // Close your OSSClient instance.
-    ossClient.shutdown();
-    
+    // Shut down the OSSClient instance.
+    ossClient.shutdown();                    
     ```
 
-    You can use one or more OSSClients for your project. In other words, you can use multiple OSSClients simultaneously.
+    You can use one or more OSSClient instances for your project. In other words, you can use multiple OSSClient instances simultaneously.
 
--   Use a custom domain \(CNAME\) to create an OSSClient instance
+-   Create an OSSClient instance based on a custom domain name
 
-    Run the following code to create an OSSClient instance with CNAME:
+    The following code provides an example on how to create an OSSClient instance based on a custom domain name:
 
-    ```language-java
+    ```
     String endpoint = "<yourEndpoint>";
-    // It is highly risky to log on with AccessKey of an Alibaba Cloud account because the account has permissions on all the APIs in OSS. We recommend that you log on as a RAM user to access APIs or perform routine operations and maintenance. To create a RAM account, log on to https://ram.console.aliyun.com.
+    // Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS because the account has permissions on all API operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create a RAM user, log on to the RAM console.
     String accessKeyId = "<yourAccessKeyId>";
     String accessKeySecret = "<yourAccessKeySecret>";
     
-    // Create a ClientConfiguration instance. Modify parameters as required.
-    ClientConfiguration conf = new ClientConfiguration();
-    // Enable CNAME. CNAME indicates a custom domain bound to a bucket.
+    // Create a ClientConfiguration instance and modify the default parameters.
+    ClientBuilderConfiguration conf = new ClientBuilderConfiguration();
+    // Configure whether CNAME is enabled. CNAME is used to bind the custom domain name to the bucket.
     conf.setSupportCname(true);
     
     // Create an OSSClient instance.
-    OSSClient ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret, conf);
+    OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret, conf);
     
-    // Close your OSSClient instance.
-    ossClient.shutdown();
-    
+    // Shut down the OSSClient instance.
+    ossClient.shutdown();                    
     ```
 
-    **Note:** ossClient.listBuckets is not available when CNAME is used.
+    **Note:** ossClient.listBuckets is unavailable when the client is created by using a custom domain name.
 
--   Create an OSSClient instance for Apsara Stack
+-   Create an OSSClient instance based on Apsara Stack or a private region
 
-    Run the following code to create an OSSClient instance for Apsara Stack:
+    The following code provides an example on how to create an OSSClient instance based on Apsara Stack or a private region:
 
-    ```language-java
-    // This example uses endpoint China (Hangzhou). Specify the actual endpoint based on your requirements.
-    String endpoint = "http://oss-cn-hangzhou.aliyuncs.com";
-    // It is highly risky to log on with AccessKey of an Alibaba Cloud account because the account has permissions on all the APIs in OSS. We recommend that you log on as a RAM user to access APIs or perform routine operations and maintenance. To create a RAM account, log on to https://ram.console.aliyun.com.
+    ```
+    // The endpoint of the China (Hangzhou) region is used in this example. Specify the actual endpoint.
+    String endpoint = "https://oss-cn-hangzhou.aliyuncs.com";
+    // Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS because the account has permissions on all API operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create a RAM user, log on to the RAM console.
     String accessKeyId = "<yourAccessKeyId>";
     String accessKeySecret = "<yourAccessKeySecret>";
     
-    // Create a ClientConfiguration instance. Modify parameters as required.
-    ClientConfiguration conf = new ClientConfiguration();
+    // Create a ClientConfiguration instance and modify the default parameters based on your requirements.
+    ClientBuilderConfiguration conf = new ClientBuilderConfiguration();
     // Disable CNAME.
     conf.setSupportCname(false);
     
     // Create an OSSClient instance.
-    OSSClient ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret, conf);
+    OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret, conf);
     
-    // Close your OSSClient instance.
-    ossClient.shutdown();
-    
+    // Shut down the OSSClient instance.
+    ossClient.shutdown();                    
     ```
 
--   Use an IP address to create an OSSClient instance
+-   Create an OSSClient instance based on an IP address
 
-    Run the following code to create an OSSClient instance with an IP address:
+    The following code provides an example on how to create an OSSClient instance based on an IP address:
 
-    ```language-java
-    // In some special cases, use the IP address as an endpoint. Specify the actual IP address based on your requirements.
-    String endpoint = "http://10.10.10.10";
-    // It is highly risky to log on with AccessKey of an Alibaba Cloud account because the account has permissions on all the APIs in OSS. We recommend that you log on as a RAM user to access APIs or perform routine operations and maintenance. To create a RAM account, log on to https://ram.console.aliyun.com.
+    ```
+    // In some special cases such as a private region, an IP address is used as the endpoint. In such cases, specify the actual IP address based on your requirements.
+    String endpoint = "https://10.10.10.10";
+    // Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS because the account has permissions on all API operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create a RAM user, log on to the RAM console.
     String accessKeyId = "<yourAccessKeyId>";
     String accessKeySecret = "<yourAccessKeySecret>";
     
-    // Create ClientConfiguration.
-    ClientConfiguration conf = new ClientConfiguration();
-    // Enable OSS access with the level-2 domain. Access with the level-2 domain is disabled by default. You need to configure this function for OSS Java SDK versions 2.1.2 or earlier because OSS Java SDK versions later than 2.1.2 automatically detect IP addresses.
+    // Create a ClientConfiguration instance.
+    ClientBuilderConfiguration conf = new ClientBuilderConfiguration();
+    // By default, access from a second-level domain is disabled. Enable OSS access from a second-level domain. You must configure this parameter for OSS SDK for Java V2.1.2 or earlier, because versions later than 2.1.2 automatically detect IP addresses.
     conf.setSLDEnabled(true);
     
     // Create an OSSClient instance.
-    OSSClient ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret, conf);
+    OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret, conf);
     
-    // Close your OSSClient instance.
-    ossClient.shutdown();
-    
+    // Shut down the OSSClient instance.
+    ossClient.shutdown();                    
     ```
 
--   Use STS to create an OSSClient instance
+-   Create an OSSClient instance based on STS
 
-    Run the following code to create an OSSClient instance with Security Token Service \(STS\):
+    The following code provides an example on how to create an OSSClient instance based on Security Token Service \(STS\):
 
-    ```language-java
-    // This example uses endpoint China (Hangzhou). Specify the actual endpoint based on your requirements.
-    String endpoint = "http://oss-cn-hangzhou.aliyuncs.com";
-    // It is highly risky to log on with AccessKey of an Alibaba Cloud account because the account has permissions on all the APIs in OSS. We recommend that you log on as a RAM user to access APIs or perform routine operations and maintenance. To create a RAM account, log on to https://ram.console.aliyun.com.
+    ```
+    // The endpoint of the China (Hangzhou) region is used in this example. Specify the actual endpoint.
+    String endpoint = "https://oss-cn-hangzhou.aliyuncs.com";
+    // Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS because the account has permissions on all API operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create a RAM user, log on to the RAM console.
     String accessKeyId = "<yourAccessKeyId>";
     String accessKeySecret = "<yourAccessKeySecret>";
     String securityToken = "<yourSecurityToken>";
     
     // Create an OSSClient instance.
-    OSSClient ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret, securityToken);
+    OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret, securityToken);
     
-    // Close your OSSClient instance.
+    // Shut down the OSSClient instance.
+    ossClient.shutdown();                    
+    ```
+
+    For more information, see [Authorized access](/intl.en-US/SDK Reference/Java/Authorized access.md).
+
+-   Create an OSSClient instance by using STSAssumeRole
+
+    The following code provides an example on how to use STSAssumeRole to create an OSSClient:
+
+    ```
+    // Specify the region that STSAssumeRole can access. The endpoint of the China (Hangzhou) region is used in this example. Specify the actual endpoint.
+    String region = "cn-hangzhou";
+    // Specify the AccessKey ID and AccessKey secret of the RAM user.
+    String accessKeyId = "<yourAccessKeyId>";
+    String accessKeySecret = "<yourAccessKeySecret>";
+    // Specify the ARN of STSAssumeRole, which indicates the ID of the role.
+    String roleArn = "<yourRoleArn>";   
+    // Create an STSAssumeRoleSessionCredentialsProvider instance.
+    STSAssumeRoleSessionCredentialsProvider provider = CredentialsProviderFactory.newSTSAssumeRoleSessionCredentialsProvider(
+    region, accessKeyId, accessKeySecret, roleArn);
+    
+    // Use STSAssumeRole to access the endpoint of OSS. The endpoint of the China (Hangzhou) region is used in this example. Specify the actual endpoint.
+    String endpoint = "https://oss-cn-hangzhou.aliyuncs.com";  
+    // Create a ClientConfiguration instance.
+    ClientBuilderConfiguration conf = new ClientBuilderConfiguration();
+    
+     
+    // Create an OSSClient instance.
+    OSS ossClient = new OSSClientBuilder().build(endpoint, provider, conf);
+    
+    // Shut down the OSSClient instance.
     ossClient.shutdown();
+    ```
+
+    For more information, see [Access OSS with a temporary access credential provided by STS](/intl.en-US/Developer Guide/Data security/Access and control/Access OSS with a temporary access credential provided by STS.md).
+
+-   Create an OSSClient instance by using EcsRamRole
+
+    You can access OSS from an ECS instance by using a RAM role bound to the instance. You can bind a RAM role to an ECS instance to access OSS from the instance by using STS temporary credentials. STS temporary credentials are automatically generated and updated. Applications can obtain the STS temporary credentials by using the instance metadata URL.
+
+    The following code provides an example on how to use EcsRamRole to create an OSSClient:
+
+    ```
+    // Use the EcsRamRole role to access OSS.
+    // The endpoint of the China (Hangzhou) region is used in this example. Specify the actual endpoint.
+    String endpoint = "https://oss-cn-hangzhou.aliyuncs.com";     
     
+    // Use EcsRamRole to obtain the access credential. The following code shows how to obtain the access credential by using a role named ecs-ram-role.
+    String authHost = "http://100.100.100.200/latest/meta-data/ram/security-credentials/ecs-ram-role";
+    // Create an EcsRamRoleCredentialsProvider instance.
+    EcsRamRoleCredentialsProvider provider = new EcsRamRoleCredentialsProvider(authHost);
+    
+    // Create an OSSClient instance.
+     OSS ossClient = new OSSClientBuilder().build(endpoint, provider, new ClientBuilderConfiguration());
+    
+    // Shut down the OSSClient instance.
+    ossClient.shutdown(); 
     ```
 
 
-For more information, see [What is RAM and STS](../../../../reseller.en-US/Best Practices/Access control/What is RAM and STS.md#) and [Authorized access](reseller.en-US/SDK Reference/Java/Authorized access.md#).
+## Configure an OSSClient instance
 
-## Configure an OSSClient instance { .section}
+ClientConfiguration is a configuration class of OSSClient. You can use ClientConfiguration to configure parameters such as host proxies, connection timeouts, and the maximum number of connections. The following table describes the parameters that you can configure by using ClientConfiguration.
 
-ClientConfiguration is a configuration class of OSSClient. ClientConfiguration is used to configure parameters such as user agents, host proxies, connection timeout, and the maximum number of connections. You can configure the following parameters.
+|Parameter|Description|Method|
+|:--------|:----------|:-----|
+|MaxConnections|The maximum number of HTTP connections that are allowed. Default value: 1024.|ClientConfiguration.setMaxConnections|
+|SocketTimeout|The timeout period for data transmission at the socket layer. Unit: milliseconds. Default value: 50000.|ClientConfiguration.setSocketTimeout|
+|ConnectionTimeout|The timeout period to establish a connection. Unit: milliseconds. Default value: 50000.|ClientConfiguration.setConnectionTimeout|
+|ConnectionRequestTimeout|The timeout period for obtaining a connection from the connection pool. Unit: milliseconds. By default, this operation never times out.|ClientConfiguration.setConnectionRequestTimeout|
+|IdleConnectionTime|The timeout period for idle connections. The connection is closed when the timeout period ends. Unit: milliseconds. Default value: 60000.|ClientConfiguration.setIdleConnectionTime|
+|MaxErrorRetry|The maximum number of retry attempts that are allowed in the case of a request error. Default value: 3.|ClientConfiguration.setMaxErrorRetry|
+|SupportCname|Specifies whether CNAME can be used as an endpoint. By default, CNAME can be used as an endpoint.|ClientConfiguration.setSupportCname|
+|SLDEnabled|Specifies whether access from second-level domains is enabled. By default, access from second-level domains is disabled.|ClientConfiguration.setSLDEnabled|
+|Protocol|The protocol used to connect to OSS. Default value: HTTP. Valid values: HTTP and HTTPS.|ClientConfiguration.setProtocol|
+|UserAgent|Specifies the user agent \(the User-Agent field in the HTTP header\). Default value: `aliyun-sdk-java`.|ClientConfiguration.setUserAgent|
+|ProxyHost|The IP address to access the proxy host.|ClientConfiguration.setProxyHost|
+|ProxyPort|The port for the proxy server.|ClientConfiguration.setProxyPort|
+|ProxyUsername|The username verified by the proxy server.|ClientConfiguration.setProxyUsername|
+|ProxyPassword|The password verified by the proxy server.|ClientConfiguration.setProxyPassword|
+|RedirectEnable|Specifies whether HTTP redirection is enabled. **Note:** You can configure whether HTTP redirection is enabled for OSS SDK for Java V3.10.1 or later. By default, HTTP redirection is enabled for OSS SDK for Java V3.10.1 or later.
 
-|Parameter|Description|Configuration method|
-|:--------|:----------|:-------------------|
-|MaxConnections|Specifies the maximum number of HTTP connections that can be enabled. The default value is 1024.|ClientConfiguration.setMaxConnections|
-|SocketTimeout|Specifies the timeout time in milliseconds for data transmission at the sockets layer. The default value is 50,000.|ClientConfiguration.setSocketTimeout|
-|ConnectionTimeout|Specifies the timeout time in milliseconds when connections are established. The default value is 50,000 milliseconds.|ClientConfiguration.setConnectionTimeout|
-|ConnectionRequestTimeout|Specifies the timeout time in milliseconds for obtaining connections from the connection pool. No timeout is configured by default. No timeout is configured by default.|ClientConfiguration.setConnectionRequestTimeout|
-|IdleConnectionTime|Specifies the idle connection timeout time. If the idle connection time in milliseconds exceeds the specified value, the connection is closed. The default value is 60,000.|ClientConfiguration.setIdleConnectionTime|
-|MaxErrorRetry|Specifies the maximum number of retry attempts in the case of a request error. The default value is 3.|ClientConfiguration.setMaxErrorRetry|
-|SupportCname|Specifies whether CNAME can be used as an endpoint. You can use CNAME as an endpoint by default.|ClientConfiguration.setSupportCname|
-|SLDEnabled|Specifies whether access with the level-2 domain is enabled. Access with the level-2 domain is disabled by default.|ClientConfiguration.setSLDEnabled|
-|Protocol|Specifies the protocol \(HTTP or HTTPS\) used to connect to OSS. The default value is HTTP.|ClientConfiguration.setProtocol|
-|UserAgent|Specifies the user agent \(the user agent in the HTTP header\). The default value is “aliyun-sdk-java.”|ClientConfiguration.setUserAgent|
-|ProxyHost|Specifies the IP address to access the proxy host.|ClientConfiguration.setProxyHost|
-|ProxyPort|Specifies the port for the proxy host.|ClientConfiguration.setProxyPort|
-|ProxyUsername|Specifies the username verified by the proxy host.|ClientConfiguration.setProxyUsername|
-|ProxyPassword|Specifies the password verified by the proxy host.|ClientConfiguration.setProxyPassword|
+|ClientConfiguration.setRedirectEnable|
+|VerifySSLEnable|Specifies whether SSL-based authentication is enabled. **Note:** You can configure whether SSL-based authentication or later is enabled for OSS SDK for Java V3.10.1. By default, SSL-based authentication is enabled for OSS SDK for Java V3.10.1 or later.
 
-Run the following code to configure parameters for an OSSClient instance with ClientConfiguration:
+|ClientConfiguration.setVerifySSLEnable|
 
-```language-java
-// This example uses endpoint China (Hangzhou). Specify the actual endpoint based on your requirements.
-String endpoint = "http://oss-cn-hangzhou.aliyuncs.com";
-// It is highly risky to log on with AccessKey of an Alibaba Cloud account because the account has permissions on all the APIs in OSS. We recommend that you log on as a RAM user to access APIs or perform routine operations and maintenance. To create a RAM account, log on to https://ram.console.aliyun.com.
+The following code provides an example on how to configure parameters for an OSSClient instance by using ClientConfiguration:
+
+```
+// The endpoint of the China (Hangzhou) region is used in this example. Specify the actual endpoint.
+String endpoint = "https://oss-cn-hangzhou.aliyuncs.com";
+// Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS because the account has permissions on all API operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create a RAM user, log on to the RAM console.
 String accessKeyId = "<yourAccessKeyId>";
 String accessKeySecret = "<yourAccessKeySecret>";
 
-// Create ClientConfiguration. ClientConfiguration is a configuration class of OSSClient. You can use ClientConfiguration to configure parameters such as user agents, host proxies, connection timeout, and the maximum number of connections.
-ClientConfiguration conf = new ClientConfiguration();
+// Create a ClientConfiguration instance. ClientConfiguration is a configuration class of OSSClient. You can use ClientConfiguration to configure parameters such as host proxies, connection timeouts, and the maximum number of connections.
+ClientBuilderConfiguration conf = new ClientBuilderConfiguration();
 
-// Configure the maximum HTTP connections allowed by an OSSClient instance. The default value is 1024.
+// Configure the maximum number of HTTP connections allowed by an OSSClient instance. Default value: 1024.
 conf.setMaxConnections(200);
-// Configure the timeout time in milliseconds for data transmission at SSL. The default value is 50,000.
+// Configure the timeout period for data transmission at the socket layer. Unit: milliseconds. Default value: 50000.
 conf.setSocketTimeout(10000);
-conf.setSocketTimeout(10000);
-// Configure the timeout time in milliseconds when connections are established. The default value is 50,000.
+// Configure the timeout period for establishing a connection. Unit: milliseconds. Default value: 50000.
 conf.setConnectionTimeout(10000);
-// Configure the timeout time in milliseconds for retrieving connections from the connection pool. This function is disabled by default.
+// Configure the timeout period for obtaining a connection from the connections pool. Unit: milliseconds. By default, this parameter is not configured.
 conf.setConnectionRequestTimeout(1000);
-// Configure idle connection timeout. If the idle connection time in milliseconds exceeds the specified value, the connection is closed. The default value is 60,000.
+// Configure the timeout period for idle connections. The connection is closed when the timeout period expires. Unit: milliseconds. Default value: 60000.
 conf.setIdleConnectionTime(10000);
-// Configure the maximum number of retry attempts in the case of a request error. The default value is 3.
+// Configure the maximum number of allowed retry attempts in the case of a request error. Default value: 3.
 conf.setMaxErrorRetry(5);
-// Check whether CNAME can be used as an endpoint. You can use CNAME as an endpoint by default.
+// Configure whether CNAME can be used as an endpoint. By default, CNAME can be used as an endpoint.
 conf.setSupportCname(true);
-// Check whether access with the level-2 domain is enabled. Access with the level-2 domain is disabled by default.
+// Configure whether access from second-level domains is enabled. By default, access from second-level domains is disabled.
 conf.setSLDEnabled(true);
-// Configure the protocol (HTTP or HTTPS) used to connect to OSS. HTTP is used by default.
+// Configure the protocol used to connect to OSS. Valid values: HTTP and HTTPS. Default value: HTTP.
 conf.setProtocol(Protocol.HTTP);
-// Configure the user agent (the user agent in the HTTP header). The default value is "aliyun-sdk-java."
+// Configure the user agent in the HTTP header. Default value: aliyun-sdk-java.
 conf.setUserAgent("aliyun-sdk-java");
 // Configure the port for the proxy host.
 conf.setProxyHost("<yourProxyHost>");
@@ -183,12 +237,16 @@ conf.setProxyHost("<yourProxyHost>");
 conf.setProxyUsername("<yourProxyUserName>");
 // Configure the password verified by the proxy host.
 conf.setProxyPassword("<yourProxyPassword>");
+// Configure whether HTTP redirection is enabled. By default, HTTP redirection is enabled.
+conf.setRedirectEnable(true);
+// Configure whether SSL-based authentication is enabled. By default, SSL-based authentication is enabled.
+conf.setVerifySSLEnable(true);
 
 // Create an OSSClient instance.
-OSSClient ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret, conf);
+OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret, conf);
 
-// Close your OSSClient instance.
+// Shut down the OSSClient instance.
 ossClient.shutdown();
-
+            
 ```
 
