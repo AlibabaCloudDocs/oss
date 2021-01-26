@@ -6,7 +6,7 @@ This topic lists the causes and solutions for common errors you may encounter wh
 
 -   Cause
 
-    If a similar output is displayed when you use OSS SDK for Java, it indicates that your project has a JAR conflict.
+    If a similar output is displayed when you use OSS SDK for Java, your project has a JAR conflict.
 
     ```
     Exception in thread "main" java.lang.NoClassDefFoundError: org/apache/http/ssl/TrustStrategy
@@ -150,7 +150,7 @@ This topic lists the causes and solutions for common errors you may encounter wh
 
 ## Connection timeout
 
--   Cause
+-   Cause analysis
 
     If a similar output is displayed when you run the OSS SDK for Java program, possible causes are endpoint errors or unavailable networks:
 
@@ -186,9 +186,88 @@ This topic lists the causes and solutions for common errors you may encounter wh
     You can use [ossutil](/intl.en-US/Tools/ossutil/Common commands/probe.md) to identify and troubleshoot problems.
 
 
+## What do I do if the "SignatureDoesNotMatch" error is returned?
+
+![FAQ2](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/2668561161/p205829.png)
+
+-   Cause 1
+
+    The AccessKey ID and AccessKey secret do not match.
+
+    For more information about how to obtain the AccessKey ID and AccessKey secret, see [Create an AccessKey pair]().
+
+-   Cause 2
+
+    The signed URL is incorrectly used. The following code provides a wrong example on how to use a signed URL:
+
+    ```
+    GeneratePresignedUrlRequest request = new GeneratePresignedUrlRequest(bucketName, object);
+    request.setExpiration( new Date(new Date().getTime() + 3600 * 1000));
+    request.addUserMetadata("author");
+    URL url = ossClient.generatePresignedUrl(request);
+    
+    Map<String, String> header = new HashMap<String, String>();
+    header.put("author");
+    ossClient.putObject(url, new ByteArrayInputStream("Hello OSS".getBytes()), -1, header);
+    ```
+
+    By default, if the Method parameter is not configured, the signed URL is generated to initiate a GET request. In the preceding example, the error is returned because the signed URL is used to initiate a PutObject request. In this case, you must set the Method parameter to PUT.
+
+    In addition, the user metadata headers in a PutObject request must start with the `x-oss-meta-` prefix. In the preceding example, the user metadata field must be changed to `x-oss-meta-author`.
+
+    Solution:
+
+    ```
+    request.addUserMetadata("author");
+    request.setMethod(HttpMethod.PUT);
+    URL url = ossClient.generatePresignedUrl(request);
+    
+    Map<String, String> header = new HashMap<String, String>();
+    header.put("x-oss-meta-" + "author");
+    ossClient.putObject(url, new ByteArrayInputStream("Hello OSS".getBytes()), -1, header);
+    ```
+
+-   Cause 3
+
+    -   The version of OSS SDK for Java that you use is earlier than 3.7.0 and the HttpClient of version 4.5.9 and later is used in your project.
+    -   The name of the uploaded object contains a plus sign \(`+`\). However, the httpclient of version 4.5.9 does not encode the plus sign \(`+`\) by using URL encoding. Therefore, this error is returned to indicate that the signatures on the client and server does not match.
+    ![1](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/9831239061/p184586.png)
+
+    Solution
+
+    -   We recommend that you upgrade your OSS SDK for Java to version 3.11.1 or later to ensure the compatibility with the HttpClient of version 4.5.9.
+    -   Remove the unnecessary dependency on HttpClient. The dependency on HttpClient is automatically imported when you import OSS SDK for Java. If HttpClient is imported by third-party libraries, see the solution described in [JAR conflicts](#section_u5d_qgd_kfb).
+-   Cause 4
+
+    The HttpClient of version 4.5.10 or later is imported in your project and the request headers contain characters that are not supported by ISO/9959-1. For example, the headers whose names start with `x-oss-meta-` contain Chinese characters.
+
+    ![3](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/2668561161/p184588.jpg)
+
+    Solution:
+
+    -   Follow the solution described in [JAR conflicts](#section_u5d_qgd_kfb) to remove the HttpClient of version 4.5.10 or later.
+    -   Make sure that the characters contained in request headers are supported by ISO/9959-1.
+
+## What do I do if the "Failed to parse the response result" error is returned?
+
+![image1](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/2668561161/p232674.png)
+
+-   Cause
+
+    HTTP requests are intercepted by the software deployed on the client or hijacked by a router on the Internet.
+
+    Java 11 is installed and the dependencies on JAXB are not added to the pom.xml file.
+
+-   Solution
+
+    Initiate requests by using HTTPS instead of HTTP.
+
+    Add the dependencies on JAXB to the pom.xml file. For more information, see [Install OSS SDK for Java](/intl.en-US/SDK Reference/Java/Installation.md).
+
+
 ## org.apache.http.NoHttpResponseException: The target server failed to respond
 
--   Cause analysis
+-   Cause
 
     If a similar output is displayed when you run the OSS SDK for Java program:
 
@@ -205,11 +284,11 @@ This topic lists the causes and solutions for common errors you may encounter wh
 
 -   Cause
 
-    ossClient is not disabled.
+    ossClient is not shut down.
 
 -   Solution
 
-    You can disable the ossClient that is executed or use the single instance mode.
+    You can shut down the ossClient that is executed or use the single instance mode.
 
 
 ## What do I do if OSS SDK for Java stops responding when OSS SDK for Java is called?
@@ -251,11 +330,11 @@ This topic lists the causes and solutions for common errors you may encounter wh
                         
     ```
 
-    The error is caused by connection leaks in the connection pool, which occur when the ossObject is not closed after usage.
+    The error is caused by connection leaks in the connection pool, which occur when ossObject is not shut down after usage.
 
 -   Solution
 
-    Check your program to ensure that no connection leaks occur. The following code provides an example on how to close ossObject:
+    Check your program to ensure that no connection leaks occur. The following code provides an example on how to shut down ossObject:
 
     ```
     // Read an object.
@@ -289,7 +368,7 @@ This topic lists the causes and solutions for common errors you may encounter wh
                         
     ```
 
-    The error occurs because the interval between the two data reading attempts exceeds one minute. OSS closes the connection if no data is sent or received for more than one minute.
+    The error occurs because the interval between the two data reading attempts exceeds 1 minute. OSS closes the connection if no data is sent or received for more than 1 minute.
 
 -   Solution
 
@@ -311,7 +390,7 @@ This topic lists the causes and solutions for common errors you may encounter wh
     Make sure that ossClient.shutdown is called after the new OSSClient command is run.
 
 
-## InterruptedException occurs when ossClient.shutdown is called
+## What do I do if InterruptedException occurs when ossClient.shutdown is called?
 
 -   Cause
 
@@ -433,7 +512,7 @@ Caused by: java.lang.IllegalStateException: Connection pool shut down
 
 -   Solution
 
-    You can check the call logic. Ensure that no requests are sent by using ossClient after ossClient.shutdown\(\) is called.
+    You can check the call logic. Make sure that no requests are sent by using ossClient after ossClient.shutdown\(\) is called.
 
 
 ## What do I do if "Request has expired" is returned when the request is generated by using generatePresignedUrl of OSS SDK for Java?
@@ -451,27 +530,6 @@ Caused by: java.lang.IllegalStateException: Connection pool shut down
     If an upload request is initiated after the expiration time specified by the URL is exceeded, we recommend that you set a proper expiration time that is later than the time when you initiated the request.
 
 
-## What do I do if the "SignatureDoesNotMatch" error is returned?
-
--   Cause 1
-
-    -   The version of the OSS SDK for Java that you use is earlier than 3.7.0 and the httpclient of version 4.5.9 and later is used in your project.
-    -   The name of the uploaded object contains a plus sign \(`+`\). However, the httpclient of version 4.5.9 does not encode the plus sign \(`+`\) by using URL encoding. Therefore, this error is returned to indicate that the signatures on the client and server does not match.
-    ![1](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/9831239061/p184586.png)
-
-    Solution
-
-    -   We recommend that you upgrade your OSS SDK for Java to version 3.11.1 or later to ensure the compatibility with the httpclient of version 4.5.9.
-    -   Remove the unnecessary dependency on httpclient. The dependency on httpclient is automatically imported when you import OSS SDK for Java. If httpclient is imported by third-party libraries, see the solution described in [JAR conflicts](#section_u5d_qgd_kfb).
--   Cause 2
-
-    The httpclient of version 4.5.10 or later is imported in your project and the request headers contain characters that are not supported by ISO/9959-1. For example, the headers whose names start with `x-oss-meta-` contain Chinese characters.
-
-    Solution
-
-    -   Follow the solution described in [JAR conflicts](#section_u5d_qgd_kfb) to remove the httpclient of version 4.5.10 or later.
-    -   Ensure that the characters contained in request headers are supported by ISO/9959-1.
-
 ## What do I do if the "Invalid Response" or "Implementation of JAXB-API has not been found on module path or classpath" exception occurs?
 
 -   Cause
@@ -483,7 +541,15 @@ Caused by: java.lang.IllegalStateException: Connection pool shut down
     For more information about how to add the dependencies on JAXB, see [Install OSS SDK for Java](/intl.en-US/SDK Reference/Java/Installation.md).
 
 
+## How do I enable or disable logging for OSS SDK for Java?
+
+Apache Log4j defines logs of different levels, including OFF, FATAL, ERROR, WARN, INFO, DEBUG, TRACE, and ALL.
+
+You can enable or disable logging for OSS SDK for Java by configuring the attributes of Log4j.
+
+![FAQ1](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/3668561161/p205793.png)
+
 ## Other errors
 
-For more information about how to resolve other errors returned by OSS, see [OSS 403]().
+For more information about how to resolve other errors returned by OSS, see [OSS 403]()
 
