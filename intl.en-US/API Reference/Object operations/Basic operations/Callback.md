@@ -383,11 +383,11 @@ If the callback parameter is configured in the request, OSS uses POST to send a 
     -   Running method: Decompress the package and run `python callback_app_server.py`. Before you run the code, RSA dependencies must be installed.
     .NET:
 
-    -   Click [here](http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/31989/cn_zh/1501048926621/callback-server-dotnet.zip) to download the code.
+    -   Click [here](https://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/31989/cn_zh/1501048926621/callback-server-dotnet.zip) to download the code.
     -   Running method: Decompress the package and follow `README.md`.
     Go:
 
-    -   Click [here](http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/31989/cn_zh/1501048745465/callback-server-go.zip) to download the code.
+    -   Click [here](https://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/31989/cn_zh/1501048745465/callback-server-go.zip) to download the code.
     -   Running method: Decompress the package and follow `README.md`.
     Ruby:
 
