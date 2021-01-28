@@ -36,7 +36,7 @@ For more information, see the example below the table.|
         -   Maximum image within a rectangle based on the specified width and height: The value of w\*h of the thumbnail cannot exceed 150 × 80 pixels.
         The thumbnail size is 150 × 75 pixels based on the preceding conditions.
 
-        ![lfit](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/7812863061/p137017.png)
+        ![lfit](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/7812863061/p137017.png)
 
     -   mfit
 
@@ -44,25 +44,25 @@ For more information, see the example below the table.|
         -   Minimum image beyond a rectangle based on the specified width and height: the thumbnail must be a minimum rectangle whose size is greater than 150 × 80 pixels.
         The thumbnail size is 160 × 80 pixels based on the preceding conditions.
 
-        ![mfit](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/7812863061/p137027.png)
+        ![mfit](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/7812863061/p137027.png)
 
     -   fill
 
         The fill parameter resizes the source image proportionally as small as possible beyond a rectangle, and crops the source image based on the specified width and height. The source image is resized to 160 × 80 pixels, and w is centered and cropped to 150 pixels to obtain a thumbnail of 150 × 80 pixels.
 
-        ![fill](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/7812863061/p137049.png)
+        ![fill](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/7812863061/p137049.png)
 
     -   pad
 
         The pad parameter resizes the source image based on the specified width and height, and fills the empty space. The source image is resized to 150 × 75 pixels, and h is centered and filled to 80 pixels to obtain a thumbnail of 150 × 80 pixels.
 
-        ![pad](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/7812863061/p137053.png)
+        ![pad](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/7812863061/p137053.png)
 
     -   fixed
 
         The fixed parameter resizes the image based on the specified width and height. If the width and height ratio of the image is different from that of the source image, the image is deformed.
 
-        ![fixed](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/8812863061/p137056.png)
+        ![fixed](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/8812863061/p137056.png)
 
 -   Resize proportionally
 
@@ -78,7 +78,7 @@ For more information, see the example below the table.|
     -   The object size cannot exceed 20 MB.
     -   Each side of the source image cannot exceed 30,000 pixels.
     -   The source image cannot exceed 250 million pixels in total.
--   Limits on thumbnails: The area of the thumbnail cannot exceed 4,096 × 4,096 pixels in size, and neither size can be greater than 4,096 pixels.
+-   Limits on thumbnails: The area of the thumbnail cannot exceed 4,096 × 4,096 pixels in size, and neither size can be greater than 4,096 × 4 pixels.
 -   If the width or height of a thumbnail is specified:
     -   The source image is resized proportionally when proportional resizing is performed. For example, if a source image is 200 × 100 pixels, the height is resized to 100 pixels, and the width is resized to 50 pixels.
     -   The source image is resized based on the specified width and height. For example, if a source image is 200 × 100 pixels, the height is resized to 100 pixels, and the width is resized to 100 pixels.
@@ -93,7 +93,7 @@ The image-demo bucket that is located in the China \(Hangzhou\) region is used a
 
 [https://image-demo.oss-cn-hangzhou.aliyuncs.com/example.jpg](https://image-demo.oss-cn-hangzhou.aliyuncs.com/example.jpg)
 
-![Source image](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/8812863061/p139183.png)
+![Source image](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/8812863061/p139183.png)
 
 -   Resize proportionally
     -   Based on the width and height
@@ -104,7 +104,7 @@ The image-demo bucket that is located in the China \(Hangzhou\) region is used a
         -   Resize type: `m_lfit`
         The URL used to process the image is in the following format: [http://image-demo.oss-cn-hangzhou.aliyuncs.com/example.jpg?x-oss-process=image/resize,h\_100,m\_lfit](http://image-demo.oss-cn-hangzhou.aliyuncs.com/example.jpg?x-oss-process=image/resize,h_100,m_lfit)
 
-        ![](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/3856348951/p2414.jpg)
+        ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/3856348951/p2414.jpg)
 
     -   Based on the longer side and shorter side
 
@@ -114,7 +114,7 @@ The image-demo bucket that is located in the China \(Hangzhou\) region is used a
         -   Resize type: `m_mfit`
         The URL used to process the image is in the following format: [http://image-demo.oss-cn-hangzhou.aliyuncs.com/example.jpg?x-oss-process=image/resize,l\_100,m\_mfit](http://image-demo.oss-cn-hangzhou.aliyuncs.com/example.jpg?x-oss-process=image/resize,l_100,m_mfit)
 
-        ![](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/3856348951/p2415.jpg)
+        ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/3856348951/p2415.jpg)
 
 -   Resize based on the specified width and height
 
@@ -124,7 +124,7 @@ The image-demo bucket that is located in the China \(Hangzhou\) region is used a
     -   Resize type: `m_fixed`
     The URL used to process the image is in the following format: [http://image-demo.oss-cn-hangzhou.aliyuncs.com/example.jpg?x-oss-process=image/resize,m\_fixed,h\_100,w\_100](http://image-demo.oss-cn-hangzhou.aliyuncs.com/example.jpg?x-oss-process=image/resize,m_fixed,h_100,w_100)
 
-    ![](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/3856348951/p2416.jpg)
+    ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/3856348951/p2416.jpg)
 
 -   Crop based on the specified width and height
 
@@ -134,7 +134,7 @@ The image-demo bucket that is located in the China \(Hangzhou\) region is used a
     -   Resize type: `m_fill`
     The URL used to process the image is in the following format: [http://image-demo.oss-cn-hangzhou.aliyuncs.com/example.jpg?x-oss-process=image/resize,m\_fill,h\_100,w\_100](http://image-demo.oss-cn-hangzhou.aliyuncs.com/example.jpg?x-oss-process=image/resize,m_fill,h_100,w_100)
 
-    ![](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/4856348951/p2421.jpg)
+    ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/4856348951/p2421.jpg)
 
 -   Resize the source image based on the specified width and height and fill the empty space
 
@@ -145,7 +145,7 @@ The image-demo bucket that is located in the China \(Hangzhou\) region is used a
     -   Fill the empty space in red: `olor_FF0000`
     The URL used to process the image is in the following format: [http://image-demo.oss-cn-hangzhou.aliyuncs.com/example.jpg?x-oss-process=image/resize,m\_pad,h\_100,w\_100,color\_FF0000](http://image-demo.oss-cn-hangzhou.aliyuncs.com/example.jpg?x-oss-process=image/resize,m_pad,h_100,w_100,color_FF0000)
 
-    ![](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/4856348951/p2423.jpg)
+    ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/4856348951/p2423.jpg)
 
 -   Resize proportionally
 
@@ -155,6 +155,6 @@ The image-demo bucket that is located in the China \(Hangzhou\) region is used a
 
     The URL used to process the image is in the following format: [http://image-demo.oss-cn-hangzhou.aliyuncs.com/example.jpg?x-oss-process=image/resize,p\_50](http://image-demo.oss-cn-hangzhou.aliyuncs.com/example.jpg?x-oss-process=image/resize,p_50)
 
-    ![](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/4856348951/p2425.jpg)
+    ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/4856348951/p2425.jpg)
 
 
