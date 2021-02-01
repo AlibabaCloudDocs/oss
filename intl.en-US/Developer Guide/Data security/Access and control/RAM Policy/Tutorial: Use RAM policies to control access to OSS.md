@@ -58,7 +58,7 @@ Before you grant permissions to RAM users, you must understand how the OSS conso
 
 -   Send a request to access a bucket
 
-    When you click the ramtest-bucket bucket in the OSS console, the console sends a [GetBucket](/intl.en-US/API Reference/Bucket operations/Basic operations/GetBucket (ListObjects).md) request to OSS.
+    When you click the ramtest-bucket bucket in the OSS console, the console sends a [GetBucket \(ListObjects\)](/intl.en-US/API Reference/Bucket operations/Basic operations/GetBucket (ListObjects).md) request to OSS.
 
     -   Sample request
 
@@ -113,7 +113,7 @@ Before you grant permissions to RAM users, you must understand how the OSS conso
 
 -   Send a request to access a folder of the bucket
 
-    When you click the Development/ folder of the ramtest-bucket bucket in the console, the console sends a [GetBucket](/intl.en-US/API Reference/Bucket operations/Basic operations/GetBucket (ListObjects).md) request to OSS. The request includes the prefix and delimiter parameters.
+    When you click the Development/ folder of the ramtest-bucket bucket in the console, the console sends a [GetBucket \(ListObjects\)](/intl.en-US/API Reference/Bucket operations/Basic operations/GetBucket (ListObjects).md) request to OSS. The request includes the prefix and delimiter parameters.
 
     -   Sample request
 
