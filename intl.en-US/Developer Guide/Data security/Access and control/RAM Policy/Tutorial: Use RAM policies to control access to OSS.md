@@ -17,7 +17,7 @@ RAM policies are in the JSON format. A RAM policy includes the following fields:
 
 If you use RAM policies, we recommend that you use RAM Policy Editor to generate RAM policies. For more information, see [RAM Policy Editor](/intl.en-US/Tools/RAM Policy Editor.md).
 
-Compared with RAM policies, bucket policies can be configured in the OSS console. The bucket owner can grant other users permissions to access OSS resources. For more information, see [Use bucket policies to authorize other users to access OSS resources](/intl.en-US/Console User Guide/Upload, download, and manage objects/Use bucket policies to authorize other users to access OSS resources.md).
+Compared with RAM policies, bucket policies can be configured in the OSS console. The bucket owner can grant other users permissions to access OSS resources. For more information, see [Use bucket policies to authorize other users to access OSS resources](/intl.en-US/Console User Guide/Upload, download, and manage objects/Add bucket policies.md).
 
 ## Buckets and folders
 
@@ -193,7 +193,7 @@ In this step, you can log on to the OSS console by using your Alibaba Cloud acco
 
 2.  Create a bucket named ramtest-bucket. For more information, see [Create buckets](/intl.en-US/Console User Guide/Manage buckets/Create buckets.md).
 
-3.  Upload an object to the root directory of the bucket. For more information, see [Upload objects](/intl.en-US/Console User Guide/Upload, download, and manage objects/Upload objects.md).
+3.  Upload an object to the root directory of the bucket. For more information, see [Upload objects](/intl.en-US/Console User Guide/Upload, download, and manage objects/Upload an object.md).
 
     In this example, an object named oss-dg.pdf is uploaded to the root directory of the bucket.
 
@@ -327,7 +327,7 @@ You can perform the following steps to grant RAM user Anne permissions to access
          {
            "Effect": "Allow",
            "Action": [
-             "oss:GetObject",         
+             "oss:GetObject"       
            ],
            "Resource": [
              "acs:oss:*:*:ramtest-bucket/Development/*"
@@ -408,7 +408,7 @@ You can perform the following steps to grant RAM user Leo permissions to access 
          {
            "Effect": "Allow",
            "Action": [
-             "oss:GetObject",         
+             "oss:GetObject"        
            ],
            "Resource": [
              "acs:oss:*:*:ramtest-bucket/Marketing/*"
