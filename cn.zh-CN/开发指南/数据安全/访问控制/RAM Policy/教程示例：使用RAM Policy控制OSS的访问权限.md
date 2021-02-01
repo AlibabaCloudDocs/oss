@@ -23,7 +23,7 @@ RAM Policy为JSON格式。各字段定义如下：
 
 阿里云OSS的数据模型为扁平型结构，所有文件都直接隶属于其对应的存储空间。因此，OSS缺少文件系统中类似于目录与子文件夹的层次结构。但是，您可以在OSS控制台上模拟文件夹层次结构。在该控制台中，您可以按文件夹对相关文件进行分组、分类和管理，如下图所示。
 
-![ram](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/5300734061/p178620.png)
+![ram](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/5300734061/p178620.png)
 
 OSS提供使用键值（key）对格式的分布式对象存储服务。您可以根据其唯一的key（对象名）检索对象的内容。例如，名为ramtest-bucket的存储空间有三个文件夹，分别为DevelopmentMarketing和Private，以及一个对象oss-dg.pdf。
 
@@ -32,7 +32,7 @@ OSS提供使用键值（key）对格式的分布式对象存储服务。您可�
 
     在该key中，`Development`为前缀，而`/`为分隔符。您可以从存储空间中获取具有特定前缀和分隔符的所有对象的列表。在控制台中，单击Development 文件夹时，控制台会列出文件夹中的对象，如下图所示。
 
-    ![development](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/5300734061/p178622.png)
+    ![development](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/5300734061/p178622.png)
 
     **说明：** 当控制台列举ramtest-bucket存储空间中的 Development文件夹时，它会向OSS发送一个用于指定前缀 `Development`和分隔符`/`的请求。控制台的响应与文件系统类似，会显示文件夹列表。上例说明，存储空间ramtest-bucket有三个对象，其key分别为`Development/Alibaba Cloud.pdf`、`Development/ProjectA.docx`及`Development/ProjectB.docx`。
 
@@ -50,7 +50,7 @@ OSS提供使用键值（key）对格式的分布式对象存储服务。您可�
 
 这些对象的key构建了一个以Development、Marketing和Private作为根级文件夹并以 oss-dg.pdf作为根级对象的逻辑层次结构。当您单击OSS控制台中的存储空间名时，控制台会将一级前缀和一个分隔符，例如Development/、Marketing/和Private/显示为根级文件夹。对象oss-dg.pdf 没有前缀，因此显示为根级别项。
 
-![ram](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/5300734061/p178620.png)
+![ram](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/5300734061/p178620.png)
 
 ## OSS的请求和响应逻辑
 
@@ -109,7 +109,7 @@ OSS提供使用键值（key）对格式的分布式对象存储服务。您可�
 
         控制台会解析此结果并显示如下的根级别项：
 
-        ![ram](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/5300734061/p178620.png)
+        ![ram](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/5300734061/p178620.png)
 
 -   请求存储空间下的某个文件夹
 
@@ -165,7 +165,7 @@ OSS提供使用键值（key）对格式的分布式对象存储服务。您可�
 
         控制台会解析此结果并显示如下的key：
 
-        ![development](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/5300734061/p178622.png)
+        ![development](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/5300734061/p178622.png)
 
 
 ## 场景说明
@@ -327,7 +327,7 @@ OSS提供使用键值（key）对格式的分布式对象存储服务。您可�
          {
            "Effect": "Allow",
            "Action": [
-             "oss:GetObject",         
+             "oss:GetObject"         
            ],
            "Resource": [
              "acs:oss:*:*:ramtest-bucket/Development/*"
@@ -408,7 +408,7 @@ OSS提供使用键值（key）对格式的分布式对象存储服务。您可�
          {
            "Effect": "Allow",
            "Action": [
-             "oss:GetObject",         
+             "oss:GetObject"       
            ],
            "Resource": [
              "acs:oss:*:*:ramtest-bucket/Marketing/*"
