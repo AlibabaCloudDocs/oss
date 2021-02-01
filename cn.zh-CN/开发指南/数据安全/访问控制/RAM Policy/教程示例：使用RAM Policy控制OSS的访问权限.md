@@ -58,7 +58,7 @@ OSS提供使用键值（key）对格式的分布式对象存储服务。您可�
 
 -   请求某个存储空间
 
-    单击ramtest-bucket存储空间时，控制台会将[GetBucket](/cn.zh-CN/API 参考/关于Bucket的操作/基础操作/GetBucket (ListObjects).md)请求发送至OSS。
+    单击ramtest-bucket存储空间时，控制台会将[GetBucket \(ListObjects\)](/cn.zh-CN/API 参考/关于Bucket的操作/基础操作/GetBucket (ListObjects).md)请求发送至OSS。
 
     -   请求示例
 
@@ -113,7 +113,7 @@ OSS提供使用键值（key）对格式的分布式对象存储服务。您可�
 
 -   请求存储空间下的某个文件夹
 
-    单击Development/文件夹，控制台会将[GetBucket](/cn.zh-CN/API 参考/关于Bucket的操作/基础操作/GetBucket (ListObjects).md)请求发送至OSS。此请求包括以下参数：
+    单击Development/文件夹，控制台会将[GetBucket \(ListObjects\)](/cn.zh-CN/API 参考/关于Bucket的操作/基础操作/GetBucket (ListObjects).md)请求发送至OSS。此请求包括以下参数：
 
     -   请求示例
 
