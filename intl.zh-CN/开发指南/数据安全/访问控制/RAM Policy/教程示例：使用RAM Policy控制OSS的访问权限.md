@@ -17,7 +17,7 @@ RAM Policy为JSON格式。各字段定义如下：
 
 如果您选择使用RAM Policy，建议您通过官方工具[RAM策略编辑器](/intl.zh-CN/常用工具/RAM策略编辑器.md)快速生成RAM策略。
 
-相比于RAM Policy，Bucket Policy支持在控制台直接进行图形化配置操作，并且Bucket拥有者直接可以进行访问授权。详情请参见[使用Bucket Policy授权其他用户访问OSS资源](/intl.zh-CN/控制台用户指南/上传、下载和管理文件/使用Bucket Policy授权其他用户访问OSS资源.md)。
+相比于RAM Policy，Bucket Policy支持在控制台直接进行图形化配置操作，并且Bucket拥有者直接可以进行访问授权。详情请参见[使用Bucket Policy授权其他用户访问OSS资源](/intl.zh-CN/控制台用户指南/上传、下载和管理文件/添加Bucket授权策略（Bucket Policy）.md)。
 
 ## 存储空间和文件夹的基本概念
 
@@ -327,7 +327,7 @@ OSS提供使用键值（key）对格式的分布式对象存储服务。您可�
          {
            "Effect": "Allow",
            "Action": [
-             "oss:GetObject",         
+             "oss:GetObject"         
            ],
            "Resource": [
              "acs:oss:*:*:ramtest-bucket/Development/*"
@@ -408,7 +408,7 @@ OSS提供使用键值（key）对格式的分布式对象存储服务。您可�
          {
            "Effect": "Allow",
            "Action": [
-             "oss:GetObject",         
+             "oss:GetObject"       
            ],
            "Resource": [
              "acs:oss:*:*:ramtest-bucket/Marketing/*"
