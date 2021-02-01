@@ -1,10 +1,13 @@
 # Quick start
 
-This topic describes how to install and use ossbrowser. ossbrowser is a graphical management tool developed by Alibaba Cloud. This tool provides functions similar to Windows Explorer. You can use ossbrowser to browse, upload, download, and manage objects.
+This topic describes how to install and use ossbrowser. ossbrowser is a graphical management tool developed by Alibaba Cloud. This tool provides features similar to the resource manager of Windows. You can use ossbrowser to browse, upload, download, and manage objects.
 
 ## Usage notes
 
 -   The object you want to upload is smaller than or equal to 48.8 TB in size.
+-   By default, ossbrowser uses multipart upload and resumable upload to upload objects. If the upload of an object is unexpectedly interrupted before the object upload is complete, the uploaded content is stored as parts in an OSS bucket. To avoid additional storage fees, we recommend that you use the following methods to delete these parts if you no longer use these parts.
+    -   Manually delete parts. For more information, see [Delete parts](#li_3rq_l1e_6gg).
+    -   Use lifecycle rules to automatically delete parts. For more information, see [Configure lifecycle rules](/intl.en-US/Console User Guide/Manage buckets/Basic settings/Configure lifecycle rules.md).
 -   The object you want to move or copy is smaller than or equal to 5 GB in size. To upload an object larger than 5 GB in size, we recommend that you use [ossutil](/intl.en-US/Tools/ossutil/Overview.md).
 -   ossbrowser is supported on Linux, macOS, and Windows 7 or later. We recommend that you do not use ossbrowser on Windows XP or Windows Server.
 
@@ -29,16 +32,16 @@ This topic describes how to install and use ossbrowser. ossbrowser is a graphica
 
     |Parameter|Description|
     |---------|-----------|
-    |**Endpoint**|Select the endpoint that you want to access.     -   **Default \(Public Cloud\)**: Log on to ossbrowser by using the default endpoint.
-    -   **Customize**: Enter the endpoint that you want to use to log on to ossbrowser. You can use a URL that starts with "http" or "https" to log on to ossbrowser over HTTP or HTTPS. Example: https://oss-cn-beijing.aliyuncs.com. For more information about regions and endpoints, see [Regions and endpoints](/intl.en-US/Developer Guide/Endpoint/Regions and endpoints.md).
+    |**Endpoint**|Select the endpoint that you want to access.     -   **Default \(Public Cloud\)**: Use the default endpoint to log on to ossbrowser.
+    -   **Customize**: Enter the endpoint that you want to use to log on to ossbrowser. You can use a URL that starts with "http" or "https" to log on to ossbrowser over HTTP or HTTPS. Example: https://oss-cn-beijing.aliyuncs.com. For more information about endpoints, see [Regions and endpoints](/intl.en-US/Developer Guide/Endpoint/Regions and endpoints.md).
     -   **cname**: Use the custom domain name that is bound to your OSS resources to log on to ossbrowser. For more information about how to bind custom domain names, see [Bind custom domain names](/intl.en-US/Console User Guide/Manage buckets/Manage a domain/Bind custom domain names.md). |
     |**HTTPS encryption**|When you set **Endpoint** to **Default \(Public Cloud\)**, you can configure this option. If you select this option, you can log on to ossbrowser over HTTPS. Otherwise, you can log on to ossbrowser over HTTP.|
-    |**AccessKeyId** and **AccessKeySecret**|Enter the AccessKey pair of your account. To ensure data security, we recommend that you log on to ossbrowser by using the AccessKey pair of a RAM user. For more information about how to obtain AccessKey pairs, see [Create an AccessKey pair]().|
-    |**Preset OSS Path**|Configure OSS paths. Only the paths that you configure are displayed. The account that you use to log on to ossbrowser must have the permission to access the configured paths. When you configure the path, you must specify the path and the corresponding region.     -   The path is in the following format: oss://bucketname/path.
+    |**AccessKeyId** and **AccessKeySecret**|Enter the AccessKey pair of your account. To ensure data security, we recommend that you log on to ossbrowser by using the AccessKey pair of a RAM user. For more information about how to obtain the AccessKey pair, see [Create an AccessKey pair]().|
+    |**Preset OSS Path**|Configure OSS paths. Only the paths that you configure are displayed. The account that you use to log on to ossbrowser must have the permissions to access the configured paths. When you configure the path, you must specify the path and the corresponding region.     -   The path is in the following format: oss://bucketname/path.
     -   **Region**: Select the region to which the OSS resources belong.
 Select **request payer** if pay-by-requester is enabled for the corresponding path. For more information about the pay-by-requester mode, see [Enable pay-by-requester](/intl.en-US/Developer Guide/Buckets/Enable pay-by-requester.md). |
     |**Keep me logged in**|If you select this option, ossbrowser remains logged on or automatically logs on when ossbrowser is opened.|
-    |**Remember**|If you select this option, your AccessKey pair is saved. When you log on to ossbrowser, click **AK Histories** and select the saved AccessKey pair instead of entering the AccessKey pair again. Do not select this check box if you use a shared computer.|
+    |**Remember**|If you select this option, your AccessKey pair is saved. When you log on to ossbrowser next time, click **AK Histories** and select the saved AccessKey pair instead of entering the AccessKey pair again. Do not select this check box if you use a shared computer.|
 
 
 ## Manage buckets
@@ -46,14 +49,18 @@ Select **request payer** if pay-by-requester is enabled for the corresponding pa
 -   Create a bucket
     1.  On the homepage of ossbrowser, click **Create Bucket**.
     2.  Configure bucket information.
-        -   **Name**: The name of a bucket can be up to 63 characters in length. The name must be unique.
+        -   **Name**: the name of the bucket. Naming conventions:
+            -   The name must be globally unique.
+            -   The name can contain only lowercase letters, digits, and hyphens \(-\).
+            -   The name must start and end with a lowercase letter or digit.
+            -   The name must be 3 to 63 bytes in length.
         -   **Region**: Set the region for the bucket.
         -   **ACL**: Set ACL for the bucket. For more information about ACLs, see [ACL](/intl.en-US/Developer Guide/Data security/Access and control/ACL.md).
         -   **Type**: Set the default storage class for the bucket. For more information about storage classes, see [Overview](/intl.en-US/Developer Guide/Storage classes/Overview.md).
     3.  After the configurations are complete, click **OK**.
 -   Delete a bucket
 
-    Select the bucket you want to delete. Choose **More** \> **Remove**. A bucket cannot be deleted when objects or parts are stored in it.
+    Select the bucket you want to delete. Choose **More** \> **Remove**. A bucket cannot be deleted when objects or parts are stored in the bucket.
 
 
 ## Manage objects
@@ -79,7 +86,7 @@ Select **request payer** if pay-by-requester is enabled for the corresponding pa
 
 -   Copy objects or folders
     1.  In the specified bucket or folder, select the object or folder that you want to copy. Click **Copy**.
-    2.  Go to the bucket or folder to which you want to copy the data. Click **Paste**. If the source and destination addresses of the copied object are the same, the original object is overwritten. If the storage class of the overwritten object is IA, Archive, or Cold Archive, and the object has been stored for less than the specified number of days, early deletion fees are incurred. For more information, see [Billing items and methods](/intl.en-US/Pricing/Billing items and methods/Overview.md).
+    2.  Go to the bucket or folder to which you want to copy the data. Click **Paste**. If the source and destination addresses of the copied object are the same, the original object is overwritten. If the storage class of the overwritten object is Infrequent Access \(IA\), Archive, or Cold Archive, and the object has been stored for less than the specified number of days, early deletion fees are incurred. For more information about early deletion fees, see [Billing items and methods](/intl.en-US/Pricing/Billing items and methods/Overview.md).
 -   Move objects or folders
     1.  In the specified bucket or folder, select the objects or folders that you want to move and choose **More** \> **Move**.
     2.  Go to the bucket or folder to which you want to copy the data. Click **Paste**.
@@ -102,12 +109,12 @@ Select **request payer** if pay-by-requester is enabled for the corresponding pa
     1.  Select the specified object and choose **More** \> **Address**.
     2.  Enter the validity period of the link. Click **Generate**.
 
-        **Note:** If the bucket is bound to a custom domain name, you can select the custom domain name to generate a URL for the object. For more information about how to bind a custom domain name, see [Bind custom domain names](/intl.en-US/Console User Guide/Manage buckets/Manage a domain/Bind custom domain names.md).
+        **Note:** If the bucket is bound to a custom domain name, you can select the custom domain name to generate a URL for the object. For more information about how to bind custom domain names, see [Bind custom domain names](/intl.en-US/Console User Guide/Manage buckets/Manage a domain/Bind custom domain names.md).
 
     3.  Click **Copy** or **Mail it** to send the URL to users who want to access the object. The generated QR code can also be used to access the object.
 -   Modify HTTP headers for an object
     1.  Select an object and choose **More** \> **Http Headers**.
-    2.  In the Http Headers dialog box, configure the HTTP header of the object. For more information about HTTP headers, see [Common HTTP headers](/intl.en-US/API Reference/Common HTTP headers.md).
+    2.  In the HTTP Headers dialog box, configure the HTTP headers of the object. For more information about HTTP headers, see [Common HTTP headers](/intl.en-US/API Reference/Common HTTP headers.md).
     3.  After the configurations are complete, click **OK**.
 -   Preview an object
 
