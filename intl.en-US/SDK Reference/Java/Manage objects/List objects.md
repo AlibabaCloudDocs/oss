@@ -116,7 +116,7 @@ You can use the GetBucket \(ListObjects\) or GetBucketV2 \(ListObjectsV2\) opera
     ListObjectsV2Result result = ossClient.listObjectsV2(bucketName);
     List<OSSObjectSummary> ossObjectSummaries = result.getObjectSummaries();
     
-    for (OSSObjectSummary obj : ossObjectSummaries) {
+    for (OSSObjectSummary s : ossObjectSummaries) {
         System.out.println("\t"   s.getKey());
     }
     
@@ -400,7 +400,7 @@ The following table describes the parameters you can configure for ListObjectsV2
     ListObjectsV2Result result = ossClient.listObjectsV2(listObjectsV2Request);
     List<OSSObjectSummary> ossObjectSummaries = result.getObjectSummaries();
     
-    for (OSSObjectSummary obj : ossObjectSummaries) {
+    for (OSSObjectSummary s : ossObjectSummaries) {
         System.out.println("\t"   s.getKey());
     }
     
@@ -423,8 +423,7 @@ The following table describes the parameters you can configure for ListObjectsV2
     // Create an OSSClient instance.
     OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
     
-    // Specifies the maximum number of objects that can be listed each time.
-    final int maxKeys = 200
+    // Specify the prefix.
     String prefix = "<yourKeyPrefix>";
     
     // List the objects whose names contain the specified prefix.
@@ -433,7 +432,7 @@ The following table describes the parameters you can configure for ListObjectsV2
     ListObjectsV2Result result = ossClient.listObjectsV2(listObjectsV2Request);
     List<OSSObjectSummary> ossObjectSummaries = result.getObjectSummaries();
     
-    for (OSSObjectSummary obj : ossObjectSummaries) {
+    for (OSSObjectSummary s : ossObjectSummaries) {
         System.out.println("\t"   s.getKey());
     }
     
@@ -463,7 +462,7 @@ The following table describes the parameters you can configure for ListObjectsV2
     ListObjectsV2Result result = ossClient.listObjectsV2(listObjectsV2Request);
     List<OSSObjectSummary> ossObjectSummaries = result.getObjectSummaries();
     
-    for (OSSObjectSummary obj : ossObjectSummaries) {
+    for (OSSObjectSummary s : ossObjectSummaries) {
         System.out.println("\t"   s.getKey());
     }
     
@@ -488,15 +487,15 @@ The following table describes the parameters you can configure for ListObjectsV2
     
     // By default, the owner information of the objects is not listed. To include the object owner information in the returned results, set the fetchOwner parameter to true.
     ListObjectsV2Request listObjectsV2Request = new ListObjectsV2Request(bucketName);
-    listObjectsV2Request.setFetchOwner(true)
+    listObjectsV2Request.setFetchOwner(true);
     ListObjectsV2Result result = ossClient.listObjectsV2(listObjectsV2Request);
     List<OSSObjectSummary> ossObjectSummaries = result.getObjectSummaries();
     
-    for (OSSObjectSummary obj : ossObjectSummaries) {
+    for (OSSObjectSummary s : ossObjectSummaries) {
         System.out.println("\t"   s.getKey());
-        if (obj.getOwner() ! = null) {
-            System.out.println("owner id:"   obj.getOwner().getId());
-            System.out.println("owner id:"   obj.getOwner().getDisplayName());
+        if (s.getOwner() ! = null) {
+            System.out.println("owner id:"   s.getOwner().getId());
+            System.out.println("name:"   s.getOwner().getDisplayName());
         }
     }
     
@@ -527,7 +526,7 @@ The following table describes the parameters you can configure for ListObjectsV2
     // List objects in the bucket by page by using the nextContinuationToken parameter included in the results of the previous list operation.
     do {
         ListObjectsV2Request listObjectsV2Request = new ListObjectsV2Request(bucketName).withMaxKeys(maxKeys);
-        listObjectsV2Request.setContinuationToken(nextContinuationtoken);
+        listObjectsV2Request.setContinuationToken(nextContinuationToken);
         result = ossClient.listObjectsV2(listObjectsV2Request);
     
         List<OSSObjectSummary> sums = result.getObjectSummaries();
@@ -537,7 +536,7 @@ The following table describes the parameters you can configure for ListObjectsV2
     
         nextContinuationToken = result.getNextContinuationToken();
     
-    } while (result1.isTruncated());
+    } while (result.isTruncated());
     
     // Shut down the OSSClient instance.
     ossClient.shutdown();
@@ -579,7 +578,7 @@ The following table describes the parameters you can configure for ListObjectsV2
     
         nextContinuationToken = result.getNextContinuationToken();
     
-    } while (result1.isTruncated());
+    } while (result.isTruncated());
     
     // Shut down the OSSClient instance.
     ossClient.shutdown();
@@ -613,7 +612,7 @@ The following table describes the parameters you can configure for ListObjectsV2
         ListObjectsV2Request listObjectsV2Request = new ListObjectsV2Request(bucketName).withMaxKeys(maxKeys);
         listObjectsV2Request.setPrefix(keyPrefix);
         listObjectsV2Request.setEncodingType("url");
-        listObjectsV2Request.setContinuationToken(nextContinuationtoken);
+        listObjectsV2Request.setContinuationToken(nextContinuationToken);
         result = ossClient.listObjectsV2(listObjectsV2Request);
     
         // Decode the value of prefix in the response.
@@ -625,13 +624,13 @@ The following table describes the parameters you can configure for ListObjectsV2
         // Decode the value of delimiter in the response.
         if (result.getDelimiter() ! = null) {
             String delimiter = URLDecoder.decode(result.getDelimiter(), "UTF-8");
-            System.out.println("delimiter: "   prefix);
+            System.out.println("delimiter: "   delimiter);
         }
     
         // Decode the value of startAfter in the response.
         if (result.getStartAfter() ! = null) {
             String startAfter = URLDecoder.decode(result.getStartAfter(), "UTF-8");
-            System.out.println("startAfter: "   prefix);
+            System.out.println("startAfter: "   startAfter);
         }
     
         // Decode the value of key in the response.
@@ -642,13 +641,13 @@ The following table describes the parameters you can configure for ListObjectsV2
     
         // Decode the value of commonPrefixes in the response.
         for (String commonPrefix: result.getCommonPrefixes()) {
-            String commonPrefix = URLDecoder.decode(commonPrefix, "UTF-8");
-            System.out.println("CommonPrefix: " commonPrefix);
+            String decodeCommonPrefix = URLDecoder.decode(commonPrefix, "UTF-8");
+            System.out.println("CommonPrefix: " decodeCommonPrefix);
         }
     
         nextContinuationToken = result.getNextContinuationToken();
     
-    } while (result1.isTruncated());
+    } while (result.isTruncated());
     
     // Shut down the OSSClient instance.
     ossClient.shutdown();
@@ -664,7 +663,7 @@ You can use the delimiter and prefix parameters to list objects by folder.
 -   If you set prefix to a folder name in the request, objects and subfolders whose names contain the prefix are listed.
 -   If you also set delimiter to a forward slash \(/\) in the request, the objects and subfolders whose names start with the specified prefix in the folder are listed. Each subfolder is listed as a single result element in commonPrefixes. The objects and folders in these subfolders are not listed.
 
-For more information about folders, see [Folder simulation](/intl.en-US/Developer Guide/Objects/Manage files/View the object list.md). For the complete code used to create a folder, visit [GitHub](https://github.com/aliyun/aliyun-oss-java-sdk/blob/master/src/samples/CreateFolderSample.java).
+For more information about folders, see [Folder simulation](/intl.en-US/Developer Guide/Objects/Manage files/List objects.md). For the complete code used to create a folder, visit [GitHub](https://github.com/aliyun/aliyun-oss-java-sdk/blob/master/src/samples/CreateFolderSample.java).
 
 Example: The following four objects are stored in the bucket: oss.jpg, fun/test.jpg, fun/movie/001.avi, and fun/movie/007.avi. The forward slash \(/\) is used as the folder delimiter. The following examples describe how to list objects by simulating folders.
 
@@ -995,7 +994,7 @@ Example: The following four objects are stored in the bucket: oss.jpg, fun/test.
 
         ```
         // Query the sizes of objects within a specified folder in a bucket.
-        private satic long calculateFolderLength(OSS ossClient, String bucketName, String folder) {
+        private static long calculateFolderLength(OSS ossClient, String bucketName, String folder) {
             long size = 0L;
             ListObjectsV2Result result = null;
             do {
