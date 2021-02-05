@@ -47,7 +47,7 @@ The following code provides an example on how to upload an object in synchronous
         let r2 = await client.get('object');
         console.log('get success: %j', r2);
       } catch(e) {
-        console.error('error: %j', err);
+        console.error('error: %j', e);
       }
     }
     put();
@@ -65,7 +65,7 @@ The following code provides an example on how to upload an object in synchronous
     }).then(function (r2) {
       console.log('get success: %j', r2);
     }).catch(function (err) {
-      console.error('error: %j', err);
+      console.error('error: %j', e);
     });
                         
     ```
