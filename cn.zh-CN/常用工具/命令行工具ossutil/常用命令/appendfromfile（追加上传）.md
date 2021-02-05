@@ -44,7 +44,7 @@ appendfromfile命令用于在已上传的追加类型文件（Appendable Object�
     如果需要在exampleobject.txt文件末尾多次追加内容，请相应替换如下示例中的待追加上传文件dest.txt。
 
     ```
-    ./ossutil64 appendfromfile dest.txt oss://examplebucket/exampleobject.txt --meta "x-oss-object-acl:private"
+    ./ossutil64 appendfromfile dest.txt oss://examplebucket/exampleobject.txt
     ```
 
     以下输出结果已在exampleobject.txt文件后追加了内容，此时文件大小为150 Byte。
