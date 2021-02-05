@@ -1,31 +1,39 @@
-# Installation {#concept_32068_zh .concept}
+# Installation
 
-This topic describes how to install Node.js. Demos in the official documents are based on SDK 6.X. For SDKs of earlier versions, see [Document for 5.X SDK](https://github.com/ali-sdk/ali-oss/blob/5.x/README.md). For more information about upgrade your SDK to 6.X, see [Upgrade document](https://github.com/ali-sdk/ali-oss/blob/master/UPGRADING.md).
+This topic describes how to install OSS SDK for Node.js.
 
--    [GitHub](https://github.com/ali-sdk/ali-oss) 
--    [API document](https://github.com/ali-sdk/ali-oss#summary) 
--    [ChangeLog](https://github.com/ali-sdk/ali-oss/blob/master/CHANGELOG.md) 
+## Prerequisites
 
-## Environment preparations {#section_bv1_szj_lfb .section}
+-   Alibaba Cloud OSS is activated.
+-   The AccessKey ID and AccessKey secret of the RAM user are created.
 
--   Prerequisites
-    -   Activate OSS service. If you haven’t activated or do not know about Alibaba Cloud OSS, log on to the OSS product page for more information.
-    -   The Alibaba Cloud account AccessKey gives you permission to access all APIs, thus, we recommend that you follow Alibaba Cloud Best Practices for creating an AccessKeyId and an AccessKeySecret. If you deploy the service on the server, you can use an RAM sub-account or STS for API access or daily O&M management and control. If you deploy the service on the client, we recommend that you use STS for API access. For more information, see [Access control](../../../../reseller.en-US/Developer Guide/Access and control/Overview.md#).
--   Environment requirements
-
-    The OSS JavaScript SDK is built on the [Node.js](https://nodejs.org/) environment.
+    Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS because the account has permissions on all API operations. We recommend that you use the AccessKey pair of a RAM user. If you deploy your service on the server, you can use a RAM user or STS credentials to call API operations or perform routine operations. If you deploy your service on the client, use STS credentials to call API operations. For more information, see [Resource Access Management](https://www.alibabacloud.com/help/product/28625.htm).
 
 
-## Usage methods { .section}
+## Background information
 
-The OSS JavaScript SDK supports both synchronous and asynchronous use.
+OSS SDK for Node.js is built based on the [Node.js](https://nodejs.org/) environment.
 
--   Synchronous mode: Synchronize the asynchronous mode based on `async` and `wait`.
--   Asynchronous mode: Similar to the callback mode. The API returns the [Promise](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise), uses the `.then()` method to process the returned result and uses the `.catch()` method to process errors.
+Example code in the official document is from OSS SDK for Node.js 6.x. For more information about OSS SDK for Node.js earlier than 6.x, visit [OSS SDK for Node.js 5.x](https://github.com/ali-sdk/ali-oss/blob/5.x/README.md). For more information about how to upgrade OSS SDK for Node.js to 6.x, visit [Upgrading Notes \(5.x to 6.x\)](https://github.com/ali-sdk/ali-oss/blob/master/UPGRADING.md).
 
-The `new OSS()` method is used to create a client in both the synchronous mode and asynchronous mode.
+For more information about the source code of OSS SDK for Node.js, visit [GitHub](https://github.com/ali-sdk/ali-oss). For more information, visit [documents](https://github.com/ali-sdk/ali-oss#summary).
 
-Next is to name examples to upload an object first and then download the object respectively.
+## Install OSS SDK for Node.js
+
+OSS supports Node.js 8 and later. To use OSS SDK for Node.js in Node.js versions earlier than 8.0.0, use OSS SDK for Node.js V4.x.
+
+Run npm install ali-oss --save to install the SDK package. For more information, visit [npm](https://www.npmjs.com/).
+
+If you encounter any network problems when you use npm, we recommend that you use [cnpm](https://npm.taobao.org/), which is the npm image provided by Taobao.
+
+## Use OSS SDK for Node.js
+
+You can use OSS SDK for Node.js in synchronous and asynchronous modes. `new OSS()` is used to create OSS clients in synchronous and asynchronous modes.
+
+-   Synchronous mode: The `async` and `await` methods are used to synchronize asynchronous operations.
+-   Asynchronous mode: Perform asynchronous operations in a way similar to callback. The API operation returns a [Promise](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise) object for a request. The `.then()` method is used to process the returned result, and the `.catch()` method is used to handle errors.
+
+The following code provides an example on how to upload an object in synchronous mode and download an object in asynchronous mode:
 
 -   Synchronous mode
 
@@ -33,7 +41,7 @@ Next is to name examples to upload an object first and then download the object 
     let client = new OSS(...);
     async function put () {
       try {
-        // object indicates the uploaded object name, localfile indicates a local file or file path.
+        // object specifies the name of the object uploaded to OSS. localfile specifies the name of the local file or file path.
         let r1 = await client.put('object','localfile'); 
         console.log('put success: %j', r1);
         let r2 = await client.get('object');
@@ -42,15 +50,15 @@ Next is to name examples to upload an object first and then download the object 
         console.error('error: %j', err);
       }
     }
-    Put ();
+    put();
     ```
 
 -   Asynchronous mode
 
-    ```language-js
+    ```
     let client = new OSS(...);
     
-    // object indicates the uploaded object name, localfile indicates a local file or file path.
+    // object specifies the name of the object downloaded from OSS. localfile specifies the name of the local file or file path.
     client.put('object', 'localfile').then(function (r1) {
       console.log('put success: %j', r1);
       return client.get('object');
@@ -59,39 +67,7 @@ Next is to name examples to upload an object first and then download the object 
     }).catch(function (err) {
       console.error('error: %j', err);
     });
-    
+                        
     ```
 
-
-## Installation { .section}
-
--   Use Node.js
-
-    Supported Node.js versions:
-
-    Node.js later than 8.0.0 is supported. Use ali-oss 4.x in Node.js environment earlier than 8.0.0.
-
-    Use [npm](https://www.npmjs.com/) to install the SDK:
-
-    ```language-bash
-    npm install ali-oss
-    
-    ```
-
-    Use it in your project:
-
-    ```language-js
-    let OSS = require('ali-oss');
-    
-    let client = new OSS({
-      region: '<oss region>',
-      //The Alibaba Cloud account AccessKey gives you permission to access all APIs, so we recommend to follow Alibaba Cloud Best Practices for deploying the service on the server using an RAM sub-account or STS, or deploying the service on the client using STS.
-      accessKeyId: '<Your accessKeyId>',
-      accessKeySecret: '<Your accessKeySecret>',
-      bucket: '<Your bucket name>'
-    });
-    
-    ```
-
--   If you face any network problems when using npm, you can use the npm image provided by Taobao: c[npm](https://npm.taobao.org/).
 
