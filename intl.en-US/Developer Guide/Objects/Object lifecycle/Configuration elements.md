@@ -1,8 +1,8 @@
 # Configuration elements
 
-This topic describes the elements used to configure lifecycle rules for objects.
+This topic describes the elements that can be configured in lifecycle rules for objects.
 
-Lifecycle configuration files are in XML format. Example:
+The configuration file of a lifecycle rule for objects is in the XML format. Example:
 
 ```
 <LifecycleConfiguration>
@@ -33,28 +33,28 @@ Lifecycle configuration files are in XML format. Example:
 </Transition>
 </Rule>
 </LifecycleConfiguration>
-		
+        
 ```
 
 In the preceding example, three lifecycle rules are defined as follows:
 
--   The first rule is configured to delete objects whose names contain the prefix logs/ and that have not been modified for more than 10 days.
--   The second rule is configured to delete objects whose names contain the prefix doc/ and that have not been modified since December 31, 2017. However, this rule will not take effect because it is in the Disabled state.
--   The third rule is configured to convert the storage class of objects whose tagging configurations are xx=1 and that have not been modified for more than 60 days to Archive.
+-   The first rule is configured to delete objects whose names contain the logs/ prefix and that are not modified for more than 10 days.
+-   The second rule is configured to delete objects whose names contain the doc/ prefix and that are not modified since December 31, 2017. However, this rule does not take effect because this rule is in the Disabled state.
+-   The third rule is configured to convert the storage class of objects whose tagging configurations are xx=1 and that are not modified for more than 60 days to Archive.
 
-The following section describes the elements such as the ID and operation elements that are used to configure lifecycle rules.
+The following section describes the elements such as ID and operation that can be configured in lifecycle rules.
 
-## ID element
+## ID
 
-Specifies the ID of the lifecycle rule configured for the bucket. An ID is composed of up to 255 bytes. If this element is not specified or its value is null, OSS automatically generates a unique ID for the lifecycle rule.
+The ID element specifies the ID of the lifecycle rule configured for the bucket. The ID of an lifecycle rule can be up to 255 bytes in length. If the value of this parameter is null or not specified, OSS automatically generates a unique ID for the lifecycle rule.
 
-## Status element
+## Status
 
-Specifies the status of the lifecycle rule, which can be Enabled or Disabled. OSS applies only to enabled rules.
+The Status element specifies the status of the lifecycle rule, which can be Enabled or Disabled. Only rules in which the value of Status is Enabled take effect.
 
-## Prefix element
+## Prefix
 
-Specifies the object name prefix based on which the lifecycle rules are applied to all or some of the objects in the bucket.
+Specifies the object name prefix based on which the lifecycle rules are applied. The lifecycle rule applies to objects whose names contain the specified prefix.
 
 ## Time elements
 
@@ -69,7 +69,7 @@ Specifies the object name prefix based on which the lifecycle rules are applied 
 
 ## Operation elements
 
-You can instruct OSS to perform specific operations on an object during its lifecycle by specifying one or more operation elements in the lifecycle rule. The effect of these operations depends on the versioning status of the bucket. The following section provides an overview of the relationship between the operation on an object as specified in the lifecycle rule and the versioning status of the bucket that contains the object.
+You can instruct OSS to perform specific operations on an object during its lifecycle by specifying one or more operation elements in the lifecycle rule. The effect of these operations depends on the versioning status of the bucket. The following section provides an overview of the relationship between the operation on an object as specified in the lifecycle rule and the versioning status of the bucket in which the object is stored.
 
 -   Unversioned buckets
 
@@ -84,27 +84,28 @@ You can instruct OSS to perform specific operations on an object during its life
 
     -   Delete or storage class conversion operation on the current version of an object
 
-        |Operation|Versioning-enabled bucket|Versioning-suspended bucket|
-        |---------|-------------------------|---------------------------|
-        |Expiration|If the current version of the object is not a delete marker, OSS inserts a delete marker with a unique version ID. The delete marker becomes the current version of the object. The previous current version is overwritten.|If the current version of the object is not a delete marker, OSS inserts a delete marker with the null version ID. The delete marker becomes the current version of the object. The previous version with the null version ID is deleted.|
-        |If the current version of the object is a delete marker:
-
-         -   When one or more previous versions of the object remain and match the lifecycle rule, no actions are triggered.
-        -   When only one version of the object remains and matches the lifecycle rule, the delete marker expires.
+        |Operation|Description|
+        |---------|-----------|
+        |Expiration|The operation performed on an expired object is different based on whether the current version of the object is a delete marker.        -   If the current version of the object is not a delete marker:
+            -   When you configure the lifecycle rule on an object in a versioning-enabled bucket, OSS inserts a delete marker that has a unique version ID. The delete marker becomes the current version of the object. The previous current version is overwritten.
+            -   When you configure the lifecycle rule on an object in a versioning-suspended bucket, OSS inserts a delete marker whose version ID is null. The delete marker becomes the current version of the object. The previous null version is overwritten.
+        -   If the current version of the object is a delete marker:
+            -   When one or more previous versions of the object remain and match the lifecycle rule, no actions are triggered.
+            -   When only one version of the object remains and matches the lifecycle rule, the delete marker expires.
 
 OSS determines whether to remove the expired delete marker based on the ExpiredObjectDeleteMarker child element. If the ExpiredObjectDeleteMarker child element is set to true, OSS detects and then removes the expired delete marker to delete the object.
 
 **Note:**
 
-            -   When you configure a lifecycle rule or initiate a delete operation without specifying the object version, the current version is overwritten. If you use lifecycle rules or delete operations to permanently delete all previous versions of an object, only the expired delete marker remains.
-            -   You cannot configure ExpiredObjectDeleteMarker or tagging at the same time. |
+                -   When you configure a lifecycle rule or initiate a delete operation without specifying the object version, the current version is overwritten. If you use lifecycle rules or delete operations to permanently delete all previous versions of an object, only the expired delete marker remains.
+                -   You cannot configure ExpiredObjectDeleteMarker or tagging at the same time. |
         |Transition|Specifies the date or validity period after which the storage class of the current version of the object is converted to the specified one.|
 
     -   Delete or storage class conversion operation on previous versions of an object
 
         |Operation|Description|Child element|
         |---------|-----------|-------------|
-        |NoncurrentVersionExpiration|Specifies the date or validity period after which previous versions are deleted.|The <NoncurrentDays\> child element specifies the validity period during which previous versions are retained. After the validity period expires, the previous versions are permanently deleted. **Note:** For example, assume some version was the current version of an object. On May 1, 2019, the PutObject operation was called and this version became a previous version. In the NoncurrentVersionExpiration element, <NoncurrentDays\> is set to 3. On May 4, 2019, the version was permanently deleted. Each time the PutObject operation is performed on an object, the current version of the object becomes the most recent previous version. The uploaded version becomes the current version of the object. OSS uses the creation time of the next version to determine when a version becomes a previous version. |
+        |NoncurrentVersionExpiration|Specifies the date or validity period after which previous versions are deleted.|The <NoncurrentDays\> child element specifies the validity period during which previous versions are retained. After the validity period expires, the previous versions are permanently deleted. **Note:** For example, the PutObject operation was called to overwrite the current version of an object on May 1, 2019. The current version became a previous version. In the NoncurrentVersionExpiration element, <NoncurrentDays\> is set to 3. On May 4, 2019, the version was permanently deleted. Each time the PutObject operation is performed on an object, the current version of the object becomes the most recent previous version. The uploaded version becomes the current version of the object. OSS determines when a version becomes a previous version based on the creation time of the next version. |
         |NoncurrentVersionTransition|Specifies the date or validity period after which the storage class of previous versions is converted.|        -   The <NoncurrentDays\> child element specifies the validity period during which previous versions are retained. After the validity period, the storage class of previous versions is converted.
         -   The <StorageClass\> child element specifies the storage class to which the storage class of matched objects is converted. |
 
