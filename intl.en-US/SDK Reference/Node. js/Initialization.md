@@ -1,10 +1,10 @@
-# Initialization {#concept_d5g_1y1_dhb .concept}
+# Initialization
 
-This topic describes how to initialize the Node.js SDK.
+This topic describes how to initialize OSS SDK for Node.js.
 
-Create an object named `app.js` and write the following content:
+Create an object named `app.js` and write the following content to the object:
 
-```language-js
+```
 let OSS = require('ali-oss');
 
 let client = new OSS({
@@ -12,17 +12,17 @@ let client = new OSS({
   accessKeyId: '<Your AccessKeyId>',
   accessKeySecret: '<Your AccessKeySecret>'
 });
-
+        
 ```
 
-The `region` field specifies the region that is set when you apply for OSS, such as `oss-cn-hangzhou`. For the complete list of regions, see [Endpoints and regions](../../../../reseller.en-US/Developer Guide/Endpoint/Regions and endpoints.md#).
+The `region` parameter indicates the region from which OSS services are provided. Example: `oss-cn-hangzhou`. For the complete list of regions, see [Endpoints and regions](/intl.en-US/Developer Guide/Endpoint/Regions and endpoints.md).
 
-**Note:** If the desired endpoint is not included in the preceding list, you can use the following parameters to specify the endpoint:
+**Note:** If the endpoint that you use is not included in the list, you can configure the following parameters to specify the endpoint.
 
--   internal: You must set the `region` field if the internal parameter is used. If you set `internal` to `true`, you can access the intranet nodes.
--   secure: You must set the `region` field if the secure parameter is used. If you set `secure` to `true`, use HTTPS for access.
--   endpoint: If you specify the `endpoint` field, such as `http://oss-cn-hangzhou.aliyuncs.com`, you do not need to set the `region` field. The `endpoint` field value can be a domain that uses HTTPS or an IP address.
--   cname: You must set the `endpoint` field if the cname parameter is used. If you set `cname` to `true`, the `endpoint` field value is used as the custom domain that is bound to a bucket.
--   bucket: If the `bucket` field value is not specified, you must first call `useBucket` to perform operations on the object that belongs to the bucket. You need to call this API only once.
--   timeout: specifies the timeout period to access OSS APIs. The default value is 60 seconds.
+-   internal: This parameter must be set together with `region`. If you set `internal` to `true`, you can access OSS over the internal network.
+-   secure: This parameter must be set together with the `region` parameter. If you set `secure` to `true`, you can access OSS by using HTTPS.
+-   endpoint: If you set the `endpoint` parameter to a value such as `http://oss-cn-hangzhou.aliyuncs.com`, you do not need to set the `region` parameter. The value of the `endpoint` parameter can be an HTTPS domain name or an IP address.
+-   cname: This parameter must be set together with the `endpoint` parameter. If you set `cname` to `true`, the value of `endpoint` is used as the custom domain name that is bound to a bucket.
+-   bucket: If the `bucket` parameter is not configured, you must first call `useBucket` when you perform operations on objects stored in the bucket. You need to call this operation only once.
+-   timeout: This parameter specifies the timeout period for API operations performed to access OSS. Default value: 60000. Unit: millisecond.
 
