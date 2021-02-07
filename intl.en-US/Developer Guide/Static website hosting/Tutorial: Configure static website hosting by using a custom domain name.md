@@ -148,11 +148,11 @@ Visit the following URLs in the browser to verify whether the website is running
 
 -   Visit `http://example.com` to access the homepage of the static website. If static website hosting is correctly configured, the following page is displayed.
 
-    ![11](../images/p206863.png)
+    ![11](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/0234662161/p206863.png)
 
 -   Visit `http://example.com/example.txt` to access an object that does not exist in the bucket. If static website hosting is configured, the following page is displayed.
 
-    ![404](../images/p206865.png)
+    ![404](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/0234662161/p206865.png)
 
 
 ## Step 7: Clean up resources
