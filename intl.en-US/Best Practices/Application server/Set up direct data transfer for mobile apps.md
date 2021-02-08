@@ -4,7 +4,7 @@ This topic describes how to set up a direct data transfer service for a mobile a
 
 OSS is activated. One or more buckets are created.
 
--   For more information about how to activate OSS, see [Activate OSS](/intl.en-US/Quick Start/Sign up for OSS.md).
+-   For more information about how to activate OSS, see [Activate OSS](/intl.en-US/Console User Guide/Sign up for OSS.md).
 -   For more information about how to create a bucket, see [Create buckets](/intl.en-US/Developer Guide/Buckets/Create buckets.md).
 
 In the mobile Internet era, increasing amounts of data are uploaded through mobile apps. Developers can hand off their data storage concerns to OSS and focus more on the development of app logic.
@@ -52,13 +52,7 @@ The following section describes how to use the app server to generate a token an
 5.  After authorization is complete, save the AccessKey ID, AccessKey secret, and RoleArn parameters.
 
     -   If you have not created an AccessKey pair, the system automatically creates an AccessKey pair. Save AccessKey ID, AccessKey secret, and RoleArn.
-
-        ![token](../images/p133118.png)
-
-    -   If you have created an AccessKey pair, click **View** to create an AccessKey pair, as shown in the following figure.
-
-        ![ak](../images/p133154.png)
-
+    -   If you have created an AccessKey pair, click **View** to create an AccessKey pair.
 
 ## Step 2: Configure the app server
 
@@ -66,11 +60,11 @@ The following section describes how to use the app server to generate a token an
 
     |Programming language|Download link|
     |--------------------|-------------|
-    |PHP|[Download link](http://gosspublic.alicdn.com/doc31920servercode/sts-server.zip)|
-    |Java|[Download link](http://gosspublic.alicdn.com/doc31920servercode/AppTokenServerDemo.zip)|
-    |Ruby|[Download link](http://gosspublic.alicdn.com/doc31920servercode/sts-app-server-master.zip)|
-    |Node.js|[Download link](http://gosspublic.alicdn.com/doc31920servercode/sts-app-server-node.zip)|
-    |Go|[Download link](http://gosspublic.alicdn.com/doc31920servercode/test_token_server.zip)|
+    |PHP|[Download link](https://gosspublic.alicdn.com/doc31920servercode/sts-server.zip)|
+    |Java|[Download link](https://gosspublic.alicdn.com/doc31920servercode/AppTokenServerDemo.zip)|
+    |Ruby|[Download link](https://gosspublic.alicdn.com/doc31920servercode/sts-app-server-master.zip)|
+    |Node.js|[Download link](https://gosspublic.alicdn.com/doc31920servercode/sts-app-server-node.zip)|
+    |Go|[Download link](https://gosspublic.alicdn.com/doc31920servercode/test_token_server.zip)|
 
 2.  Modify the configuration file.
 
@@ -97,7 +91,7 @@ The following section describes how to use the app server to generate a token an
 
     -   bucket\_read\_policy.txt: specifies that the token grants permissions to read data from the specified bucket and objects whose names contain the specified prefix for the account.
     -   bucket\_write\_policy.txt: specifies that the token grants permissions to write data to the specified bucket and objects whose names contain the specified prefix for the account.
-    For more information about permissions, see examples and implementation of policies in [Implement access control based on RAM policies](/intl.en-US/Developer Guide/Data security/Access and control/RAM Policy/Implement access control based on RAM policies.md). Follow the principle of least privilege \(PoLP\) based on business requirements. Security risks such as data leaks may arise because of excess permissions if you specify all resources \(resource:\*\) or all actions \(action:\*\).
+    For more information about permissions, see examples and implementation of policies in [Overview](/intl.en-US/Developer Guide/Data security/Access and control/RAM Policy/Overview.md). Follow the principle of least privilege \(PoLP\) based on business requirements. Security risks such as data leaks may arise because of excess permissions if you specify all resources \(resource:\*\) or all actions \(action:\*\).
 
     **Warning:** The code sample is only for reference. In practice, the online system must implement permission isolation for different users or devices. This way, tokens that grant different permissions are generated to avoid excess permissions.
 
@@ -150,8 +144,6 @@ The following section describes how to use the app server to generate a token an
     You can use either of the mobile apps to upload images to OSS. Simple upload and resumable upload are supported. If the network quality is poor, we recommend that you use resumable upload. You can also use Image Processing \(IMG\) to resize an image to obtain a thumbnail and add watermarks to the image.
 
 2.  Open the mobile app and configure the app parameters.
-
-    ![](../images/p6542.jpg@300w_80q)
 
     -   App server: the app server address specified in [Step 2: Configure the app server](#section_jbo_g46_l3p).
     -   Destination bucket: the bucket to which the data is uploaded from a mobile app.
