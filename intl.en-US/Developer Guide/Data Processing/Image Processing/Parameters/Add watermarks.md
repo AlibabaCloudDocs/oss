@@ -43,7 +43,7 @@ Unit: px |
 
     The following figure shows the positions of watermarks based on coordinates.
 
-    ![origin](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/4956348951/p2648.png)
+    ![origin](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/4956348951/p2648.png)
 
 -   Image watermark parameters
 
@@ -121,7 +121,7 @@ We recommend that you use [URL-safe Baes64 encoding tools](https://simplycalc.co
 ## Usage notes
 
 -   You can use watermark images only in the current bucket. Online or local images must be uploaded to the current bucket before these images can be used for watermarking.
--   Only PNG, JPG, and WebP watermark images are supported.
+-   Only JPG, PNG, BMP, GIF, WebP and TIFF watermark images are supported.
 -   Traditional Chinese is not supported for text watermarks.
 -   Before you add multiple watermarks to an image, take note of the following items:
     -   You can add up to three watermarks to an image.
@@ -134,7 +134,7 @@ An image in the bucket named image-demo-oss-zhangjiakou in the China \(Zhangjiak
 
 [https://image-demo-oss-zhangjiakou.oss-cn-zhangjiakou.aliyuncs.com/example.jpg](https://image-demo-oss-zhangjiakou.oss-cn-zhangjiakou.aliyuncs.com/example.jpg)
 
-![Source image](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/8812863061/p139183.png)
+![Source image](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/8812863061/p139183.png)
 
 -   Add an image watermark
 
@@ -147,7 +147,7 @@ An image in the bucket named image-demo-oss-zhangjiakou in the China \(Zhangjiak
     -   Set the position of the image watermark to lower right, the horizontal margin to 10 pixels, and the vertical offset from the middle line to 10 pixels: `g_se,x_10,y_10`
     The following URL is used to process the image: [https://image-demo-oss-zhangjiakou.oss-cn-zhangjiakou.aliyuncs.com/example.jpg?x-oss-process=image/resize,w\_300,h\_300/quality,q\_90/watermark,image\_cGFuZGEucG5n,t\_90,g\_se,x\_10,y\_10](https://image-demo-oss-zhangjiakou.oss-cn-zhangjiakou.aliyuncs.com/example.jpg?x-oss-process=image/resize,w_300,h_300/quality,q_90/watermark,image_cGFuZGEucG5n,t_90,g_se,x_10,y_10)
 
-    ![](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/4956348951/p2654.jpg)
+    ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/4956348951/p2654.jpg)
 
 -   Preprocess the image watermark and add it to the source image
 
@@ -158,7 +158,7 @@ An image in the bucket named image-demo-oss-zhangjiakou in the China \(Zhangjiak
     -   Set the opacity of the image watermark to 90%, the position of the image watermark to lower right, the horizontal margin to 10 pixels, and the vertical offset from the middle line to 10 pixels: `t_90,g_se,x_10,y_10`
     The following URL is used to process the image: [https://image-demo-oss-zhangjiakou.oss-cn-zhangjiakou.aliyuncs.com/example.jpg?x-oss-process=image/resize,w\_300/watermark,image\_cGFuZGEucG5nP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLFBfMzA,t\_90,g\_se,x\_10,y\_10](https://image-demo-oss-zhangjiakou.oss-cn-zhangjiakou.aliyuncs.com/example.jpg?x-oss-process=image/resize,w_300/watermark,image_cGFuZGEucG5nP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLFBfMzA,t_90,g_se,x_10,y_10)
 
-    ![](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/4956348951/p2651.jpg)
+    ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/4956348951/p2651.jpg)
 
 -   Add a text watermark
 
@@ -172,7 +172,7 @@ An image in the bucket named image-demo-oss-zhangjiakou in the China \(Zhangjiak
     -   Set the position of the text watermark to lower right, the horizontal margin to 10 pixels, and the vertical offset from the middle line to 10 pixels: `g_se,x_10,y_10`
     The following URL is used to process the image: [https://image-demo-oss-zhangjiakou.oss-cn-zhangjiakou.aliyuncs.com/example.jpg?x-oss-process=image/resize,w\_300,h\_300/watermark,type\_d3F5LXplbmhlaQ,size\_30,text\_SGVsbG8gV29ybGQ,color\_FFFFFF,shadow\_50,t\_100,g\_se,x\_10,y\_10](https://image-demo-oss-zhangjiakou.oss-cn-zhangjiakou.aliyuncs.com/example.jpg?x-oss-process=image/resize,w_300,h_300/watermark,type_d3F5LXplbmhlaQ,size_30,text_SGVsbG8gV29ybGQ,color_FFFFFF,shadow_50,t_100,g_se,x_10,y_10)
 
-    ![Image processing 5](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/0077333061/p135882.png)
+    ![Image processing 5](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/0077333061/p135882.png)
 
 -   Add a text-and-image watermark
 
@@ -188,7 +188,7 @@ An image in the bucket named image-demo-oss-zhangjiakou in the China \(Zhangjiak
     -   Set the opacity of the text-and-image watermark to 100%: `t_100`
     The following URL is used to process the image: [https://image-demo-oss-zhangjiakou.oss-cn-zhangjiakou.aliyuncs.com/example.jpg?x-oss-process=image/resize,w\_300,h\_300/quality,q\_90/watermark,image\_cGFuZGEucG5nP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLFBfMzA,text\_SGVsbG8gV29ybGQ,order\_0,interval\_10,align\_2,t\_100,g\_se,x\_10,y\_10,color\_FFFFFF,shadow\_50](https://image-demo-oss-zhangjiakou.oss-cn-zhangjiakou.aliyuncs.com/example.jpg?x-oss-process=image/resize,w_300,h_300/quality,q_90/watermark,image_cGFuZGEucG5nP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLFBfMzA,text_SGVsbG8gV29ybGQ,order_0,interval_10,align_2,t_100,g_se,x_10,y_10,color_FFFFFF,shadow_50)
 
-    ![](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/3323863061/p2659.jpg)
+    ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/3323863061/p2659.jpg)
 
 -   Add multiple watermarks to the source image
 
@@ -196,7 +196,7 @@ An image in the bucket named image-demo-oss-zhangjiakou in the China \(Zhangjiak
 
     The following URL is used to process the image: [https://image-demo-oss-zhangjiakou.oss-cn-zhangjiakou.aliyuncs.com/example.jpg?x-oss-process=image/watermark,image\_cGljcy9KZWxseWZpc2guanBnP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLFBfMjA,g\_nw,x\_10,y\_10/watermark,image\_cGljcy9Lb2FsYS5qcGc\_eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsUF8yMA,g\_se,x\_10,y\_10/watermark,image\_cGljcy9UdWxpcHMuanBnP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLFBfMjA,g\_west,x\_10,y\_10/watermark,image\_cGljcy9Lb2FsYS5qcGc\_eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsUF8yMA,g\_se,x\_100,y\_100/watermark,image\_cGljcy9UdWxpcHMuanBnP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLFBfMjA,g\_west,x\_80,y\_100/watermark,text\_V2F0ZXJtYXJrIDE,size\_20,x\_10,y\_200/watermark,text\_V2F0ZXJtYXJrIDI,color\_0000b7,size\_20,g\_sw,x\_100,y\_50/watermark,text\_V2F0ZXJtYXJrIDM,color\_b3b324,size\_20,g\_ne,x\_10,y\_10/watermark,text\_V2F0ZXJtYXJrIDQ,color\_b3b324,size\_20,g\_east,x\_10,y\_10](https://image-demo-oss-zhangjiakou.oss-cn-zhangjiakou.aliyuncs.com/example.jpg?x-oss-process=image/watermark,image_cGljcy9KZWxseWZpc2guanBnP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLFBfMjA,g_nw,x_10,y_10/watermark,image_cGljcy9Lb2FsYS5qcGc_eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsUF8yMA,g_se,x_10,y_10/watermark,image_cGljcy9UdWxpcHMuanBnP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLFBfMjA,g_west,x_10,y_10/watermark,image_cGljcy9Lb2FsYS5qcGc_eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsUF8yMA,g_se,x_100,y_100/watermark,image_cGljcy9UdWxpcHMuanBnP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLFBfMjA,g_west,x_80,y_100/watermark,text_V2F0ZXJtYXJrIDE,size_20,x_10,y_200/watermark,text_V2F0ZXJtYXJrIDI,color_0000b7,size_20,g_sw,x_100,y_50/watermark,text_V2F0ZXJtYXJrIDM,color_b3b324,size_20,g_ne,x_10,y_10/watermark,text_V2F0ZXJtYXJrIDQ,color_b3b324,size_20,g_east,x_10,y_10)
 
-    ![Watermark 1](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/3323863061/p162254.jpg)
+    ![Watermark 1](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/3323863061/p162254.jpg)
 
 
 ## FAQ
