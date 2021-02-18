@@ -43,7 +43,7 @@
             -   如果是二级域名，输入二级域名的前缀。例如域名为`abc.aliyun.com`，输入**abc**。
             -   如果需要所有的二级域名都指向Bucket外网访问域名，输入**\***。 |
             |**解析线路**|解析域名时使用的线路。 建议选择**默认**，系统将自动选择最佳线路。|
-            |**记录值**|填写Bucket外网访问域名。|
+            |**记录值**|填写Bucket外网访问域名。Bucket外网访问域名结构为`BucketName.Endpoint`，例如华东1（杭州）地域创建了名为examplebucket的存储空间，外网Endpoint为`oss-cn-hangzhou.aliyuncs.com`，则填写为`examplebucket.oss-cn-hangzhou.aliyuncs.com`。|
             |**TTL**|域名的更新周期，保留默认值即可。|
 
         4.  单击**确定**。
@@ -54,6 +54,6 @@
 
     绑定自定义域名后，文件URL的格式为`https://YourDomainName/ObjectName`。
 
-    例如您在华东1（杭州）地域下创建了目标存储空间bucketexample，并在bucketexample中存放了objectexample.jpg的文件，自定义域名为`img.example.com`，此时您可以使用`https://img.example.com/objectexample.jpg`访问目标文件。
+    例如您在华东1（杭州）地域下创建了目标存储空间examplebucket，并在examplebucket中存放了exampleobject.jpg的文件，自定义域名为`img.example.com`，此时您可以使用`https://img.example.com/exampleobject.jpg`访问目标文件。
 
 
