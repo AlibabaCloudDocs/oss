@@ -2,10 +2,8 @@
 
 This topic describes how to set up a direct data transfer service for a mobile app within 30 minutes by using the STS policy. Direct data transfer allows a mobile app to directly connect to OSS for data uploads and downloads, while only the control flow is sent to the app server.
 
-OSS is activated. One or more buckets are created.
-
--   For more information about how to activate OSS, see [Activate OSS](/intl.en-US/Console User Guide/Sign up for OSS.md).
--   For more information about how to create a bucket, see [Create buckets](/intl.en-US/Developer Guide/Buckets/Create buckets.md).
+-   OSS is activated. For more information about how to activate OSS, see [Activate OSS](/intl.en-US/Console User Guide/Sign up for OSS.md).
+-   One or more buckets are created. For more information about how to create a bucket, see [Create buckets](/intl.en-US/Developer Guide/Buckets/Create buckets.md).
 
 In the mobile Internet era, increasing amounts of data are uploaded through mobile apps. Developers can hand off their data storage concerns to OSS and focus more on the development of app logic.
 
@@ -110,7 +108,7 @@ The following section describes how to use the app server to generate a token an
         "AccessKeyId":"STS.3p***dgagdasdg",
         "AccessKeySecret":"rpnwO9***tGdrddgsR2YrTtI",
        "SecurityToken":"CAES+wMIARKAAZhjH0EUOIhJMQBMjRywXq7MQ/cjLYg80Aho1ek0Jm63XMhr9Oc5s˙∂˙∂3qaPer8p1YaX1NTDiCFZWFkvlHf1pQhuxfKBc+mRR9KAbHUefqH+rdjZqjTF7p2m1wJXP8S6k+G2MpHrUe6TYBkJ43GhhTVFMuM3BZajY3VjZWOXBIODRIR1FKZjIiEjMzMzE0MjY0NzM5MTE4NjkxMSoLY2xpZGSSDgSDGAGESGTETqOio6c2RrLWRlbW8vKgoUYWNzOm9zczoqOio6c2RrLWRlbW9KEDExNDg5MzAxMDcyNDY4MThSBTI2ODQyWg9Bc3N1bWVkUm9sZVVzZXJgAGoSMzMzMTQyNjQ3MzkxMTg2OTExcglzZGstZGVtbzI=",
-       "Expiration":"2017-12-12T07:49:09Z",
+       "Expiration":"2017-12-12T07:49:09Z"
     }
     // Sample error responses.
     {
