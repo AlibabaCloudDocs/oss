@@ -306,7 +306,7 @@ The following code provides an example on how to list all objects in a specified
           });
         marker = result.nextMarker;
             console.log(result);
-      }while(continuationToken)
+      }while(marker)
     }
     
     list();
