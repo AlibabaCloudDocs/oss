@@ -52,8 +52,7 @@ To authorize third-party users to upload objects, OSS also provides account-base
 
 ## What to do next
 
--   Images can be processed after they are uploaded. For more information, see [IMG user guide](/intl.en-US/Developer Guide/Data Processing/Image Processing/IMG implementation modes.md).
--   Audio or video objects can be processed after they are uploaded. For more information, see the "Media Processing" section in [Cloud data processing](/intl.en-US/Developer Guide/Cloud data processing.md).
+Images can be processed after they are uploaded. For more information, see [IMG user guide](/intl.en-US/Developer Guide/Data Processing/Image Processing/IMG implementation modes.md).
 
 **Note:** Append upload does not support upload callback.
 
