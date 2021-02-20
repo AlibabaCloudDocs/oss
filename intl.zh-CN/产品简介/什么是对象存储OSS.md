@@ -8,10 +8,6 @@ OSS具有与平台无关的RESTful API接口，您可以在任何应用、任何
 
 ## 快速了解OSS
 
--   短视频
-
-    观看以下视频，快速了解OSS。
-
 -   常见问题
 
     查看[OSS常见问题](/intl.zh-CN/产品简介/常见问题.md)，了解其他用户经常咨询和关注的一些问题。
@@ -60,7 +56,7 @@ OSS提供多种灵活的上传、下载和管理方式。
 
 -   通过控制台管理OSS
 
-    OSS提供了Web服务页面，您可以登录[OSS控制台](https://oss.console.aliyun.com/overview)管理您的OSS资源。更多信息，请参见[控制台用户指南](/intl.zh-CN/控制台用户指南/登录OSS管理控制台/使用阿里云账号登录OSS管理控制台.md)。
+    OSS提供了Web服务页面，您可以登录[OSS控制台](https://oss.console.aliyun.com/overview)管理您的OSS资源。更多信息，请参见[控制台用户指南](/intl.zh-CN/控制台用户指南/OSS管理控制台/使用阿里云账号登录OSS管理控制台.md)。
 
 -   通过API或SDK管理OSS
 
