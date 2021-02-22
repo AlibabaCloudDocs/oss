@@ -46,6 +46,4 @@ WordPress does not provide native support for this feature, but you can use a th
 
     3.  Right-click the image and choose **Open Link in New Tab** from the shortcut menu.
 
-        The URL in the following figure indicates that the image has been uploaded to the OSS bucket test-hz-jh-002.
-
 
