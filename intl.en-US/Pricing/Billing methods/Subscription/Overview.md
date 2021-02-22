@@ -16,11 +16,11 @@ The following table lists the resource plans supported by OSS and corresponding 
 
 -   Billing items to which resource plans do not apply such as data processing, cross-region replication \(CRR\) traffic, requests, and object tagging, are charged on a pay-as-you-go basis.
 -   For more information about billing items and methods, see [Overview](/intl.en-US/Pricing/Billing items and methods/Overview.md).
--   For more information about specifications and prices of resource plans, see[OSS Resource Plan](https://common-buy-intl.alibabacloud.com/?spm=5176.8465980.bucket-list.2.11df6765PslE4M&commodityCode=oss_bag_intl#/buy).
+-   For more information about specifications and prices of resource plans, see [OSS Resource Plan](https://common-buy-intl.alibabacloud.com/?spm=5176.8465980.bucket-list.2.11df6765PslE4M&commodityCode=oss_bag_intl#/buy).
 
 ## Purchase resource plans
 
-1.  Log on to the[OSS Resource Plan](https://common-buy-intl.alibabacloud.com/?spm=5176.8465980.bucket-list.2.11df6765PslE4M&commodityCode=oss_bag_intl#/buy) page.
+1.  Log on to the [OSS Resource Plan](https://common-buy-intl.alibabacloud.com/?spm=5176.8465980.bucket-list.2.11df6765PslE4M&commodityCode=oss_bag_intl#/buy) page.
 
 2.  On the buy page, set parameters such as Plan Type, Region, Capacity, and Validity Period. Click **Buy Now**.
 
