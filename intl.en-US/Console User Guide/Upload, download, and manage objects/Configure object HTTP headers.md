@@ -6,7 +6,7 @@ You can configure HTTP headers for up to 100 objects at a time. To configure HTT
 
 1.  Log on to the [OSS console](https://oss.console.aliyun.com/).
 
-2.  Click **Buckets**, and then click the name of the target bucket.
+2.  In the left-side navigation pane, click **Buckets**. On the Buckets page, click the name of the bucket to which you want to upload objects.
 
 3.  Click the **Files** tab.
 
@@ -43,7 +43,7 @@ Example: `public, max-age=20` indicates that the object is cached for 20 seconds
     |**Expires**|The time before which the cache is valid. The value of this parameter is a GMT timestamp. If `max-age=<seconds>` is set for **Cache-Control**, `max-age=<seconds>` takes precedence over Expires.|
     |**User metadata**|User metadata allows you to describe objects in details. In OSS, all parameters prefixed with `x-oss-meta-` are considered as user metadata, such as `x-oss-meta-location`. The total size of all user metadata cannot exceed 8 KB.|
 
-    **Note:** For more information about the parameters, see [HTTP headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers)[HTTP headers](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers).
+    **Note:** For more information about the parameters, see [HTTP headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers).
 
 6.  Click **OK**.
 
