@@ -97,7 +97,7 @@ The following section describes how to use the app server to generate a token an
 
     Run the code sample:
 
-    -   Run the sample code in PHP: After the package is downloaded and decompressed, modify the config.jsonfile. Run the php sts.php command to generate a token. Deploy the program to the app server address.
+    -   Run the sample code in PHP: After the package is downloaded and decompressed, modify the config.json file. Run the php sts.php command to generate a token. Deploy the program to the app server address.
     -   Run the sample code that depends on Java 1.7 in Java: After the package is downloaded and decompressed, modify the config.json file. Reopen the package and run the java -jar app-token-server.jar \(port\) command. If the port is not specified, run the java -jar app-token-server.jar command. The program starts listening on port 7080.
     Sample responses:
 
