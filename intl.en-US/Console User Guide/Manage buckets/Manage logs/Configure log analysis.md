@@ -6,7 +6,7 @@ A Log Service project is associated with the bucket.
 
 You can associate only existing Log Service projects with a bucket to analyze the logs of the bucket. If no Log Service projects are associated with a bucket, we recommend that you use the real-time log query feature to query and analyze OSS access logs of the last seven days free of charge. For more information, see [Real-time log query](/intl.en-US/Console User Guide/Manage buckets/Manage logs/Configure real-time log query.md).
 
-**Note:** You are charged for Log Service if you use the log analysis feature. For more information, see the[pricing page](https://www.alibabacloud.com/product/log-service/pricing) and [Billing overview](/intl.en-US/Pricing/Billing overview.md).
+**Note:** You are charged for Log Service if you use the log analysis feature. For more information, see the [pricing page](https://www.alibabacloud.com/product/log-service/pricing) and [Billing overview](/intl.en-US/Pricing/Billing overview.md).
 
 ## Procedures
 
