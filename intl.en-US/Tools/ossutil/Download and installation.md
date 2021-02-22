@@ -4,7 +4,7 @@ ossutil supports the following operating systems: Windows, Linux, and macOS. You
 
 ## Version and runtime environment
 
--   Current version: 1.7.0
+-   Current version: 1.7.1
 -   Source code: [ossutil](https://github.com/aliyun/ossutil)
 -   Runtime environment
     -   Windows/Linux/macOS
@@ -12,17 +12,17 @@ ossutil supports the following operating systems: Windows, Linux, and macOS. You
 
 ## Download URLs
 
--   [Linux x86 32bit](https://gosspublic.alicdn.com/ossutil/1.7.0/ossutil32)
--   [Linux x86 64bit](https://gosspublic.alicdn.com/ossutil/1.7.0/ossutil64)
+-   [Linux x86 32bit](https://gosspublic.alicdn.com/ossutil/1.7.1/ossutil32)
+-   [Linux x86 64bit](https://gosspublic.alicdn.com/ossutil/1.7.1/ossutil64)
 
     **Note:** When you copy the URLs to the wget command to download ossutil, delete the `? spm=xxxx` section from the URLs.
 
--   [Windows x86 32bit](https://gosspublic.alicdn.com/ossutil/1.7.0/ossutil32.zip)
--   [Windows x86 64bit](https://gosspublic.alicdn.com/ossutil/1.7.0/ossutil64.zip)
--   [macOS x86 32bit](https://gosspublic.alicdn.com/ossutil/1.7.0/ossutilmac32)
--   [macOS x86 64bit](https://gosspublic.alicdn.com/ossutil/1.7.0/ossutilmac64)
--   [ARM 32bit](https://gosspublic.alicdn.com/ossutil/1.7.0/ossutilarm32)
--   [ARM 64bit](https://gosspublic.alicdn.com/ossutil/1.7.0/ossutilarm64)
+-   [Windows x86 32bit](https://gosspublic.alicdn.com/ossutil/1.7.1/ossutil32.zip)
+-   [Windows x86 64bit](https://gosspublic.alicdn.com/ossutil/1.7.1/ossutil64.zip)
+-   [macOS x86 32bit](https://gosspublic.alicdn.com/ossutil/1.7.1/ossutilmac32)
+-   [macOS x86 64bit](https://gosspublic.alicdn.com/ossutil/1.7.1/ossutilmac64)
+-   [ARM 32bit](https://gosspublic.alicdn.com/ossutil/1.7.1/ossutilarm32)
+-   [ARM 64bit](https://gosspublic.alicdn.com/ossutil/1.7.1/ossutilarm64)
 
 ## Installation
 
@@ -32,7 +32,7 @@ Download the package based on your operating system and run the corresponding bi
     1.  Download the ossutil installation package.
 
         ```
-        wget http://gosspublic.alicdn.com/ossutil/1.7.0/ossutil64                           
+        wget http://gosspublic.alicdn.com/ossutil/1.7.1/ossutil64                           
         ```
 
     2.  Modify the execution permissions of the file.
@@ -73,8 +73,7 @@ Download the package based on your operating system and run the corresponding bi
         4.  Configure the parameters including endpoint, AccessKey ID, AccessKey secret, and STS token.
 
             ```
-            Please enter endpoint: Endpoint
-                                                    
+            Please enter endpoint: Endpoint                                     
             ```
 
             You can configure the following parameters for ossutil:
@@ -83,7 +82,7 @@ Download the package based on your operating system and run the corresponding bi
 
                 You can also add `http://` or `https://` to specify the protocol that ossutil uses to access OSS. The default protocol is HTTP. For example, if you want to access a bucket in the China \(Hangzhou\) region by using HTTPS, set the endpoint to `https://oss-cn-shenzhen.aliyuncs.com`.
 
-            -   accessKeyID、accessKeySecret: Enter the AccessKey pair of your account.
+            -   accessKeyID and accessKeySecret: Enter the AccessKey pair of your account.
                 -   For more information about how to obtain the AccessKey pair of an Alibaba Cloud account or a RAM user, see [Create an AccessKey pair]().
                 -   For more information about how to obtain the AccessKey pair of a temporary STS token, see [Access OSS with a temporary access credential provided by STS](/intl.en-US/Developer Guide/Data security/Access and control/Access OSS with a temporary access credential provided by STS.md).
             -   stsToken: This option is required only when you use a temporary STS token to access OSS buckets. Otherwise, you can leave this parameter empty. For more information about how to generate an STS token, see [Temporary access credential](/intl.en-US/Developer Guide/Objects/Upload files/Authorized third-party upload.md).
@@ -104,7 +103,7 @@ Download the package based on your operating system and run the corresponding bi
     1.  Download the ossutil installation package.
 
         ```
-        curl -o ossutilmac64 http://gosspublic.alicdn.com/ossutil/1.7.0/ossutilmac64
+        curl -o ossutilmac64 http://gosspublic.alicdn.com/ossutil/1.7.1/ossutilmac64
         ```
 
     2.  Modify the execution permissions of the file.
