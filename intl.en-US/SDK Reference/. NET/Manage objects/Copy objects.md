@@ -1,6 +1,6 @@
-# Copy objects {#concept_91925_zh .concept}
+# Copy objects
 
-## Copy a small-sized object {#section_yzd_5m2_lfb .section}
+## Copy a small-sized object
 
 For the complete code of copying a small-sized object, see [GitHub](https://github.com/aliyun/aliyun-oss-csharp-sdk/blob/master/samples/Samples/CopyObjectSample.cs).
 
@@ -49,7 +49,7 @@ catch (Exception ex)
 }
 ```
 
-## Copy a large-sized object { .section}
+## Copy a large-sized object
 
 For the complete code of copying large-sized objects, see [GitHub](https://github.com/aliyun/aliyun-oss-csharp-sdk/blob/master/samples/Samples/MultipartUploadSample.cs).
 
@@ -82,7 +82,7 @@ For the complete code of copying large-sized objects, see [GitHub](https://githu
         var result = client.InitiateMultipartUpload(request);
         // Print the uploadId.
         uploadId = result.UploadId;
-        Console.WriteLine("Init multipart upload succeeded， Upload Id: {0}", result.UploadId);
+        Console.WriteLine("Init multipart upload succeeded, Upload Id: {0}", result.UploadId);
         // Calculate the number of parts.
         var metadata = client.GetObjectMetadata(sourceBucket, sourceObject);
         var fileSize = metadata.ContentLength;
