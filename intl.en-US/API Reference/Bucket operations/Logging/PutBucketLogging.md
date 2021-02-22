@@ -14,7 +14,7 @@ Enables the access logging function for a bucket. When this function is enabled,
 ```
 PUT /? logging HTTP/1.1
 Date: GMT Date
-Content-Length：ContentLength
+Content-Length: ContentLength
 Content-Type: application/xml
 Authorization: SignatureValue 
 Host: BucketName.oss-cn-hangzhou.aliyuncs.com
@@ -35,16 +35,16 @@ Host: BucketName.oss-cn-hangzhou.aliyuncs.com
 |-------|----|--------|-----------|
 |BucketLoggingStatus|Container|Yes|Specifies the container for storing access log status information Sub-node: LoggingEnabled
 
- Parent node: None |
+Parent node: None |
 |LoggingEnabled|Container|No|Specifies the container for storing access log information. This element is required only when server access logging is enabled. Sub-node: TargetBucket, TargetPrefix
 
- Parent node: BucketLoggingStatus |
+Parent node: BucketLoggingStatus |
 |TargetBucket|String|This element is required when server access logging is enabled|Specifies the bucket for storing access logs. The source bucket and target bucket can be the same or different buckets. You can save logs from multiple source buckets to the same target bucket \(in this case, we recommend that you assign different values to TargetPrefix\). Sub-node: None
 
- Parent node: BucketLoggingStatus.LoggingEnabled |
+Parent node: BucketLoggingStatus.LoggingEnabled |
 |TargetPrefix|String|No|Specifies the prefix of the names of saved access log files, which can be null. Sub-node: None
 
- Parent node: BucketLoggingStatus.LoggingEnabled |
+Parent node: BucketLoggingStatus.LoggingEnabled |
 
 ## Naming rules for the objects storing access logs
 
@@ -82,14 +82,14 @@ In the preceding example, MyLog- is the prefix specified by the user, oss-exampl
 |Remote IP|119.xxx.xx.11|The IP address from which the request is initiated. The proxy or user firewall may block this field.|
 |Reserved|-|The reserved field.|
 |Reserved|-|The reserved field.|
-|Time|\[02/May/2012:00:00:04 +0800\]|The time when OSS received the request.|
+|Time|\[02/May/2012:00:00:04 +0800\]|The time when OSS receives the request.|
 |Request-URI|"GET /aliyun-logo.png HTTP/1.1"|The URI of the user request, including query-string.|
 |HTTP Status|200|The HTTP status code returned by OSS.|
 |SentBytes|5576|The amount of data in bytes downloaded from OSS by the user.|
 |RequestTime \(ms\)|71|The length of time in milliseconds used to complete the request.|
 |Referer|`http://www.aliyun.com/product/oss`|The HTTP Referer of the request.|
 |User-Agent|curl/7.15.5|The User-Agent field in the HTTP header.|
-|HostName|oss-example.oss-cn-hangzhou.aliyuncs.com|The domain name to access.|
+|HostName|oss-example.oss-cn-hangzhou.aliyuncs.com|The domain to be accessed.|
 |Request ID|505B016950xxxxxx032593A4|The UUID used to identify the request.|
 |LoggingFlag|true|Indicates whether logging is enabled.|
 |Requester Aliyun ID|16571xxxxxx83691|The RAM user ID. This value is a hyphen \(-\) for access from anonymous users.|
@@ -97,14 +97,15 @@ In the preceding example, MyLog- is the prefix specified by the user, oss-exampl
 |Bucket|oss-example|The name of the bucket to access.|
 |Key|/aliyun-logo.png|The name of the object requested by the user.|
 |ObjectSize|5576|The size of the object.|
-|Server Cost Time \(ms\)|17|The length of time in milliseconds it took for OSS to process the request.|
+|Server Cost Time \(ms\)|17|The length of time in milliseconds for OSS to process the request.|
 |Error Code|NoSuchBucket|The error code returned by OSS.|
 |Request Length|302|The length in bytes of the user request.|
 |UserID|16571xxxxxx83691|The ID of the bucket owner.|
-|Delta DataSize|280|The change to the bucket size. The value is a hyphen \(`-`\) if there is no change in bucket size.|
+|Delta DataSize|280|The change to the bucket size. The value is a hyphen \(`-`\) if the bucket size does not change.|
 |Sync Request|-|Indicates whether the request is a CDN back-to-origin request. The value is a hyphen \(`-`\) if the request is not a back-to-origin request.|
-|StorageClass|Standard|The storage class of the current object. Valid values: `Standard`, IA, Archive, and -. The value is a hyphen \(`-`\) if the storage class information cannot be obtained or if the target is a bucket.|
-|TargetStorageClass|Standard|The storage class converted to after a lifecycle rule is triggered or the CopyObject operation is called for an object. Valid values: `Standard`, IA, Archive, and -. The value is a hyphen \(`-`\) if the storage class information for the destination object cannot be obtained or the storage class fails to be converted by using a lifecycle rule or by calling the CopyObject operation.|
+|StorageClass|Standard|The storage class of the current object. Valid values: `Standard`, `IA`, `Archive`, and `-`. The value is a hyphen \(`-`\) if the storage class information cannot be obtained or if the requested object is a bucket.|
+|TargetStorageClass|Standard|The storage class converted to after a lifecycle rule is triggered or the CopyObject operation is called for an object. Valid values: `Standard`, `IA`, `Archive`, and `-`. The value is a hyphen \(`-`\) if the storage class information for the destination object cannot be obtained or the storage class fails to be converted by using a lifecycle rule or by calling the CopyObject operation.|
+|oss\_acc\_src\_oms\_region|us-east-1|The endpoint when transfer acceleration is enabled. For example, if the access request is from the US \(Virginia\) region, the value is `us-east-1`. If transfer acceleration is disabled, or the endpoint is in the same region as the bucket, the value is a hyphen \(`-`\).|
 
 ## Examples
 
