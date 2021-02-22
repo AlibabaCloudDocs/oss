@@ -30,7 +30,7 @@ After you upload objects to a bucket, OSS automatically generates URLs that incl
         2.  Click **Submit**.
     -   If the domain name is not managed by your Alibaba Cloud account, manually add a CNAME record.
 
-        If your domain name is not managed by Alibaba Cloud DNS, you must configure the DNS of your DNS provider, such as Tencent Cloud DNS \(DNSPod\) or Xinnet. For more information, see [Configure a CNAME record on Tencent Cloud \(DNSPod\)](https://help.aliyun.com/document_detail/27145.html) or [Configure a CNAME on Xinnet](https://help.aliyun.com/document_detail/27146.html).
+        If your domain name is not managed by Alibaba Cloud DNS, you must configure the DNS of your DNS provider.
 
         Alibaba Cloud DNS is used in this example to describe how to manually add a CNAME record for a domain name that is not owned by the current Alibaba Cloud account.
 
