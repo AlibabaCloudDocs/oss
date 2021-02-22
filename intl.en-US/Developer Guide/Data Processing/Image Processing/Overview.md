@@ -50,7 +50,7 @@ When you use IMG, take note of the following items:
     -   The image cannot exceed 16,777,216 pixels in total.
 -   Limits on image styles
 
-    You can create up to 50 image styles in each bucket. If you need to create more than 50 styles, contact[technical support](https://workorder-intl.console.aliyun.com/#/ticket/createIndex).
+    You can create up to 50 image styles in each bucket. If you need to create more than 50 styles, contact [technical support](https://workorder-intl.console.aliyun.com/#/ticket/createIndex).
 
 
 ## Versions
