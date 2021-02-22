@@ -35,7 +35,7 @@ ls命令用于列举存储空间（Bucket）、对象（Object）和碎片（Par
         ./ossutil64 ls oss://
         ```
 
-        以下输出结果表明已成功列举当前账号下所有Bucket。
+        以下输出结果表明已成功列举当前账号下所有Bucket，包括Bucket名称、创建时间、所在地域、存储类型、数量等信息。
 
         ```
         2016-10-21 16:18:37 +0800 CST       oss-cn-hangzhou         Archive    oss://examplebucketA
@@ -46,7 +46,24 @@ ls命令用于列举存储空间（Bucket）、对象（Object）和碎片（Par
         0.252174(s) elapsed  
         ```
 
-    -   列举examplebucketA之后的2个Bucket
+    -   以精简模式列举所有Bucket
+
+        ```
+        ./ossutil64 ls -s
+        ```
+
+        以下输出结果表明已成功列举当前账号下所有Bucket，仅包含Bucket名称以及Bucket数量。
+
+        ```
+        oss://examplebucketA
+        oss://examplebucketB
+        oss://examplebucketC
+        oss://examplebucketD
+        Bucket Number is:4
+        0.235104(s) elapsed  
+        ```
+
+    -   列举字母序排在指定marker为examplebucketA之后的Bucket
 
         ```
         ./ossutil64 ls oss:// --limited-num=2 -s --marker examplebucketA
@@ -59,23 +76,6 @@ ls命令用于列举存储空间（Bucket）、对象（Object）和碎片（Par
         2016-07-20 10:36:24 +0800 CST       oss-cn-hangzhou              IA    oss://examplebucketC
         Bucket Number is:2
         0.132174(s) elapsed                        
-        ```
-
-    -   以精简模式列举所有Bucket
-
-        ```
-        ./ossutil64 ls -s
-        ```
-
-        以下输出结果表明已成功列举当前账号下所有Bucket。
-
-        ```
-        oss://examplebucketA
-        oss://examplebucketB
-        oss://examplebucketC
-        oss://examplebucketD
-        Bucket Number is:4
-        0.235104(s) elapsed  
         ```
 
 
