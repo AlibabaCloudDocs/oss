@@ -68,7 +68,7 @@ To resolve these problems, you can use ECS instances to configure reverse proxy 
         -   Your custom domain name is resolved to the public IP address of the ECS instance, and your user must browse image or web page objects in a bucket. You can bind a custom domain name to the bucket for which reverse proxy is configured. You do not need to configure CNAME. You can set proxy\_pass to the internal or public endpoint of the bucket. For more information about how to bind a custom domain name, see [Bind custom domain names](/intl.en-US/Console User Guide/Manage buckets/Manage a domain/Bind custom domain names.md).
     **Note:**
 
-    -   This topic uses the demo environment. For data security reasons, we recommend that you configure the https context. For more information, see[Configure HTTPS for your custom domain name in OSS by using reverse proxy](https://www.alibabacloud.com/help/zh/faq-detail/39544.htm).
+    -   This topic uses the demo environment. For data security reasons, we recommend that you configure the https context. For more information, see [Configure HTTPS for your custom domain name in OSS by using reverse proxy](https://www.alibabacloud.com/help/zh/faq-detail/39544.htm).
     -   You can configure reverse proxy for only one bucket if you use this configuration method.
 6.  Go to the folder of the NGINX executable. Start NGINX.
 
