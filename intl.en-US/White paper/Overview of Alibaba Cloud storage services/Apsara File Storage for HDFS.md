@@ -10,7 +10,7 @@ After data is stored in Apsara File Storage for HDFS, ECS instances or other com
 
 ## Performance
 
-The performance of Apsara file storage for HDFS is measured by throughput. The practical throughput of an Apsara File Storage for HDFS file system cannot exceed the maximum bandwidth of the ECS instance to which the file system is attached. For example, if the bandwidth of the ECS instance is 1.5 Gbit/s, the throughput of the file system can reach a maximum of 187.5 Mbit/s. The throughput of an Apsara file storage for HDFS file system depends on the capacity of the file system. For more information, see [t1540900.md\#]().
+The performance of Apsara file storage for HDFS is measured by throughput. The practical throughput of an Apsara File Storage for HDFS file system cannot exceed the maximum bandwidth of the ECS instance to which the file system is attached. For example, if the bandwidth of the ECS instance is 1.5 Gbit/s, the throughput of the file system can reach a maximum of 187.5 Mbit/s. The throughput of an Apsara file storage for HDFS file system depends on the capacity of the file system.
 
 ## Data durability and service availability
 
