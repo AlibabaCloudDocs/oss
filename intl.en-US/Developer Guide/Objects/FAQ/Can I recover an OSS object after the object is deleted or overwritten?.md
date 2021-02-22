@@ -4,7 +4,7 @@ The redundancy mechanism of the OSS backend is used to recover data when server 
 
 ## Data deletion and overwriting
 
-OSSThe following items are the description about user data management in Service Terms andSecurity Center Service Level Agreement \(SLA\).
+OSSThe following items are the description about user data management in Service Terms and Security Center Service Level Agreement \(SLA\).
 
 -   The following items are the description about user data management in Service Terms:
     -   You can delete, change, and manage your business data. If you manually release services or delete data, Alibaba Cloud does not retain the data.
