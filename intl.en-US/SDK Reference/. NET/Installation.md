@@ -23,7 +23,7 @@ This topic describes how to install OSS .NET SDK.
 -   Install OSS .NET SDK in Windows
     -   Install SDK through NuGet
         1.  If your Visual Studio does not have NuGet installed, install [NuGet](http://docs.nuget.org/docs/start-here/installing-nuget) first.
-        2.  Create a project or open an existing project in Visual Studio, select**Tools** \> **NuGet Package Manager** \> **Management Solution NuGet Package**.
+        2.  Create a project or open an existing project in Visual Studio, select **Tools** \> **NuGet Package Manager** \> **Management Solution NuGet Package**.
         3.  Search for aliyun.oss.sdk and find Aliyun.OSS.SDK or Aliyun.OSS.SDK.NetCore in the search results. Select the latest version, and click **Install**.
     -   Install SDK through DLL reference
         1.  Download and unzip the .NET SDK package.
@@ -38,10 +38,10 @@ This topic describes how to install OSS .NET SDK.
         3.  Right click Your Projects and select **Reference** \> **Add Reference**. In the prompt dialog box, click the **Project** tab, select the aliyun-oss-sdk project, and then click **OK**.
 -   Install OSS .NET SDK in Windows
     -   Install SDK through NuGet
-        1.  In Xamarin, create a project or open an existing project, and select**Add NuGet Packages** from Tool.
+        1.  In Xamarin, create a project or open an existing project, and select **Add NuGet Packages** from Tool.
         2.  Search and find aliyun.oss.sdk or or Aliyun.OSS.SDK.NetCore, select the latest version, and click **Add Package** to add the package to project application.
     -   Install SDK through DLL reference
         1.  Download and unzip the .NET SDK package.
         2.  In Xamarin, select your project in **Solution**, right click **Reference**, and then select **Edit References** in the prompt menu.
-        3.  In the Edit References dialog box, select .Net Assembly, click**Browse**. Find the directory that SDK is unzipped to, select Aliyun.OSS.dll in the bin directory, and then click **Open**.
+        3.  In the Edit References dialog box, select .Net Assembly, click **Browse**. Find the directory that SDK is unzipped to, select Aliyun.OSS.dll in the bin directory, and then click **Open**.
 
