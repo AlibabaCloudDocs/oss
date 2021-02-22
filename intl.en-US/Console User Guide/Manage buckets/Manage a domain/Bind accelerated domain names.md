@@ -14,11 +14,9 @@ To activate Alibaba Cloud CDN, you must map your custom domain name to an accele
 
 2.  Click **Buckets**, and then click the name of the target bucket.
 
-3.  Choose **Transmission** \> **Domain Names**.
+3.  In the list of domain names, click **Not Configured** in the **Alibaba Cloud CDN** column corresponding to the domain name that is to be bound. The CDN console appears.
 
-4.  In the list of domain names, click **Not Configured** in the **Alibaba Cloud CDN** column corresponding to the domain name that is to be bound. The CDN console appears.
-
-5.  In the left-side navigation pane, click Domain Names. On the Domain Names page, click Add Domain Name. In the Add Domain Name dialog box, configure parameters listed in the following table.
+4.  In the left-side navigation pane, click Domain Names. On the Domain Names page, click Add Domain Name. In the Add Domain Name dialog box, configure parameters listed in the following table.
 
     ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/5767549951/p32707.png)
 
@@ -31,7 +29,7 @@ To activate Alibaba Cloud CDN, you must map your custom domain name to an accele
     |**Port**|Select an access port.|
     |**Region**|Select the region for which to accelerate your business.|
 
-6.  Click **Next**.
+5.  Click **Next**.
 
     After you add an accelerated domain name, a CNAME is generated. You must add the CNAME to the DNS of your DNS provider to enable CDN.
 
@@ -46,11 +44,9 @@ You must add a CNAME record to the DNS of your DNS provider. Alibaba Cloud DNS i
 
     ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/5767549951/p34242.png)
 
-3.  Log on to the [Alibaba Cloud DNS console](https://dns.console.aliyun.com/#/dns/domainList).
+3.  On the Manage DNS page, click **Configure** in the Actions column corresponding to the domain name.
 
-4.  On the Manage DNS page, click **Configure** in the Actions column corresponding to the domain name.
-
-5.  On the DNS Settings page, click **Add Record**. In the Add Record dialog box, configure parameters listed in the following table.
+4.  On the DNS Settings page, click **Add Record**. In the Add Record dialog box, configure parameters listed in the following table.
 
     |Parameter|Description|
     |:--------|:----------|
@@ -62,7 +58,7 @@ You must add a CNAME record to the DNS of your DNS provider. Alibaba Cloud DNS i
     |**Value**|Enter the CNAME that was copied in [Step 2](#step_uf2_kam_nht).|
     |**TTL**|Select the update interval of the record. In this example, keep the default value.|
 
-6.  Click **Confirm**.
+5.  Click **Confirm**.
 
     **Note:**
 
@@ -75,11 +71,9 @@ You must add a CNAME record to the DNS of your DNS provider. Alibaba Cloud DNS i
 
 2.  Click **Buckets**, and then click the name of the target bucket.
 
-3.  Choose **Transmission** \> **Domain Names**.
+3.  Find the target domain name that is bound to an accelerated domain name and turn on **Auto CDN Cache Update** for this domain name.
 
-4.  Find the target domain name that is bound to an accelerated domain name and turn on **Auto CDN Cache Update** for this domain name.
-
-    The auto CDN cache update feature can be triggered by specified operations. You can[submit a ticket](https://workorder-intl.console.aliyun.com/#/ticket/createIndex) to apply for trial. After you are authorized to configure auto CDN cache update for specified operations, click **Supported Operations** in the Auto CDN Cache Update column corresponding to the domain name, and select the operations to which auto CDN cache update can be applied. Click **OK**.
+    The auto CDN cache update feature can be triggered by specified operations. You can [submit a ticket](https://workorder-intl.console.aliyun.com/#/ticket/createIndex) to apply for trial. After you are authorized to configure auto CDN cache update for specified operations, click **Supported Operations** in the Auto CDN Cache Update column corresponding to the domain name, and select the operations to which auto CDN cache update can be applied. Click **OK**.
 
     The following types of operations are supported.
 
