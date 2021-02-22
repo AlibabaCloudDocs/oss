@@ -139,7 +139,7 @@ You can use Alibaba Cloud CDN to improve the performance of your website. Alibab
 
 6.  \(Optional\) On the **Domain Names** tab, turn on **Auto CDN Cache Update**.
 
-    If you want that auto CDN cache update can be triggered by specified operations, you can[submit a ticket](https://workorder-intl.console.aliyun.com/#/ticket/createIndex) to apply for the feature. After you are authorized to configure auto CDN cache update for specified operations, click **Supported Operations** in the Auto CDN Cache Update column corresponding to the domain name and select the operations that can trigger auto CDN cache update. For more information about the supported operations, see [4](/intl.en-US/Console User Guide/Manage buckets/Manage a domain/Bind accelerated domain names.md).
+    If you want that auto CDN cache update can be triggered by specified operations, you can [submit a ticket](https://workorder-intl.console.aliyun.com/#/ticket/createIndex) to apply for the feature. After you are authorized to configure auto CDN cache update for specified operations, click **Supported Operations** in the Auto CDN Cache Update column corresponding to the domain name and select the operations that can trigger auto CDN cache update. For more information about the supported operations, see [4](/intl.en-US/Console User Guide/Manage buckets/Manage a domain/Bind accelerated domain names.md).
 
 
 ## Step 6: Test the website
@@ -160,6 +160,6 @@ Visit the following URLs in the browser to verify whether the website is running
 The resources created in this tutorial are used only to test the environment. We recommend that you clean up the created resources after the test is completed to avoid unnecessary fees.
 
 -   To delete the domain name that is bound to the bucket, see [Delete an accelerated domain name](/intl.en-US/Quick Start/Delete an accelerated domain name.md).
--   To delete the CNAME record that is added in Alibaba Cloud DNS, see[Delete a DNS record](https://www.alibabacloud.com/help/zh/doc-detail/29726.htm).
+-   To delete the CNAME record that is added in Alibaba Cloud DNS, see [Delete a DNS record](https://www.alibabacloud.com/help/zh/doc-detail/29726.htm).
 -   To delete created buckets and objects uploaded to the bucket, see [Delete objects](/intl.en-US/Console User Guide/Upload, download, and manage objects/Delete objects.md) and [Delete buckets](/intl.en-US/Console User Guide/Manage buckets/Basic settings/Delete buckets.md).
 
