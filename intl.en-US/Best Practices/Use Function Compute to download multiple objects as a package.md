@@ -8,7 +8,7 @@ This topic describes how to use Function Compute to download multiple objects as
 
 -   Function Compute is authorized to access OSS.
 
-    For information about how to perform authorization, see[Permissions](https://www.alibabacloud.com/help/zh/doc-detail/52885.htm).
+    For information about how to perform authorization, see [Permissions](https://www.alibabacloud.com/help/zh/doc-detail/52885.htm).
 
 
 When you download multiple objects from OSS at a time, the download speed may be affected if the sizes of the objects are small and the number of the objects is large. To resolve this problem, use Function Compute to compress the objects into a package. Then, download the package to your local device and decompress the package. The following flowchart shows the process of how to use Function Compute to compress the objects into a package and download objects.
