@@ -10,7 +10,7 @@ SCU的购买方式，请参见[创建存储容量单位包](/intl.zh-CN/块存�
 
 ## 抵扣规则
 
-SCU可以抵扣OSS、ECS、NAS的部分存储费用，下表列出中国内地SCU抵扣OSS各存储类型费用时的抵扣规则。
+SCU可以抵扣OSS、ECS、NAS和HBR的部分存储费用，下表列出中国内地SCU抵扣OSS各存储类型费用时的抵扣规则。
 
 **说明：** 其他地域和其他云产品的抵扣规则，请参见[产品定价](https://www.alibabacloud.com/zh/product/ecs)。
 
