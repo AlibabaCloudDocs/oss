@@ -1,10 +1,10 @@
-# PutLiveChannel {#reference_d34_zcd_xdb .reference}
+# PutLiveChannel
 
 Before uploading audio or video data to OSS through the RTMP protocol, you must use PutLiveChannel to create a LiveChannel. PutLiveChannel returns a URL used to push streams through the RTMP protocol and a URL used to play the uploaded data.
 
 You can use the URLs returned by PutLiveChannel to push streams and play the uploaded data. In addition, you can perform operations on the created LiveChannel, such as query the stream pushing status, query stream pushing records, or disable stream pushing.
 
-## Request syntax {#section_lmy_c2d_xdb .section}
+## Request syntax
 
 ```
 PUT /ChannelName?live HTTP/1.1
@@ -31,11 +31,11 @@ Authorization: SignatureValue
 </LiveChannelConfiguration>
 ```
 
-## Request elements {#section_f54_f2d_xdb .section}
+## Request elements
 
 |Element|Type|Description|Required|
 |:------|:---|:----------|:-------|
-|LiveChannelConfiguration|Container|Specifies the container used to store the settings of the LiveChannel.Sub-node: Description、Status、Target
+|LiveChannelConfiguration|Container|Specifies the container used to store the settings of the LiveChannel.Sub-node: Description, Status and Target
 
 Parent node: None
 
@@ -107,7 +107,7 @@ Parent node: Snapshot
 
 Parent node: Snapshot
 
- |No|
+|No|
 |NotifyTopic|String|Specifies the topic of the MNS used to notify the user of the result of high-frequent snapshot operations.Sub-node: None
 
 Parent node: Snapshot
@@ -121,49 +121,39 @@ Value range: \[1, 100\]
 
 |No|
 
-## Detail analysis {#section_gfp_5fd_xdb .section}
+## Detail analysis
 
 -   ChannelName must conform to the naming conventions for objects and cannot include "/".
 -   The default values of FragDuration and FragCount take effect only when the values are both not specified. If you specify the value of one of the two parameters, the value of the other must also be specified.
 -   If the value of Type is HLS, OSS updates the generated m3u8 file each time when a ts file is generated. The number of newly-generated ts files included in the m3u8 file is specified by FragCount.
 -   If the value of Type is HLS, when the duration of the video or audio data in the current ts file reaches the value of FragDuration, OSS generates a new ts file when receiving the next key frame. If OSS does not receive the next key frame with in a time peroid \(calculated by max\(2\*FragDuration, 60s\)\), a new ts file is generated, which results lag in audio or video playing.
 
-## Response element {#section_znt_xfd_xdb .section}
+## Response element
 
 |Element|Type|Description|
 |:------|:---|:----------|
 |CreateLiveChannelResult|Container|Specifies the container used to store the response fo the CreateLiveChannel request.Sub-nodes: PublishUrls and PlayUrls
 
-Parent node: None
-
-|
+Parent node: None |
 |PublishUrls|Container|Specifies the container used to store the stream pushing URL.Sub-node: Url
 
-Parent node: CreateLiveChannelResult
-
-|
+Parent node: CreateLiveChannelResult |
 |Url|String|Specifies the stream pushing URL.Sub-node: None
 
-Parent node: PublishUrls
-
-|
+Parent node: PublishUrls |
 |PlayUrls|Container|Specifies the container used to store the stream pushing URL.Sub-node: Url
 
-Parent node: CreateLiveChannelResult
-
-|
+Parent node: CreateLiveChannelResult |
 |Url|String|Specifies the URL used to play the audio or video data.Sub-node: None
 
-Parent node: PlayUrls
+Parent node: PlayUrls |
 
-|
-
-## Detail analysis {#section_fjs_jgd_xdb .section}
+## Detail analysis
 
 -   The stream pushing URL is not signed. If the ACL for the bucket is not public-read-write, you must sign the URL before accessing it.
 -   The URL used to play the audio or video data is not signed. If the ACL for the bucket is private, you must sign the URL before accessing it.
 
-## Examples {#section_qzp_ngd_xdb .section}
+## Examples
 
 Request example
 
