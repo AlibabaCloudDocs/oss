@@ -1,14 +1,14 @@
-# Object tagging and lifecycle rules {#concept_711024 .concept}
+# Object tagging and lifecycle rules
 
 Lifecycle rules can take effect on objects with specified prefixes or tags. You can also specify prefixes and tags as the condition of a lifecycle rule at the same time.
 
 **Note:** If you set a specified tag as the condition of a lifecycle rule, the rule applies to an object only when the key and value in the tag of the object both match the specified tag. If you specify a prefix and multiple tags as the condition of a lifecycle rule, the rule applies to an object only when the prefix and tags of the object match the prefix and all tags specified in the rule.
 
-## Set tags as the matching condition of a lifecycle rule {#section_l3m_iyp_due .section}
+## Set tags as the matching condition of a lifecycle rule
 
 Run the following code to set tags as the matching condition of a lifecycle rule:
 
-``` {#codeblock_8yy_1jd_vbz}
+```
 package main
 
 import (
@@ -54,7 +54,7 @@ func main() {
     Transitions: []oss.LifecycleTransition{transitionIA, transitionArch},
     Tags:[]oss.Tag{tag1,tag2},
   }
-  rules := []oss.LifecycleRule{rule}
+  rules := []oss.LifecycleRule{rule1}
   err = client.SetBucketLifecycle("<yourBucketName>", rules)
   if err != nil {
     fmt.Println("Error:", err)
@@ -63,11 +63,11 @@ func main() {
 }
 ```
 
-## View the tags set as the matching condition of a lifecycle rule {#section_zqa_v6g_8ly .section}
+## View the tags set as the matching condition of a lifecycle rule
 
 Run the following code to view the tags set as the matching condition of a lifecycle rule:
 
-``` {#codeblock_756_yu4_0aa}
+```
 package main
 
 import (
