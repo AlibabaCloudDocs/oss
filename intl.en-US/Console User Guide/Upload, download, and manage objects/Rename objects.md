@@ -19,7 +19,7 @@ When you rename an object in the OSS console, the [CopyObject](/intl.en-US/API R
 
 3.  Click **Files**.
 
-4.  Move the pointer over the object you want to rename and click the ![Rename](../images/p182159.png) icon to the right of the object name.
+4.  Move the pointer over the object you want to rename and click the ![Rename](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/8420893161/p182159.png) icon to the right of the object name.
 
 5.  In the Rename dialog box, enter the new object name and click **OK**.
 
