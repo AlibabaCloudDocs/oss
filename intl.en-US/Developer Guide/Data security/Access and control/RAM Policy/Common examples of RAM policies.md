@@ -10,7 +10,7 @@ You can configure RAM policies to manage the permissions of users such as employ
 
 2.  Assign the custom RAM policy for a RAM user
 
-    Assign the RAM policy created in [Step 1](#step_bln_7uj_1up) for a RAM user. For more information, see [Grant permissions to a RAM user](/intl.en-US/RAM User Management/Grant permissions to a RAM user.md).
+    Assign the RAM policy created in Step 1 for a RAM user. For more information, see [Grant permissions to a RAM user](/intl.en-US/RAM User Management/Grant permissions to a RAM user.md).
 
 
 ## Example 1: Grant a RAM user permissions to completely control a bucket
