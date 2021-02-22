@@ -27,7 +27,7 @@ An HDP 2.6.1.0 cluster has been set up. To set up an HDP 2.6.1.0 cluster, use on
     hadoop-oss-hdp-2.6.1.0-129/hadoop-aliyun-2.7.3.2.6.1.0-129.jar
     ```
 
-3.  Move the Hadoop-aliyun-2.7.3.2.6.1.0-129.jar package to the $\{/usr/hdp/current\}/hadoop-client/ directory. Move otherjar packages to the $\{/usr/hdp/current\}/hadoop-client/lib/ directory.
+3.  Move the Hadoop-aliyun-2.7.3.2.6.1.0-129.jar package to the $\{/usr/hdp/current\}/hadoop-client/ directory. Move other jar packages to the $\{/usr/hdp/current\}/hadoop-client/lib/ directory.
 
     Directory structure after the preceding adjustments:
 
