@@ -4,7 +4,7 @@ On the overview page of each bucket, you can view the usage statistics of the bu
 
 ## Basic Statistics
 
-In the **Basic Settings**section, you can view the statistical values for **Storage Usage**, **Traffic This Month**, **Requests This Month**, **Files**, and **Parts** of the current bucket.
+In the **Basic Settings** section, you can view the statistical values for **Storage Usage**, **Traffic This Month**, **Requests This Month**, **Files**, and **Parts** of the current bucket.
 
 **Note:** The data on this page is not updated in real time and has an average latency of one to two hours. These statistics are for reference only.
 
