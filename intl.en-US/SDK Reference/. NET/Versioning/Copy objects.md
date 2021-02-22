@@ -86,7 +86,7 @@ try
     var result = client.InitiateMultipartUpload(request);
     // Display the value of UploadId.
     uploadId = result.UploadId;
-    Console.WriteLine("Init multipart upload succeeded， Upload Id: {0}", result.UploadId);
+    Console.WriteLine("Init multipart upload succeeded, Upload Id: {0}", result.UploadId);
     // Calculate the total number of parts.
     var request = new GetObjectMetadataRequest(sourceBucket, sourceObject)
     {
