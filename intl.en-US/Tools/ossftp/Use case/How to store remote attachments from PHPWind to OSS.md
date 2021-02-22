@@ -17,11 +17,7 @@ PHPWind8.7 is used for this topic.
 
 2.  On the management page, choose **Global** \> **Upload Settings** \> **Remote Attachments**.
 
-    ![](../images/p2813.png)
-
 3.  Click the **FTP Settings** tab and configure parameters.
-
-    ![](../images/p2815.png)
 
     |Configuration item|Description|
     |------------------|-----------|
@@ -38,12 +34,6 @@ PHPWind8.7 is used for this topic.
 
     1.  Upload an image attachment to the article.
 
-        ![](../images/p2817.png)
-
     2.  Right-click the image and choose **Open Link in New Tab** from the shortcut menu.
-
-        The URL in the following figure indicates that the image has been uploaded to the OSS bucket test-hz-jh-002.
-
-        ![](../images/p2818.png)
 
 
