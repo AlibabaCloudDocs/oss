@@ -1,4 +1,4 @@
-# Data security {#concept_iyw_wmp_mfb .concept}
+# Data security
 
 OSS Android SDK provides methods to verify data integrity, which ensure data security when you uploading, downloading, and copying objects.
 
@@ -10,28 +10,28 @@ Due to the complex network environment for mobile devices, errors may occur when
 
     Run the following code to enable CRC verification:
 
-    ```language-java
+    ```
     GetObjectRequest request = new GetObjectRequest(OSSTestConfig.ANDROID_TEST_BUCKET, testFile);
     // Enable CRC verification.
     request.setCRC64(OSSRequest.CRC64Config.YES);
     //....
     try{
-    	GetObjectResult result = oss.getObject(request);
-    	InputStream in = result.getObjectContent()；
-    	ByteArrayOutputStream output = new ByteArrayOutputStream();
+        GetObjectResult result = oss.getObject(request);
+        InputStream in = result.getObjectContent();
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
         byte[] buffer = new byte[BUFFER_SIZE];
         int len;
         while ((len = in.read(buffer)) > -1) {
                 output.write(buffer, 0, len);
         }
         output.flush();
-    	in.close();
+        in.close();
     }catch(ClientException e){
-    	//...
+        //...
     }catch(InconsistentException e){
         //....
     }
-    
+                        
     ```
 
 -   MD5 verification
