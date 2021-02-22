@@ -64,7 +64,7 @@ You can call this operation to configure inventory rules for a bucket.
 
 Parent node: OSSBucketDestination |
 |AccountId|String|Yes|The account ID granted by the bucket owner. Parent node: OSSBucketDestination |
-|RoleArn|String|Yes|The name of the role to which the bucket owner grants permissions. Format:acs:ram::uid:role/rolename
+|RoleArn|String|Yes|The name of the role to which the bucket owner grants permissions. Format: acs:ram::uid:role/rolename
 
 Parent node: OSSBucketDestination |
 |Bucket|String|Yes|The bucket that stores the exported inventory list. Parent node: OSSBucketDestination |
