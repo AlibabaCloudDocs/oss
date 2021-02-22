@@ -2,7 +2,7 @@
 
 OSS can automatically decompress ZIP packages uploaded to buckets. After you configure decompression rules, all ZIP packages uploaded to the folders specified in the rules are automatically decompressed.
 
-Function Compute is activated. You can activate Function Compute on the[Function Compute details](https://www.alibabacloud.com/zh/product/function-compute?spm=a2796.7919406.3156523820.144.5fd33c37asF0wx) page.
+Function Compute is activated. You can activate Function Compute on the [Function Compute details](https://www.alibabacloud.com/zh/product/function-compute?spm=a2796.7919406.3156523820.144.5fd33c37asF0wx) page.
 
 OSS uses Function Compute to decompress uploaded ZIP packages. The following flowchart shows the decompression process.
 
@@ -18,7 +18,7 @@ Take note of the following items when you use the ZIP package decompression feat
 -   We recommend that you encode your object or folder names in UTF-8 or GB 2312. Otherwise, the decompressed object or folder names may be corrupted or the decompression process may be interrupted.
 -   If the storage class of a ZIP package is Archive or Cold Archive, you must restore the object before it can be decompressed.
 -   If the decompression of a ZIP package takes more than 10 minutes, the ZIP package fails to be decompressed.
--   ZIP package decompression is a value-added service. Function Compute calculates the fees based on the amount of time it takes to decompress ZIP packages. For more information, see[Billing methods](https://www.alibabacloud.com/help/zh/doc-detail/54301.htm).
+-   ZIP package decompression is a value-added service. Function Compute calculates the fees based on the amount of time it takes to decompress ZIP packages. For more information, see [Billing methods](https://www.alibabacloud.com/help/zh/doc-detail/54301.htm).
 
 ## Configure decompression rules for ZIP packages
 
@@ -36,7 +36,7 @@ Take note of the following items when you use the ZIP package decompression feat
         |---------|--------|-----------|
         |**Service Authorization**|Yes|Authorize Function Compute to read data from and write data to OSS and execute functions.Click **Authorize**. Complete authorization on the page that appears. |
         |**Trigger Authorized**|Yes|Authorize OSS to access Function Compute.Click **Authorize**. Complete authorization on the page that appears. If OSS is authorized to access Function Compute, the **Trigger Role** parameter is displayed in this section. |
-        |**Prefix**|No|Specify the prefix that package names must contain to trigger Function Compute. If you upload a ZIP package whose name contains the specified prefix or upload a ZIP package to the folder specified by the prefix, Function Compute is triggered to decompress the ZIP package. If you do not specify this parameter, all uploaded ZIP packages are decompressed.**Note:** If you do not specify this parameter, the decompression tasks may be repeatedly executed. Therefore, we recommend that you specify a prefix for each decompression rule. For more information, see[How can I avoid trigger loops?](https://www.alibabacloud.com/help/zh/doc-detail/181819.htm). |
+        |**Prefix**|No|Specify the prefix that package names must contain to trigger Function Compute. If you upload a ZIP package whose name contains the specified prefix or upload a ZIP package to the folder specified by the prefix, Function Compute is triggered to decompress the ZIP package. If you do not specify this parameter, all uploaded ZIP packages are decompressed.**Note:** If you do not specify this parameter, the decompression tasks may be repeatedly executed. Therefore, we recommend that you specify a prefix for each decompression rule. For more information, see [How can I avoid trigger loops?](https://www.alibabacloud.com/help/zh/doc-detail/181819.htm). |
         |**Destination Directory**|No|Specify the folder in which the objects decompressed from the ZIP package are stored. If you do not specify this parameter, Function Compute decompress the ZIP package to the root folder of the current bucket. If you want to store the objects decompressed from a ZIP package to a subfolder with the same name as the package within the destination folder, select **Add the compressed object name to the destination directory**. If you want to store the objects decompressed from a ZIP package to the destination folder, select **Decompress to the destination directory**. For more information about the configuration of this parameter, see the examples in the following table.|
 
     -   Configuration examples
