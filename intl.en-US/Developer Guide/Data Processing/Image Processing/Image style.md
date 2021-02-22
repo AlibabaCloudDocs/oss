@@ -4,7 +4,7 @@ Image Processing \(IMG\) allows you to save IMG operations as a style. The style
 
 ## Limits
 
-Up to 50 styles can be created for a bucket. These styles can be used only for image objects in the bucket. If you require more than 50 styles, contact[technical support](https://workorder-intl.console.aliyun.com/#/ticket/createIndex).
+Up to 50 styles can be created for a bucket. These styles can be used only for image objects in the bucket. If you require more than 50 styles, contact [technical support](https://workorder-intl.console.aliyun.com/#/ticket/createIndex).
 
 ## Create a style
 
@@ -72,7 +72,7 @@ After you configure an image style, you can use the style to replace the IMG par
 
     Example: [https://image-demo-oss-zhangjiakou.oss-cn-zhangjiakou.aliyuncs.com/example.jpg! small](https://image-demo-oss-zhangjiakou.oss-cn-zhangjiakou.aliyuncs.com/example.jpg!small)
 
-    For more information about how to configure a custom delimiter, see [Source image protection](/intl.en-US/Developer Guide/Data Processing/Image Processing/Source image protection.md).
+    For more information about how to configure a custom delimiter, see [Source image protection]().
 
 -   SDK
 
