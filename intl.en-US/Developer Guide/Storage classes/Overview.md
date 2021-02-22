@@ -2,7 +2,7 @@
 
 OSS provides the following storage classes to cover a variety of data storage scenarios from hot data storage to cold data storage: Standard, Infrequent Access \(IA\), Archive, and Cold Archive.
 
-**Note:** For more information about the pricing of each storage class, see[Object Storage Service Pricing](https://www.alibabacloud.com/product/oss/pricing). For more information about the billing method for each storage class, see [Storage fees](/intl.en-US/Pricing/Billing items and methods/Storage fees.md).
+**Note:** For more information about the pricing of each storage class, see [Object Storage Service Pricing](https://www.alibabacloud.com/product/oss/pricing). For more information about the billing method for each storage class, see [Storage fees](/intl.en-US/Pricing/Billing items and methods/Storage fees.md).
 
 ## Standard
 
@@ -38,7 +38,7 @@ OSS provides high-durability storage services for Archive objects at prices lowe
 
 OSS provides high-durability storage services for Cold Archive objects at prices lower than Standard, IA, and Archive. Objects of the Cold Archive storage class have a minimum storage period of 180 days and a minimum billable size of 64 KB. Objects of the Cold Archive storage class must be restored before they can be accessed. The time required to restore an Cold Archive object depends on the object size and the restore mode. You are charged for the data retrieval when you restore a Cold Archive object. Cold Archive storage is suitable for storing extremely cold data for an ultra-long period of time. Such data includes data that must be retained for an extended period of time due to compliance requirements, raw data that is accumulated over an extended period of time in the big data and AI fields, retained media resources in the film and television industries, and archived videos from the online education industry.
 
-**Note:** Cold Archive is in public preview in the following regions: China \(Beijing\), China \(Zhangjiakou\), China \(Hangzhou\), China \(Shanghai\), China \(Shenzhen\), China \(Chengdu\), Australia \(Sydney\), Singapore, US \(Silicon Valley\), Germany \(Frankfurt\), Malaysia \(Kuala Lumpur\), Indonesia \(Jakarta\), India \(Mumbai\), and China \(Hong Kong\). Contact[technical support](https://workorder-intl.console.aliyun.com/#/ticket/createIndex) to apply for a trial.
+**Note:** Cold Archive is in public preview in the following regions: China \(Beijing\), China \(Zhangjiakou\), China \(Hangzhou\), China \(Shanghai\), China \(Shenzhen\), China \(Chengdu\), Australia \(Sydney\), Singapore, US \(Silicon Valley\), Germany \(Frankfurt\), Malaysia \(Kuala Lumpur\), Indonesia \(Jakarta\), India \(Mumbai\), and China \(Hong Kong\). Contact [technical support](https://workorder-intl.console.aliyun.com/#/ticket/createIndex) to apply for a trial.
 
 ## Comparison of storage classes
 
