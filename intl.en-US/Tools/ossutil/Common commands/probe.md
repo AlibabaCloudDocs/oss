@@ -1,6 +1,6 @@
 # probe
 
-The probecommand is used to probe access to OSS. You can use this command to detect network exceptions that occurred between the local client and OSS server and check upload and download bandwidths and the status of local symbolic links.
+The probe command is used to probe access to OSS. You can use this command to detect network exceptions that occurred between the local client and OSS server and check upload and download bandwidths and the status of local symbolic links.
 
 **Note:** The commands described in this topic apply to Linux. To use the commands in other systems, replace ./ossutil in the command with the actual executable program name. For example, you can use the help command in 32-bit Windows systems by running ossutil32.exe help.
 
