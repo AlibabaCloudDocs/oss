@@ -1,12 +1,10 @@
 # Image style
 
-Image Processing \(IMG\) allows you to save IMG operations as a style. The style feature allows you to use a short IMG parameter to perform complex image processing operations.
-
-## Limits
-
-Up to 50 styles can be created for a bucket. These styles can be used only for image objects in the bucket. If you require more than 50 styles, contact [technical support](https://workorder-intl.console.aliyun.com/#/ticket/createIndex).
+You can include multiple IMG parameters in an image style to perform complex operations on image objects. This topic describes how to create and use image styles.
 
 ## Create a style
+
+You can create up to 50 styles for a bucket. Styles that are created for a bucket can be used only to process image objects in the bucket. To create more styles for a bucket,contact the [technical support](https://workorder-intl.console.aliyun.com/#/ticket/createIndex).
 
 1.  Log on to the [OSS console](https://oss.console.aliyun.com/).
 
@@ -14,61 +12,37 @@ Up to 50 styles can be created for a bucket. These styles can be used only for i
 
 3.  Choose **Data Processing** \> **Image Processing \(IMG\)**. Click **Create Rule**.
 
-4.  In the Create Rule pane, configure the style.
+4.  In the Create Rule panel, configure the style.
 
     You can use **Basic Edit** or **Advanced Edit** to create a style:
 
-    -   **Basic Edit**: You can use the IMG parameters listed by the system to choose the IMG methods. For example, resize an image, add a watermark, and modify the image format.
-    -   **Advanced Edit**: You can use the API code to edit the IMG methods. The format is: `image/action1,parame_value1/action2,parame_value2 /...`.
+    -   **Basic Edit**: You can specify the provided IMG parameters to process images. For example, resize an image, add a watermark, and modify the image format.
+    -   **Advanced Edit**: You can enter the API code to process images. The code is in the following format: `image/action1,parame_value1/action2,parame_value2/...`.
 
-        For example: `image/resize,p_63/quality,q_90` indicates that the image is scaled down to 63% of the source image, and set the relative quality of the image to 90%.
+        Example: `image/resize,p_63/quality,q_90` indicates that the image is scaled down to 63% of the source image, and then the relative quality of the image is set to 90%.
 
-    For more information about IMG parameters, see the corresponding topics for IMG parameters.
+        **Note:** If you want to add image and text watermarks to images at the same time by using a style, use **Advanced Edit** to create the style.
 
-    **Note:** The name of the image style must be 1 to 64 characters in length, and can contain only digits, letters, underscores \(\_\), hyphens \(-\), and periods \(.\).
+    For more information about IMG parameters, see the corresponding topics for IMG parameters. For example, to know more information about the IMG parameters used to resize an image, see [Resize images](/intl.en-US/Developer Guide/Data Processing/Image Processing/Parameters/Resize images.md)
 
 5.  Click **OK**.
 
 
-## Export a style
-
-You can export a style from a bucket, and import the exported style to other buckets.
-
-1.  Log on to the [OSS console](https://oss.console.aliyun.com/).
-
-2.  Click **Buckets**, and then click the name of the target bucket.
-
-3.  Choose **Data Processing** \> **Image Processing \(IMG\)**.
-
-4.  Click **Export**. In the Save As dialog box, select the address to save the style, and click **Save**.
-
-
-## Import a style
-
-You can import the style object to a bucket to quickly generate multiple styles at a time.
-
-1.  Log on to the [OSS console](https://oss.console.aliyun.com/).
-
-2.  Click **Buckets**, and then click the name of the target bucket.
-
-3.  Choose **Data Processing** \> **Image Processing \(IMG\)**.
-
-4.  Click **Import**. In the Open dialog box, select the style object, and click **Open**.
-
-
 ## Usage notes
 
-After you configure an image style, you can use the style to replace the IMG parameters:
+After you configure an image style, you can use the style instead of IMG parameters in the following methods to process images.
 
--   IMG URL
+**Note:** If you use a style to process dynamic images such as GIF images, you must add the /format,gif parameter to convert the image format. Otherwise, the GIF image may become a static image after being processed.
 
-    You can add an image style to the image URL in the following format: `http(s)//:BucketName.Endpoint/ObjectName? x-oss-process=style/<StyleName>`
+-   Use a style in the image URL
+
+    You can add a style to the URL of an image in the following format:`http(s)//:BucketName.Endpoint/ObjcetName?x-oss-process=style/<StyleName>`.
 
     Example: [https://image-demo-oss-zhangjiakou.oss-cn-zhangjiakou.aliyuncs.com/example.jpg?x-oss-process=style/small](https://image-demo-oss-zhangjiakou.oss-cn-zhangjiakou.aliyuncs.com/example.jpg?x-oss-process=style/small)
 
-    If you set the custom delimiter, use the delimiter to replace `? x-oss-process=style/` to further simplify the IMG URL.
+    If you specify a custom delimiter, you can use the delimiter to replace`?x-oss-process=style/` to simplify the IMG URL.
 
-    For example, if you set the delimiter to an exclamation point \(!\), the IMG URL is: `http(s)//:BucketName.Endpoint/ObjectName! StyleName`
+    For example, if you set the delimiter to an exclamation point \(!\), the IMG URL can be simplified in the following format: `http(s)//:BucketName.Endpoint/ObjcetName! StyleName`
 
     Example: [https://image-demo-oss-zhangjiakou.oss-cn-zhangjiakou.aliyuncs.com/example.jpg! small](https://image-demo-oss-zhangjiakou.oss-cn-zhangjiakou.aliyuncs.com/example.jpg!small)
 
@@ -76,12 +50,12 @@ After you configure an image style, you can use the style to replace the IMG par
 
 -   SDK
 
-    You can replace the IMG parameter code with the IMG style code. The following code provides an example on how to replace the IMG parameter code with the IMG style code by using OSS SDK for Java:
+    The following code provides an example on how to use styles to process images in OSS SDK for Java:
 
     ```
     // The endpoint of the China (Hangzhou) region is used in this example. Specify the actual endpoint.
     String endpoint = "http://oss-cn-hangzhou.aliyuncs.com";
-    // Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS because the account has permissions on all API operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create a RAM user, log on to the RAM console.
+    // Security risks may arise if you log on with the AccessKey pair of an Alibaba Cloud account because the account has permissions on all API operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create a RAM user, log on to the RAM console.
     String accessKeyId = "<yourAccessKeyId>";
     String accessKeySecret = "<yourAccessKeySecret>";
     String bucketName = "<yourBucketName>";
@@ -90,7 +64,7 @@ After you configure an image style, you can use the style to replace the IMG par
     // Create an OSSClient instance.
     OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
     
-    // Use a custom style to process an image.
+    // Use the custom style to process an image.
     String style = "style/<yourCustomStyleName>";
     GetObjectRequest request = new GetObjectRequest(bucketName, objectName);
     request.setProcess(style);
@@ -112,5 +86,18 @@ After you configure an image style, you can use the style to replace the IMG par
     -   [Node.js](/intl.en-US/SDK Reference/Node. js/IMG.md)
     -   [Browser.js](/intl.en-US/SDK Reference/Browser.js/Image processing.md)
 
-**Note:** If you use a custom style to process dynamic images such as GIF images, you must add the /format,gif parameter to convert the format. Otherwise, the GIF image may become a static image after the GIF image is processed.
+## Apply styles to other buckets
+
+You can apply a style that is configured for a bucket to another bucket by using the style export and import features.
+
+1.  On the Overview page of the bucket, choose **Data Processing** \> **Image Processing \(IMG\)** in the left-side navigation pane.
+
+2.  Click **Export**. In the Save As dialog box, select the path to which you want to save the style, and then click **Save**.
+
+3.  On the Image Processing \(IMG\) tab of the bucket to which you want to apply the style, click **Import**.
+
+4.  In the Open dialog box, select the exported style file, and then click **Open**.
+
+    After the style is imported to the new bucket, you can use the style to process images stored in the bucket.
+
 
