@@ -1,15 +1,18 @@
 # PutBucketInventory
 
-You can call this operation to configure inventory rules for a bucket.
+You can call this operation to configure inventories for a bucket.
 
-**Note:**
+**Note:** For more information about the bucket inventory feature, see [Bucket inventory](/intl.en-US/Developer Guide/Buckets/Bucket inventory.md)
 
--   You can configure up to 1,000 inventory rules for a bucket.
--   To call this operation, ensure that you have permissions to perform operations on the inventory tasks of the bucket. By default, the bucket owner has the permission to perform this operation. If you do not have the permission, apply for the permission from the bucket owner.
--   The inventory list must be stored in a bucket that is in the same region as the bucket that you want to inventory.
--   If the request is successful, 200 is returned.
+## Usage notes
 
-## Request syntax
+You can use the bucket inventory feature to export the information about specific objects in a bucket, such as the number, sizes, storage classes, and encryption status of the objects. Take note of the following items when you configure inventories for a bucket:
+
+-   Only the bucket owner or users that have the PutBucketInventory permission can initiate a PutBucketInventory request.
+-   You can configure up to 1,000 inventories for a bucket.
+-   The inventory list must be stored in a bucket within the same region as the bucket for which the inventory is configured.
+
+## Request structure
 
 ```
   <InventoryConfiguration>
@@ -49,48 +52,61 @@ You can call this operation to configure inventory rules for a bucket.
 
 ## Request elements
 
-|Element|Type|Required|Description|
-|-------|----|--------|-----------|
-|Id|String|Yes|The specified inventory list name, which must be globally unique in the bucket.|
-|IsEnabled|Boolean|Yes|Indicates whether the inventory function is enabled. Valid values: true and false
+|Element|Type|Required|Example|Description|
+|-------|----|--------|-------|-----------|
+|Id|String|Yes|report1|The name of the inventory list. The name must be globally unique within the bucket.|
+|IsEnabled|Boolean|Yes|true|Specifies whether the bucket inventory feature is enabled. Valid values:
 
--   The value of true indicates that the inventory function is enabled.
--   The value of false indicates that no inventory list is generated. |
-|Filter|Container|No|The container that stores the prefix used to filter the objects in the inventory list. Only objects with the specified prefix are included in the inventory list.|
-|Prefix|String|No|The prefix specified in the inventory rule. Parent node: Filter |
-|Destination|Container|Yes|The container used to store the information about the bucket that stores the exported inventory list.|
-|OSSBucketDestination|Container|Yes|The information about the bucket that stores the exported inventory list. Parent node: Destination |
-|Format|String|Yes|The format of the exported inventory list. Valid value: CSV
+-   true: enables bucket inventory.
+-   false: disables bucket inventory. |
+|Filter|Container|No|N/A|The container that stores the prefix used to filter the objects included in the inventory list. Only objects whose names contain the specified prefix are included in the inventory list.|
+|Prefix|String|No|Pics|The prefix specified in the inventory. Parent nodes: Filter |
+|Destination|Container|Yes|N/A|The container that stores the information about the exported inventory list.|
+|OSSBucketDestination|Container|Yes|N/A|The container that stores the information about the bucket in which the exported inventory list is stored. Parent nodes: Destination |
+|Format|String|Yes|CSV|The format of the exported inventory list. Valid value: CSV
 
-Parent node: OSSBucketDestination |
-|AccountId|String|Yes|The account ID granted by the bucket owner. Parent node: OSSBucketDestination |
-|RoleArn|String|Yes|The name of the role to which the bucket owner grants permissions. Format: acs:ram::uid:role/rolename
+Parent nodes: OSSBucketDestination |
+|AccountId|String|Yes|100000000000000|The account ID granted by the bucket owner to perform the PutBucketInventory operation. Parent nodes: OSSBucketDestination |
+|RoleArn|String|Yes|acs:ram::100000000000000:role/AliyunOSSRole|The name of the role to which the bucket owner grants permissions to perform the PutBucketInventory operation. Format: `acs:ram::uid:role/rolename`.Parent nodes: OSSBucketDestination |
+|Bucket|String|Yes|acs:oss:::bucket\_0001|The name of the bucket in which the exported inventory list is stored. Parent nodes: OSSBucketDestination |
+|Prefix|String|No|prefix1|The path of the exported inventory list. Parent nodes: OSSBucketDestination |
+|Encryption|Container|No|N/A|The container that stores the encryption method of the inventory list. Valid values:
 
-Parent node: OSSBucketDestination |
-|Bucket|String|Yes|The bucket that stores the exported inventory list. Parent node: OSSBucketDestination |
-|Prefix|String|No|The path of the exported inventory list. Parent node: OSSBucketDestination |
-|Encryption|Container|No|The container that stores the encryption method of the inventory list. Valid values: SSE-OSS and SSE-KMS
+-   SSE-OSS: The SSE-OSS method is used to encrypt and decrypt the inventory list.
+-   SSE-KMS: The default customer master key \(CMK\) or a specified CMK to encrypt and decrypt the inventory list.
 
-Parent node: OSSBucketDestination |
-|SSE-OSS|Container|No|The container that stores the information about the SSE-OSS encryption method. Parent node: Encryption |
-|SSE-KMS|Container|No|The container that stores the CMK used in the SSE-KMS encryption method. Parent node: Encryption |
-|KeyId|String|No|The CMK used in the SSE-KMS encryption method. Parent node: SSE-KMS |
-|Schedule|Container|Yes|The container that stores the frequency that inventory lists are exported.|
-|Frequency|String|Yes|The frequency that inventory lists are exported. Valid values: Daily and Weekly
+Parent nodes: OSSBucketDestination
 
-Parent node: Schedule |
-|IncludedObjectVersions|String|Yes|Specifies whether versioning information about the objects is included in the inventory list. Valid values: All and Current
+For more information about server-side encryption, see [Server-side encryption](/intl.en-US/Developer Guide/Data security/Data encryption/Server-side encryption.md). |
+|SSE-OSS|Container|No|N/A|The container that stores the information about the SSE-OSS encryption method. Parent nodes: Encryption |
+|SSE-KMS|Container|No|N/A|The container that stores the CMK used in the SSE-KMS encryption method. Parent nodes: Encryption |
+|KeyId|String|No|keyId|The ID of the CMK used in the SSE-KMS encryption method.Parent nodes: SSE-KMS |
+|Schedule|Container|Yes|N/A|The container that stores the frequency at which inventory lists are exported.|
+|Frequency|String|Yes|Daily|The frequency at which inventory lists are exported. Valid values:
 
--   The value of All indicates that all versions of the objects are exported.
--   The value of Current indicates that only the current versions of the objects are exported. |
-|OptionalFields|Container|No|The container that stores the configuration fields included in the inventory list.|
-|Field|Container|No|The configuration fields included in the inventory list. Valid values: Size, LastModifiedDate, ETag, StorageClass, IsMultipartUploaded, and EncryptionStatus
+-   Daily: Inventory lists are exported on a daily basis.
+-   Weekly: Inventory lists are exported on a weekly basis.
 
-Parent node: OptionalFields |
+Parent nodes: Schedule |
+|IncludedObjectVersions|String|Yes|All|Specifies whether versioning information about the objects is included in the inventory list. Valid values:
+
+-   All: All versions of the objects are exported.
+-   Current: Only the current versions of the objects are exported. |
+|OptionalFields|Container|No|N/A|The container that stores the configuration fields included in the inventory list.|
+|Field|String|No|Size|The configuration fields included in the inventory list. -   Size: The size of the object.
+-   LastModifiedDate: The last modified time of the object.
+-   ETag: The ETag value of the object, which is used to identify the content of the object.
+-   StorageClass: The storage class of the object.
+-   IsMultipartUploaded: Indicates whether the object is uploaded by using multipart upload.
+-   EncryptionStatus: The encryption status of the object. |
+
+## Response headers
+
+Only common response headers are included in the response to a PutBucketInventory request, such as Content-Length and Data. For more information, see [Common response headers](/intl.en-US/API Reference/Common HTTP headers.md).
 
 ## Examples
 
--   Sample request
+-   Sample requests
 
     ```
       PUT /? inventory&inventoryId=report1 HTTP/1.1
@@ -135,7 +151,7 @@ Parent node: OptionalFields |
       </InventoryConfiguration>
     ```
 
--   Sample response
+-   Sample responses
 
     ```
       HTTP/1.1 200 OK
@@ -151,8 +167,8 @@ Parent node: OptionalFields |
 |Error code|HTTP status code|Description|
 |----------|----------------|-----------|
 |InvalidArgument|400|The error message returned because the input parameter is invalid.|
-|InventoryExceedLimit|400|The error message returned because the number of inventory rules to configure exceeds the limit.|
-|AccessDenied|403|-   The error message returned because your information for authentication is not included in the PutBucketInventory request.
+|InventoryExceedLimit|400|The error message returned because the number of inventories to configure exceeds the limit.|
+|AccessDenied|403|-   The error message returned because the authentication information is not included in the PutBucketInventory request.
 -   The error message returned because you are not authorized to perform this operation. |
 |InventoryAlreadyExist|409|The error message returned because the inventory that you want to configure already exists.|
 
