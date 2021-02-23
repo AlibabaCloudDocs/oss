@@ -21,7 +21,7 @@ SCUs: 0.101 GB of SCUs can deduct the storage fees for 1 GB of Standard ZRS obje
 |-   Pay-as-you-go: Storage fees = Billed storage usage \(GB\) × Unit price per month/30 \(days\)/24 \(hours\).
 -   Subscription:
     -   IA LRS storage plan: A storage plan can deduct the storage fees for IA LRS objects of the same size as the capacity of the plan.
-    -   SCUs:0.052 GB of SCUs can deduct the storage fees for 1 GB of IA LRS objects in mainland China regions. For more information about the deduction rules in other regions, see the [Pricing page](https://www.alibabacloud.com/zh/product/ecs).。 |
+    -   SCUs:0.052 GB of SCUs can deduct the storage fees for 1 GB of IA LRS objects in mainland China regions. For more information about the deduction rules in other regions, see the [Pricing page](https://www.alibabacloud.com/zh/product/ecs). |
 |Storage usage of IA ZRS|Billed based on the total size and storage duration of IA ZRS objects. IA storage has a minimum billable size of 64 KB for each object. Objects that are smaller than 64 KB in size are charged for 64 KB. Objects that are larger than or equal to 64 KB in size are charged based on their actual sizes.
 
 |-   Pay-as-you-go: Storage fees = Billed storage usage \(GB\) × Unit price per month/30 \(days\)/24 \(hours\).
