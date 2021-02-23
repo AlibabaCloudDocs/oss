@@ -10,7 +10,7 @@
 
 2.  为RAM用户授权RAM Policy。
 
-    为RAM用户授权[步骤1](#step_bln_7uj_1up)中创建好的RAM Policy。具体操作，请参见[为RAM用户授权](/intl.zh-CN/用户管理/为RAM用户授权.md)。
+    为RAM用户授权步骤1中创建好的RAM Policy。具体操作，请参见[为RAM用户授权](/intl.zh-CN/用户管理/为RAM用户授权.md)。
 
 
 ## 示例1：授权RAM用户对某个Bucket的完全控制权限
