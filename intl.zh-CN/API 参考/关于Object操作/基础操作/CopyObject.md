@@ -17,7 +17,7 @@ CopyObject接口用于拷贝同一地域下相同或不同存储空间（Bucket�
     使用CopyObject或UploadPartCopy接口均要求对源Object有读权限。
 
 -   在非版本控制的Bucket中，当拷贝的源Object与目标Object为同一个Object，调用CopyObject接口时，不拷贝源Object的内容，仅修改源Object的元数据。
--   不支持拷贝通过追加上传方式产生的Object。
+-   在版本控制的Bucket中，不支持拷贝通过追加上传方式产生的Object。
 -   如果源Object为软链接，则只拷贝软链接，无法拷贝软链接指向的文件内容。
 
 ## 计量计费
@@ -70,7 +70,7 @@ OSS不会复制源Object的x-oss-server-side-encryption属性配置到目标Obje
 
 有关存储类型的更多信息，请参见[存储类型介绍](/intl.zh-CN/开发指南/存储类型/存储类型介绍.md)。
 
-支持配置该请求头的的接口：PutObject、InitMultipartUpload、AppendObject、 PutObjectSymlink、CopyObject。 |
+支持配置该请求头的接口：PutObject、InitMultipartUpload、AppendObject、 PutObjectSymlink、CopyObject。 |
 |x-oss-tagging|字符串|否|a:1|指定Object的对象标签，可同时设置多个标签，例如：TagA=A&TagB=B。 **说明：** Key和Value需要先进行URL编码，如果某项没有“=”，则看作Value为空字符串。 |
 |x-oss-tagging-directive|字符串|否|Copy|指定如何设置目标Object的对象标签。取值如下： -   Copy（默认值）：复制源Object的对象标签到目标 Object。
 -   Replace：忽略源Object的对象标签，直接采用请求中指定的对象标签。 |
