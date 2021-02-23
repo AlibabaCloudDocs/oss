@@ -2,13 +2,12 @@
 
 PutBucketInventory接口用于为某个存储空间（Bucket）配置清单（Inventory）规则。
 
-**说明：** 有关存储空间清单的更多信息，请参见[存储空间清单](/cn.zh-CN/开发指南/存储空间（Bucket）/存储空间清单.md)。
-
 ## 注意事项
 
 您可以通过清单获取Bucket中Object的各类信息，包括Object的数量、大小、存储类型、加密状态等。配置清单规则时，有如下注意事项：
 
 -   只有Bucket的拥有者以及被授予PutBucketInventory权限的用户才能发起配置清单规则的请求。
+-   配置清单规则前需生成一个RAM角色，该角色需要拥有读取源Bucket所有文件和向目标Bucket写入文件的权限。首次使用清单功能时，建议您通过OSS控制台进行配置。清单规则配置完成后，您可以获取拥有所有权限的RAM角色。有关配置清单规则中RAM角色的权限说明，请参见[存储空间清单](/cn.zh-CN/开发指南/存储空间（Bucket）/存储空间清单.md)。
 -   单个Bucket最多只能配置1000条清单规则。
 -   配置清单的源Bucket与存放导出的清单文件所在的目标Bucket必须位于同一个Region。
 
@@ -67,7 +66,7 @@ PutBucketInventory接口用于为某个存储空间（Bucket）配置清单（In
 
 父节点：OSSBucketDestination |
 |AccountId|字符串|是|100000000000000|Bucket所有者授予的账户ID。 父节点：OSSBucketDestination |
-|RoleArn|字符串|是|acs:ram::100000000000000:role/AliyunOSSRole|Bucket所有者授予操作权限的角色名，格式为`acs:ram::uid:role/rolename`。父节点：OSSBucketDestination |
+|RoleArn|字符串|是|acs:ram::100000000000000:role/AliyunOSSRole|具有读取源Bucket所有文件和向目标Bucket写入文件权限的角色名，格式为`acs:ram::uid:role/rolename`。父节点：OSSBucketDestination |
 |Bucket|字符串|是|acs:oss:::bucket\_0001|存放导出的清单文件的Bucket。 父节点：OSSBucketDestination |
 |Prefix|字符串|否|prefix1|清单文件的存储路径前缀。 父节点：OSSBucketDestination |
 |Encryption|容器|否|不涉及|清单文件的加密方式。 有效值：
