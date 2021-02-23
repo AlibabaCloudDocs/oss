@@ -24,7 +24,7 @@
 
     |参数|说明|
     |--|--|
-    |**Content-Type**|声明Object的文件类型，浏览器根据文件类型决定Object的默认打开方式。例如GIF类型的图片设置为**image/gif**。不同文件类型对应的Content-Type设置，请参见[OSS如何设置Content-Type（MIME）？](https://help.aliyun.com/knowledge_detail/39522.html)。 |
+    |**Content-Type**|声明Object的文件类型，浏览器根据文件类型决定Object的默认打开方式。例如GIF类型的图片设置为**image/gif**。不同文件类型对应的Content-Type设置，请参见[t5041.dita\#concept\_5041](/cn.zh-CN/开发指南/对象/文件（Object）/常见问题/如何设置Content-Type（MIME）？.md)。 |
     |**Content-Encoding**|声明Object的编码方式。您需要按照Object 的实际编码类型填写，否则可能造成客户端（浏览器）解析编码失败或Object下载失败。若Object未编码，请置空此项。可选值：    -   gzip：表示Object采用Lempel-Ziv（LZ77）压缩算法以及32位CRC校验的编码方式。
     -   compress：表示Object采用Lempel-Ziv-Welch（LZW）压缩算法的编码方式。
     -   deflate：表示Object采用zlib结构和deflate压缩算法的编码方式。
