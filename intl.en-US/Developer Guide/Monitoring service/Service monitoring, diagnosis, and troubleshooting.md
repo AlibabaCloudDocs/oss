@@ -71,7 +71,9 @@ The monitoring service provides the following metric items that can be used as i
 
     ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/3912700061/p1229.jpg)
 
--   Traffic![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/3912700061/p1230.jpg)
+-   Traffic
+
+    ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/3912700061/p1230.jpg)
 
     The preceding metric items \(except for ‘Traffic’\) implement categorized monitoring based on API operation types:
 
