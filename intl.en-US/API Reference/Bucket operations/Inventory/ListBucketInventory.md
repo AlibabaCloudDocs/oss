@@ -45,7 +45,7 @@ You can call this operation to query all inventory tasks configured for a bucket
 
 Parent node: OSSBucketDestination |
 |AccountId|String|The account ID granted by the bucket owner. Parent node: OSSBucketDestination |
-|RoleArn|String|The name of the role to which the bucket owner grants permissions. Format：acs:ram::uid:role/rolename
+|RoleArn|String|The name of the role to which the bucket owner grants permissions. Format: acs:ram::uid:role/rolename
 
 Parent node: OSSBucketDestination |
 |Bucket|String|The bucket that stores the exported inventory list. Parent node: OSSBucketDestination |
