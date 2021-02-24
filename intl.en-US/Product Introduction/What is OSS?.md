@@ -49,7 +49,7 @@ The following services are frequently used with OSS:
 
 -   Manage OSS in the OSS console
 
-    OSS provides a web-based console. You can log on to the [OSS console](https://oss.console.aliyun.com/overview) to manage your OSS resources. For more information, see [Console User Guide](/intl.en-US/Console User Guide/Log on to the OSS console/Use Alibaba Cloud accounts to log on to the OSS console.md).
+    OSS provides a web-based console. You can log on to the [OSS console](https://oss.console.aliyun.com/overview) to manage your OSS resources. For more information, see [Console User Guide](/intl.en-US/Console User Guide/OSS console/Use Alibaba Cloud accounts to log on to the OSS console.md).
 
 -   Manage OSS by using APIs or SDKs
 
@@ -66,7 +66,7 @@ Traditional storage providers require you to purchase a fixed amount of storage 
 
 OSS charges you only for the storage space and bandwidth that you actually consume. You can take the cost advantages of the flexible infrastructure from Alibaba Cloud as your business grows and your storage and bandwidth requirements change.
 
-For more information about OSS pricing, see[Object Storage Service Pricing](https://www.alibabacloud.com/product/oss#pricing). For more information about OSS billing methods, see [Billing items and methods](/intl.en-US/Pricing/Billing items and methods/Overview.md).
+For more information about OSS pricing, see [Object Storage Service Pricing](https://www.alibabacloud.com/product/oss#pricing). For more information about OSS billing methods, see [Billing items and methods](/intl.en-US/Pricing/Billing items and methods/Overview.md).
 
 ## Learning path
 
