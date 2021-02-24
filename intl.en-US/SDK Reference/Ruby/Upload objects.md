@@ -28,7 +28,7 @@ bucket.put_object('my-object', :file => 'local-file')
 
 ## Stream upload
 
-During uploading a large file, we often need to upload the file in a streaming way instead of processing and uploading all the content at the same time. We want to upload a part of content at a time. In particular, when the content to be uploaded comes from the Internet and cannot be retrieved at the same time, stream upload is the only option left. Through `Bucket # put_object` interface and specify `block`parameter to upload the stream-generated content to the OSS:
+During uploading a large file, we often need to upload the file in a streaming way instead of processing and uploading all the content at the same time. We want to upload a part of content at a time. In particular, when the content to be uploaded comes from the Internet and cannot be retrieved at the same time, stream upload is the only option left. Through `Bucket # put_object` interface and specify `block` parameter to upload the stream-generated content to the OSS:
 
 ```
 require 'aliyun/oss'
