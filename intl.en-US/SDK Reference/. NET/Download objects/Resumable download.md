@@ -1,8 +1,8 @@
-# Resumable download {#concept_91756_zh .concept}
+# Resumable download
 
-Large-sized objects may fail to be downloaded because the network is unstable or the Java program exits abnormally and the entire object needs to be downloaded again. However, the object may still fail to be downloaded after multiple attempts. Therefore, OSS provides resumable download.
+You may fail to download a large object if the network is unstable or other exceptions occur. In some cases, you may still fail to download the object even after multiple attempts. To solve this problem, OSS provides the resumable download feature.
 
-Run the following code for resumable download:
+The following code provides an example on how to perform resumable download:
 
 ```
 using Aliyun.OSS;
@@ -20,17 +20,17 @@ var checkpointDir = "<yourCheckpointDir>";
 var client = new OssClient(endpoint, accessKeyId, accessKeySecret);
 try
 {
-    // Configure parameters with DownloadObjectRequest.
+    // Configure multiple parameters by using DownloadObjectRequest.
     DownloadObjectRequest request = new DownloadObjectRequest(bucketName, objectName, downloadFilename)
     {
-        // Specify the size of a part you want to download.
+        // Specify the size of each part to download.
         PartSize = 8 * 1024 * 1024,
-        // Specifies the number of concurrent download threads.
+        // Specify the number of concurrent threads.
         ParallelThreadCount = 3,
-        // Specify the checkpointDir to store the download progress information. If the download fails, it can be continued based on the progress information. If the checkpointDir directory is null, the resumable upload is not enabled, which means that objects that fails to be downloaded are downloaded all over again.
+        // checkpointDir is a file used to store the information about the resumable upload progress. If a part fails to be downloaded, the download can be continued based on the progress information recorded in this file. If you set checkpointDir to null, resumable upload does not take effect and objects are uploaded again when they fail to be uploaded.
         CheckpointDir = checkpointDir,
     };
-    // Start resumable download.
+    // Start the resumable download.
     client.ResumableDownloadObject(request);
     Console.WriteLine("Resumable download object:{0} succeeded", objectName);
 }
@@ -45,5 +45,5 @@ catch (Exception ex)
 }
 ```
 
-For more information about resumable download, see [Resumable download](../../../../reseller.en-US/Developer Guide/Download files/Multipart download.md#) in OSS Developer Guide.
+For more information about resumable download, see [Resumable download](/intl.en-US/Developer Guide/Objects/Download files/Resumable download.md).
 
