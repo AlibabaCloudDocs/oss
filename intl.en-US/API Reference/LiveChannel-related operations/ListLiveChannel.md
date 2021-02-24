@@ -1,102 +1,106 @@
 # ListLiveChannel
 
-Lists specified LiveChannels.
+You can call this operation to list specified LiveChannels.
 
-## Request syntax
+## Request structure
 
 ```
-GET /?live HTTP/1.1
+GET /? live HTTP/1.1
 Date: GMT date
 Host: BucketName.oss-cn-hangzhou.aliyuncs.com
 Authorization: SignatureValue
 ```
 
-## Request parameter
+## Request elements
 
-|Parameter|Description|Required|
-|:--------|:----------|:-------|
-|marker|Indicates that the results after the marker are returned in alphabetical order.|No|
-|max-keys|Specifies the maximum number of the returned LiveChannels.Default value: 100
-
-Maximum value: 1000
-
-|No|
-|prefix|Specifies that only LiveChannels with the prefix are returned. When you use the prefix parameter to query LiveChannels, it is also included in the returned keys.|No|
+|Element|Type|Required|Description|
+|:------|----|--------|:----------|
+|Marker|String|No|The name of the LiveChannel from which the list operation begins.|
+|Max-keys|String|No|The maximum number of LiveChannels that can be returned in the operation. The value of max-keys cannot exceed 1,000. Default value: 100 |
+|Prefix|String|No|The prefix that the names of the returned LiveChannels must contain. If you specify a prefix in the request, the specified prefix is included in the response.|
 
 ## Response elements
 
 |Element|Type|Description|
 |:------|:---|:----------|
-|ListLiveChannelResult|Container|Specifies the container that stores the response to the ListLiveChannel request.Sub-node: Prefix, Marker, MaxKeys, and IsTruncated, NextMarker, and LiveChannel
+|ListLiveChannelResult|Container|The container that stores the result of the ListLiveChannel request. Child nodes: Prefix, Marker, MaxKeys, IsTruncated, NextMarker, and LiveChannel
 
-Parent node: None |
-|Prefix|String|Specifies the prefix of the query result.Sub-node: None
+Parent nodes: none |
+|Prefix|String|The prefix that the names of the returned LiveChannels contain. Child nodes: none
 
-Parent node: ListLiveChannelResult |
-|Marker|String|Indicates that the LiveChannels after the marker in alphabetical order are returned.Sub-node: None
+Parent nodes: ListLiveChannelResult |
+|Marker|String|The name of the LiveChannel from which the ListLiveChannel operation begins. Child nodes: none
 
-Parent node: ListLiveChannelResult |
-|MaxKeys|String|Specifies the maximum number of returned LiveChannels in the response.Sub-node: None
+Parent nodes: ListLiveChannelResult |
+|MaxKeys|String|The maximum number of buckets returned each time. Child nodes: none
 
-Parent node: ListLiveChannelResult |
-|IsTruncated|String|Indicates whether all results are returned. The value true indicates that not all results are returned, and value false indicates that all results are returned. Sub-node: None
+Parent nodes: ListLiveChannelResult |
+|IsTruncated|String|Indicates whether the returned results are truncated. -   true: indicates that all results are returned.
+-   false: indicates that not all results are returned.
 
-Parent node: ListLiveChannelResult |
-|NextMarker|String|If not all results are returned, this element is included in the response to indicates the value of Marker for the next request.Sub-node: None
+Child nodes: none
 
-Parent node: ListLiveChannelResult |
-|LiveChannel|Container|Specifies the container that stores the information about a returned LiveChannel.Sub-node: Name, Description, Status, LastModified, PublishUrls, and PlayUrls
+Parent nodes: ListLiveChannelResult |
+|NextMarker|String|If not all results are returned, the NextMarker element is included in the response to indicate the Marker value of the next request. Child nodes: none
 
-Parent node: ListLiveChannelResult |
-|Name|String|Indicates the name of the returned LiveChannel.Sub-node: None
+Parent nodes: ListLiveChannelResult |
+|LiveChannel|Container|The container that stores the information about each returned LiveChannel. Child nodes: Name, Description, Status, LastModified, PublishUrls, and PlayUrls
 
-Parent node: LiveChannel |
-|Description|String|Specifies the description of the returned LiveChannel.Sub-node: None
+Parent nodes: ListLiveChannelResult |
+|Name|String|The name of the LiveChannel. Child nodes: none
 
-Parent node: LiveChannel |
-|Status|Enumerated string|Indicates the status of the returned LiveChannel.Sub-node: None
+Parent nodes: LiveChannel |
+|Description|String|The description of the LiveChannel. Child nodes: none
 
-Parent node: LiveChannel
+Parent nodes: LiveChannel |
+|Status|Enumerated string|The status of the LiveChannel. Child nodes: none
 
-Valid value: disabled and enabled |
-|LastModified|String|Indicates the last modification time of the returned LiveChannel. The value of this parameter is in ISO8601 format.Sub-node: None
+Parent nodes: LiveChannel
 
-Parent node: LiveChannel |
-|PublishUrls|Container|Specifies the container that stores the URL used to push a stream to the LiveChannel.Sub-node: Url
+Valid values:
 
-Parent node: LiveChannel |
-|Url|String|Specifies the URL used to push a stream to the LiveChannel.Sub-node: None
+-   disabled: indicates that the LiveChannel is disabled.
+-   enabled: indicates that the LiveChannel is enabled. |
+|LastModified|String|The time when the LiveChannel configuration is last modified. Format: ISO 8601 timestamp
 
-Parent node: PublishUrls |
-|PlayUrls|Container|Specifies the container that stores the URL used to play a stream pushed to the LiveChannel.Sub-node: Url
+Child nodes: none
 
-Parent node: LiveChannel |
-|Url|String|Specifies the URL used to play the stream pushed to the LiveChannel. Sub-node: None
+Parent nodes: LiveChannel |
+|PublishUrls|Container|The container that stores the URL used to push a stream to the LiveChannel. Child nodes: Url
 
-Parent node: PlayUrls |
+Parent nodes: LiveChannel |
+|Url|String|The URL used to push a stream to the LiveChannel. Child nodes: none
+
+Parent nodes: PublishUrls |
+|PlayUrls|Container|The container that stores the URL used to play a stream pushed to the LiveChannel. Child nodes: Url
+
+Parent nodes: LiveChannel |
+|Url|String|The URL used to play a stream pushed to the LiveChannel. Child nodes: none
+
+Parent nodes: PlayUrls |
 
 ## Examples
 
-Request example
+Sample requests
 
 ```
-GET /?live&max-keys=1 HTTP/1.1
+GET /? live&max-keys=1 HTTP/1.1
 Date: Thu, 25 Aug 2016 07:50:09 GMT
 Host: test-bucket.oss-cn-hangzhou.aliyuncs.com
-Authorization: OSS YJjHKOKWDWINLKXv:TaX+tlc/Xsgpz6uRuqcbmUJsIHw=
+Authorization: OSS YJjHKOKWDWIN****:TaX+tlc/Xsgpz6uRuqcbmUJs****
 ```
 
-Response example
+Sample responses
 
 ```
 HTTP/1.1 200
 content-length: 656
 server: AliyunOSS
 connection: close
-x-oss-request-id: 57BEA331B92475920B00245E
+x-oss-request-id: 57BEA331B92475920B00****
 date: Thu, 25 Aug 2016 07:50:09 GMT
 content-type: application/xml
-<?xml version="1.0" encoding="UTF-8"?>
+<? xml version="1.0" encoding="UTF-8"? >
 <ListLiveChannelResult>
   <Prefix></Prefix>
   <Marker></Marker>
