@@ -28,7 +28,7 @@ This topic describes the causes of errors returned with HTTP status code 203 and
 
     Cause: The message body of the response returned by the callback server is not in the JSON format.
 
-    Solution: See [Upload callback common errors and troubleshooting](https://www.alibabacloud.com/help/doc-detail/50092.htm)[Upload callback common errors and troubleshooting](https://partners-intl.aliyun.com/help/doc-detail/50092.htm) to handle the problem.
+    Solution: See [Upload callback common errors and troubleshooting](https://www.alibabacloud.com/help/doc-detail/50092.htm) to handle the problem.
 
 -   Error message: Error Status : 400.User server return too long content-length value.
 
