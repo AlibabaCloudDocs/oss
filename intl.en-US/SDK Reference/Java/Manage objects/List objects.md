@@ -307,7 +307,6 @@ You can configure parameters of ListObjectsRequest to perform flexible queries. 
     -   Double quotations marks \("\)
     -   Ampersands \(&\)
     -   Angle brackets \(<\>\)
-    -   Pause marker \(、\)
     -   Chinese characters
     The following code provides an example on how to list objects and specify the encoding type of the object names in the response:
 
