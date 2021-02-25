@@ -103,5 +103,5 @@ After you bind a custom domain name, you can add the specific path to the custom
 ## What to do next
 
 -   To use an accelerated domain name to access OSS resources over HTTPS, you must host your certificate in OSS. For more information, see [Upload an SSL certificate](/intl.en-US/Console User Guide/Manage buckets/Manage a domain/Host SSL certificates.md).
--   To implement cross-origin access \(CORS\) when Alibaba Cloud CDN is activated , you must configure CORS rules in the CDN console. For more information, see[Configure CORS for Alibaba Cloud CDN](https://www.alibabacloud.com/help/zh/faq-detail/40183.htm).
+-   To implement cross-origin access \(CORS\) when Alibaba Cloud CDN is activated , you must configure CORS rules in the CDN console. For more information, see [Configure CORS for Alibaba Cloud CDN](https://www.alibabacloud.com/help/zh/faq-detail/40183.htm).
 
