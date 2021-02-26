@@ -1,8 +1,42 @@
 # Static website hosting
 
-You can call the PutBucketWebsite operation to configure static website hosting for a bucket and access the static website by using the custom domain name bound to the bucket.
+Static websites are websites where all web pages consist only of static content, including scripts such as JavaScript code running on the client. You can use the static website hosting feature to host your static website in an OSS bucket and use the endpoint of the bucket to access the website.
 
 **Note:** For more information about the API operation used to configure static website hosting, see [PutBucketWebsite](/intl.en-US/API Reference/Bucket operations/Static websites/PutBucketWebsite.md).
+
+## Usage notes
+
+When you configure static website hosting, you must specify the default homepage and the default 404 page for the website:
+
+-   The default homepage is displayed when you use a browser to access the static website hosted in OSS. The default homepage functions similar to index.html.
+
+    The object that you specify as the default homepage must be an object within the root directory of the bucket that allows anonymous access. Only objects in the HTML format are supported.
+
+-   The default 404 page is the error page returned by OSS when a 404 error occurs when you access objects in a bucket by using the browser.
+
+    The object that you specify as the default 404 page must be an object within the root directory of the bucket that allows anonymous access. The following object formats are supported: HTML, JPG, PNG, BMP, and WebP.
+
+
+When you access a website hosted on a bucket by using the default endpoint of the bucket, the static website is downloaded as an object to your local computer. To preview a static website, you must bind a custom domain name to the bucket and access the static website by using the custom domain name. For more information about how to bind a custom domain name, see [Bind custom domain names](/intl.en-US/Console User Guide/Manage buckets/Manage a domain/Bind custom domain names.md).
+
+## Configuration examples
+
+The following figure provides an example of the structure of objects in a bucket:
+
+```
+Bucket
+ ├── index.html
+ ├── error.html
+ ├── example.txt
+ └── subdir/
+      └── index.html
+```
+
+The custom domain name `example.com` is bound to the bucket, the default homepage of the configured static website is index.html, and the default 404 page is error.html. The following rules apply when you access the static website by using the custom domain name:
+
+-   When you access `https://example.com/` and `https://example.com/subdir/`, OSS returns `https://example.com/index.html`.
+-   When you access `https://example.com/example.txt`, the example.txt object is obtained.
+-   When you access `https://example.com/example.txt`, OSS returns `https://example.com/error.html` if the example.txtobject does not exist.
 
 ## Implementation methods
 
@@ -17,35 +51,6 @@ You can call the PutBucketWebsite operation to configure static website hosting 
 |[.NET SDK](/intl.en-US/SDK Reference/. NET/Buckets/Static website hosting.md)|
 |[Node.js SDK](/intl.en-US/SDK Reference/Node. js/Buckets/Static website hosting.md)|
 |[Ruby SDK](/intl.en-US/SDK Reference/Ruby/Buckets/Static website hosting.md)|
-
-## Usage notes
-
-OSS provides the following features to manage static websites hosted in OSS:
-
--   Index document support
-
-    An index document links to a default index page returned by OSS when a user directly accesses the domain name of a static website. The index page functions similar to index.html.
-
--   Error document support
-
-    An error document links to an error page returned by OSS if HTTP 4xx-related error messages such as 404 Not Found occur when a user accesses a static website. You can specify an error document to provide users with specific error messages when a page is not found.
-
-
-For example, if the default homepage is set to index.html, the default 404 page is set to error.html, the bucket is oss-sample, and the endpoint used to access the bucket is oss-cn-hangzhou.aliyuncs.com:
-
--   When you access `http://oss-sample.oss-cn-hangzhou.aliyuncs.com/` and `http://oss-sample.oss-cn-hangzhou.aliyuncs.com/directory/`, you actually access `http://oss-sample.oss-cn-hangzhou.aliyuncs.com/index.html`.
--   If the object does not exist when you access `http://oss-sample.oss-cn-hangzhou.aliyuncs.com/object`, OSS returns `http://oss-sample.oss-cn-hangzhou.aliyuncs.com/error.html`.
-
-## Usage notes
-
--   For security reasons, starting from August 13, 2018 for China regions, and September 25, 2019 for regions outside China, when you access web page objects whose MIME type is text or HTML and whose name extension is HTM, HTML, JSP, PLG, HTX, or STM by using browsers:
-    -   If you use the default custom domain name, `Content-Disposition:'attachment=filename;'` is automatically included in the response header. Web page objects are downloaded as attachments. The content of the object cannot be previewed.
-    -   If you use the custom domain name bound to the bucket, `Content-Disposition:'attachment=filename;'` is not included in the response header. You can preview the object content if your browser supports previewing web page objects. For more information about how to bind a custom domain name to a bucket, see [Bind custom domain names](/intl.en-US/Console User Guide/Manage buckets/Manage a domain/Bind custom domain names.md).
--   Static websites are websites in which all web pages consist of only static content, including scripts such as JavaScript code running on the client. A bucket in the static website hosting mode does not support content that needs to be processed by the server, such as PHP, JSP, and ASP.NET content.
--   When you configure static website hosting for a bucket, make sure that the default index document and the default 404 page document exist in the root folder and can be accessed by anonymous requests. You can set the ACL of the documents to public read or public read/write, or create a bucket policy to allow anonymous access.
--   When you configure static website hosting for a bucket:
-    -   For anonymous access to the domain name of the static website, OSS returns the index page. For authorized access to the root domain name of the static website, OSS returns the result of the GetBucket operation.
-    -   If you access an object that does not exist in OSS, OSS returns the specified default 404 page. You are charged for the generated traffic and the requests.
 
 ## References
 
