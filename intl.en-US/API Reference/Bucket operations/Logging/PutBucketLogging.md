@@ -1,15 +1,21 @@
 # PutBucketLogging
 
-Enables the access logging function for a bucket. When this function is enabled, OSS automatically records the details about the requests to this bucket, and follows the user-specified rules to write the access logs as an object into a user-specified bucket on an hourly basis.
+You can call this operation to enable logging for a bucket. After you enable and configure logging for a bucket, OSS generates log objects based on a predefined naming convention. This way, access logs are generated and stored in the specified bucket on an hourly basis.
 
-**Note:**
+## Usage notes
 
--   When the source bucket is deleted, the corresponding logging rules are also deleted.
--   OSS generates a bucket access log file every hour. However, all requests during the hour may not be recorded in the log file, but may get recorded in the previous or next log file.
--   Each time OSS generates a bucket access log file, this is considered a PUT operation and the occupied space is recorded, but the generated traffic is not recorded. After log files are generated, you can operate these log files as common objects.
--   OSS ignores all query-string parameters prefixed by “x-“ but such query-string parameters are recorded in access logs. If you want to mark a special request from massive access logs, you can add a query-string parameter prefixed by “x-“ to the URL. For example, you can add mark `http://oss-example.regionid.example.com/aliyun-logo.png` by adding a parameter prefixed by "x-" as follows: `http://oss-example.regionid.example.com/aliyun-logo.png?x-user=admin`. The added parameter is ignored. However, you can locate the request by searching "x-user=admin".
+-   The source bucket for which logs are generated and the destination bucket where the generated logs are stored can be the same or different buckets. However, the destination bucket must belong to the same account in the same region as the source bucket.
+-   OSS generates bucket access logs on an hourly basis. However, requests in the previous hour may be recorded in the log generated for the subsequent hour.
 
-## Request syntax
+    For more information about the log file naming conventions and log format, see [Logging](/intl.en-US/Developer Guide/Manage logs/Logging.md).
+
+-   Before you disable logging, OSS keeps generating log objects. Delete log objects you no longer need to reduce storage costs.
+
+    You can configure lifecycle rules to delete log objects at regular intervals. For more information, see [Lifecycle rules](/intl.en-US/Developer Guide/Objects/Object lifecycle/Lifecycle rules.md).
+
+-   More fields may be added to OSS logs. We recommend that developers consider potential compatibility issues when they develop log processing tools.
+
+## Request structure
 
 ```
 PUT /? logging HTTP/1.1
@@ -27,144 +33,92 @@ Host: BucketName.oss-cn-hangzhou.aliyuncs.com
 </BucketLoggingStatus>
 ```
 
+## Request headers
+
+A PutBucketLogging request contains only common request headers. For more information, see [Common request headers](/intl.en-US/API Reference/Common HTTP headers.md).
+
 ## Request elements
 
-**Note:** All PutBucketLogging requests must signed because the anonymous access is not supported.
+|Element|Type|Required|Example|Description|
+|-------|----|--------|-------|-----------|
+|BucketLoggingStatus|Container|Yes|N/A|The container that stores the logging status information.Child nodes: LoggingEnabled
 
-|Element|Type|Required|Description|
-|-------|----|--------|-----------|
-|BucketLoggingStatus|Container|Yes|Specifies the container for storing access log status information Sub-node: LoggingEnabled
+Parent nodes: none |
+|LoggingEnabled|Container|This parameter is required when you enable logging.|N/A|The container that stores the access log information.Child nodes: TargetBucket and TargetPrefix
 
-Parent node: None |
-|LoggingEnabled|Container|No|Specifies the container for storing access log information. This element is required only when server access logging is enabled. Sub-node: TargetBucket, TargetPrefix
+Parent nodes: BucketLoggingStatus |
+|TargetBucket|String|This parameter is required when you enable logging.|examplebucket|The bucket that stores access logs.Child nodes: none
 
-Parent node: BucketLoggingStatus |
-|TargetBucket|String|This element is required when server access logging is enabled|Specifies the bucket for storing access logs. The source bucket and target bucket can be the same or different buckets. You can save logs from multiple source buckets to the same target bucket \(in this case, we recommend that you assign different values to TargetPrefix\). Sub-node: None
+Parent nodes: BucketLoggingStatus and LoggingEnabled |
+|TargetPrefix|String|No|MyLog-|The prefix of the saved log objects. This element can be left empty.Child nodes: none
 
-Parent node: BucketLoggingStatus.LoggingEnabled |
-|TargetPrefix|String|No|Specifies the prefix of the names of saved access log files, which can be null. Sub-node: None
+Parent nodes: BucketLoggingStatus and LoggingEnabled |
 
-Parent node: BucketLoggingStatus.LoggingEnabled |
+## Response headers
 
-## Naming rules for the objects storing access logs
-
-The format of an object name is as follows:
-
-```
-<TargetPrefix><SourceBucket>-YYYY-mm-DD-HH-MM-SS-UniqueString
-```
-
-The following table describes the parameters in an object name:
-
-|Parameter|Description|
-|:--------|:----------|
-|TargetPrefix|Specifies the prefix of the object name.|
-|YYYY-mm-DD-HH-MM-SS|Indicates the time when the object is created. YYYY, mm, DD, HH, MM, and SS indicate the year, month, day, hour, minutes, and seconds individually. For example: `2012-09-10-04-00-00`.|
-|UniqueString|Indicates the unique UUID generated by OSS to identify a log.|
-
-An example object name is as follows:
-
-```
-MyLog-oss-example-2012-09-10-04-00-00-0000
-```
-
-In the preceding example, MyLog- is the prefix specified by the user, oss-example is the name of the source bucket, 2012-09-10-04-00-00 is the time when the object is created, and 0000 is the UUID string generated by OSS.
-
-## Log file format
-
-**Note:**
-
--   You may see “-“ in any field of OSS logs. It indicates that data is unknown or the field is invalid for the current request.
--   Certain fields are added to the end of OSS log files in future based on the requirements. We recommend that developers consider compatibility issues when developing log processing tools.
-
-|Parameter|Example|Description|
-|:--------|:------|:----------|
-|Remote IP|119.xxx.xx.11|The IP address from which the request is initiated. The proxy or user firewall may block this field.|
-|Reserved|-|The reserved field.|
-|Reserved|-|The reserved field.|
-|Time|\[02/May/2012:00:00:04 +0800\]|The time when OSS receives the request.|
-|Request-URI|"GET /aliyun-logo.png HTTP/1.1"|The URI of the user request, including query-string.|
-|HTTP Status|200|The HTTP status code returned by OSS.|
-|SentBytes|5576|The amount of data in bytes downloaded from OSS by the user.|
-|RequestTime \(ms\)|71|The length of time in milliseconds used to complete the request.|
-|Referer|`http://www.aliyun.com/product/oss`|The HTTP Referer of the request.|
-|User-Agent|curl/7.15.5|The User-Agent field in the HTTP header.|
-|HostName|oss-example.oss-cn-hangzhou.aliyuncs.com|The domain to be accessed.|
-|Request ID|505B016950xxxxxx032593A4|The UUID used to identify the request.|
-|LoggingFlag|true|Indicates whether logging is enabled.|
-|Requester Aliyun ID|16571xxxxxx83691|The RAM user ID. This value is a hyphen \(-\) for access from anonymous users.|
-|Operation|GetObject|The type of the request that is sent to perform operations on the object or bucket.|
-|Bucket|oss-example|The name of the bucket to access.|
-|Key|/aliyun-logo.png|The name of the object requested by the user.|
-|ObjectSize|5576|The size of the object.|
-|Server Cost Time \(ms\)|17|The length of time in milliseconds for OSS to process the request.|
-|Error Code|NoSuchBucket|The error code returned by OSS.|
-|Request Length|302|The length in bytes of the user request.|
-|UserID|16571xxxxxx83691|The ID of the bucket owner.|
-|Delta DataSize|280|The change to the bucket size. The value is a hyphen \(`-`\) if the bucket size does not change.|
-|Sync Request|-|Indicates whether the request is a CDN back-to-origin request. The value is a hyphen \(`-`\) if the request is not a back-to-origin request.|
-|StorageClass|Standard|The storage class of the current object. Valid values: `Standard`, `IA`, `Archive`, and `-`. The value is a hyphen \(`-`\) if the storage class information cannot be obtained or if the requested object is a bucket.|
-|TargetStorageClass|Standard|The storage class converted to after a lifecycle rule is triggered or the CopyObject operation is called for an object. Valid values: `Standard`, `IA`, `Archive`, and `-`. The value is a hyphen \(`-`\) if the storage class information for the destination object cannot be obtained or the storage class fails to be converted by using a lifecycle rule or by calling the CopyObject operation.|
-|oss\_acc\_src\_oms\_region|us-east-1|The endpoint when transfer acceleration is enabled. For example, if the access request is from the US \(Virginia\) region, the value is `us-east-1`. If transfer acceleration is disabled, or the endpoint is in the same region as the bucket, the value is a hyphen \(`-`\).|
+The response to a PutBucketLogging request contains only common response headers. For more information, see [Common response headers](/intl.en-US/API Reference/Common HTTP headers.md).
 
 ## Examples
 
-**Example of a request for enabling bucket access logging:**
+-   Sample request on how to enable logging
 
-```
-PUT /? logging HTTP/1.1
-Host: oss-example.oss-cn-hangzhou.aliyuncs.com
-Content-Length: 186
-Date: Fri, 04 May 2012 03:21:12 GMT
-Authorization: OSS qn6qrrqxo2oawuk53otfjbyc:KU5h8YMUC78M30dXqf3JxrTZHiA=
-<? xml version="1.0" encoding="UTF-8"? >
-<BucketLoggingStatus>
-<LoggingEnabled>
-<TargetBucket>doc-log</TargetBucket>
-<TargetPrefix>MyLog-</TargetPrefix>
-</LoggingEnabled>
-</BucketLoggingStatus>
-```
+    ```
+    PUT /? logging HTTP/1.1
+    Host: oss-example.oss-cn-hangzhou.aliyuncs.com
+    Content-Length: 186
+    Date: Fri, 04 May 2012 03:21:12 GMT
+    Authorization: OSS qn6qrrqxo2oawuk53otf****:KU5h8YMUC78M30dXqf3JxrTZ****
+    <? xml version="1.0" encoding="UTF-8"? >
+    <BucketLoggingStatus>
+    <LoggingEnabled>
+    <TargetBucket>examplebucket</TargetBucket>
+    <TargetPrefix>MyLog-</TargetPrefix>
+    </LoggingEnabled>
+    </BucketLoggingStatus>
+    ```
 
-**Response example:**
+    Sample response
 
-```
-HTTP/1.1 200 OK
-x-oss-request-id: 534B371674E88A4D8906008B
-Date: Fri, 04 May 2012 03:21:12 GMT
-Content-Length: 0
-Connection: keep-alive
-Server: AliyunOSS
-```
+    ```
+    HTTP/1.1 200 OK
+    x-oss-request-id: 534B371674E888648906008B
+    Date: Fri, 04 May 2012 03:21:12 GMT
+    Content-Length: 0
+    Connection: keep-alive
+    Server: AliyunOSS
+    ```
 
-**Example of a request for disabling bucket access logging:**
+-   Sample request on how to disable logging
 
-```
-PUT /? logging HTTP/1.1
-Host: oss-example.oss-cn-hangzhou.aliyuncs.com
-Content-Type: application/xml
-Content-Length: 86
-Date: Fri, 04 May 2012 04:21:12 GMT
-Authorization: OSS qn6qrrqxo2oawuk53otfjbyc:KU5h8YMUC78M30dXqf3JxrTZHiA=
-<? xml version="1.0" encoding="UTF-8"? >
-<BucketLoggingStatus>
-</BucketLoggingStatus>
-```
+    To disable logging for a bucket, you need only to send an empty BucketLoggingStatus. The following code provides an example on how to disable logging:
 
-**Response example:**
+    ```
+    PUT /? logging HTTP/1.1
+    Host: oss-example.oss-cn-hangzhou.aliyuncs.com
+    Content-Type: application/xml
+    Content-Length: 86
+    Date: Fri, 04 May 2012 04:21:12 GMT
+    Authorization: OSS qn6qrrqxo2oawuk53otf****:KU5h8YMUC78M30dXqf3JxrTZ****
+    <? xml version="1.0" encoding="UTF-8"? >
+    <BucketLoggingStatus>
+    </BucketLoggingStatus>
+    ```
 
-```
-HTTP/1.1 200 OK
-x-oss-request-id: 534B371674E88A4D8906008B
-Date: Fri, 04 May 2012 04:21:12 GMT
-Content-Length: 0
-Connection: keep-alive
-Server: AliyunOSS
-```
+    Sample response
+
+    ```
+    HTTP/1.1 200 OK
+    x-oss-request-id: 534B371674125A4D8906008B
+    Date: Fri, 04 May 2012 04:21:12 GMT
+    Content-Length: 0
+    Connection: keep-alive
+    Server: AliyunOSS
+    ```
+
 
 ## SDK
 
-The SDKs of this API are as follows:
+You can use OSS SDKs for the following programming languages to call the PutBucketLogging operation:
 
 -   [Java](/intl.en-US/SDK Reference/Java/Buckets/Set logging.md)
 -   [Python](/intl.en-US/SDK Reference/Python/Buckets/Set logging.md)
@@ -179,10 +133,10 @@ The SDKs of this API are as follows:
 
 |Error code|HTTP status code|Description|
 |:---------|:---------------|:----------|
-|NoSuchBucket|404|The source bucket does not exist. The source bucket and the target bucket must be owned by the same user.|
-|InvalidTargetBucketForLogging|400|The source bucket and the target bucket are in different regions.|
-|InvalidDigest|400|If you include the Content-MD5 header in the request, OSS calculates the Content-MD5 of the request body and checks if the two are the same. If the two values are different, this error is returned.|
-|MalformedXML|400|The XML file in the request is invalid.|
-|InvalidTargetBucketForLogging|403|The user who initiates the request is not the owner of the target bucket.|
-|AccessDenied|403|The user who initiates the request is not the owner of the source bucket,|
+|NoSuchBucket|404|The error message returned because the source bucket does not exist.|
+|InvalidTargetBucketForLogging|400|The error message returned because the source bucket and the destination bucket do not belong to the same data center.|
+|InvalidDigest|400|The error message returned because the Content-MD5 value of the message body is inconsistent with the Content-MD5 value of the request header.|
+|MalformedXML|400|The error message returned because the XML format in the request is invalid.|
+|InvalidTargetBucketForLogging|403|The error message returned because the requester is not the owner of the destination bucket.|
+|AccessDenied|403|The error message returned because the requester is not the owner of the source bucket.|
 
