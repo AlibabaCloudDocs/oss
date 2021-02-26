@@ -10,7 +10,7 @@ Each lifecycle rule contains at least one filter condition. The filter determine
 
     In the following lifecycle rule configuration, the `doc/` prefix is specified as the filter, which indicates that the lifecycle rule applies only to objects whose names are prefixed with `doc/` such as `doc/test1.txt` and `doc/test2.jpg`. The lifecycle rule also specifies the following operations on these objects:
 
-    -   Transition: Convert the storage class of objects to IA 180 days after the objects are last modified.
+    -   Transition: Convert the storage class of objects to Infrequent Access \(IA\) 180 days after the objects are last modified.
     -   Expiration: Delete objects 365 days after objects are last modified.
     ```
     <LifecycleConfiguration>
@@ -31,7 +31,7 @@ Each lifecycle rule contains at least one filter condition. The filter determine
 
 -   Example 2
 
-    In the following lifecycle rule configuration, the filter condition indicates that the lifecycle rule applies to all objects in the bucket. The lifecycle rule specifies that all objects in the bucket expires 300 days after objects are last modified.
+    In the following lifecycle rule configuration, the filter condition indicates that the lifecycle rule applies to all objects in the bucket. The lifecycle rule specifies that all objects in the bucket expire 300 days after the objects are last modified.
 
     ```
     <LifecycleConfiguration>
@@ -48,7 +48,7 @@ Each lifecycle rule contains at least one filter condition. The filter determine
 
 -   Example 3
 
-    In the following lifecycle rule configuration, the value of prefix is null, which indicates that the lifecycle rule applies to all objects in the bucket. The lifecycle rule specifies that all objects that are modified before December 30, 2019 expire.
+    In the following lifecycle rule configuration, the value of Prefix is null, which indicates that the lifecycle rule applies to all objects in the bucket. The lifecycle rule specifies that each object that is modified before December 30, 2019 expires.
 
     ```
     <LifecycleConfiguration>
@@ -104,14 +104,14 @@ The following examples describe whether the operations specified in lifecycle ru
     </LifecycleConfiguration>
     ```
 
-    **Note:** If an object is configured with the two tags, both lifecycle rules apply to this object. Therefore, the first lifecycle rule does not take effect because the object is deleted. If the object is deleted, its storage class cannot be converted.
+    **Note:** If an object is configured with the two tags, both lifecycle rules apply to this object. In this case, the object expires 10 days after it is last modified. After the object is deleted, the transition operation specified on the object becomes invalid.
 
 -   Example 2
 
     Two lifecycle rules are configured with overlapping prefixes as their filter conditions.
 
-    -   The first rule specifies an empty prefix as its filter conditions, which indicates that the rule applies to all objects in the bucket. This rule specifies that all objects in the bucket are deleted 365 days after they are last modified.
-    -   The second rule specifies the prefix test/ as its filter conditions, which indicates that this rule applies only to objects whose names are prefixed with test/. This rule specifies that the storage class of objects is converted to Archive 30 days after the objects are last modified.
+    -   The first rule specifies an empty prefix as its filter condition, which indicates that the rule applies to all objects in the bucket. This rule specifies that all objects in the bucket are deleted 365 days after they are last modified.
+    -   The second rule specifies the test/ prefix as its filter condition. This rule specifies that the storage classes of objects that are prefixed with test/ are converted to Archive 30 days after they are last modified.
     ```
     <LifecycleConfiguration>
       <Rule>
@@ -139,8 +139,8 @@ The following examples describe whether the operations specified in lifecycle ru
 
 You can temporarily disable lifecycle rules. In the following example, two lifecycle rules are configured. The first rule is disabled. The second rule is enabled based on the policy.
 
--   The first rule specifies that the storage class of objects prefixed with `logs/` is converted to IA one day after the objects are created.
--   The second rule specifies that the storage class of objects prefixed with `documents/` is converted to Archive one day after the objects are created.
+-   The first rule specifies that the storage classes of objects whose names contain the `logs/` prefix are converted to IA one day after they are created.
+-   The second rule specifies that the storage classes of objects whose names contain the `documents/` prefix are converted to Archive one day after they are created.
 
 ```
 <LifecycleConfiguration>
@@ -171,11 +171,8 @@ In a versioning-enabled bucket, each object has a current version and may have p
 
 -   Example 1
 
-    You can perform the following operations to reduce storage costs:
+    In the following lifecycle rule configuration, the storage classes of objects are converted to IA 10 days after they are last modified and to Archive 60 days after they become previous versions. Objects are deleted 90 days after they become previous versions.
 
-    -   Convert the current version of the object to IA 10 days after the object is last modified.
-    -   Convert the object to the Archive 60 days after the object becomes a previous version.
-    -   Delete the object 90 days after the object becomes a previous version.
     ```
     <LifecycleConfiguration>
       <Rule>
