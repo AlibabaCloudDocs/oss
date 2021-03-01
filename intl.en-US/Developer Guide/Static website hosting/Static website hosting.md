@@ -36,7 +36,7 @@ The custom domain name `example.com` is bound to the bucket, the default homepag
 
 -   When you access `https://example.com/` and `https://example.com/subdir/`, OSS returns `https://example.com/index.html`.
 -   When you access `https://example.com/example.txt`, the example.txt object is obtained.
--   When you access `https://example.com/example.txt`, OSS returns `https://example.com/error.html` if the example.txtobject does not exist.
+-   When you access `https://example.com/example.txt`, OSS returns `https://example.com/error.html` if the example.txt object does not exist.
 
 ## Implementation methods
 
