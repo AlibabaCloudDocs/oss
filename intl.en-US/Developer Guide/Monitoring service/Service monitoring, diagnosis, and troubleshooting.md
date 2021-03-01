@@ -133,7 +133,7 @@ Problem diagnosis
 
     For instructions on the activation and use of the logging function, see [Set logging](/intl.en-US/Console User Guide/Manage buckets/Manage logs/Configure logging.md).
 
-    For more information on Log Service naming rules and record formats, see [Set access logging](/intl.en-US/Developer Guide/Manage logs/Logging.md).
+    For more information on Log Service naming rules and record formats, see [Set access logging](/intl.en-US/Developer Guide/Manage logs/Log storage.md).
 
 -   Using network logging tools
 
