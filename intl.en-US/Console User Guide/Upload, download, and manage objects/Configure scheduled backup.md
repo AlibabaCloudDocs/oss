@@ -15,7 +15,7 @@ When you use scheduled backup, the following fees are incurred:
     -   After the object list is obtained, HBR uses the HeadObject operation to obtain the object metadata. Each HeadObject request can obtain the metadata of one object.
     -   HBR uses the GetObject operation to back up objects. Each GetObject request can back up one object.
     -   HBR uses the ListObject operation to query the backup progress and verify the objects that are backed up. Each ListObject request can verify up to 1,000 objects.
-    For more information about the billing methods for OSS API requests, see[API operation calling fees](/intl.en-US/Pricing/Billing items and methods/API operation calling fees.md).
+    For more information about the billing methods for OSS API requests, see [API operation calling fees](/intl.en-US/Pricing/Billing items and methods/API operation calling fees.md).
 
 -   If an Infrequent Access \(IA\) object is backed up, data retrieval fees are incurred. For more information about the billing methods, see [Data processing fees](/intl.en-US/Pricing/Billing items and methods/Data processing fees.md).
 -   Fees are incurred for the storage of objects that are backed up in HBR vaults. For information about the billing methods, see [Billing methods and items](/intl.en-US/Pricing/Billing methods and items.md).
