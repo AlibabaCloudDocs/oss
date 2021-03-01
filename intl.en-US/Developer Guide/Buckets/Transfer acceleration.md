@@ -43,7 +43,7 @@ You can compare the speeds of access to different regions when the accelerate an
 
 ## Implementation methods
 
-For more information about how to enable OSS transfer acceleration, see[Enable transfer acceleration](/intl.en-US/Console User Guide/Manage buckets/Manage a domain/Enable transfer acceleration.md). When transfer acceleration is enabled, you can use the global accelerate endpoint to implement transfer acceleration by using one of the following methods:
+For more information about how to enable OSS transfer acceleration, see [Enable transfer acceleration](/intl.en-US/Console User Guide/Manage buckets/Manage a domain/Enable transfer acceleration.md). When transfer acceleration is enabled, you can use the global accelerate endpoint to implement transfer acceleration by using one of the following methods:
 
 -   Browser
 
@@ -55,17 +55,13 @@ For more information about how to enable OSS transfer acceleration, see[Enable t
 
     When you use ossutil to access data stored in OSS, replace the endpoint in the configuration file with an accelerate endpoint. Alternatively, add `-e oss-accelerate.aliyuncs.com` to each command to perform an operation. The following figure shows an example on how to configure the endpoint.
 
-    ![ossu](../images/p208891.png)
+    ![ossu](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/8532654161/p208891.png)
 
     For more information about how to configure the endpoint when you use ossutil, see [ossutil](/intl.en-US/Tools/ossutil/Common commands/config.md).
 
 -   ossbrowser
 
-    When you use ossbrowser to access data stored in OSS, set the endpoint to Customize, and specify an accelerate endpoint. The following figure shows an example on how to configure the endpoint.
-
-    ![ossbrowser](../images/p208892.png)
-
-    For more information about how to configure the endpoint when you use ossbrowser, see [ossbrowser](/intl.en-US/Tools/ossbrowser/Quick start.md).
+    When you use ossbrowser to access data stored in OSS, set the endpoint to Customize, and specify an accelerate endpoint. The following figure shows an example on how to configure the endpoint. For more information about how to configure the endpoint when you use ossbrowser, see [ossbrowser](/intl.en-US/Tools/ossbrowser/Quick start.md).
 
 -   SDK
 
