@@ -2,7 +2,7 @@
 
 You can use the scheduled backup feature of OSS to back up the objects in a bucket to Hybrid Backup Recovery \(HBR\) on a regular basis. If an object is unexpectedly lost, you can recover the object by using HBR.
 
--   HBR is activated. You can go to the[HBR details page](https://www.alibabacloud.com/zh/products/hybrid-backup-recovery) to activate HBR.
+-   HBR is activated. You can go to the [HBR details page](https://www.alibabacloud.com/zh/products/hybrid-backup-recovery) to activate HBR.
 -   HBR is authorized to read data from OSS. Log on to the [HBR console](https://hbr.console.aliyun.com). In the left-side navigation pane, click **OSS Backup**. Follow the prompts to authorize HBR.
 
 ## Billing
