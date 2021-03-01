@@ -48,67 +48,63 @@ A PutBucketLifecycle request contains only common request headers. For more info
 
 |Element|Type|Required|Example|Description|
 |-------|----|--------|-------|-----------|
-|CreatedBeforeDate|String|Either Days or CreatedBeforeDate is required|2002-10-11T00:00:00.000Z|The date based on which the lifecycle rules are implemented. OSS performs the specified operation on data whose last modified date is before this date. Specify the time in the ISO 8601 standard. The time must be at UTC 00:00:00. For example, 2002-10-11T00:00:00.000Z indicates that objects that are last updated before 2002-10-11T00: 00: 00.000Z are deleted or the storage classes of these objects are converted to another storage class. Objects that are last updated at or after this time are not deleted or their storage classes are not converted to another storage class.
+|LifecycleConfiguration|Container|Yes|N/A|The container that stores lifecycle configurations. The container can contain up to 1,000 lifecycle rules.Chile nodes: Rule
 
-Parent node: Expiration or AbortMultipartUpload |
-|Days|Positive integer|Either Days or CreatedBeforeDate is required|1|The number of days within which objects can be retained after they are last modified. Parent node: Expiration |
-|Expiration|Container|No|N/A|The delete operation on the objects for the lifecycle rule. **Note:** For an object in a versioned bucket, the delete operation specified by this element is performed on only the current version of the object.
-
-Child nodes: Days, CreatedBeforeDate, or ExpiredObjectDeleteMarker
-
-Parent node: Rule |
-|AbortMultipartUpload|Container|No|N/A|The operation to perform on incomplete multipart upload tasks.Child node: Days or CreatedBeforeDate
-
-Parent nodes: Rule |
-|ID|String|No|rule1|The unique ID of a lifecycle rule. The ID can be a maximum of 255 bytes in length. If the value of this parameter is null or not specified, OSS automatically generates a unique ID for the lifecycle rule.Child node: none
-
-Parent node: Rule |
-|LifecycleConfiguration|Container|Yes|N/A|The container that stores lifecycle configurations. The container can contain up to 1,000 lifecycle rules.Chile node: Rule
-
-Parent node: none |
-|Prefix|String|Yes|tmp/|The prefix of names of objects to which the rule applies. The prefixes specified by different rules cannot overlap.-   If Prefix is specified, this rule applies only to objects whose names contain the specified prefix in the bucket.
--   If Prefix is not specified, this rule applies to all objects in the bucket.
-
-Child node: none
-
-Parent node: Rule |
-|Rule|Container|Yes|N/A|Identifies the rule.-   A lifecycle rule cannot be configured to convert the storage class of objects in an Archive bucket.
+Parent nodes: none |
+|Rule|Container|Yes|N/A|The container that stores lifecycle rules.-   A lifecycle rule cannot be configured to convert the storage class of objects in an Archive bucket.
 -   The validity period specified for Expiration must be longer than that specified for Transition. Likewise, the expiration time specified for Expiration must be later than that specified for Transition.
 
 Child nodes: ID, Prefix, Status, and Expiration
 
-Parent node: LifecycleConfiguration |
-|Status|String|Yes|Enabled|Specifies whether to run the rule. A value of Enabled indicates that OSS runs the rule. A value of Disabled indicates that OSS ignores the rule.Parent node: Rule
+Parent nodes: LifecycleConfiguration |
+|ID|String|No|rule1|The unique ID of a lifecycle rule. The ID can be up to 255 bytes in length. If the value of this parameter is null or not specified, OSS automatically generates a unique ID for the lifecycle rule.Child nodes: none
+
+Parent nodes: Rule |
+|Prefix|String|Yes|tmp/|The prefix of the objects to which the rule applies. The prefixes specified by different rules cannot overlap.-   If Prefix is specified, this rule applies only to objects whose names contain the specified prefix in the bucket.
+-   If Prefix is not specified, this rule applies to all objects in the bucket.
+
+Child nodes: none
+
+Parent nodes: Rule |
+|Status|String|Yes|Enabled|Specifies whether to run the rule. A value of Enabled indicates that OSS runs the rule. A value of Disabled indicates that OSS ignores the rule.Parent nodes: Rule
 
 Valid values: Enabled and Disabled |
-|StorageClass|String|Yes if Transition or NoncurrentVersionTransition is configured|IA|The storage class of objects after conversion.**Note:** You can convert the storage class of objects in an IA bucket to Archive or Cold Archive but not Standard.
+|Expiration|Container|No|N/A|The delete operation to perform on objects based on the lifecycle rule. For an object in a versioned bucket, the delete operation specified by this element is performed on only the current version of the object.Child nodes: Days, CreatedBeforeDate, or ExpiredObjectDeleteMarker
 
-Valid values: IA, Archive, and Cold Archive
+Parent nodes: Rule |
+|Days|Positive integer|Either Days or CreatedBeforeDate is required|1|The number of days within which objects can be retained after they are last modified.Parent nodes: Expiration or AbortMultipartUpload |
+|CreatedBeforeDate|String|Either Days or CreatedBeforeDate is required|2002-10-11T00:00:00.000Z|The date based on which the lifecycle rules are implemented. OSS performs the specified operation on data whose last modified date is before this date. Specify the time in the ISO 8601 standard. The time must be at UTC 00:00:00.Parent nodes: Expiration or AbortMultipartUpload |
+|ExpiredObjectDeleteMarker|String|No|true|Specifies whether to automatically remove expired delete markers. Valid values:
 
-Parent node: Transition |
-|Transition|Container|No|N/A|The validity period within which objects can be retained and the conversion operation on the objects. After the validity period or expiration date, the storage class of the objects is converted to IA, Archive, or Cold Archive.The storage class of Standard objects can be converted to IA, Archive, or Cold Archive. Note that the validity period for conversion to Archive must be longer than that for conversion to IA. For example, if the validity period is set to 30 for objects whose storage class is converted to IA after the validity period, the validity period must be set to a value greater than 30 for objects whose storage class is converted to Archive.
+-   true: Expired delete markers are automatically removed. When the value of this element is true, the Days or CreatedBeforeDate elements cannot be specified.
+-   false: Expired delete markers are not automatically removed. When the value of this element is false, the Days or CreatedBeforeDate elements must be specified.
 
-Parent node: Rule
+Parent nodes: Expiration |
+|Transition|Container|No|N/A|The validity period within which objects can be retained and the conversion operation on the objects. After the validity period or expiration date, the storage class of the objects is converted to IA, Archive, or Cold Archive.The storage class of Standard objects can be converted to IA, Archive, or Cold Archive. The validity period for conversion to Archive must be longer than that for conversion to IA. For example, if the validity period is set to 30 for objects whose storage class is converted to IA after the validity period, the validity period must be set to a value greater than 30 for objects whose storage class is converted to Archive.
+
+Parent nodes: Rule
 
 Child nodes: Days, CreatedBeforeDate, and StorageClass
 
 **Note:** Either Days or CreatedBeforeDate is required |
-|Tag|Container|No|N/A|The object tags. Parent node: Rule
+|StorageClass|String|Yes if Transition or NoncurrentVersionTransition is configured|IA|The storage class of objects after conversion.**Note:** You can convert the storage class of objects in an IA bucket to Archive or Cold Archive but not Standard.
 
-Child node: Key and Value |
-|Key|String|Yes if Tag is configured|TagKey1|Tag Key Parent nodes: Tag |
-|Value|String|Yes if Tag is configured|TagValue1|Tag Value Parent nodes: Tag |
-|NoncurrentDays|String|Yes if NoncurrentVersionTransition or NoncurrentVersionExpiration is configured|5|The number of days within which the previous versions can be retained. When the current versions expire, they become the previous versions. Parent nodes: NoncurrentVersionTransition and NoncurrentVersionExpiration |
-|NoncurrentVersionTransition|Container|No|N/A|The validity period within which previous versions can be retained and the conversion operation on the previous versions. After the validity period, the storage class of the previous versions can be converted to IA or Archive. The storage class of Standard objects can be converted to IA or Archive. Note that the validity period for conversion to Archive must be longer than that for conversion to IA. For example, if the validity period is set to 30 for previous versions whose storage class is converted to IA after the validity period, the validity period must be set to a value greater than 30 for previous versions whose storage class is converted to Archive.
+Valid values: IA, Archive, and Cold Archive
+
+Parent nodes: Transition |
+|AbortMultipartUpload|Container|No|N/A|The operation to perform on incomplete multipart upload tasks.Child nodes: Days or CreatedBeforeDate
+
+Parent nodes: Rule |
+|Tag|Container|No|N/A|The object tags. Parent nodes: Rule
+
+Child nodes: Key and Value |
+|Key|String|Yes if Tag is configured|TagKey1|The key of the tag. Parent nodes: Tag |
+|Value|String|Yes if Tag is configured|TagValue1|The value of the tag. Parent nodes: Tag |
+|NoncurrentVersionExpiration|Container|No|N/A|The delete operation to perform on the previous versions of the object. Child nodes: NoncurrentDays |
+|NoncurrentVersionTransition|Container|No|N/A|The validity period within which previous versions can be retained and the conversion operation on the previous versions. After the validity period, the storage class of the previous versions can be converted to IA or Archive. The validity period for conversion from Standard to Archive must be longer than that for conversion from Standard to IA.
 
 Child nodes: NoncurrentDays and StorageClass |
-|NoncurrentVersionExpiration|Container|No|N/A|The delete operation on the previous versions of the object. Child node: NoncurrentDays |
-|ExpiredObjectDeleteMarker|String|No|true|Specifies whether to automatically remove expired delete markers. Valid values:
-
--   true: Expired delete markers are automatically removed.
--   false: Expired delete markers are not automatically removed.
-
-Parent node: Expiration |
+|NoncurrentDays|String|Yes if NoncurrentVersionTransition or NoncurrentVersionExpiration is configured|5|The number of days within which the previous versions can be retained. When the current versions expire, they become the previous versions. Parent nodes: NoncurrentVersionTransition and NoncurrentVersionExpiration |
 
 ## Response headers
 
@@ -116,7 +112,7 @@ The response to a PutBucketLifecycle request contains only common response heade
 
 ## Examples
 
--   Sample request for an unversioned bucket
+-   Sample requests for an unversioned bucket
 
     ```
     PUT /? lifecycle HTTP/1.1
@@ -196,7 +192,7 @@ The response to a PutBucketLifecycle request contains only common response heade
     </LifecycleConfiguration>            
     ```
 
-    Sample response
+    Sample responses
 
     ```
     HTTP/1.1 200 OK
@@ -207,7 +203,7 @@ The response to a PutBucketLifecycle request contains only common response heade
     Server: AliyunOSS
     ```
 
--   Sample request for a versioned bucket
+-   Sample requests for a versioned bucket
 
     ```
     PUT /? lifecycle HTTP/1.1
@@ -247,7 +243,7 @@ The response to a PutBucketLifecycle request contains only common response heade
     </LifecycleConfiguration>
     ```
 
-    Sample response
+    Sample responses
 
     ```
     HTTP/1.1 200 OK
@@ -259,7 +255,7 @@ The response to a PutBucketLifecycle request contains only common response heade
     ```
 
 
-## SDK
+## SDKs
 
 You can use OSS SDKs for the following programming languages to call the PutBucketLifecycle operation:
 
@@ -273,11 +269,11 @@ You can use OSS SDKs for the following programming languages to call the PutBuck
 -   [Node.js](/intl.en-US/SDK Reference/Node. js/Buckets/Manage lifecycle rules.md)
 -   [Ruby](/intl.en-US/SDK Reference/Ruby/Buckets/Manage lifecycle rules.md)
 
-## Errors codes
+## Error codes
 
 |Error code|HTTP status code|Description|
 |:---------|:---------------|:----------|
 |AccessDenied|403|The error message returned because you are not authorized to perform the PutBucketLifecycle operation. Only users that have the PutBucketLifecycle permission can configure lifecycle rules for a bucket.|
-|InvalidArgument|400|-   The storage class of objects in a Standard bucket can be converted from Standard to IA or Archive. When you configure lifecycle rules, you can configure conversion to Standard and conversion to IA at the same time. Note that the validity period for conversion to Archive must be longer than that for conversion to IA.
+|InvalidArgument|400|-   The storage class of objects in a Standard bucket can be converted from Standard to IA or Archive. When you configure lifecycle rules, you can configure conversion to Standard and conversion to IA at the same time. The validity period for conversion to Archive must be longer than that for conversion to IA.
 -   The validity period specified for Expiration must be longer than that specified for Transition. Likewise, the expiration time specified for Expiration must be later than that specified for Transition. |
 
