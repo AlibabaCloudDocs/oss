@@ -63,7 +63,7 @@ Child node: none |
     x-oss-request-id: 5C8F55ED461FB4A64C00****
     date: Wed, 20 Mar 2019 02:02:32 GMT
     content-type: application/xml
-    <? xml version="1.0" encoding="UTF‐8"? >
+    <? xml version="1.0" encoding="UTF-8"? >
     <Tagging>
       <TagSet>
         <Tag>
