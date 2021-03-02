@@ -42,7 +42,7 @@ The response to a DeleteObjectTagging request contains only common response head
     204 (No Content)
     content-length: 0
     server: AliyunOSS
-    x-oss-request‐id: 5CAC0AD16D0232E2051B****
+    x-oss-request-id: 5CAC0AD16D0232E2051B****
     date: Tue, 09 Apr 2019 03:00:33 GMT
     ```
 
