@@ -130,6 +130,7 @@ Action分为Service级别操作、Bucket级别操作以及Object级别的操作�
     |GetLiveChannelHistory|oss:GetLiveChannelHistory|
     |PostVodPlaylist|oss:PostVodPlaylist|
     |GetVodPlaylist|oss:GetVodPlaylist|
+    |ProcessImm|oss:ProcessImm|
     |ImgSaveAs|oss:PostProcessTask|
     |AbortMultipartUpload|oss:AbortMultipartUpload|
 
@@ -169,5 +170,5 @@ Condition代表Policy授权的条件。OSS支持的Condition如下：
 
 ## 常见示例
 
-您可以使用RAM Policy实现不同场景下的用户权限策略。更多信息，请参见[RAM Policy常见示例]()。
+您可以使用RAM Policy实现不同场景下的用户权限策略。更多信息，请参见[RAM Policy常见示例](/intl.zh-CN/开发指南/数据安全/访问控制/RAM Policy/RAM Policy常见示例.md)。
 
