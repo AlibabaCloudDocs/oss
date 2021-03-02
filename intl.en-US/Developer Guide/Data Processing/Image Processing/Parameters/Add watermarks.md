@@ -121,7 +121,7 @@ We recommend that you use [URL-safe Baes64 encoding tools](https://simplycalc.co
 ## Usage notes
 
 -   You can use watermark images only in the current bucket. Online or local images must be uploaded to the current bucket before these images can be used for watermarking.
--   Only JPG, PNG, BMP, GIF, WebP and TIFF watermark images are supported.
+-   Only JPG, PNG, BMP, WebP and TIFF watermark images are supported.
 -   Traditional Chinese is not supported for text watermarks.
 -   Before you add multiple watermarks to an image, take note of the following items:
     -   You can add up to three watermarks to an image.
