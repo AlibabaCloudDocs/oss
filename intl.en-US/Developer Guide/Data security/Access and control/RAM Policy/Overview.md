@@ -130,6 +130,7 @@ RAM policies for OSS support service-related actions, bucket-related actions, an
     |GetLiveChannelHistory|oss:GetLiveChannelHistory|
     |PostVodPlaylist|oss:PostVodPlaylist|
     |GetVodPlaylist|oss:GetVodPlaylist|
+    |ProcessImm|oss:ProcessImm|
     |ImgSaveAs|oss:PostProcessTask|
     |AbortMultipartUpload|oss:AbortMultipartUpload|
 
@@ -169,5 +170,5 @@ This condition applies to operations used to write objects, such as PutObject an
 
 ## Examples
 
-You can use RAM policies to authorize users in different scenarios. For more information, see [t2025445.md\#]().
+You can use RAM policies to authorize users in different scenarios. For more information, see [Common examples of RAM policies](/intl.en-US/Developer Guide/Data security/Access and control/RAM Policy/Common examples of RAM policies.md).
 
