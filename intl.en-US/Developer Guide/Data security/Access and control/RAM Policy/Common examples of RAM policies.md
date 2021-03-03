@@ -74,6 +74,9 @@ The following RAM policy grants a RAM user permissions to completely control a b
                           "oss:GetBucketStat",
                           "oss:GetBucketInfo",
                           "oss:GetBucketTagging",
+                          "oss:GetBucketLifecycle",
+                          "oss:GetBucketWorm",                      
+                          "oss:GetBucketVersioning", 
                           "oss:GetBucketAcl" 
                           ],    
                 "Resource": "acs:oss:*:*:*"
