@@ -227,6 +227,9 @@ In this example, RAM policies are created to grant a RAM user read-only permissi
                           "oss:GetBucketStat",
                           "oss:GetBucketInfo",
                           "oss:GetBucketTagging",
+                          "oss:GetBucketLifecycle",
+                          "oss:GetBucketWorm",                      
+                          "oss:GetBucketVersioning", 
                           "oss:GetBucketAcl" 
                           ], 
                 "Resource": [
