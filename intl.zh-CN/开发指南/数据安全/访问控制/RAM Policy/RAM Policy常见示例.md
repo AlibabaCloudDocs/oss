@@ -227,6 +227,9 @@ myphotos[Bucket]
                           "oss:GetBucketStat",
                           "oss:GetBucketInfo",
                           "oss:GetBucketTagging",
+                          "oss:GetBucketLifecycle",
+                          "oss:GetBucketWorm",                      
+                          "oss:GetBucketVersioning", 
                           "oss:GetBucketAcl" 
                           ], 
                 "Resource": [
