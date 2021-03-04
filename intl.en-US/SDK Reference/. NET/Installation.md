@@ -14,7 +14,7 @@ This topic describes how to install OSS SDK for .NET.
 
 ## Download OSS SDK for .NET
 
--   [Download SDK installation package](http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/32085/cn_zh/1515493045734/aliyun_oss_dotnet_sdk_2_8_0.zip)
+-   [Download SDK installation package](https://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/32085/cn_zh/1515493045734/aliyun_oss_dotnet_sdk_2_8_0.zip)
 -   [Download from GitHub](https://github.com/aliyun/aliyun-oss-csharp-sdk.git?spm=a2c4g.11186623.2.15.5fce4144QhQZy7&file=aliyun-oss-csharp-sdk.git)
 -   [Download previous versions](https://github.com/aliyun/aliyun-oss-csharp-sdk/releases)
 
