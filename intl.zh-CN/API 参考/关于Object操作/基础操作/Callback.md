@@ -1,25 +1,25 @@
 # Callback
 
-您只需要在发送给 OSS 的请求中携带相应的 Callback 参数，即能实现回调。本文详细介绍 Callback 的实现原理。
+您只需在发送给OSS的请求中携带相应的Callback参数即能实现回调。本文介绍Callback的实现原理。
 
 **说明：**
 
--   目前支持 Callback 的 API 接口有：[PutObject](/intl.zh-CN/API 参考/关于Object操作/基础操作/PutObject.md)、[PostObject](/intl.zh-CN/API 参考/关于Object操作/基础操作/PostObject.md)、[CompleteMultipartUpload](/intl.zh-CN/API 参考/关于Object操作/分片上传（MulitipartUpload）/CompleteMultipartUpload.md)。更多Callback详情请参见[原理介绍](/intl.zh-CN/最佳实践/Web端上传数据至OSS/Web端PostObject直传实践/服务端签名直传并设置上传回调.md)。
+-   目前支持Callback的API接口包括[PutObject](/intl.zh-CN/API 参考/关于Object操作/基础操作/PutObject.md)、[PostObject](/intl.zh-CN/API 参考/关于Object操作/基础操作/PostObject.md)和[CompleteMultipartUpload](/intl.zh-CN/API 参考/关于Object操作/分片上传（MulitipartUpload）/CompleteMultipartUpload.md)。关于Callback的更多信息，请参见[原理介绍](/intl.zh-CN/最佳实践/Web端上传数据至OSS/Web端PostObject直传实践/服务端签名直传并设置上传回调.md)。
 -   Callback目前不支持服务器名称指示SNI（Server Name Indication ）。
 
 ## 步骤1：构造参数
 
--   Callback 参数
+-   Callback参数
 
-    Callback 参数是由一段经过 base64 编码的 JSON 字符串（字段）。构建 callback 参数的关键是指定请求回调的服务器 URL（callbackUrl）以及回调的内容（callbackBody）。
+    Callback参数是由一段经过Base64编码的JSON字符串（字段）。构建callback参数的关键是指定请求回调的服务器 URL（callbackUrl）以及回调的内容（callbackBody）。
 
-    JSON 字段如下：
+    JSON字段的详细信息请参见下表。
 
-    |字段|含义|是否必需|
+    |字段|描述|是否必选|
     |:-|:-|:---|
-    |callbackUrl|    -   文件上传成功后，OSS 向此 URL 发送回调请求，请求方法为 POST，body 为 callbackBody 指定的内容。正常情况下，该 URL 需要响应 `HTTP/1.1 200 OK`，body 必须为 JSON 格式，响应头 Content-Length 必须为合法的值，且不超过 3 MB。
-    -   支持同时配置最多 5 个 URL，以分号（;）分割。OSS 会依次发送请求直到第一个返回成功为止。
-    -   如果没有配置或者值为空则认为没有配置 callback。
+    |callbackUrl|    -   文件上传成功后，OSS向此URL发送回调请求，请求方法为POST，body为callbackBody指定的内容。正常情况下，该URL需要响应`HTTP/1.1 200 OK`，body必须为JSON格式，响应头Content-Length必须为合法的值，且大小不超过3 MB。
+    -   支持同时配置最多5个URL，多个URL间以分号（;）分隔。OSS会依次发送请求直到第一个返回成功为止。
+    -   如果未配置或者配置值为空则表示未配置callback。
     -   支持 HTTPS 地址。
     -   为了保证正确处理中文等情况，callbackUrl 需做 URL 编码处理，例如`http://example.com/中文.php?key=value&中文名称=中文值` 需要编码成 `http://example.com/%E4%B8%AD%E6%96%87.php?key=value&%E4%B8%AD%E6%96%87%E5%90%8D%E7%A7%B0=%E4%B8%AD%E6%96%87%E5%80%BC`
 |是|
@@ -367,32 +367,25 @@ bucket=callback-test&object=test.txt&etag=D8E8FCA2DC0F896FD7CB4CB0031BA249&size=
     server.serve_forever()
     ```
 
-    其它语言的服务端代码如下：
+    其它语言的服务端代码请参见下表。
 
-    Java 版本：
+    |SDK语言|描述|
+    |-----|--|
+    |Java|    -   下载地址：[Java](https://gosspublic.alicdn.com/images/AppCallbackServer.zip)
+    -   运行方法：解压包运行`java -jar oss-callback-server-demo.jar 9000`（9000指运行的端口，可以自行指定）。 |
+    |Python|    -   下载地址：[Python](https://gosspublic.alicdn.com/images/callback_app_server.py.zip)
+    -   运行方法：解压包直接运行`python callback_app_server.py`，运行该程序需要安装 RSA 的依赖。 |
+    |Go|    -   下载地址：[Go](https://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/31989/cn_zh/1501048745465/callback-server-go.zip)
+    -   运行方法：解压后参看 `README.md`。 |
+    |PHP|    -   下载地址：[PHP](https://gosspublic.alicdn.com/callback-php-demo.zip)
+    -   运行方法：部署到 Apache 环境下，因为 PHP 本身语言的特点，取一些数据头部会依赖于环境。所以可以参考例子根据所在环境修改。 |
+    |.NET|    -   下载地址：[.NET](https://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/131396/intl_en/1597211267799/callback-server-dotnet-20200810.zip)
+    -   运行方法：解压后参看 `README.md`。 |
+    |Node.js|    -   下载地址：[Node.js](http://gosspublic.alicdn.com/doc/oss-doc/callback-nodejs-demo.zip)
+    -   运行方法：解压包直接运行`node example.js`。 |
+    |Ruby|    -   下载地址：[Ruby](https://github.com/rockuw/oss-callback-server)
+    -   运行方法： ruby aliyun\_oss\_callback\_server.rb |
 
-    -   下载地址：[Java](https://gosspublic.alicdn.com/images/AppCallbackServer.zip)
-    -   运行方法：解压包运行`java -jar oss-callback-server-demo.jar 9000`（9000 就运行的端口，可以自己指定）
-    PHP 版本：
-
-    -   下载地址：[PHP](https://gosspublic.alicdn.com/callback-php-demo.zip)
-    -   运行方法：部署到 Apache 环境下，因为 PHP 本身语言的特点，取一些数据头部会依赖于环境。所以可以参考例子根据所在环境修改。
-    Python 版本：
-
-    -   下载地址：[Python](https://gosspublic.alicdn.com/images/callback_app_server.py.zip)
-    -   运行方法：解压包直接运行`python callback_app_server.py`，运行该程序需要安装 RSA 的依赖。
-    .NET 版本：
-
-    -   下载地址：[.NET](https://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/131396/intl_en/1597211267799/callback-server-dotnet-20200810.zip)
-    -   运行方法：解压后参看 `README.md`。
-    Go 版本：
-
-    -   下载地址：[Go](https://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/31989/cn_zh/1501048745465/callback-server-go.zip)
-    -   运行方法：解压后参看 `README.md`。
-    Ruby 版本：
-
-    -   下载地址：[Ruby](https://github.com/rockuw/oss-callback-server)
-    -   运行方法： ruby aliyun\_oss\_callback\_server.rb
 
 ## 步骤5：返回回调结果
 
