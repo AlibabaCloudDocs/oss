@@ -43,7 +43,8 @@
 -   100.118.203.0/24
 -   100.118.204.0/24
 -   100.118.217.0/24 |
-|华南2（河源）|oss-cn-heyuan|oss-cn-heyuan-internal.aliyuncs.com|提交工单咨询|
+|华南2（河源）|oss-cn-heyuan|oss-cn-heyuan-internal.aliyuncs.com|-   100.98.83.0/24
+-   100.118.174.0/24 |
 |华南3（广州）|oss-cn-guangzhou|oss-cn-guangzhou-internal.aliyuncs.com|-   100.115.33.0/24
 -   100.114.101.0/24 |
 |西南1（成都）|oss-cn-chengdu|oss-cn-chengdu-internal.aliyuncs.com|-   100.115.155.0/24
