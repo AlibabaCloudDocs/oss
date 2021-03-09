@@ -43,7 +43,8 @@ To access an OSS bucket through the internal network from an ECS instance in ano
 -   100.118.203.0/24
 -   100.118.204.0/24
 -   100.118.217.0/24 |
-|China \(Heyuan\)|oss-cn-heyuan|oss-cn-heyuan-internal.aliyuncs.com|Submit a ticket to obtain VIP address ranges.|
+|China \(Heyuan\)|oss-cn-heyuan|oss-cn-heyuan-internal.aliyuncs.com|-   100.98.83.0/24
+-   100.118.174.0/24 |
 |China \(Guangzhou\)|oss-cn-guangzhou|oss-cn-guangzhou-internal.aliyuncs.com|-   100.115.33.0/24
 -   100.114.101.0/24 |
 |China \(Chengdu\)|oss-cn-chengdu|oss-cn-chengdu-internal.aliyuncs.com|-   100.115.155.0/24
