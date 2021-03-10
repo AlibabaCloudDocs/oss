@@ -167,7 +167,7 @@ The code for OSS initialization:
 
     ```
     // We recommend that you use OSSAuthCredentialsProvider. The token is automatically updated after it expires.
-    String stsServer = "App server address such as http://abc.com:8080"
+    String stsServer = "App server address such as https://abc.com:8080"
     OSSCredentialProvider credentialProvider = new OSSAuthCredentialsProvider(stsServer);
     //config
     ClientConfiguration conf = new ClientConfiguration();
@@ -184,7 +184,7 @@ The code for OSS initialization:
     OSSClient * client;
     ...
     // We recommend that you use OSSAuthCredentialProvider. The token is automatically updated after it expires.
-    id<OSSCredentialProvider> credential = [[OSSAuthCredentialProvider alloc] initWithAuthServerUrl:@"App server address such as http://abc.com:8080"];
+    id<OSSCredentialProvider> credential = [[OSSAuthCredentialProvider alloc] initWithAuthServerUrl:@"App server address such as https://abc.com:8080"];
     client = [[OSSClient alloc] initWithEndpoint:endPoint credentialProvider:credential];
     ```
 
