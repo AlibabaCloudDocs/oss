@@ -8,7 +8,7 @@ Static websites are websites where all web pages consist of only static content,
 
 -   Supported features
 
-    The PutBucketWebsite operation is used to configure the default home page, default 404 page, and RoutingRule of the bucket that is set to the static website hosting mode. RoutingRule is used to specify redirection-based back-to-origin rules and mirroring-based back-to-origin rules. Mirroring-based back-to-origin supports Alibaba Cloud and Finance Cloud.
+    The PutBucketWebsite operation is used to configure the default homepage, default 404 page, and RoutingRule of the bucket that is set to the static website hosting mode. RoutingRule is used to specify redirection-based back-to-origin rules and mirroring-based back-to-origin rules. Mirroring-based back-to-origin supports the Alibaba Cloud public cloud and Finance Cloud.
 
 -   Access through custom domain names
 
@@ -20,7 +20,7 @@ Static websites are websites where all web pages consist of only static content,
 
 -   Anonymous access to the root domain name
 
-    After a bucket is set to the static website hosting mode, OSS returns the index page for an anonymous access to the root domain name of the static website, For a signed access to the root domain name of the static website, OSS returns the result of the GetBucket \(ListObjects\) operation.
+    After a bucket is set to the static website hosting mode, OSS returns the index page for anonymous access to the root domain name of the static website, For signed access to the root domain name of the static website, OSS returns the result of the GetBucket \(ListObjects\) operation.
 
 
 ## Request structure
@@ -89,7 +89,7 @@ Parent nodes: IndexDocument |
 |The container used to store the default 404 page. Parent nodes: WebsiteConfiguration |
     |Key|Container|ConditionalThis parameter must be specified if ErrorDocument is specified.
 
-|The default 404 page.If this parameter is specified, the 404 page is returned when the target object does not exist.
+|The default 404 page.If this parameter is specified, the 404 page is returned when the requested object does not exist.
 
 Parent nodes: ErrorDocument |
 
@@ -107,22 +107,18 @@ Parent nodes: ErrorDocument |
 
 -   The following table describes the parameters that you can configure in the RoutingRules\|RoutingRule\|Condition field in a request.
 
-    |Parameter|Type|Required|Description|
-    |---------|----|--------|-----------|
+    |Parameter|Type|Required|The memory size consumed by each core. Automatically allocated.|
+    |---------|----|--------|---------------------------------------------------------------|
     |Condition|Container|ConditionalThis parameter must be specified if RoutingRule is specified.
 
-|The matching conditions. If all of the specified conditions are met, the rule is executed. A rule is determined matched only when it meets the conditions specified by all nodes in Condition.
+|The matching conditions. If all of the specified conditions are met, the rule is executed. A rule is determined as matched only when it meets the conditions specified by all nodes in Condition.
 
 Parent nodes: RoutingRule |
     |KeyPrefixEquals|String|No|Specifies that only objects whose names contain the specified prefix match the rule. Parent nodes: Condition |
     |HttpErrorCodeReturnedEquals|HTTP status code|No|Specifies that the rule is matched only when the specified object is accessed and the specified status code is returned. If the redirection rule is a mirroring-based back-to-origin rule, the parameter value must be 404. Parent nodes: Condition |
     |IncludeHeader|Container|No|Specifies that the rule is matched only when the specified header is included in the request and the header value is equal to the specified value. You can specify up to 10 headers. Parent nodes: Condition |
-    |Key|String|ConditionalThis parameter must be specified if IncludeHeader is specified.
-
-|Specifies that the rule is matched only when the specified header is included in the request and the header value is equal to the value specified by Equals. Parent nodes: IncludeHeader |
-    |Equals|String|ConditionalThis parameter must be specified if IncludeHeader is specified.
-
-|Specifies that the rule is matched only when the header specified by Key is included in the request and the header value is equal to the specified value. Parent nodes: IncludeHeader |
+    |Key|String|Yes|Specifies that the rule is matched only when the specified header is included in the request and the header value is equal to the value specified by Equals. Parent nodes: IncludeHeader |
+    |Equals|String|No|Specifies that the rule is matched only when the header specified by Key is included in the request and the header value is equal to the specified value. Parent nodes: IncludeHeader |
     |KeySuffixEquals|String|No|Specifies that only objects whose names contain the specified suffix match the rule. The default value is null, indicating that no suffix is specified.
 
 Parent nodes: Condition |
@@ -142,7 +138,7 @@ Parent nodes: Condition |
     -   External: external redirection. OSS returns the 3xx HTTP redirect code and the Location header for your to redirect the request to another IP address.
     -   AliCDN: redirection based Alibaba Cloud CDN. OSS adds an additional header to the request, which is different from the External type. After CDN identifies the header, CDN redirects the access to the specified IP address and returns the obtained data instead of the redirection request to the user.
 Parent nodes: Redirect |
-    |PassQueryString|Boolean|No|Specifies whether parameters in the original request are contained in the redirecting request when redirection-based or mirroring-based back-to-origin is performed. For example, if the PassQueryString parameter is set to true and the `? a=b&c=d` parameter is contained in the request sent to OSS, this parameter is added to the Location header in the redirection request when the HTTP redirect code is 302. For example, if the request is `Location:www.test.com? a=b&c=d` and the redirecting type is mirroring-based back-to-origin, the ?a=b&c=d parameter is also contained in the back-to-origin request.
+    |PassQueryString|Boolean|No|Specifies whether parameters in the original request are contained in the redirect request when redirection-based or mirroring-based back-to-origin is performed. For example, if the PassQueryString parameter is set to true and the `? a=b&c=d` parameter is contained in the request sent to OSS, this parameter is added to the Location header in the redirection request when the HTTP redirect code is 302. For example, if the request is `Location:www.test.com? a=b&c=d` and the redirecting type is mirroring-based back-to-origin, the ?a=b&c=d parameter is also contained in the back-to-origin request.
 
 Valid values: true and false
 
@@ -158,10 +154,10 @@ For example, the object to access is myobject. If the specified URL is `http://w
 Parent nodes: Redirect |
     |MirrorPassQueryString|Boolean|No|This parameter plays the same role as PassQueryString and has a higher priority than PassQueryString.This parameter takes effect only when the value of RedirectType is Mirror.
 
-Default value: false
+Default value: false.
 
 Parent nodes: Redirect |
-    |MirrorFollowRedirect|Boolean|No|Specifies whether the access is redirected to the specified Location if the origin returns a 3xx HTTP status code and when the origin receives a mirroring-based back-to-origin request. For example, when a mirroring-based back-to-origin request is initiated, the origin returns 302, and Location is specified. Default value: true.
+    |MirrorFollowRedirect|Boolean|No|Specifies whether the access is redirected to the specified Location if the origin returns a 3xx HTTP status code and when the origin receives a mirroring-based back-to-origin request. For example, when a mirroring-based back-to-origin request is initiated, the origin returns 302, and Location is specified.
 
 Valid values:
 
@@ -204,18 +200,14 @@ Parent nodes: Set |
 |Specifies the value of the header. The value can be up to 1,024 bytes in length and cannot contain `\r\n`.This parameter takes effect only when the value of RedirectType is Mirror.
 
 Parent nodes: Set |
-    |Protocol|String|ConditionalThis parameter must be specified if the value of RedirectType is External or AliCDN.
-
-|The protocol used for redirection.For example, if you access the object named test, Protocol is set to https, and Hostname is set to `www.test.com`, the Location header is `https://www.test.com/test`.
+    |Protocol|String|No|The protocol used for redirection.For example, if you access the object named test, Protocol is set to https, and Hostname is set to `www.test.com`, the Location header is `https://www.test.com/test`.
 
 This parameter takes effect only when the value of RedirectType is External or AliCDN.
 
 Valid values: http and https.
 
 Parent nodes: Redirect |
-    |HostName|String|ConditionalThis parameter must be specified if the value of RedirectType is External or AliCDN.
-
-|The domain name used for redirection. It must comply with the naming conventions for domain names.For example, if you access the object named test, Protocol is set to https, and Hostname is set to `www.test.com`, the Location header is `https://www.test.com/test`.
+    |HostName|String|No|The domain name used for redirection. It must comply with the naming conventions for domain names.For example, if you access the object named test, Protocol is set to https, and Hostname is set to `www.test.com`, the Location header is `https://www.test.com/test`.
 
 Parent nodes: Redirect |
     |ReplaceKeyPrefixWith|String|No|Specifies the string that is used to replace the prefix of the object name in the redirection request. If the prefix of the object is empty, this string is added before the object name. **Note:** You can specify only one of the ReplaceKeyWith and ReplaceKeyPrefixWith parameters in a rule.
@@ -231,9 +223,7 @@ Parent nodes: Redirect |
     |ReplaceKeyWith|String|No|Specifies the string that is used to replace the requested object name when the request is redirected. This parameter can be a variable. The $\{key\} variable that indicates the object name in the request is supported. If ReplaceKeyWith is set to `prefix/${key}.suffix`, when you access the object named test, the Location header is `http://www.test.com/prefix/test.suffix`.
 
 Parent nodes: Redirect |
-    |HttpRedirectCode|HTTP status code|ConditionalThis parameter must be specified if the value of RedirectType is External or AliCDN.
-
-|The HTTP redirect code in the response.This parameter takes effect only when the value of RedirectType is External or AliCDN.
+    |HttpRedirectCode|HTTP status code|No|The HTTP redirect code in the response.This parameter takes effect only when the value of RedirectType is External or AliCDN. Default value: 301.
 
 Valid values: 301, 302, and 307
 
@@ -374,16 +364,16 @@ For more information about the response elements of PutBucketWebsite, see [Commo
     ```
 
 
-## SDK
+## SDKs
 
--   [Java](/intl.en-US/SDK Reference/Java/Buckets/Static website hosting.md)
--   [Python](/intl.en-US/SDK Reference/Python/Buckets/Static website hosting.md)
--   [Go](/intl.en-US/SDK Reference/Go/Buckets/Static website hosting.md)
--   [C++](/intl.en-US/SDK Reference/C++/Buckets/Static website hosting.md)
--   [PHP](/intl.en-US/SDK Reference/PHP/Buckets/Static website hosting.md)
--   [C](/intl.en-US/SDK Reference/C/Buckets/Static website hosting.md)
--   [.NET](/intl.en-US/SDK Reference/. NET/Buckets/Static website hosting.md)
--   [Node.js](/intl.en-US/SDK Reference/Node. js/Buckets/Static website hosting.md)
+-   [OSS SDK for Java](/intl.en-US/SDK Reference/Java/Buckets/Static website hosting.md)
+-   [OSS SDK for Python](/intl.en-US/SDK Reference/Python/Buckets/Static website hosting.md)
+-   [OSS SDK for Go](/intl.en-US/SDK Reference/Go/Buckets/Static website hosting.md)
+-   [OSS SDK for C++](/intl.en-US/SDK Reference/C++/Buckets/Static website hosting.md)
+-   [OSS SDK for PHP](/intl.en-US/SDK Reference/PHP/Buckets/Static website hosting.md)
+-   [OSS SDK for C](/intl.en-US/SDK Reference/C/Buckets/Static website hosting.md)
+-   [OSS SDK for .NET](/intl.en-US/SDK Reference/. NET/Buckets/Static website hosting.md)
+-   [OSS SDK for Node.js](/intl.en-US/SDK Reference/Node. js/Buckets/Static website hosting.md)
 
 ## Error codes
 
