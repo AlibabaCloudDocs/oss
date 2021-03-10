@@ -1,97 +1,103 @@
-# Quick start {#concept_32027_zh .concept}
+# Quick start
 
-This topic describes how to use OSS Python SDK to perform routine operations such as bucket creation, object uploads, and object downloads.
+This topic describes how to use OSS SDK for Python to perform routine operations such as create buckets, upload objects, and download objects.
 
-## Create a bucket {#section_lsm_fhk_kfb .section}
+## Create buckets
 
-Run the following code to create a bucket:
+A bucket is a global namespace in OSS. A bucket is a container for objects stored in OSS. The following code provides an example on how to create a bucket:
 
-```language-python
+```
 # -*- coding: utf-8 -*-
 import oss2
 
-# It is highly risky to log on with AccessKey of an Alibaba Cloud account because the account has permissions on all the APIs in OSS. We recommend that you log on as a RAM user to access APIs or perform routine operations and maintenance. To create a RAM account, log on to https://ram.console.aliyun.com.
-auth = oss2. Auth('<yourAccessKeyId>', '<yourAccessKeySecret>')
-# This example uses endpoint China (Hangzhou). Specify the actual endpoint based on your requirements.
-bucket = oss2. Bucket(auth, 'http://oss-cn-hangzhou.aliyuncs.com', '<yourBucketName>')
+# Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS because the account has permissions on all API operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create a RAM user, log on to the RAM console.
+auth = oss2.Auth('<yourAccessKeyId>', '<yourAccessKeySecret>')
+# The endpoint of the China (Hangzhou) region is used in this example. Specify the actual endpoint.
+bucket = oss2.Bucket(auth, 'http://oss-cn-hangzhou.aliyuncs.com', '<yourBucketName>')
 
 # Set the ACL of the bucket to private.
 bucket.create_bucket(oss2.models.BUCKET_ACL_PRIVATE)
-
+            
 ```
 
-For more information about endpoints, see [Regions and endpoints](../../../../../reseller.en-US/Developer Guide/Endpoint/Regions and endpoints.md#).
+For more information about bucket naming conventions, see the "Naming conventions" section in [Terms](/intl.en-US/Developer Guide/Terms.md). For more information about how to create a bucket, see [Create buckets](/intl.en-US/Console User Guide/Manage buckets/Create buckets.md).
 
-## Upload objects { .section}
+For more information about endpoints, see [Regions and endpoints](/intl.en-US/Developer Guide/Endpoint/Regions and endpoints.md).
 
-Run the following code to upload a file to OSS:
+## Upload objects
 
-```language-python
+The following code provides an example on how to upload an object to OSS:
+
+```
 # -*- coding: utf-8 -*-
 import oss2
 
-# It is highly risky to log on with AccessKey of an Alibaba Cloud account because the account has permissions on all the APIs in OSS. We recommend that you log on as a RAM user to access APIs or perform routine operations and maintenance. To create a RAM account, log on to https://ram.console.aliyun.com.
-auth = oss2. Auth('<yourAccessKeyId>', '<yourAccessKeySecret>')
-# This example uses endpoint China (Hangzhou). Specify the actual endpoint based on your requirements.
-bucket = oss2. Bucket(auth, 'http://oss-cn-hangzhou.aliyuncs.com', '<yourBucketName>')
+# Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS because the account has permissions on all API operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create a RAM user, log on to the RAM console.
+auth = oss2.Auth('<yourAccessKeyId>', '<yourAccessKeySecret>')
+# The endpoint of the China (Hangzhou) region is used in this example. Specify the actual endpoint.
+bucket = oss2.Bucket(auth, 'http://oss-cn-hangzhou.aliyuncs.com', '<yourBucketName>')
 
-# <yourLocalFile> consists of a local file path and a file name with extension, for example: /users/local/myfile.txt
+# <yourObjectName> indicates the complete path of the object you want to upload to OSS, and must include the extension of the object name. Example: abc/efg/123.jpg.
+# <yourLocalFile> consists of a local file path and an object name with extension. Example: /users/local/myfile.txt.
 bucket.put_object_from_file('<yourObjectName>', '<yourLocalFile>')
-
+            
 ```
 
-## Download objects { .section}
+## Download objects
 
-Run the following code to download a specified object to a local file:
+The following code provides an example on how to download a specified object to a file:
 
-```language-python
+```
 # -*- coding: utf-8 -*-
 import oss2
 
-# It is highly risky to log on with AccessKey of an Alibaba Cloud account because the account has permissions on all the APIs in OSS. We recommend that you log on as a RAM user to access APIs or perform routine operations and maintenance. To create a RAM account, log on to https://ram.console.aliyun.com.
-auth = oss2. Auth('<yourAccessKeyId>', '<yourAccessKeySecret>')
-# This example uses endpoint China (Hangzhou). Specify the actual endpoint based on your requirements.
-bucket = oss2. Bucket(auth, 'http://oss-cn-hangzhou.aliyuncs.com', '<yourBucketName>')
-
-# <yourLocalFile> consists of a local file path and a file name with extension, for example: /users/local/myfile.txt
+# Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS because the account has permissions on all API operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create a RAM user, log on to the RAM console.
+auth = oss2.Auth('<yourAccessKeyId>', '<yourAccessKeySecret>')
+# The endpoint of the China (Hangzhou) region is used in this example. Specify the actual endpoint.
+bucket = oss2.Bucket(auth, 'http://oss-cn-hangzhou.aliyuncs.com', '<yourBucketName>')
+# <yourObjectName> indicates the complete path of the object you want to download from OSS, and must include the extension of the object name. Example: abc/efg/123.jpg.
+# <yourLocalFile> consists of a local file path and an object name with an extension. Example: /users/local/myfile.txt.
 bucket.get_object_to_file('<yourObjectName>', '<yourLocalFile>')
-
+            
 ```
 
-## List objects { .section}
+## List objects
 
-Run the following code to list 10 objects in a specified bucket:
+The following code provides an example on how to list 10 objects in a specified bucket:
 
-```language-python
+```
 # -*- coding: utf-8 -*-
 import oss2
 from itertools import islice
 
-# It is highly risky to log on with AccessKey of an Alibaba Cloud account because the account has permissions on all the APIs in OSS. We strongly recommend that you create a RAM account and use it for API access and daily O&M. Log on to https://ram.console.aliyun.com to create a RAM account.
-auth = oss2. Auth('<yourAccessKeyId>', '<yourAccessKeySecret>')
-# This example uses endpoint China (Hangzhou). Specify the actual endpoint based on your requirements.
-bucket = oss2. Bucket(auth, 'http://oss-cn-hangzhou.aliyuncs.com', '<yourBucketName>')
+# Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS because the account has permissions on all API operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create a RAM user, log on to the RAM console.
+auth = oss2.Auth('<yourAccessKeyId>', '<yourAccessKeySecret>')
+# The endpoint of the China (Hangzhou) region is used in this example. Specify the actual endpoint.
+bucket = oss2.Bucket(auth, 'http://oss-cn-hangzhou.aliyuncs.com', '<yourBucketName>')
 
 # oss2.ObjectIteratorr is used to traverse objects.
-for b in islice(oss2. ObjectIterator(bucket), 10):
+for b in islice(oss2.ObjectIterator(bucket), 10):
     print(b.key)
-
+            
 ```
 
-## Delete objects { .section}
+## Delete objects
 
-Run the following code to delete a specified object:
+The following code provides an example on how to delete an object:
 
-```language-python
+```
 # -*- coding: utf-8 -*-
 import oss2
 
-# It is highly risky to log on with AccessKey of an Alibaba Cloud account because the account has permissions on all the APIs in OSS. We recommend that you log on as a RAM user to access APIs or perform routine operations and maintenance. To create a RAM account, log on to https://ram.console.aliyun.com.
-auth = oss2. Auth('<yourAccessKeyId>', '<yourAccessKeySecret>')
-# This example uses endpoint China (Hangzhou). Specify the actual endpoint based on your requirements.
-bucket = oss2. Bucket(auth, 'http://oss-cn-hangzhou.aliyuncs.com', '<yourBucketName>')
+# Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS because the account has permissions on all API operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create a RAM user, log on to the RAM console.
+auth = oss2.Auth('<yourAccessKeyId>', '<yourAccessKeySecret>')
+# The endpoint of the China (Hangzhou) region is used in this example. Specify the actual endpoint.
+bucket = oss2.Bucket(auth, 'http://oss-cn-hangzhou.aliyuncs.com', '<yourBucketName>')
 
+# <yourObjectName> indicates the complete path of the object you want to delete from OSS, and must include the extension of the object name. Example: abc/efg/123.jpg.
 bucket.delete_object('<yourObjectName>')
-
+            
 ```
+
+For more information about how to delete objects, see [Delete objects](/intl.en-US/SDK Reference/Python/Manage objects/Delete objects.md).
 
