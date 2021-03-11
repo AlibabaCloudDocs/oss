@@ -1,6 +1,8 @@
-# Copy objects {#concept_84843_zh .concept}
+# Copy objects
 
-## Copy a small-sized object {#section_x12_gbc_kfb .section}
+OSS allows you to copy objects of any sizes.
+
+## Copy a small-sized object
 
 You can use ossClient.copyObject to copy an object smaller than 1 GB from a bucket \(source bucket\) to another bucket \(target bucket\) in the same region. ossClient.copyObject supports the following configuration methods.
 
@@ -40,7 +42,7 @@ The following table describes the parameters you can configure for CopyObjectReq
 
     Run the following code for simple copy:
 
-    ```language-java
+    ```
     // This example uses endpoint China East 1 (Hangzhou). Specify the actual endpoint based on your requirements.
     String endpoint = "http://oss-cn-hangzhou.aliyuncs.com";
     // It is highly risky to log on with AccessKey of an Alibaba Cloud account because the account has permissions on all the APIs in OSS. We recommend that you log on as a RAM user to access APIs or perform routine operations and maintenance. To create a RAM account, log on to https://ram.console.aliyun.com.
@@ -53,7 +55,7 @@ The following table describes the parameters you can configure for CopyObjectReq
     String destinationObjectName = "<yourDestinationObjectName>";
     
     // Create an OSSClient instance.
-    OSSClient ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret);
+    OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
     
     // Copy an object.
     CopyObjectResult result = ossClient.copyObject(sourceBucketName, sourceObjectName, destinationBucketName, destinationObjectName);
@@ -61,14 +63,14 @@ The following table describes the parameters you can configure for CopyObjectReq
     
     // Close your OSSClient.
     ossClient.shutdown();
-    
+                        
     ```
 
 -   CopyObjectRequest-based copy
 
     Run the following code for CopyObjectRequest-based copy:
 
-    ```language-java
+    ```
     // This example uses endpoint China East 1 (Hangzhou). Specify the actual endpoint based on your requirements.
     String endpoint = "http://oss-cn-hangzhou.aliyuncs.com";
     // It is highly risky to log on with AccessKey of an Alibaba Cloud account because the account has permissions on all the APIs in OSS. We recommend that you log on as a RAM user to access APIs or perform routine operations and maintenance. To create a RAM account, log on to https://ram.console.aliyun.com.
@@ -81,7 +83,7 @@ The following table describes the parameters you can configure for CopyObjectReq
     String destinationObjectName = "<yourDestinationObjectName>";
     
     // Create an OSSClient instance.
-    OSSClient ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret);
+    OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
     
     // Create a CopyObjectRequest object.
     CopyObjectRequest copyObjectRequest = new CopyObjectRequest(sourceBucketName, sourceObjectName, destinationBucketName, destinationObjectName);
@@ -97,11 +99,11 @@ The following table describes the parameters you can configure for CopyObjectReq
     
     // Close your OSSClient.
     ossClient.shutdown();
-    
+                        
     ```
 
 
-## Copy a large-sized object { .section}
+## Copy a large-sized object
 
 To copy an object larger than 1 GB, you need to use UploadPartCopy. In other words, you need to split the object into multiple parts and copy each of them simultaneously. To enable UploadPartCopy, perform the following steps:
 
@@ -109,7 +111,9 @@ To copy an object larger than 1 GB, you need to use UploadPartCopy. In other wor
 2.  Start UploadPartCopy with ossClient.uploadPartCopy. Aside from the last part, all parts must be larger than 100 KB.
 3.  Submit the UploadPartCopy task with ossClient.completeMultipartUpload.
 
-```language-java
+Run the following code for UploadPartCopy task.
+
+```
 // This example uses endpoint China East 1 (Hangzhou). Specify the actual endpoint based on your requirements.
 String endpoint = "http://oss-cn-hangzhou.aliyuncs.com";
 // It is highly risky to log on with AccessKey of an Alibaba Cloud account because the account has permissions on all the APIs in OSS. We recommend that you log on as a RAM user to access APIs or perform routine operations and maintenance. To create a RAM account, log on to https://ram.console.aliyun.com.
@@ -146,7 +150,7 @@ for (int i = 0; i < partCount; i++) {
      // Calculate the size of each part.
     long skipBytes = partSize * i;
     long size = partSize < contentLength - skipBytes ? partSize : contentLength - skipBytes;
-    
+
     // Create UploadPartCopyRequest. You can specify conditions with UploadPartCopyRequest.
     UploadPartCopyRequest uploadPartCopyRequest = 
         new UploadPartCopyRequest(sourceBucketName, sourceObjectName, destinationBucketName, destinationObjectName);
@@ -155,7 +159,7 @@ for (int i = 0; i < partCount; i++) {
     uploadPartCopyRequest.setBeginIndex(skipBytes);
     uploadPartCopyRequest.setPartNumber(i + 1);
     UploadPartCopyResult uploadPartCopyResult = ossClient.uploadPartCopy(uploadPartCopyRequest);
-    
+
     // Save the returned ETag of parts to partETags.
     partETags.add(uploadPartCopyResult.getPartETag());
 }
@@ -167,8 +171,8 @@ ossClient.completeMultipartUpload(completeMultipartUploadRequest);
 
 // Close your OSSClient.
 ossClient.shutdown();
-
+            
 ```
 
-For more information about UploadPartCopy, see [UploadPartCopy](../../../../reseller.en-US/API Reference/Multipart upload operations/UploadPartCopy.md#). For the complete code of UploadPartCopy, see [GitHub](https://github.com/aliyun/aliyun-oss-java-sdk/blob/master/src/samples/UploadPartCopySample.java).
+For more information about UploadPartCopy, see [UploadPartCopy](/intl.en-US/API Reference/Object operations/Multipart upload/UploadPartCopy.md). For the complete code of UploadPartCopy, see [GitHub](https://github.com/aliyun/aliyun-oss-java-sdk/blob/master/src/samples/UploadPartCopySample.java).
 
