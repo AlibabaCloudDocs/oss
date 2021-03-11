@@ -1,48 +1,48 @@
-# Copy objects {#concept_88465_zh .concept}
+# Copy objects
 
-You can copy an object from a bucket \(source bucket\) to another bucket \(target bucket \) in the same region.
+You can copy an object from a source bucket to a destination bucket within the same region.
 
-You must note the following limits before copy an object:
+Object copy has the following limits:
 
--   You must have the read and write permission on the source object.
--   You cannot copy an object from a region to another region. For example, you cannot copy an object from a bucket in Hangzhou region to a bucket in Qingdao region.
+-   You must have read and write permissions on the source object.
+-   You cannot copy the object from a region to another region. For example, you cannot copy an object from a bucket in the China \(Hangzhou\) region to another bucket in the China \(Qingdao\) region.
 
-## Simple copy {#section_zsj_1tk_kfb .section}
+## Simple copy
 
-You can use simple copy for objects smaller than 1 GB. Run the following code for simple copy:
+You can use simple copy for objects that are smaller than 1 GB in size. The following code provides an example on how to perform simple copy:
 
-``` {#codeblock_1xo_xge_zuy .language-python}
+```
 # -*- coding: utf-8 -*-
 import oss2
 
-# It is highly risky to log on with AccessKey of an Alibaba Cloud account because the account has permissions on all APIs in OSS. We recommend that you log on as a RAM user to access APIs or perform routine operations and maintenance. To create a RAM account, log on to https://ram.console.aliyun.com.
+# Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS, because the account has permissions on all API operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create your RAM user, log on to https://ram.console.aliyun.com.
 auth = oss2.Auth('<yourAccessKeyId>', '<yourAccessKeySecret>')
-# This example uses endpoint China East 1 (Hangzhou). Specify the actual endpoint based on your requirements.
+# The endpoint of the China (Hangzhou) region is used in this example. Specify the actual endpoint.
 bucket = oss2.Bucket(auth, 'http://oss-cn-hangzhou.aliyuncs.com', '<yourDestinationBucketName>')
 
 bucket.copy_object('<yourSourceBucketName>', '<yourSourceObjectName>', '<yourDestinationObjectName>')
-			
+            
 ```
 
-## Copy a large-sized object {#section_2p9_3hp_02r .section}
+## Copy a large object
 
-To copy an object larger than 1 GB, you need to use UploadPartCopy. To enable UploadPartCopy, perform the following steps:
+To copy an object larger than 1 GB, you need to use UploadPartCopy. In other words, you need to split the object into multiple parts and copy each of them simultaneously. To enable UploadPartCopy, perform the following steps:
 
-1.  Use bucket.init\_multipart\_upload to initiate an UploadPartCopy task.
-2.  Start UploadPartCopy with bucket.upload\_part\_copy. Aside from the last part, all parts must be larger than 100 KB.
-3.  Submit the UploadPartCopy task with bucket.complete\_multipart\_upload.
+1.  Use bucket.init\_multipart\_upload to initiate a multipart copy task.
+2.  Use bucket.upload\_part\_copy to copy parts. All parts, except for the last part, must be larger than 100 KB.
+3.  Use bucket.complete\_multipart\_upload to complete the multipart copy task.
 
-Run the following code for UploadPartCopy task
+Run the following code for UploadPartCopy task.
 
-``` {#codeblock_0bn_0ls_kcz .language-python}
+```
 # -*- coding: utf-8 -*-
 import oss2
 from oss2.models import PartInfo
 from oss2 import determine_part_size
 
-# It is highly risky to log on with AccessKey of an Alibaba Cloud account because the account has permissions on all APIs in OSS. We recommend that you log on as a RAM user to access APIs or perform routine operations and maintenance. To create a RAM account, log on to https://ram.console.aliyun.com.
+# Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS, because the account has permissions on all API operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create your RAM user, log on to https://ram.console.aliyun.com.
 auth = oss2.Auth('<yourAccessKeyId>', '<yourAccessKeySecret>')
-# This example uses endpoint China East 1 (Hangzhou). Specify the actual endpoint based on your requirements.
+# The endpoint of the China (Hangzhou) region is used in this example. Specify the actual endpoint.
 bucket = oss2.Bucket(auth, 'http://oss-cn-hangzhou.aliyuncs.com', '<yourBucketName>')
 
 src_object = '<yourSourceObjectName>'
@@ -51,11 +51,11 @@ dst_object = '<yourDestinationObjectName>'
 total_size = bucket.head_object(src_object).content_length
 part_size = determine_part_size(total_size, preferred_size=100 * 1024)
 
-# Initiate an UploadPartCopy task
+# Initiate a multipart copy task.
 upload_id = bucket.init_multipart_upload(dst_object).upload_id
 parts = []
 
-# Copy parts one by one.
+# Copy each part sequentially.
 part_number = 1
 offset = 0
 while offset < total_size:
@@ -68,10 +68,10 @@ while offset < total_size:
     offset += num_to_upload
     part_number += 1
 
-# Complete the UploadPartCopy task.
+# Complete multipart copy.
 bucket.complete_multipart_upload(dst_object, upload_id, parts)
-			
+            
 ```
 
-For more information about UploadPartCopy, see [UploadPartCopy](../../../../reseller.en-US/API Reference/Multipart upload operations/UploadPartCopy.md#)
+For more information about UploadPartCopy, see [UploadPartCopy](/intl.en-US/API Reference/Object operations/Multipart upload/UploadPartCopy.md)
 
