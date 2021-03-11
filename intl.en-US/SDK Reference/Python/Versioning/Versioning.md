@@ -1,31 +1,33 @@
 # Versioning
 
-The versioning state of a bucket applies to all of the objects in the bucket. Versioning allows you to restore objects in a bucket to any previous point in time, and protects your data from being accidentally overwritten or deleted.
+The versioning state of a bucket applies to all objects in the bucket. Versioning allows you to restore objects in a bucket to previous version and protects your data from being accidentally overwritten or deleted.
 
-A bucket can be in any one of the following versioning states: unversioned \(default\), versioning-enabled, or versioning-suspended. For more information about versioning, see [Overview](/intl.en-US/Developer Guide/Data security/Versioning/Overview.md) in OSS Developer Guide.
+A bucket can be in one of the following versioning states: unversioned \(default\), versioning-enabled, or versioning-suspended. For more information about versioning, see [Overview](/intl.en-US/Developer Guide/Data security/Versioning/Overview.md).
 
 ## Configure versioning for a bucket
 
-The following code provides an example on how to configure versioning for a bucket to Enabled or Suspended:
+The following code provides an example on how to set versioning for a bucket to Enabled or Suspended:
 
 ```
 # -*- coding: utf-8 -*-
 import oss2
 from oss2.models import BucketVersioningConfig
 
-# Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS, because the account has permissions on all API operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create your RAM user, log on to the RAM console.
-# This example uses the endpoint of the China (Hangzhou) region. Specify the actual endpoint based on your requirements.
+# Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS because the account has permissions on all API 
+operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create a RAM user, log on to the RAM console.
+auth = oss2.Auth('<yourAccessKeyId>', '<yourAccessKeySecret>')
+// The endpoint of the China (Hangzhou) region is used in this region. Specify the actual endpoint based on your requirements.
 bucket = oss2.Bucket(auth, 'http://oss-cn-hangzhou.aliyuncs.com', '<yourBucketName>')
 
 # Initialize the versioning configurations for the bucket.
 config = BucketVersioningConfig()
-# Configure the versioning state to Enabled or Suspended.
+# Set the versioning state to Enabled or Suspended.
 config.status = oss2.BUCKET_VERSIONING_ENABLE
 
 # Configure versioning for the bucket.
 result = bucket.put_bucket_versioning(config)
 # View the HTTP status code.
-print('http response status:', result.status)
+print('http response code:', result.status)
 ```
 
 For more information about how to configure versioning for a bucket, see [PutBucketVersioning](/intl.en-US/API Reference/Bucket operations/Versioning/PutBucketVersioning.md).
@@ -38,9 +40,10 @@ The following code provides an example on how to obtain the versioning state of 
 # -*- coding: utf-8 -*-
 import oss2
 
-# Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS, because the account has permissions on all API operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create your RAM user, log on to the RAM console.
+# Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS because the account has permissions on all API 
+operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create a RAM user, log on to the RAM console.
 auth = oss2.Auth('<yourAccessKeyId>', '<yourAccessKeySecret>')
-# This example uses the endpoint of the China (Hangzhou) region. Specify the actual endpoint based on your requirements.
+// The endpoint of the China (Hangzhou) region is used in this region. Specify the actual endpoint based on your requirements.
 bucket = oss2.Bucket(auth, 'http://oss-cn-hangzhou.aliyuncs.com', '<yourBucketName>')
 
 # Obtain the versioning state of the bucket.
