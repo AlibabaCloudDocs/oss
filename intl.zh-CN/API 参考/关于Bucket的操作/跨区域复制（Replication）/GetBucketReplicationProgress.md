@@ -130,5 +130,5 @@ Authorization: SignatureValue
 |NoSuchBucket|404 NotFound|请求的Bucket不存在。|
 |NoSuchReplicationRule|404 NotFound|指定的RuleId不存在。|
 |NoSuchReplicationConfiguration|404 NotFound|请求的Bucket没有配置跨区域复制。|
-|TooManyReplicationRules|400 BadRequest|仅允许对单个Bucket设置一条跨区域复制规则。|
+|TooManyReplicationRules|400 BadRequest|请求中配置的跨区域复制规则超过一条。单次请求中只能配置一条跨区域复制规则。 |
 
