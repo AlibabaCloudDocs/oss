@@ -61,7 +61,6 @@ RAM policies for OSS support service-related actions, bucket-related actions, an
     |PutBucketLifecycle|oss:PutBucketLifecycle|
     |DeleteBucketLifecycle|oss:DeleteBucketLifecycle|
     |ListMultipartUploads|oss:ListMultipartUploads|
-    |ListParts|oss:ListParts|
     |PutBucketCors|oss:PutBucketCors|
     |GetBucketCors|oss:GetBucketCors|
     |DeleteBucketCors|oss:DeleteBucketCors|
@@ -107,6 +106,7 @@ RAM policies for OSS support service-related actions, bucket-related actions, an
     |DeleteMultipleObjects|
     |CopyObject|oss:GetObject,oss:PutObject|
     |UploadPartCopy|
+    |ListParts|oss:ListParts|
     |GetObjectAcl|oss:GetObjectAcl|
     |PutObjectAcl|oss:PutObjectAcl|
     |RestoreObject|oss:RestoreObject|
