@@ -61,7 +61,6 @@ Action分为Service级别操作、Bucket级别操作以及Object级别的操作�
     |PutBucketLifecycle|oss:PutBucketLifecycle|
     |DeleteBucketLifecycle|oss:DeleteBucketLifecycle|
     |ListMultipartUploads|oss:ListMultipartUploads|
-    |ListParts|oss:ListParts|
     |PutBucketCors|oss:PutBucketCors|
     |GetBucketCors|oss:GetBucketCors|
     |DeleteBucketCors|oss:DeleteBucketCors|
@@ -107,6 +106,7 @@ Action分为Service级别操作、Bucket级别操作以及Object级别的操作�
     |DeleteMultipleObjects|
     |CopyObject|oss:GetObject,oss:PutObject|
     |UploadPartCopy|
+    |ListParts|oss:ListParts|
     |GetObjectAcl|oss:GetObjectAcl|
     |PutObjectAcl|oss:PutObjectAcl|
     |RestoreObject|oss:RestoreObject|
