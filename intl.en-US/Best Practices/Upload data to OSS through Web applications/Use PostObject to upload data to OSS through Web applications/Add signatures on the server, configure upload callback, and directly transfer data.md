@@ -50,7 +50,7 @@ The service of signature-based upload on the server, configuring upload callback
 
 ## Client source code analysis
 
-The client source code is available at [aliyun-oss-appserver-js-master.zip](http://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/86983/APP_zh/1537971352825/aliyun-oss-appserver-js-master.zip).
+The client source code is available at [aliyun-oss-appserver-js-master.zip](https://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/86983/APP_zh/1537971352825/aliyun-oss-appserver-js-master.zip?spm=a2c4g.11186623.2.16.6267691cCjEAw3&file=aliyun-oss-appserver-js-master.zip).
 
 **Note:** Plupload is used for the client JavaScript code. Plupload is a simple, easy-to-use, and powerful file uploading tool with extensive functions. It provides multiple upload methods, including uploads by using HTML, Flash, Silverlight, and HTML4. Plupload detects the current environment to select the most suitable upload method. HTML5 is prioritized. For more information about Plupload, visit [Plupload.com](https://www.plupload.com/).
 
