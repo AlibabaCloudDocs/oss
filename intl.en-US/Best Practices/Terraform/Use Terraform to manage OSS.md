@@ -57,7 +57,7 @@ Before you use Terraform, perform the following steps to install and configure T
     ```
     provider.tf                -- used to configure providers
     terraform.tfvars      -- used to configure the variables required to configure providers
-    varable.tf                  -- used to configure universal variables
+    variable.tf                  -- used to configure universal variables
     resource.tf                -- used to define resources
     data.tf                        -- used to define package files
     output.tf                    -- used to configure the output
