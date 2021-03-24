@@ -1,64 +1,69 @@
 # Configure CRR
 
-Cross-region replication \(CRR\) enables the automatic and asynchronous \(near real-time\) replication of objects across buckets in different OSS regions. If you enable CRR, operations such as the creation, overwriting, and deletion of objects can be synchronized from a source bucket to a destination bucket.
+Cross-region replication \(CRR\) allows you to perform automatic and asynchronous \(near real-time\) replication on objects across buckets in different regions. If you enable CRR, operations such as the creation, overwriting, and deletion of objects can be synchronized from the source bucket to the destination bucket to implement geo-disaster recovery or data replication.
 
-This feature meets the requirements of geo-disaster recovery or data replication. Objects in the destination bucket are extra replicas of objects in the source bucket. They have the same object names, object content, and object metadata such as the creation time, owner, user metadata, and object ACL.
+When you use CRR, take note of the following items:
+
+-   Billing
+    -   OSS charges you for the traffic generated when you use CRR to replicate objects. For more information about the billing methods, see [Traffic fees](/intl.en-US/Pricing/Billing items and methods/Traffic fees.md).
+    -   Each time an object is synchronized, OSS counts the number of requests and charges fees for the requests. For more information about the billing methods, see [API operation calling fees](/intl.en-US/Pricing/Billing items and methods/API operation calling fees.md).
+    -   If you enable transfer acceleration, you are charged for transfer acceleration. For more information about the billing methods, see [Transfer acceleration fees](/intl.en-US/Pricing/Billing items and methods/Transfer acceleration fees.md).
+-   Usage notes
+    -   The source bucket and the destination bucket must be in different regions
+    -   The source bucket and destination bucket specified in a CRR rule cannot synchronize data with other buckets. For example, if you configure a CRR rule to synchronize data from Bucket A to Bucket B, both Bucket A and Bucket B cannot synchronize data with Bucket C.
+    -   The source bucket and destination bucket must be both versioned or unversioned. The versioning state of the source bucket and destination bucket cannot be changed when data is being synchronized between the two buckets.
 
 For more information about CRR, see [Cross-region replication](/intl.en-US/Developer Guide/Data security/Disaster recovery/Cross-region replication.md).
 
 ## Enable CRR
 
-To enable CRR, perform the following steps:
-
 1.  Log on to the [OSS console](https://oss.console.aliyun.com/).
 
-2.  Click **Buckets**, and then click the name of the target bucket.
+2.  In the left-side navigation pane, click **Buckets**. On the Buckets page, find the bucket for which you want to enable CRR.
 
-3.  Choose **Redundancy for Fault Tolerance** \> **Cross-Region Replication**.
+3.  In the left-side navigation pane, choose **Redundancy for Fault Tolerance** \> **Cross-Region Replication**.
 
-4.  Click **Enable**. In the Cross-Region Replication pane, configure the parameters listed in the following table.
+4.  Click **Enable**. Then, configure the parameters described in the following table in the Cross-Region Replication panel.
 
     |Parameter|Description|
     |---------|-----------|
     |**Source Region**|The region where the current bucket is located.|
     |**Source Bucket**|The name of the current bucket.|
-    |**Destination Region**|Select the region where the destination bucket is located.The source and destination buckets for CRR must be located in different regions. Data cannot be synchronized between buckets located within the same region. |
-    |**Destination Bucket**|Select the destination bucket to synchronize data.The two buckets that have CRR enabled cannot synchronize data with other buckets. If you synchronize data from Bucket A to Bucket B, neither Bucket A nor Bucket B can synchronize data with other buckets. |
-    |**Acceleration Type**|You must enable transfer acceleration when you perform CRR in regions in mainland China and regions outside mainland China. For more information about transfer acceleration, see [Transfer acceleration](/intl.en-US/Developer Guide/Buckets/Transfer acceleration.md).|
-    |**Applied To**|Select the source data to synchronize.     -   **All Files in Source Bucket**: synchronizes all objects from the source bucket to the destination bucket.
-    -   **Files with Specified Prefix**: synchronizes the objects whose names contain the specified prefix from the source bucket to the destination bucket. You can specify up to 10 prefixes.
-
-For example, if you have a folder named management/ in the root folder of a bucket and a subfolder named abc/ in management/, when you want to synchronize objects in the abc/ subfolder, enter management/abc/ as the prefix. |
-    |**Object Tagging**|Objects that have the specified tags are synchronized to the destination bucket. Select **Configure Rules** and add tags \(key-value pairs\). You can add up to 10 tags.When you set this parameter, ensure that the following conditions are met:
+    |**Destination Region**|Select the region where the destination bucket is located.|
+    |**Destination Bucket**|Select the destination bucket to which you want to synchronize data.|
+    |**Acceleration Type**|Only **Transfer Acceleration** is supported. Transfer acceleration can be used to increase the transfer speed when data is replicated across regions within mainland China and outside mainland China. For more information about transfer acceleration, see [Transfer acceleration](/intl.en-US/Developer Guide/Buckets/Transfer acceleration.md).|
+    |**Applied To**|Select the source data that you want to synchronize.     -   **All Files in Source Bucket**: synchronizes all objects from the source bucket to the destination bucket.
+    -   **Files with Specified Prefix**: synchronizes the objects whose names contain the specified prefix from the source bucket to the destination bucket. You can specify up to 10 prefixes. |
+    |**Object Tagging**|Objects that have the specified tags are synchronized to the destination bucket. Select **Configure Rules** and add tags \(key-value pairs\). You can add up to 10 tags.When you set this parameter, make sure that the following conditions are met:
 
     -   Object tags are configured. For more information, see [Configure object tagging](/intl.en-US/Console User Guide/Upload, download, and manage objects/Configure object tagging.md).
-    -   Versioning is enabled for the source and destination buckets.
-    -   **Add/Change** is set to Operations.
-    -   The source region is China \(Hangzhou\). The destination region is any region except China \(Hangzhou\). Or the source region is Australia \(Sydney\), and the destination region is any region except mainland China regions or Australia \(Sydney\). |
+    -   Versioning is enabled for the source bucket and destination bucket.
+    -   **Add/Change** is set for Operations.
+    -   If the source region is China \(Hangzhou\), the destination region can be a region except China \(Hangzhou\). If the source region is Australia \(Sydney\), the destination region can be a different region outside mainland China. |
     |**Operations**|Select the synchronization policy.     -   **Add/Change**: synchronizes only the added or changed data from the source bucket to the destination bucket.
     -   **Add/Delete/Change**: synchronizes all data changes such as the creation, overwriting, and deletion of objects from the source bucket to the destination bucket.
-For more information about CRR for objects that have versioning configured, see [Cross-region replication in specific scenarios](/intl.en-US/Developer Guide/Data security/Disaster recovery/Cross-region replication in specific scenarios.md). |
+For more information about how to configure CRR for objects in versioned buckets, see [Cross-region replication in specific scenarios](/intl.en-US/Developer Guide/Data security/Disaster recovery/Cross-region replication in specific scenarios.md). |
     |**Replicate Historical Data**|Specify whether to synchronize historical data before you enable CRR.    -   **Yes**: synchronizes historical data to the destination bucket.
 
-**Note:** When historical data is synchronized, objects in the source bucket may overwrite objects in the destination bucket if these objects have the same names. To avoid overwriting objects that have the same names, we recommend that you enable versioning for the source and destination buckets.
+**Note:** When historical data is synchronized, objects in the source bucket may overwrite objects in the destination bucket if these objects have the same names. To avoid data loss, we recommend that you enable versioning for the source and destination buckets.
 
-    -   **No**: synchronizes only objects that you want to upload or update to the destination bucket after CRR rules take effect. |
-    |**KMS-based Encryption**|Use SSE-KMS to encrypt data. OSS uses a specified customer master key \(CMK\) to generate different keys to encrypt objects that you want to replicate to the destination bucket.    -   **CMK ID**: the CMK ID used to encrypt objects replicated to the destination bucket, which is to specify the CMK ID for the destination object.
+    -   **No**: synchronizes only objects that are uploaded or updated after the CRR rule takes effect to the destination bucket. |
+    |**KMS-based Encryption**|If KMS-based encryption is configured for the source objects or destination bucket, you must select **KMS-based Encryption** and configure the following parameters:    -   **CMK**: specifies a customer master key \(CMK\) used to encrypt the destination object.
 
-To use a CMK to encrypt objects, you must create a CMK in the same region as the destination bucket. For more information, see [Manage CMKs]().
+To use a CMK to encrypt objects, you must create the CMK in the same region as the destination bucket. For more information, see [Manage CMKs]().
 
-You are charged for calling API operations when you use CMKs to encrypt or decrypt data.
+    -   **Authorized RAM Role**: authorizes a RAM role to perform KMS-based encryption on the destination objects.
+        -   **New RAM Role**: A RAM role is created to perform KMS-based encryption on the destination object. The role name is in the following format: `kms-replication-source bucket name-destination bucket name`.
+        -   **AliyunOSSRole**: The AliyunOSSRole role is used to perform KMS-based encryption on the destination object. If the AliyunOSSRole role does not exist, OSS automatically creates the AliyunOSSRole role when you select this option.
+**Note:**
 
-For more information about CRR for objects that have server-side encryption configured, see [Cross-region replication in specific scenarios](/intl.en-US/Developer Guide/Data security/Disaster recovery/Cross-region replication in specific scenarios.md).
-
-    -   **RAM Role Name**: Select New RAM Role or AliyunOSSRole to encrypt data for the destination object by using CMKs.
-        -   **New RAM Role**: A new RAM role is created by OSS to encrypt data for the destination object by using CMKs. The format is kms-replication-source bucket name-destination bucket name.
-        -   **AliyunOSSRole**: The AliyunOSSRole role is used to encrypt data for the destination object by using CMKs. If AliyunOSSRole does not exist, it is created. |
+    -   You can use [HeadObject](/intl.en-US/API Reference/Object operations/Basic operations/HeadObject.md) to query the encryption status of the source object and [GetBucketEncryption](/intl.en-US/API Reference/Bucket operations/Encryption/GetBucketEncryption.md) to query the encryption status of the destination bucket.
+    -   For more information about how to configure CRR for buckets for that have server-side encryption configured, see [Cross-region replication in specific scenarios](/intl.en-US/Developer Guide/Data security/Disaster recovery/Cross-region replication in specific scenarios.md). |
 
 5.  Click **OK**.
 
-    -   After you configure CRR rules, you cannot edit or delete CRR rules.
-    -   After the configuration is complete, the incremental data is synchronized three to five minutes after CRR is enabled. If you select Replicate Historical Data, the historical data is synchronized 90 minutes after CRR is enabled. You can view the replication details after CRR is enabled.
+    -   A CRR rule cannot be edited or deleted after it is created.
+    -   The synchronization task starts 3 to 5 minutes after a CRR rule is configured. You can view the synchronization progress by choosing **Redundancy for Fault Tolerance** \> **Cross-Region Replication** on the overview page of the source bucket.
     -   In CRR, data is asynchronously \(near real-time\) replicated. It takes several minutes to several hours for the data to be replicated to the destination bucket based on the amount of data.
 
 ## Disable CRR
@@ -67,5 +72,5 @@ You can click **Disable** to disable CRR.
 
 ![sync](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/4658906061/p135995.png)
 
-After CRR is disabled, the replicated data is stored in the destination bucket, and the incremental data from the source bucket is not replicated to the destination bucket.
+After CRR is disabled, the replicated data is stored in the destination bucket, and the incremental data in the source bucket is not replicated to the destination bucket.
 
