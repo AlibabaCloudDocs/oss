@@ -15,7 +15,7 @@ AppendObject接口用于以追加写的方式上传文件（Object）。通过Ap
 
 ## 使用限制
 
--   通过AppendObject方式产生的Object大小不得超过5 GB。
+-   通过AppendObject方式最后生成的Object大小不得超过5 GB。
 -   处于[合规保留策略](/intl.zh-CN/开发指南/数据安全/合规保留策略.md)保护期的Object不支持AppendObject操作。
 -   AppendableObject不支持指定CMK ID进行服务端KMS加密。
 
@@ -112,6 +112,17 @@ Appendable Object的CRC64采用[ECMA-182](http://www.ecma-international.org/publ
     ```
 
 
+## 和其他操作的关系
+
+|其他操作|关系描述|
+|:---|:---|
+|[PutObject](/intl.zh-CN/API 参考/关于Object操作/基础操作/PutObject.md)|如果对一个已经存在的Appendable Object进行PutObject操作，该Appendable Object会被新的Object覆盖，类型转换为Normal Object。|
+|[HeadObject](/intl.zh-CN/API 参考/关于Object操作/基础操作/HeadObject.md)|对Appendable Object执行HeadObject操作会返回x-oss-next-append-position、x-oss-hash-crc64ecma以及x-oss-object-type。Appendable Object的x-oss-object-type为Appendable。|
+|[GetBucket \(ListObjects\)](/intl.zh-CN/API 参考/关于Bucket的操作/基础操作/GetBucket (ListObjects).md)|在GetBucket请求的响应中，会将Appendable Object的Type设为Appendable。|
+|[CopyObject](/intl.zh-CN/API 参考/关于Object操作/基础操作/CopyObject.md)|-   允许使用CopyObject修改Appendable Object自定义的元信息。
+-   不允许使用CopyObject拷贝一个Appendable Object。
+-   不允许使用CopyObject修改Appendable Object的服务器端加密属性。 |
+
 ## 示例
 
 -   请求示例
@@ -186,17 +197,6 @@ Appendable Object的CRC64采用[ECMA-182](http://www.ecma-international.org/publ
 -   [.NET](/intl.zh-CN/SDK 示例/.NET/上传文件/追加上传.md)
 -   [iOS](/intl.zh-CN/SDK 示例/iOS/上传文件/概述.md)
 -   [Ruby](/intl.zh-CN/SDK 示例/Ruby/上传文件.md)
-
-## 和其他操作的关系
-
-|其他操作|关系描述|
-|:---|:---|
-|[PutObject](/intl.zh-CN/API 参考/关于Object操作/基础操作/PutObject.md)|如果对一个已经存在的Appendable Object进行PutObject操作，该Appendable Object会被新的Object覆盖，类型转换为Normal Object。|
-|[HeadObject](/intl.zh-CN/API 参考/关于Object操作/基础操作/HeadObject.md)|对Appendable Object执行HeadObject操作会返回x-oss-next-append-position、x-oss-hash-crc64ecma以及x-oss-object-type。Appendable Object的x-oss-object-type为Appendable。|
-|[GetBucket](/intl.zh-CN/API 参考/关于Object操作/基础操作/GetObject.md)|在GetBucket请求的响应中，会将Appendable Object的Type设为Appendable。|
-|[CopyObject](/intl.zh-CN/API 参考/关于Object操作/基础操作/CopyObject.md)|-   允许使用CopyObject修改Appendable Object自定义的元信息。
--   不允许使用CopyObject拷贝一个Appendable Object。
--   不允许使用CopyObject修改Appendable Object的服务器端加密属性。 |
 
 ## 错误码
 
