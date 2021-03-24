@@ -13,148 +13,108 @@ Authorization: SignatureValue
 
 ## Response elements
 
-|Element|Type|Description|
-|:------|:---|:----------|
-|WebsiteConfiguration|Container|The root node.
+-   The following table describes the elements in the WebsiteConfiguration field in the response to a GetBucketWebsite request.
 
-Parent nodes: none |
-|IndexDocument|Container|The container for the default homepage.
+    |Element|Type|Example|Description|
+    |-------|----|-------|-----------|
+    |WebsiteConfiguration|Container|N/A|The root node.Parent nodes: none |
 
-Parent nodes: WebsiteConfiguration |
-|Suffix|String|The default homepage.
+-   The following table describes the elements in the IndexDocument field in the response to a GetBucketWebsite request.
 
-Parent nodes: IndexDocument |
-|ErrorDocument|Container|The container for the default 404 page.
+    |Element|Type|Example|Description|
+    |-------|----|-------|-----------|
+    |IndexDocument|Container|N/A|The container for the default homepage.Parent nodes: WebsiteConfiguration |
+    |Suffix|String|index.html|The default homepage.Parent nodes: IndexDocument |
 
-Parent nodes: WebsiteConfiguration |
-|Key|Container|The default 404 page.
+-   The following table describes the elements in the ErrorDocument field in the response to a GetBucketWebsite request.
 
-Parent nodes: ErrorDocument |
-|RoutingRules|Container|The container for RoutingRule.
+    |Element|Type|Example|Description|
+    |-------|----|-------|-----------|
+    |ErrorDocument|Container|N/A|The container used to store the default 404 page.Parent nodes: WebsiteConfiguration |
+    |Key|String|error.html|The default 404 page.Parent nodes: ErrorDocument |
 
-Parent nodes: WebsiteConfiguration |
-|RoutingRule|Container|Redirection rules or mirroring-based back-to-origin rules
+-   The following table describes the elements in the RoutingRules, RoutingRule, and RuleNumber fields in the response to a GetBucketWebsite request.
 
-Parent nodes: RoutingRules |
-|RuleNumber|Positive integer|The sequence number used to match and execute redirection rules.
-
-Redirection rules are matched based on the value of this parameter. If a match succeeds, the rule is executed and the subsequent rules are not executed.
-
-Parent nodes: RoutingRule |
-|Condition|Container|The matching conditions.
-
-If all of the specified conditions are met, the rule is executed. The nodes in the container are in the AND relationship. A request must meet all the conditions to be considered a match.
+    |Element|Type|Example|Description|
+    |-------|----|-------|-----------|
+    |RoutingRules|Container|N/A|The container used to store RoutingRule.Parent nodes: WebsiteConfiguration |
+    |RoutingRule|Container|N/A|Redirection rules or mirroring-based back-to-origin rulesParent nodes: RoutingRules |
+    |RuleNumber|Positive integer|1|The sequence number used to match and execute redirection rules or mirroring-based back-to-origin rules.Redirection rules are matched based on this element. If a match succeeds, the rule is executed and the subsequent rules are not executed.
 
 Parent nodes: RoutingRule |
-|KeyPrefixEquals|String|Indicates that only objects whose names contain the specified prefix match the rule.
 
-Parent nodes: Condition |
-|HttpErrorCodeReturnedEquals|HTTP status code|Indicates that the rule is matched only when the specified object is accessed and the specified status code is returned. If the redirection rule is the mirroring-based back-to-origin rule, the parameter value must be 404.
+-   The following table describes the elements in the Condition field in the response to a GetBucketWebsite request.
 
-Parent nodes: Condition |
-|IncludeHeader|Container|Indicates that the rule is matched only when the specified header is included in the request and the header value is equal to the specified value. Up to five containers can be specified.
+    |Element|Type|Example|Description|
+    |-------|----|-------|-----------|
+    |Condition|Container|N/A|The matching conditions. The rule is executed only when all the conditions are met.Parent nodes: RoutingRule |
+    |KeyPrefixEquals|String|abc|The prefix of object names. Only objects whose names contain the specified prefix match the rule.Parent nodes: Condition |
+    |HttpErrorCodeReturnedEquals|HTTP status code|404|The returned HTTP status code. The rule is matched only when the specified object is accessed and the specified status code is returned. If the redirection rule is the mirroring-based back-to-origin rule, the value of this element is 404.Parent nodes: Condition |
+    |IncludeHeader|Container|N/A|The header specified in the request. The rule is matched only when the specified header is included in the request and the header value is equal to the specified value. Up to five containers can be specified.Parent nodes: IncludeHeader |
+    |Key|String|host|Indicates that the rule is matched only when the specified header is included in the request and the header value equals the value specified by Equals.Parent nodes: IncludeHeader |
+    |Equals|String|test.oss-cn-beijing-internal.aliyuncs.com|Indicates that the rule is matched only when the header specified by Key is included in the request and the header value equals the specified value.Parent nodes: IncludeHeader |
 
-Parent nodes: Condition |
-|Key|String|Indicates that the rule is matched only when the specified header is included in the request and the header value equals the value specified by Equals.
+-   The following table describes the elements in the Redirect field in the response to a GetBucketWebsite request.
 
-Parent nodes: IncludeHeader |
-|Equals|String|Indicates that the rule is matched only when the header specified by Key is included in the request and the header value equals the specified value.
-
-Parent nodes: IncludeHeader |
-|Redirect|Container|The operation to perform after the rule is matched.
-
-Parent nodes: RoutingRule |
-|RedirectType|String|The redirection type. Valid values:
-
--   Mirror: back-to-origin
--   External: external redirection. OSS returns the 3xx HTTP redirect code and the Location header for your to redirect the request to another IP address.
--   Internal: internal redirection. OSS redirects the access from object1 to object2 based on the rule. In this case, the user accesses object2 instead of object1.
--   AliCDN: Alibaba Cloud CDN-based redirection. OSS adds an additional header to the request, which is different from the External type. After identifying the header, CDN redirects the access to the specified IP address and returns the obtained data instead of the 3xx redirecting request to the user.
-
+    |Element|Type|Example|Description|
+    |:------|:---|-------|:----------|
+    |Redirect|Container|N/A|The operation to perform after the rule is matched.Parent nodes: RoutingRule |
+    |RedirectType|String|Mirror|The redirection type.    -   Mirror: back-to-origin
+    -   External: external redirection. OSS returns a 3xx request to redirect the access to another IP address.
+    -   AliCDN: Alibaba Cloud CDN-based redirection. OSS adds an additional header to the request, which is different from the External type. After the header is identified, CDN redirects the access to the specified IP address and returns the obtained data instead of the 3xx redirect request to the user.
 Parent nodes: Redirect |
-|PassQueryString|Boolean|Indicates whether the request parameter is carried when the redirection- or mirroring-based back-to-origin is performed.
-
-If the PassQueryString parameter is set to true and "?a=b&c=d" is carried in a request sent to OSS, this parameter is added to the Location header when the rule is 302 redirection. For example, if the request contains "Location: www.test.com?a=b&c=d" and the value of RedirectType is Mirror, the parameter "a=b&c=d" is carried in the back-to-origin request.
+    |PassQueryString|Boolean|false|Indicates whether the request parameter is carried when the redirection- or mirroring-based back-to-origin is performed.If the PassQueryString parameter is set to true and "?a=b&c=d" is carried in a request sent to OSS, this parameter is added to the Location header when the direct mode is 302. For example, if the request contains "Location: www.test.com?a=b&c=d" and the value of RedirectType is Mirror, the parameter "a=b&c=d" is carried in the back-to-origin request.
 
 Default value: false
 
 Parent nodes: Redirect |
-|MirrorURL|String|This element is valid only when the value of RedirectType is Mirror.
+    |MirrorURL|String|http://www.test.com|This element is returned only when the value of RedirectType is Mirror.URLs that start with http:// or https:// must end with a forward slash \(/\). OSS adds the object name to the string to form the back-to-origin URL. For example, you want to access an object named myobject.
 
-URLs that start with http:// or https:// must end with a forward slash \(/\). OSS adds the object name to the string to form the back-to-origin URL. For example, if MirrorURL is set to `http://www.test.com/` and the name of the object to access is myobject, the back-to-origin URL is `http://www.test.com/dir1/myobject`. If MirrorURL is set to `http://www.test.com/dir1/`, the back-to-origin URL is `http://www.test.com/dir1/myobject`.
+    -   If the specified URL is `http://www.test.com/`, the back-to-origin URL is `http://www.test.com/myobject`.
+    -   If the specified URL is `http://www.test.com/dir1/`, the back-to-origin URL is `http://www.test.com/dir1/myobject`.
+Parent nodes: Redirect |
+    |MirrorPassQueryString|Boolean|false|This element plays the same role as PassQueryString and has a higher priority than PassQueryString. However, this element take effects only when RedirectType is set to Mirror.Default value: false
 
 Parent nodes: Redirect |
-|MirrorPassQueryString|Boolean|This element plays the same role as PassQueryString and has a higher priority than PassQueryString. However, this element take effects only when RedirectType is set to Mirror.
-
-Default value: false
-
-Parent nodes: Redirect |
-|MirrorFollowRedirect|Boolean|Indicates whether the access is redirected to the specified Location if the origin returns a 3xx HTTP status code and when the origin receives a mirroring-based back-to-origin request.
-
-For example, when a mirroring-based back-to-origin request is initiated, the origin returns 302, and Location is specified. In this case, if the value of MirrorFollowRedirect is true, OSS continues to send requests to the IP address specified by Location. A request can be redirected for a maximum of 10 times. If the request is redirected for more than 10 times, a mirroring back-to-origin failure message is returned. If the value of MirrorFollowRedirect is false, OSS returns 302 and includes Location in the response. This parameter takes effect only when the value of RedirectType is Mirror.
+    |MirrorFollowRedirect|Boolean|true|Indicates whether the access is redirected to the specified Location if the origin returns a 3xx HTTP status code and when the origin receives a mirroring-based back-to-origin request.For example, when a mirroring-based back-to-origin request is initiated, the origin returns 302, and Location is specified. In this case, if the value of MirrorFollowRedirect is true, OSS continues to send requests to the IP address specified by Location. A request can be redirected for a maximum of 10 times. If the request is redirected for more than 10 times, a mirroring back-to-origin failure message is returned. If the value of MirrorFollowRedirect is false, OSS returns 302 and includes Location in the response. This element is returned only when the value of RedirectType is Mirror.
 
 Default value: true
 
 Parent nodes: Redirect |
-|MirrorCheckMd5|Boolean|Indicates whether OSS checks the MD5 hash of the body of the response returned by the origin.
-
-When the value of this parameter is true and the response returned by the origin includes the Content-Md5 header, OSS checks whether the MD5 hash of the obtained data matches the header value. If it is not matched, OSS does not store the data. This parameter takes effect only when the value of RedirectType is Mirror.
+    |MirrorCheckMd5|Boolean|false|Indicates whether OSS checks the MD5 hash of the body of the response returned by the origin.When the value of this parameter is true and the response returned by the origin includes the Content-Md5 header, OSS checks whether the MD5 hash of the obtained data matches the header value. If it is not matched, OSS does not store the data. This element is returned only when the value of RedirectType is Mirror.
 
 Default value: false
 
  Parent nodes: Redirect|
-|MirrorHeaders|Container|Indicates the header carried when mirroring the back-to-origin. This parameter takes effect only when the value of RedirectType is Mirror.
-
-Parent nodes: Redirect |
-|PassAll|Boolean|Indicates whether OSS passes through all request headers \(except for reserved headers and headers that start with oss-, x-oss-, and x-drs-\) to the origin. This parameter takes effect only when the value of RedirectType is Mirror.
-
-Default value: false
+    |MirrorHeaders|Container|N/A|The headers that are carried when a mirroring-based back-to-origin rule is specified for the bucket. This element is returned only when the value of RedirectType is Mirror.Parent nodes: Redirect |
+    |PassAll|Boolean|true|Indicates whether OSS passes through all request headers \(except for reserved headers and headers that start with `oss-, x-oss-, and x-drs-`\) to the origin. This element is returned only when the value of RedirectType is Mirror.Default value: false
 
 Parent nodes: MirrorHeaders |
-|Pass|String|Indicates the headers to pass through to the origin. Up to 10 headers can be specified. The header can be a maximum of 1,024 bytes in length. The element can contain only letters, digits, and hyphens \(-\). This parameter takes effect only when the value of RedirectType is Mirror.
+    |Pass|String|myheader-key1|The headers to pass through to the origin. Up to 10 headers can be specified. The header can be a maximum of 1,024 bytes in length. The element can contain only letters, digits, and hyphens \(-\). This element is returned only when the value of RedirectType is Mirror.Parent nodes: MirrorHeaders |
+    |Remove|String|myheader-key3|The headers that are not allowed to be passed through to the origin. Up to 10 headers can be specified, including repeated headers. This element is used together with PassAll. The header can be up to 1,024 bytes in length. The character set of this parameter is the same as that of Pass. This element is returned only when the value of RedirectType is Mirror.Parent nodes: MirrorHeaders |
+    |Set|Container|N/A|Indicates the headers that are sent to the origin. The specified headers are configured in the data returned by the origin regardless of whether the headers are contained in the request. Up to 10 containers can be specified. This element is returned only when the value of RedirectType is Mirror.Parent nodes: MirrorHeaders |
+    |Key|String|myheader-key5|The key of the header. The key can be up to 1,024 bytes in length. The character set of this parameter is the same as that of Pass. This element is returned only when the value of RedirectType is Mirror.Parent nodes: Set |
+    |Value|String|myheader-value5|Indicates the value of the header. The value can be up to 1,024 bytes in length and cannot contain "\\r\\n". This element is returned only when the value of RedirectType is Mirror.Parent nodes: Set |
+    |Protocol|String|http|The protocol used for redirection. This parameter is returned only when the value of RedirectType is External or AliCDN.For example, if you access an object named test, Protocol is set to https, and Hostname is set to `www.test.com`, the Location header is `https://www.test.com/test`.
 
-Parent nodes: MirrorHeaders |
-|Remove|String|Indicates the headers that are not allowed to be passed through to the origin. Up to 10 headers can be specified, including repeated headers. This element is used together with PassAll. The header can be up to 1,024 bytes in length. The character set of this element is the same as that of Pass. This parameter takes effect only when the value of RedirectType is Mirror.
-
-Parent nodes: MirrorHeaders |
-|Set|Container|Indicates the headers that are sent to the origin. The specified headers are configured in the data returned by the origin regardless of whether they are carried in the request. Up to 10 containers can be specified. This parameter takes effect only when the value of RedirectType is Mirror.
-
-Parent nodes: MirrorHeaders |
-|Key|String|Indicates the key of the header. The key can be up to 1,024 bytes in length. The character set of this parameter is the same as that of Pass. This parameter takes effect only when the value of RedirectType is Mirror.
-
-Parent nodes: Set |
-|Value|String|Indicates the value of the header. The value can be up to 1,024 bytes in length and cannot contain "\\r\\n". This parameter takes effect only when the value of RedirectType is Mirror.
-
-Parent nodes: Set |
-|Protocol|String|Indicates the protocol used for redirection. For example, if you access the object named test, Protocol is set to https, and Hostname is set to `www.test.com`, the Location header is `https://www.test.com/test`.
-
-This parameter takes effect only when the value of RedirectType is External or AliCDN.
-
-Valid values: http and https.
+Valid values: http and https
 
 Parent nodes: Redirect |
-|HostName|String|Indicates the domain name used in redirections, which must comply with the naming conventions for domain names. For example, if you access the object named test, Protocol is set to https, and Hostname is set to `www.test.com`, the Location header is `https://www.test.com/test`. This parameter takes effect only when the value of RedirectType is External or AliCDN.
+    |HostName|String|www.test.com|The domain name used for redirection, which must comply with the naming conventions for domain names. This element is returned only when the value of RedirectType is External or AliCDN.For example, if you access an object named test, Protocol is set to https, and Hostname is set to `www.test.com`, the Location header is `https://www.test.com/test`.
 
 Parent nodes: Redirect |
-|HttpRedirectCode|HTTP status code|Indicates the returned status code in redirections. This parameter takes effect only when the value of RedirectType is External or AliCDN.
-
-Valid values: 301, 302, and 307
+    |HttpRedirectCode|HTTP status code|301|The HTTP redirect code in the response. This element is returned only when the value of RedirectType is External or AliCDN.Valid values: 301, 302, and 307
 
 Parent nodes: Redirect |
-|ReplaceKeyPrefixWith|String|Indicates the string used to replace the prefix of the object name in the redirect request. If the prefix of the object is empty, this string is added before the object name. The ReplaceKeyWith and ReplaceKeyPrefixWith nodes cannot be set at the same time.
+    |ReplaceKeyPrefixWith|String|def/|The string that is used to replace the prefix of the object name in the redirection request. This element is returned only when the value of RedirectType is External or AliCDN.For example, if you access an object named `abc/test.txt`, ReplaceKeyPrefixWith is set to `def/`, the value of the Location header varies based on whether the value of KeyPrefixEquals is null.
 
-If KeyPrefixEquals is set to abc/ and ReplaceKeyPrefixWith is set to def/, when you access the abc/test.txt object, the Location header is `http://www.test.com/def/test.txt`.
-
-This parameter takes effect only when the value of RedirectType is Internal, External or AliCDN.
+    -   If the value of KeyPrefixEquals is set to `abc/`, the Location header is `http://www.test.com/def/test.txt`.
+    -   If the value of KeyPrefixEquals is set to null, the Location header is `http://www.test.com/def/abc/test.txt`.
+Parent nodes: Redirect |
+    |ReplaceKeyWith|String|prefix/$\{key\}.suffix|The string that is used to replace the name the object in the redirection request. This element is returned only when the value of RedirectType is External or AliCDN.This element supports the variable $\{key\}, which indicates the object name in the request. For example, if you access an object named test and ReplaceKeyWith is set to `prefix/${key}.suffix`, the Location header is `http://www.test.com/prefix/test.suffix`.
 
 Parent nodes: Redirect |
-|ReplaceKeyWith|String|Indicates the string used to replace the prefix of the object name in the redirection request. The $\{key\} variable that indicates the object name in the request is supported. The ReplaceKeyWith and ReplaceKeyPrefixWith nodes cannot be set at the same time.
 
-For example, if ReplaceKeyWith is set to prefix/$\{key\}.suffix, when you access the object named test, the Location header is `http://www.test.com/prefix/test.suffix`.
-
-Conditional. This element must be specified if the value of RedirectType is Internal, External, or AliCDN.
-
-Parent nodes: Redirect |
 
 ## Examples
 
@@ -164,13 +124,12 @@ Sample requests
 Get /? website HTTP/1.1
 Host: oss-example.oss-cn-hangzhou.aliyuncs.com   
 Date: Thu, 13 Sep 2012 07:51:28 GMT
-Authorization: OSS qn6qrrqx******k53otfjbyc: BuG4rRK+zNh******1NNHD39zXw=
-            
+Authorization: OSS qn6qrrqx******k53otfjbyc: BuG4rRK+zNh******1NNHD39zXw=            
 ```
 
 Sample responses
 
--   Sample response when static website hosting rules are configured
+-   Sample responses when static website hosting rules are configured
 
     ```
     HTTP/1.1 200
@@ -186,12 +145,12 @@ Sample responses
     <Suffix>index.html</Suffix>
         </IndexDocument>
         <ErrorDocument>
-            <Key>error.html</Key>
+           <Key>error.html</Key>
         </ErrorDocument>
     </WebsiteConfiguration>
     ```
 
--   Sample response when static website hosting rules are not configured
+-   Sample responses when static website hosting rules are not configured
 
     ```
     HTTP/1.1 404 
@@ -221,6 +180,64 @@ Host: test.oss-cn-hangzhou-internal.aliyuncs.com
 Authorization: OSS a1nBN******QMf8u:0Jzamofmy******sU9HUWomxsus=
 User-Agent: aliyun-sdk-python-test/0.4.0
 
+
+<? xml version="1.0" encoding="UTF-8"? >
+<WebsiteConfiguration>
+  <IndexDocument>
+    <Suffix>index.html</Suffix>
+  </IndexDocument>
+  <ErrorDocument>
+    <Key>error.html</Key>
+  </ErrorDocument>
+  <RoutingRules>
+    <RoutingRule>
+      <RuleNumber>1</RuleNumber>
+      <Condition>
+        <KeyPrefixEquals>abc/</KeyPrefixEquals>
+        <HttpErrorCodeReturnedEquals>404</HttpErrorCodeReturnedEquals>
+      </Condition>
+      <Redirect>
+        <RedirectType>Mirror</RedirectType>
+        <PassQueryString>true</PassQueryString>
+        <MirrorURL>http://www.test.com/</MirrorURL>
+        <MirrorPassQueryString>true</MirrorPassQueryString>
+        <MirrorFollowRedirect>true</MirrorFollowRedirect>
+        <MirrorCheckMd5>false</MirrorCheckMd5>
+        <MirrorHeaders>
+          <PassAll>true</PassAll>
+          <Pass>myheader-key1</Pass>
+          <Pass>myheader-key2</Pass>
+          <Remove>myheader-key3</Remove>
+          <Remove>myheader-key4</Remove>
+          <Set>
+            <Key>myheader-key5</Key>
+            <Value>myheader-value5</Value>
+          </Set>
+        </MirrorHeaders>
+      </Redirect>
+    </RoutingRule>
+    <RoutingRule>
+      <RuleNumber>2</RuleNumber>
+      <Condition>
+        <IncludeHeader>
+          <Key>host</Key>
+          <Equals>test.oss-cn-beijing-internal.aliyuncs.com</Equals>
+        </IncludeHeader>
+        <KeyPrefixEquals>abc/</KeyPrefixEquals>
+        <HttpErrorCodeReturnedEquals>404</HttpErrorCodeReturnedEquals>
+      </Condition>
+      <Redirect>
+        <RedirectType>AliCDN</RedirectType>
+        <Protocol>http</Protocol>
+        <HostName>www.test.com</HostName>
+        <PassQueryString>false</PassQueryString>
+        <ReplaceKeyWith>prefix/${key}.suffix</ReplaceKeyWith>
+        <HttpRedirectCode>301</HttpRedirectCode>
+      </Redirect>
+    </RoutingRule>
+  </RoutingRules>
+</WebsiteConfiguration>
+
 HTTP/1.1 200 OK
 Server: AliyunOSS
 Date: Fri, 27 Jul 2018 09:07:41 GMT
@@ -229,63 +246,6 @@ Content-Length: 2102
 Connection: keep-alive
 x-oss-request-id: 5B5AE0DD2F7938C45FCED4BA
 x-oss-server-time: 47
-
-<? xml version="1.0" encoding="UTF-8"? >
-<WebsiteConfiguration>
-<IndexDocument>
-<Suffix>index.html</Suffix>
-</IndexDocument>
-<ErrorDocument>
-<Key>error.html</Key>
-</ErrorDocument>
-<RoutingRules>
-<RoutingRule>
-<RuleNumber>1</RuleNumber>
-<Condition>
-<KeyPrefixEquals>abc/</KeyPrefixEquals>
-<HttpErrorCodeReturnedEquals>404</HttpErrorCodeReturnedEquals>
-</Condition>
-<Redirect>
-<RedirectType>Mirror</RedirectType>
-<PassQueryString>true</PassQueryString>
-<MirrorURL>http://www.test.com/</MirrorURL>
-<MirrorPassQueryString>true</MirrorPassQueryString>
-<MirrorFollowRedirect>true</MirrorFollowRedirect>
-<MirrorCheckMd5>false</MirrorCheckMd5>
-<MirrorHeaders>
-<PassAll>true</PassAll>
-<Pass>myheader-key1</Pass>
-<Pass>myheader-key2</Pass>
-<Remove>myheader-key3</Remove>
-<Remove>myheader-key4</Remove>
-<Set>
-<Key>myheader-key5</Key>
-<Value>myheader-value5</Value>
-</Set>
-</MirrorHeaders>
-</Redirect>
-</RoutingRule>
-<RoutingRule>
-<RuleNumber>2</RuleNumber>
-<Condition>
-<IncludeHeader>
-<Key>host</Key>
-<Equals>test.oss-cn-beijing-internal.aliyuncs.com</Equals>
-</IncludeHeader>
-<KeyPrefixEquals>abc/</KeyPrefixEquals>
-<HttpErrorCodeReturnedEquals>404</HttpErrorCodeReturnedEquals>
-</Condition>
-<Redirect>
-<RedirectType>AliCDN</RedirectType>
-<Protocol>http</Protocol>
-<HostName>www.test.com</HostName>
-<PassQueryString>false</PassQueryString>
-<ReplaceKeyWith>prefix/${key}.suffix</ReplaceKeyWith>
-<HttpRedirectCode>301</HttpRedirectCode>
-</Redirect>
-</RoutingRule>
-</RoutingRules>
-</WebsiteConfiguration>
 ```
 
 ## SDK
@@ -308,5 +268,5 @@ You can use OSS SDKs for the following programming languages to call the GetBuck
 |:---------|:---------------|:----------|
 |NoSuchBucket|404|The error message returned because the specified bucket does not exist.|
 |AccessDenied|403|The error message returned because you are not authorized to perform this operation. Only the bucket owner can query the static website hosting status configured for a bucket.|
-|NoSuchWebsiteConfiguration|404|Static website hosting is not enabled for the bucket.|
+|NoSuchWebsiteConfiguration|404|The error message returned because static website hosting is not enabled for the specified bucket.|
 
