@@ -1,10 +1,10 @@
-# Simple download {#concept_gdb_dhg_4fb .concept}
+# Simple download
 
 This topic describes how to use simple download.
 
 You can download an object to a local file or as NSData:
 
-```language-objc
+```
 OSSGetObjectRequest * request = [OSSGetObjectRequest new];
 
 // Configure required fields.
@@ -25,7 +25,7 @@ OSSTask * getTask = [client getObject:request];
     if (! task.error) {
         NSLog(@"download object success!") ;
         OSSGetObjectResult * getResult = task.result;
-        NSLog(@"download result: %@", getResult.dowloadedData);
+        NSLog(@"download result: %@", getResult.downloadedData);
     } else {
         NSLog(@"download object failed, error: %@" ,task.error);
     }
@@ -35,6 +35,6 @@ OSSTask * getTask = [client getObject:request];
 // [getTask waitUntilFinished];
 
 // [request cancel];
-
+        
 ```
 
