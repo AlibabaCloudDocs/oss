@@ -11,7 +11,7 @@ This topic describes how to use JavaScript to add signatures on the client based
 
 Plupload is used in this example to upload form data \([PostObject](/intl.en-US/API Reference/Object operations/Basic operations/PostObject.md)\) to OSS. The sample code in JavaScript can be run on WeChat or browsers from computers or mobile phones. You can select multiple objects for uploads and specify the destination folder. In addition, you can specify whether the original names of the uploaded objects are retained or randomly specified by the system. You can view the upload progress by using the progress bar.
 
-1.  Download the [browser client code](http://gosspublic.alicdn.com/doc/oss-h5-upload-js-direct.zip).
+1.  Download the [browser client code](https://gosspublic.alicdn.com/doc/oss-h5-upload-js-direct.zip).
 
 2.  Decompress the downloaded file.
 
