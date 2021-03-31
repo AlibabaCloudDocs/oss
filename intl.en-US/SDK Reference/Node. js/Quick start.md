@@ -1,14 +1,14 @@
-# Quick start {#concept_32070_zh .concept}
+# Quick start
 
-This topic describes how to quickly perform OSS operations \(such as view the bucket list or upload objects\) in the Node.js environment.
+This topic describes how to manage OSS in the Node.js environment, such as view buckets and upload objects.
 
-**Note:** To facilitate changes, a file named app.js is created to demonstrate the code used to perform the following operations.
+**Note:** To facilitate modification, a file named `app.js` is created in this topic. The following sample code for each operation is described in the sync mode. For more information about how to create clients in the sample code, see [Initialization](/intl.en-US/SDK Reference/Node. js/Initialization.md).
 
-## View the bucket list { .section}
+## View the list of buckets
 
-Add the following code to the end of app.js, and then call the listBuckets interface to view the bucket list.
+Add the following content to the end of the `app.js` file. Use listBuckets to view buckets:
 
-```language-js
+```
 async function listBuckets () {
   try {
     let result = await client.listBuckets();
@@ -17,20 +17,19 @@ async function listBuckets () {
   }
 }
 
-listBuckets();
-			
+listBuckets();            
 ```
 
-You can run `node app.js` to view the result.
+You can run the `node app.js` script and view the response.
 
-For more information about bucket-related APIs, see [GitHub](https://github.com/ali-sdk/ali-oss/blob/master/test/node/bucket.test.js).
+For more information about bucket-related operations, visit [GitHub](https://github.com/ali-sdk/ali-oss/blob/master/test/node/bucket.test.js).
 
-## View the object list { .section}
+## View objects in a bucket
 
-Modify the `app.js` file as follows and call the list interface to view the object list.
+Modify the `app.js` file, and use list to view the objects in a bucket:
 
 ```
-client.useBucket('Your bucket name');
+client.useBucket('examplebucket');
 async function list () {
   try {
     let result = await client.list({
@@ -44,63 +43,64 @@ async function list () {
 list();
 ```
 
-You can run `node app.js` to view the result.
+You can run the `node app.js` script and view the response.
 
-## Upload an object { .section}
+## Upload objects
 
-Modify the `app.js` file as follows and call the put interface to upload a single object.
+Modify the `app.js` file and use put to upload a single object:
 
-```language-js
-client.useBucket('Your bucket name');
+```
+client.useBucket('examplebucket');
 
 async function put () {
   try {
-    let result = await client.put('object-name', 'local file');
+    let result = await client.put('exampleobject.txt', 'D:\\localpath\\examplefile.txt');
     console.log(result);
    } catch (err) {
      console.log (err);
    }
 }
 
-put();
-			
+put();           
 ```
 
-## Download an object { .section}
+## Download objects
 
-Modify the `app.js` file as follows and call the get interface to download a single object.
+Modify the `app.js` file, and use get to download a single object:
 
-```language-js
+```
+client.useBucket('examplebucket');
+
 async function get () {
   try {
-    let result = await client.get('object-name');
+    let result = await client.get('exampleobject.txt');
     console.log(result);
   } catch (err) {
     console.log (err);
   }
 }
 
-get();
-			
+get();            
 ```
 
-## Delete an object { .section}
+## Delete objects
 
-Modify the `app.js` file and call the delete interface to delete an object.
+Modify the `app.js` file, and use delete to delete an object:
 
-```language-js
+```
+client.useBucket('examplebucket');
+
 async function delete () {
   try {
-    let result = await client.delete('object-name');
+    let result = await client.delete('exampleobject.txt');
     console.log(result);
   } catch (err) {
     console.log (err);
   }
 }
 
-delete();
-			
+delete();            
 ```
 
-For more information about object-related interfaces, see [GitHub](https://github.com/ali-sdk/ali-oss/blob/master/test/node/object.test.js).
+For more information about object-related operations, visit [GitHub](https://github.com/ali-sdk/ali-oss/blob/master/test/node/object.test.js).
 
