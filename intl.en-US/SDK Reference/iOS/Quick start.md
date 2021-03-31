@@ -11,11 +11,11 @@ For more information, see the following examples and cases of this project:
 
 You can also run the git clone [https://github.com/aliyun/aliyun-oss-ios-sdk](https://github.com/aliyun/aliyun-oss-ios-sdk) command and configure the following parameters:
 
-![ios](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/3796498951/p88591.png)
+![ios](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/3796498951/p88591.png)
 
 Run the project demo as shown in the following figure.
 
-![](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/4796498951/p13694.png)
+![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/4796498951/p13694.png)
 
 ## Examples
 
@@ -25,8 +25,7 @@ The following code shows you how to upload and download files on the iOS and Mac
     1.  Add the reference.
 
         ```
-        #import <AliyunOSSiOS/OSSService.h>
-                                    
+        #import <AliyunOSSiOS/OSSService.h>                           
         ```
 
     2.  Initialize the OSSClient instance.
@@ -36,13 +35,19 @@ The following code shows you how to upload and download files on the iOS and Mac
         Set the AccessKeyId, SecretKeyId, and RoleArn parameters, as shown in [Script files](https://github.com/aliyun/aliyun-oss-android-sdk/blob/master/app/sts_local_server/python/sts.py). You can use OSS SDK for Python to start a local HTTP service. Use the client code to access the local service and obtain the StsToken.AccessKeyId, StsToken.SecretKeyId, and StsToken.SecurityToken field values.
 
         ```
-        NSString *endpoint = "https://oss-cn-hangzhou.aliyuncs.com";
+        NSString *endpoint = @"https://oss-cn-hangzhou.aliyuncs.com";
         
-        // We recommend that you use STS to initialize the OSSClient instance if you use a mobile device. 
-        id<OSSCredentialProvider> credential = [[OSSStsTokenCredentialProvider alloc] initWithAccessKeyId:@"AccessKeyId" secretKeyId:@"AccessKeySecret" securityToken:@"SecurityToken"];
+        // We recommend that you use STS to initialize the OSSClient instance if you use a mobile device.
+        id<OSSCredentialProvider> credential = [[OSSFederationCredentialProvider alloc] initWithFederationTokenGetter:^OSSFederationToken * _Nullable{
+            OSSFederationToken *token = [OSSFederationToken new];
+            token.tAccessKey = @"AccessKeyId";
+            token.tSecretKey = @"AccessKeySecret";
+            token.tToken = @"SecurityToken";
+            token.expirationTimeInGMTFormat = @"Expiration";
+            return token;
+        }];
         
-        client = [[OSSClient alloc] initWithEndpoint:endpoint credentialProvider:credential];
-        
+        client = [[OSSClient alloc] initWithEndpoint:endpoint credentialProvider:credential];  
                                     
         ```
 
@@ -106,8 +111,7 @@ The following code shows you how to upload and download files on the iOS and Mac
     Aside from the import method, all operations on the Mac platform are the same as those on the iOS platform.
 
     ```
-    import <AliyunOSSOSX/AliyunOSSiOS.h>
-                        
+    import <AliyunOSSOSX/AliyunOSSiOS.h>                    
     ```
 
 
