@@ -2,6 +2,12 @@
 
 ossbrowser是阿里云官方提供的OSS图形化管理工具，提供类似Windows资源管理器的功能。使用ossbrowser，您可以快速完成存储空间（Bucket）和文件（Object）的相关操作。
 
+## 前提条件
+
+已安装并登录ossbrowser。具体操作，请参见[安装并登录ossbrowser](/intl.zh-CN/常用工具/图形化管理工具ossbrowser/安装并登录ossbrowser.md)。
+
+## Bucket或Object相关操作
+
 ossbrowser支持的Bucket或Object级别的操作与控制台支持的操作类似，请按照ossbrowser界面指引完成Bucket或Object相关操作。
 
 |分类|配置说明|
