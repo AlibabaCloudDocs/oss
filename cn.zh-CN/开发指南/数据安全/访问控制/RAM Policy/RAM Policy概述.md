@@ -64,8 +64,6 @@ Action分为Service级别操作、Bucket级别操作以及Object级别的操作�
     |PutBucketCors|oss:PutBucketCors|
     |GetBucketCors|oss:GetBucketCors|
     |DeleteBucketCors|oss:DeleteBucketCors|
-    |PutBucketVersioning|oss:PutBucketVersioning|
-    |GetBucketVersions\(ListObjectVersions\)|oss::ListObjectVersions|
     |PutBucketPolicy|oss:PutBucketPolicy|
     |GetBucketPolicy|oss:GetBucketPolicy|
     |DeleteBucketPolicy|oss:DeleteBucketPolicy|
