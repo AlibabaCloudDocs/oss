@@ -64,8 +64,6 @@ RAM policies for OSS support service-related actions, bucket-related actions, an
     |PutBucketCors|oss:PutBucketCors|
     |GetBucketCors|oss:GetBucketCors|
     |DeleteBucketCors|oss:DeleteBucketCors|
-    |PutBucketVersioning|oss:PutBucketVersioning|
-    |GetBucketVersions\(ListObjectVersions\)|oss::ListObjectVersions|
     |PutBucketPolicy|oss:PutBucketPolicy|
     |GetBucketPolicy|oss:GetBucketPolicy|
     |DeleteBucketPolicy|oss:DeleteBucketPolicy|
