@@ -17,7 +17,7 @@ OSS uses a flat structure to store objects in buckets. However, OSS supports fol
     China \(Hangzhou\), China \(Shanghai\), China \(Qingdao\), China \(Beijing\), China \(Zhangjiakou\), China \(Hohhot\), and China \(Shenzhen\)
 
 
-For more information about CSG, see [What is CSG?](https://help.aliyun.com/document_detail/53972.html).
+For more information about CSG, see [What is CSG?](/intl.en-US/Overview/What is CSG?.md).
 
 ## Step 1: Configure CSG.
 
@@ -64,7 +64,7 @@ After the bucket is mounted to the ECS instance by using CSG, all users can read
 
 2.  On the purchase page of CSG, configure **Public Bandwidth** and **Quantity**, and then click **Buy Now**.
 
-    For more information about the billing method of CSG, see [Billing methods and billable items](https://help.aliyun.com/document_detail/126872.html)
+    For more information about the billing method of CSG, see [Billable items and billing methods](/intl.en-US/Pricing/Billable items and billing methods.md).
 
 
 ## Step 3: Mount the bucket to the ECS instance and access the bucket.
