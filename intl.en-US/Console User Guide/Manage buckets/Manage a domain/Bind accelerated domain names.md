@@ -1,81 +1,80 @@
 # Bind accelerated domain names
 
-You can use OSS and Alibaba Cloud Content Delivery Network \(CDN\) together to accelerate downloads of static objects. These static objects are frequently downloaded by a large number of users in the same region at the same time. You can configure your OSS bucket as the origin and use CDN to publish the data in the bucket to edge nodes. When a large number of end users access an object in your bucket repeatedly, they can obtain the object cached in edge nodes to improve the response speed.
+You can use OSS and Alibaba Cloud Content Delivery Network \(CDN\) together to cache objects stored in OSS to the edge nodes of CDN. When a large number of users repeatedly access an object in your bucket, they can obtain a cached version of the object from edge nodes to improve the response speed.
 
-A custom domain name is bound to the bucket. For more information, see [Bind custom domain names](/intl.en-US/Console User Guide/Manage buckets/Manage a domain/Bind custom domain names.md).
+An ICP filing is applied at the Ministry of Industry and Information Technology \(MIIT\) for the domain name bound to your bucket if the bucket is in mainland China regions.[https://beian.aliyun.com/order/selfBaIndex.htm](https://beian.aliyun.com/order/selfBaIndex.htm)
 
-To activate Alibaba Cloud CDN, you must map your custom domain name to an accelerated domain name. All requests destined for your custom domain name are forwarded to the edge nodes.
+When you use OSS together with CDN, CDN outbound traffic fees, CDN back-to-origin outbound traffic fees, and request fees are incurred.
 
-**Note:** For other scenarios such as object upload and download of objects that are frequently accessed, we recommend that you use the transfer acceleration feature provided by OSS to accelerate the data transfer. For more information, see [Transfer acceleration](/intl.en-US/Developer Guide/Buckets/Transfer acceleration.md).
+**Note:** For other scenarios such as object upload and download of objects that are frequently accessed, we recommend that you use the transfer acceleration feature provided by OSS to accelerate data transfer. For more information, see [Transfer acceleration](/intl.en-US/Developer Guide/Buckets/Transfer acceleration.md).
 
-## Step 1: Bind an accelerated domain name
+## Procedure
 
-1.  Log on to the [OSS console](https://oss.console.aliyun.com/).
+1.  Bind a custom domain name to a bucket.
 
-2.  Click **Buckets**, and then click the name of the target bucket.
+    1.  Log on to the [OSS console](https://oss.console.aliyun.com/).
 
-3.  In the list of domain names, click **Not Configured** in the **Alibaba Cloud CDN** column corresponding to the domain name that is to be bound. The CDN console appears.
+    2.  In the left-side navigation pane, click **Buckets**. On the Buckets page, click the name of the bucket to which you want to bind the custom domain name.
 
-4.  In the left-side navigation pane, click Domain Names. On the Domain Names page, click Add Domain Name. In the Add Domain Name dialog box, configure parameters listed in the following table.
+    3.  In the left-side navigation pane, choose **Transmission** \> **Domain Names**.
 
-    ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/5767549951/p32707.png)
+    4.  Click **Bind Custom Domain Name**. In the Bind Custom Domain Name panel, enter the domain name that you want to bind to the bucket in the **Custom Domain Name** field.
 
-    |Parameter|Description|
-    |:--------|:----------|
-    |**Domain Name to Accelerate**|The value is automatically set to the custom domain name that is bound to the bucket. Do not modify the value.|
-    |**Resource Groups**|Select Default Resource Group.|
-    |**Business Type**|Content delivery varies with business type. Select the appropriate business type based on your stored content and the content usage.|
-    |**Origin Info**|Click OSS Domain. Select an OSS domain name for which you want to accelerate the content delivery.|
-    |**Port**|Select an access port.|
-    |**Region**|Select the region for which to accelerate your business.|
+        Do not turn on the **Add CNAME Record Automatically** switch.
 
-5.  Click **Next**.
+        If a domain name conflict message appears, the domain name is already bound to another bucket. To resolve this issue, you can use another domain name or verify the ownership of the domain name and forcibly bind the domain name to the bucket. This operation unbinds the domain name from the previous bucket. For more information, see [Verify the ownership of a domain name](/intl.en-US/Console User Guide/Manage buckets/Manage a domain/Bind custom domain names.md).
 
-    After you add an accelerated domain name, a CNAME is generated. You must add the CNAME to the DNS of your DNS provider to enable CDN.
+    5.  Click **Submit**.
 
+2.  Configure CDN acceleration
 
-## Step 2: Add a CNAME record
+    1.  On the Domain Names tab, click **Not Configured** in the Actions column corresponding to the domain name for which you want to configure CDN acceleration.
 
-You must add a CNAME record to the DNS of your DNS provider. Alibaba Cloud DNS is used in this example to describe the process of adding a CNAME record.
+    2.  On the Add Domain Name page, configure the parameters described in the following table.
 
-1.  Log on to the [CDN console](https://cdn.console.aliyun.com/overview).
+        |Parameter|Description|
+        |:--------|:----------|
+        |**Domain Name to Accelerate**|Use the default value.|
+        |**Resource Groups**|Select Default Resource Group.|
+        |**Business Type**|The business type determines how content is delivered. Select the appropriate business type based on your stored content and the content usage.|
+        |**Origin Info**|Use the default value.|
+        |**Port**|Select a port based on the protocol that you use to access OSS        -   If you use HTTP to access OSS, select **80**.
+        -   If you use HTTPS to access OSS, select **443**. |
+        |**Region**|Select **Region** based on your business. For example, if all of your users are located in mainland China, select **Mainland China Only** for **Region**.|
 
-2.  In the left-side navigation pane, click **Domain Names**. Copy the CNAME corresponding to the domain name to which you want to add a record.
+    3.  Click **Next** and then click **Return to Domain Names**.
 
-    ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/5767549951/p34242.png)
+    4.  In the domain name list, record the CNAME value of the domain name for which you want to configure CDN acceleration.
 
-3.  On the Manage DNS page, click **Configure** in the Actions column corresponding to the domain name.
+3.  Add a CNAME record
 
-4.  On the DNS Settings page, click **Add Record**. In the Add Record dialog box, configure parameters listed in the following table.
+    If the domain name is not hosted by Alibaba Cloud, you must add a CNAME record to the DNS of your DNS provider.Alibaba Cloud DNS is used in this example to describe how to manually add a CNAME record for a domain name.
 
-    |Parameter|Description|
-    |:--------|:----------|
-    |**Type**|Select **CNAME** from the drop-down list.|
-    |**Host**|    -   To add a top-level domain such as `aliyun.com`, enter **@**.
-    -   To add a second-level domain, enter the prefix of the second-level domain name. Example: If the domain is `abc.aliyun.com`, enter **abc**.
-    -   To map all second-level domains to the accelerated domain name, enter **\*** as the host record. |
-    |**ISP lINE**|Select the ISP line used to resolve the domain name. We recommend that you select **Default** to allow the system to select the optimal line.|
-    |**Value**|Enter the CNAME that was copied in [Step 2](#step_uf2_kam_nht).|
-    |**TTL**|Select the update interval of the record. In this example, keep the default value.|
+    1.  Log on to [Alibaba Cloud DNS console](https://dns.console.aliyun.com/#/dns/domainList).
 
-5.  Click **Confirm**.
+    2.  Click **Manage DNS**. On the Manage DNS page, click **Configure** in the Actions column corresponding to the domain name to which you want to add a CNAME record.
 
-    **Note:**
+    3.  On the DNS Settings page, click **Add Record**. In the Add Record panel, configure the parameters described in the following table.
 
-    -   A new CNAME record takes effect immediately. A modified CNAME record requires up to 72 hours to take effect.
-    -   It takes about 10 minutes until the CNAME status is updated. Therefore, even if you have configured a CNAME record, the **You must add the CNAME record.** message may be displayed on the Domain Names tab in the Alibaba Cloud CDN console. In this case, you can ignore the message.
+        |Parameter|Description|
+        |:--------|:----------|
+        |**Type**|Select the type of the record. In this example, select **CNAME**.|
+        |**Host**|Enter the host record based on the prefix of the domain name.         -   To add a top-level domain such as `aliyun.com`, enter **@**.
+        -   To add a second-level domain, enter the prefix of the second-level domain name. Example: If the domain is `abc.aliyun.com`, enter **abc**.
+        -   To map all second-level domains to the public endpoint of the bucket, enter **\***. |
+        |**ISP Line**|Select the ISP line used to resolve the domain name. We recommend that you select **Default** to allow Alibaba Cloud DNS to select the optimal line.|
+        |**Value**|Enter the CNAME that is recorded in [Step 2](#substep_gb2_ejz_v7n).|
+        |**TTL**|Select the update interval of the record. In this example, keep the default value.|
 
-## Step 3: Enable auto CDN cache update
+    4.  Click **OK**.
 
-1.  Log on to the [OSS console](https://oss.console.aliyun.com/).
+        A new CNAME record takes effect immediately. A modified CNAME record may take up to 72 hours to take effect.
 
-2.  Click **Buckets**, and then click the name of the target bucket.
+4.  Enable auto CDN cache update
 
-3.  Find the target domain name that is bound to an accelerated domain name and turn on **Auto CDN Cache Update** for this domain name.
+    On the **Domain Names** tab, turn on the **Auto CDN Cache Update** switch.
 
-    The auto CDN cache update feature can be triggered by specified operations. You can [submit a ticket](https://workorder-intl.console.aliyun.com/#/ticket/createIndex) to apply for trial. After you are authorized to configure auto CDN cache update for specified operations, click **Supported Operations** in the Auto CDN Cache Update column corresponding to the domain name, and select the operations to which auto CDN cache update can be applied. Click **OK**.
-
-    The following types of operations are supported.
+    If you want that the auto CDN cache update feature can be triggered by specific operations,[submit a ticket](https://workorder-intl.console.aliyun.com/#/ticket/createIndex). After you are authorized to configure auto CDN cache update for specific operations, click **Supported Operations** in the Auto CDN Cache Update column corresponding to the domain name, and select the operations by which auto CDN cache update can be triggered. The following table describes the supported operations.
 
     |Parameter|Description|
     |---------|-----------|
@@ -88,20 +87,24 @@ You must add a CNAME record to the DNS of your DNS provider. Alibaba Cloud DNS i
     |DeleteObjects|Deletes multiple objects by calling the DeleteMultipleObjects operation. For more information, see [Delete objects](/intl.en-US/Developer Guide/Objects/Manage files/Delete objects.md).|
     |PutObjectACL|Modifies the ACL of an object by calling the PutObjectACL operation. For more information, see [Object ACL](/intl.en-US/Developer Guide/Data security/Access and control/ACL.md).|
 
-    Objects that are deleted or whose storage classes are converted to other storage classes based on lifecycle rules are not updated to the CDN cache.
+    Objects that are deleted or whose storage classes are converted based on lifecycle rules are not updated to the CDN cache.
+
+    **Note:** You can access the data updated on the CDN cache by using the URL in the following format: `CNAME/ObjectName`. However, the updated data cannot be accessed by using URLs that contain request parameters, such as the parameters for IMG and video snapshots. For example, the accelerated domain name bound to a bucket is `example.com` and the a.jpg object in the root folder of the bucket is updated. You can access the object updated on the CDN cache by using `example/a.jpg`. If you use `example.com/a.jpg?x-oss-process=image/w_100` to access the object, you may access the earlier version of the object that is not updated.
 
 
-**Note:**
+## FAQ
 
--   After you unbind a custom domain name from a bucket, you cannot configure auto CDN cache update in the OSS console. Instead, you must configure this feature in the Alibaba Cloud CDN console. For more information, see [Configure the refresh and prefetch features](/intl.en-US/Service Management/Refresh and prefetch/Configure the refresh and prefetch features.md).
--   You can access the data updated on the CDN cache by using the URL in the following format: `CNAME/object`. However, you can not access the updated data when you use URLs that contain request parameters, such as the parameters for IMG and video snapshots. For example, the accelerated domain name bound to a bucket is `test.aliyun.com` and the a.jpg object in the bucket is updated. You can access the data updated on the CDN cache by using `test.aliyun.com/a.jpg`. If you use `test.aliyun.com/a.jpg? x-oss-process=image/w_100`, you may access the object that has not been updated.
+-   What do I do if AccessDenied is returned when I access an accelerated domain name that is bound to a bucket?
 
-## FAQ: What do I do if AccessDenied is returned when I access a website?
+    After you bind a custom domain name, you can add the specific path to the custom domain name to access OSS resources. Example: `http://example.com/test/1.jpg`. If you directly access a custom domain name such as `http://example.com`, AccessDenied is returned.
 
-After you bind a custom domain name, you can add the specific path to the custom domain name to access OSS resources. Example: http://mydomain.cn/test/1.jpg. If you directly access a custom domain name such as http://mydomain.cn, AccessDenied is returned.
+-   What do I do if the status of the domain name in the Alibaba Cloud CDN column alternates between configured and not configured when I refresh the Domain Names tab in the OSS console after CDN is configured for the domain name?
 
-## What to do next
+    The configurations of Alibaba Cloud CDN for a domain name take 10 minutes to take effect. Therefore, the status of Alibaba Cloud CDN may alternate on the Domain Names tab. We recommend that you wait 10 minutes after you configure CDN for the domain name and then refresh the tab to check the status.
 
--   To use an accelerated domain name to access OSS resources over HTTPS, you must host your certificate in OSS. For more information, see [Upload an SSL certificate](/intl.en-US/Console User Guide/Manage buckets/Manage a domain/Host SSL certificates.md).
--   To implement cross-origin access \(CORS\) when Alibaba Cloud CDN is activated , you must configure CORS rules in the CDN console. For more information, see [Configure CORS for Alibaba Cloud CDN](https://www.alibabacloud.com/help/zh/faq-detail/40183.htm).
+
+## References
+
+-   To use an accelerated domain name to access OSS resources over HTTPS, you must host your certificate in OSS. For more information, see [Host SSL certificates](/intl.en-US/Console User Guide/Manage buckets/Manage a domain/Host SSL certificates.md).
+-   To implement cross-origin resource sharing \(CORS\) when Alibaba Cloud CDN is activated, you must configure CORS rules in the CDN console. For more information, see[Configure CORS for Alibaba Cloud CDN](https://www.alibabacloud.com/help/zh/faq-detail/40183.htm).
 
