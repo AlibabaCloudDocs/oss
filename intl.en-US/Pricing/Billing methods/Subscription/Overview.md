@@ -45,7 +45,7 @@ You can renew resource plans that are about to expire to extend the subscription
 
 ## Example of resource plans
 
-A user purchasesa nationwide Standard LRS resource plan of 500 GB and a mainland China downstream data transfer plan of 100 GB.The resource usage in June includes:
+A user purchasesa Worldwide Standard LRS resource plan of 500 GB and a mainland China downstream data transfer plan of 100 GB.The resource usage in June includes:
 
 -   300 GB of Standard LRS objects, 110 GB of outbound traffic over the Internet, and 100,000 API requests in the China \(Hangzhou\) region.
 -   100 GB of Standard LRS objects that are stored and 200 GB of Standard ZRS objects that are stored in the China \(Shanghai\) region.
@@ -67,10 +67,6 @@ The following table describes the usage details of resource plans.
 -   What do I do after a resource plan expires?
 
     If you fail to renew a resource plan after the resource plan expires, the additional resources are charged on a pay-as-you-go basis.
-
--   Can I request a refund for a resource plan?
-
-    Yes, you can request a refund for a resource plan. For more information, see [How do I cancel resource plans?](/intl.en-US/Pricing/FAQ/How do I cancel resource plans?.md).
 
 -   What do I do if the quota of a resource plan is exceeded?
 
