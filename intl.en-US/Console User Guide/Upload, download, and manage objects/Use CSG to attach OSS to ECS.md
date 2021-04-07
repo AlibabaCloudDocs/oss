@@ -35,7 +35,7 @@ For more information about CSG, see [What is CSG?](https://help.aliyun.com/docum
 
     |Parameter|Description|
     |---------|-----------|
-    |**Gateway Name**|Enter the name of the gateway that you want to create.A gateway name can contain only letters, digits, periods \(.\), underscores \(\_\), and hyphens \(-\). The name can only start with a letter.``A gateway can be up to 60 characters in length. |
+    |**Gateway Name**|Enter the name of the gateway that you want to create.A gateway name can contain only letters, digits, periods \(.\), underscores \(\_\), and hyphens \(-\). The name can only start with a letter. A gateway can be up to 60 characters in length. |
     |**Network**|Select the VPC and vSwitch of the ECS instance to which you want to mount the bucket. After you select the VPC and vSwitch, the bucket can be mounted only to ECS instances in the VPC.|
     |**Specification**|Select the specification of the gateway. This depends on the capacity of the bucket you want to mount and the bandwidth required for data transmission between the bucket and the ECS instance.For example, if 10 million or fewer objects are stored in the bucket, the capacity of the bucket does not exceed 64 TB, and the required bandwidth does not exceed 1 Gbit/s, you can select **Basic**. For more information about the specifications of CSG, see [Specifications](/intl.en-US/Overview/Specifications.md). |
     |**Type**|Select **File**. The bucket is mounted to the ECS instance as an file system.|
