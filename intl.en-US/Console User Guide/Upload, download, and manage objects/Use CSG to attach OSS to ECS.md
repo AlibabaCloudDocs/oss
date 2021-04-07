@@ -3,7 +3,7 @@
 OSS uses a flat structure to store objects in buckets. However, OSS supports folders as a concept to group objects and simplify management. To use OSS as a file system, you can use Cloud Storage Gateway \(CSG\) to mount OSS buckets to ECS instances.
 
 -   CSG is activated and is granted access permissions on OSS, ECS, and VPC. For more information, see [Alibaba Cloud Storage Gateway](https://sgwnew.console.aliyun.com/).
--   A Virtual Private Cloud \(VPC\) and a vSwitch are created in the same region as the bucket that you want to mount. For more information, see [Work with VPCs](/intl.en-US/VPCs and vSwitchs/Work with VPCs.md) and [Work with vSwitches](/intl.en-US/VPCs and vSwitchs/Work with vSwitches.md).
+-   A Virtual Private Cloud \(VPC\) and a vSwitch are created in the same region as the bucket that you want to mount. For more information, see [Work with VPCs](/intl.en-US/VPCs and vSwitchs/Work with VPCs.md) and [Create a vSwitch](/intl.en-US/VPCs and vSwitchs/Work with vSwitches.md).
 -   An ECS instance is created in the same region as the bucket that you want to mount. For more information about how to create an ECS instance, see [Quick start](/intl.en-US/Quick Start/Manage an ECS instance in the console (express version).md).
 
 -   Restore Archive or Cold Archive objects
@@ -29,7 +29,7 @@ For more information about CSG, see [What is CSG?](https://help.aliyun.com/docum
 
 4.  In the **Choose/Create Project** step in the wizard, select a CSG cluster from the drop-down list and then click **Next**.
 
-    If no cluster is available, click **Create Cluster** to create a CSG cluster. The naming conventions for clusters are the same as those for the gateways that are specified in the next step.****
+    If no cluster is available, click **Create Cluster** to create a CSG cluster. The naming conventions for clusters are the same as those for the gateways that are specified in the next step.
 
 5.  In the **Choose/Choose Gateway** step, configure the parameters described in the following table and then click **Next**.
 
@@ -37,7 +37,7 @@ For more information about CSG, see [What is CSG?](https://help.aliyun.com/docum
     |---------|-----------|
     |**Gateway Name**|Enter the name of the gateway that you want to create.A gateway name can contain only letters, digits, periods \(.\), underscores \(\_\), and hyphens \(-\). The name can only start with a letter.``A gateway can be up to 60 characters in length. |
     |**Network**|Select the VPC and vSwitch of the ECS instance to which you want to mount the bucket. After you select the VPC and vSwitch, the bucket can be mounted only to ECS instances in the VPC.|
-    |**Specification**|Select the specification of the gateway. This depends on the capacity of the bucket you want to mount and the bandwidth required for data transmission between the bucket and the ECS instance.For example, if 10 million or fewer objects are stored in the bucket, the capacity of the bucket does not exceed 64 TB, and the required bandwidth does not exceed 1 Gbit/s, you can select **Basic**. For more information about the specifications of CSG, see [Specification](https://help.aliyun.com/document_detail/108235.html). |
+    |**Specification**|Select the specification of the gateway. This depends on the capacity of the bucket you want to mount and the bandwidth required for data transmission between the bucket and the ECS instance.For example, if 10 million or fewer objects are stored in the bucket, the capacity of the bucket does not exceed 64 TB, and the required bandwidth does not exceed 1 Gbit/s, you can select **Basic**. For more information about the specifications of CSG, see [Specifications](/intl.en-US/Overview/Specifications.md). |
     |**Type**|Select **File**. The bucket is mounted to the ECS instance as an file system.|
     |**Cache Volume**|Set the size of the cache, which must be at least 40 GB.To ensure data access performance, CSG reserves storage space in ECS equivalent the size specified in this parameter to cache hot data. |
 
@@ -47,13 +47,13 @@ For more information about CSG, see [What is CSG?](https://help.aliyun.com/docum
     |---------|-----------|
     |**Protocol Type**|Select the protocol used by the file gateway.    -   **NFS**: Applicable for Linux systems.
     -   **SMB**: Applicable for Windows systems. |
-    |**Share Name**|Specify the name of the network share used to access the mounted bucket.The network share name can contain only letters, digits, periods \(.\), underscores \(\_\), and hyphens \(-\).`` A network share name can be up to 32 characters in length. |
+    |**Share Name**|Specify the name of the network share used to access the mounted bucket.The network share name can contain only letters, digits, periods \(.\), underscores \(\_\), and hyphens \(-\). A network share name can be up to 32 characters in length. |
     |**User Mapping**|Specify the user that is used to access the mounted bucket from an NFS client. This parameter can be configured only when you select **NFS** for **Protocol Type**. Valid values:    -   **NONE**: All users on the NFS client are directly used to access the mounted bucket.
     -   **ROOT\_SQUASH**: The root user on the NFS client is mapped to the nfsnobody user on the NFS server to access the mounted bucket.
     -   **ALL\_SQUASH** and **ALL\_ANOMNYMOUS**: All users on the NFS client are mapped to the nfsnobody user on the NFS server to access the mounted bucket.
 After the bucket is mounted to the ECS instance by using CSG, all users can read, write, and execute objects in the bucket. You can configure **User Mapping** in the following method based on your requirements:
 
-    -   If you want to manage the access permissions on objects in the mounted bucket, select **NONE** for **User Mapping** and then use the root user to manage the access permissions. For more information, see [Step 4: Configure object access permissions.](#section_1d1_v1m_oua)
+    -   If you want to manage the access permissions on objects in the mounted bucket, select **NONE** for **User Mapping** and then use the root user to manage the access permissions. For more information, see [Step 4: Configure object access permissions.](#optionalstep)
     -   If you do not need to manage the access permissions on objects in the mounted bucket, configure any value for User Mapping. |
     |**Redirect Sync**|Select whether to synchronize the metadata of objects in the mounted bucket to on-premises disks. **Note:** If you enable this feature, all objects in the mounted bucket are scanned and API request fees are incurred. For more information about the billing methods, see [API operation calling fees](/intl.en-US/Pricing/Billing items and methods/API operation calling fees.md). |
 
@@ -126,7 +126,7 @@ After you purchase the gateway, you can mount the bucket to the ECS instance. In
 
 3.  Change the value of User Mapping.
 
-    After you configure access permissions on objects in the mounted bucket, we recommend that you change the value of **User Mapping** to **ROOT\_SQUASH**， **ALL\_SQUASH**, or **ALL\_ANOMNYMOUS** to limit the privilege of the root user.
+    After you configure access permissions on objects in the mounted bucket, we recommend that you change the value of **User Mapping** to **ROOT\_SQUASH**, **ALL\_SQUASH**, or **ALL\_ANOMNYMOUS** to limit the privilege of the root user.
 
     1.  Log on to the.
 
