@@ -138,7 +138,7 @@ This topic describes the causes of errors returned with HTTP status code 400 and
     -   Cause: The line after the `filename` field contains custom parameters.
     -   Solution: Make sure that the line after the `filename` field is the `Content-Type` parameter. The following figure shows an example of the Content-Type parameter in the line follwing the filename field.
 
-        ![file-name](../images/p224019.png)
+        ![file-name](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/5747877161/p224019.png)
 
 -   Error message: Post body size must be less than 5G.
     -   Cause: The total size of the POST request body exceeds 5 GB.
