@@ -19,7 +19,7 @@ You can use API operations and SDKs provided by Alibaba Cloud or OSS migration t
 
 ## Migrate data to OSS
 
-You can use Alibaba Cloud Data Online Migration to migrate data from a third-party storage service to OSS or between OSS buckets, such as Amazon Web Services \(AWS\), Google Cloud, Tencent Cloud, Qiniu Cloud, Huawei Cloud, and Baidu Cloud. For more information, see[Data Online Migration](https://www.alibabacloud.com/help/product/94157.htm).
+You can use Alibaba Cloud Data Online Migration to migrate data from a third-party storage service to OSS or between OSS buckets, such as Amazon Web Services \(AWS\), Google Cloud, Tencent Cloud, Qiniu Cloud, Huawei Cloud, and Baidu Cloud. For more information, see [Data Online Migration](https://www.alibabacloud.com/help/product/94157.htm).
 
 Assume that you must migrate terabytes or petabytes of data to OSS. You can use the Data Offline Migration \(Lighting Cube\) service when the insufficient local low-bandwidth and high expansion costs are taken into consideration. For more information, see [What is Data Transport?](/intl.en-US/Product Introduction/What is Data Transport?.md)
 
@@ -47,7 +47,7 @@ Assume that you must migrate terabytes or petabytes of data to OSS. You can use 
 
 -   AccessKey pair
 
-    The key pair consists of an AccessKey ID and an AccessKey secret. The AccessKey pair is used to verify access identities. OSS uses an AccessKey pair, which includes an AccessKey ID and an AccessKey secret to implement symmetric encryption and verify the identity of a requester. The AccessKey ID is used to identify a user. The AccessKey secret is used to encrypt and verify the signature string. The AccessKey secret must be kept confidential. For more information about how to obtain an AccessKey pair, see[Create an AccessKey pair]().
+    The key pair consists of an AccessKey ID and an AccessKey secret. The AccessKey pair is used to verify access identities. OSS uses an AccessKey pair, which includes an AccessKey ID and an AccessKey secret to implement symmetric encryption and verify the identity of a requester. The AccessKey ID is used to identify a user. The AccessKey secret is used to encrypt and verify the signature string. The AccessKey secret must be kept confidential. For more information about how to obtain an AccessKey pair, see [Create an AccessKey pair]().
 
 
 ## Manage OSS
@@ -77,7 +77,7 @@ Traditional storage providers require you to purchase a fixed amount of storage 
 
 OSS charges you only for the storage space and bandwidth that you actually consume. You can take the cost advantages of the flexible infrastructure from Alibaba Cloud as your business grows and your storage and bandwidth requirements change.
 
-For more information about OSS pricing, see[Object Storage Service Pricing](https://www.alibabacloud.com/product/oss#pricing). For more information about OSS billing methods, see [Overview](/intl.en-US/Pricing/Billing items and methods/Overview.md).
+For more information about OSS pricing, see [Object Storage Service Pricing](https://www.alibabacloud.com/product/oss#pricing). For more information about OSS billing methods, see [Overview](/intl.en-US/Pricing/Billing items and methods/Overview.md).
 
 ## Alibaba Cloud storage service
 
