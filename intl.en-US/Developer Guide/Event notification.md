@@ -6,7 +6,7 @@ You can configure event notification rules in the OSS console for objects that y
 
 -   The event notification feature is available in all regions except for the China \(Heyuan\), China \(Guangzhou\), China \(Hohhot\), China \(Ulanqab\), UAE \(Dubai\), and Malaysia \(Kuala Lumpur\)
 -   You can configure up to 10 event notification rules in a region.
--   Notifications are not sent for TS and M3U8 objects that are generated in RTMP-based stream ingest. For more information about RTMP-based stream ingest, see[Overview](/intl.en-US/API Reference/LiveChannel-related operations/Overview.md).
+-   Notifications are not sent for TS and M3U8 objects that are generated in RTMP-based stream ingest. For more information about RTMP-based stream ingest, see [Overview](/intl.en-US/API Reference/LiveChannel-related operations/Overview.md).
 
 ## Usage notes
 
