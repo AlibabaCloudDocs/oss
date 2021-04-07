@@ -286,7 +286,7 @@ This topic describes the causes of errors returned with HTTP status code 400 and
 
 -   Error message: The encryption algorithm specified is not valid. or The Encryption request you specified is not valid. Supported value: AES256/SM4/KMS.
 -   Cause: The value of `x-oss-server-side-encryption` is invalid.
--   Solution: Set `x-oss-server-side-encryption` to one of the following valid values: AES256 or KMS. For more information about server-side encryption, see[PutObject](/intl.en-US/API Reference/Object operations/Basic operations/PutObject.md).
+-   Solution: Set `x-oss-server-side-encryption` to one of the following valid values: AES256 or KMS. For more information about server-side encryption, see [PutObject](/intl.en-US/API Reference/Object operations/Basic operations/PutObject.md).
 
 ## InvalidDataEncryptionAlgorithmError
 
@@ -346,7 +346,7 @@ This topic describes the causes of errors returned with HTTP status code 400 and
 
     Solution: Include the Origin header in the request. Before the browser sends a cross-origin request, the browser sends a preflight \(OPTIONS\) request that contains the Origin header to identify the domain name from which the request is sent. The following figure shows an example of a preflight request that contains the Origin header:
 
-    ![origin](../images/p225158.png)
+    ![origin](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/5527877161/p225158.png)
 
 -   Error message: Insufficient information. Request Access-Control-Request-Method header needed.
 
@@ -354,7 +354,7 @@ This topic describes the causes of errors returned with HTTP status code 400 and
 
     Solution: Include the Access-Control-Request-Method header in the request. Before the browser sends a cross-origin request, the browser sends a preflight \(OPTIONS\) request that contains the Access-Control-Request-Method header to identify the method used by the actual request. The following figure shows an example of a preflight request that contains the Access-Control-Request-Method header:
 
-    ![method](../images/p225159.jpg)
+    ![method](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/5527877161/p225159.jpg)
 
 
 ## RequestTimeout
