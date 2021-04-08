@@ -10,8 +10,6 @@ If you use OSS for the first time, we recommend that you click **Quick Start** i
 
 You can use the following methods to query the resource usage of all buckets owned by the current Alibaba Cloud account, including the storage and traffic used by the bucket and the number of API requests sent to the buckets.
 
-**Note:** The data on the Overview page is not updated in real time and has a latency of 1 to 3 hours. These statistics are for reference only. To query detailed statistics of your buckets, see [t4329.md\#]().
-
 -   Query the current storage usage of all buckets
 
     You can query the storage usage of all buckets in the **Basic Statistics** section, including the storage usage of Standard, IA, Archive, and ColdArchive data and ECS snapshots.
