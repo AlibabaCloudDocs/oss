@@ -2,7 +2,7 @@
 
 You can use OSS and Alibaba Cloud Content Delivery Network \(CDN\) together to cache objects stored in OSS to the edge nodes of CDN. When a large number of users repeatedly access an object in your bucket, they can obtain a cached version of the object from edge nodes to improve the response speed.
 
-An ICP filing is applied at the Ministry of Industry and Information Technology \(MIIT\) for the domain name bound to your bucket if the bucket is in mainland China regions.[https://beian.aliyun.com/order/selfBaIndex.htm](https://beian.aliyun.com/order/selfBaIndex.htm)
+An ICP filing is applied at the Ministry of Industry and Information Technology \(MIIT\) for the domain name bound to your bucket if the bucket is in mainland China regions.
 
 When you use OSS together with CDN, CDN outbound traffic fees, CDN back-to-origin outbound traffic fees, and request fees are incurred.
 
@@ -106,5 +106,5 @@ When you use OSS together with CDN, CDN outbound traffic fees, CDN back-to-origi
 ## References
 
 -   To use an accelerated domain name to access OSS resources over HTTPS, you must host your certificate in OSS. For more information, see [Host SSL certificates](/intl.en-US/Console User Guide/Manage buckets/Manage a domain/Host SSL certificates.md).
--   To implement cross-origin resource sharing \(CORS\) when Alibaba Cloud CDN is activated, you must configure CORS rules in the CDN console. For more information, see[Configure CORS for Alibaba Cloud CDN](https://www.alibabacloud.com/help/zh/faq-detail/40183.htm).
+-   To implement cross-origin resource sharing \(CORS\) when Alibaba Cloud CDN is activated, you must configure CORS rules in the CDN console. For more information, see [Configure CORS for Alibaba Cloud CDN](https://www.alibabacloud.com/help/zh/faq-detail/40183.htm).
 
