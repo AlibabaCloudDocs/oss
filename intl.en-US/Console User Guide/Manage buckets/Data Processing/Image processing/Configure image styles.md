@@ -2,7 +2,7 @@
 
 You can encapsulate multiple image processing \(IMG\) parameters in a style and perform complex IMG operations by using the style.
 
-Up to 50 styles can be created for a bucket. These styles can be used only for image objects in the bucket. If you want to create more than 50 styles, contact[technical support](https://workorder-intl.console.aliyun.com/#/ticket/createIndex).
+Up to 50 styles can be created for a bucket. These styles can be used only for image objects in the bucket. If you want to create more than 50 styles, contact [technical support](https://workorder-intl.console.aliyun.com/#/ticket/createIndex).
 
 ## Create a style
 
