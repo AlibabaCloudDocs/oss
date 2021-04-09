@@ -1,10 +1,10 @@
 # DeleteObjectTagging
 
-DeleteObjectTagging接口用于删除指定对象（Object）的标签（Tagging）信息。
+调用DeleteObjectTagging接口删除指定对象（Object）的标签（Tagging）信息。
 
 ## 版本控制
 
-调用DeleteObjectTagging接口时，默认删除Object当前版本的标签信息。如果Object的当前版本是删除标记（Delete Marker），OSS将返回404 Not Found。您可以通过指定versionId参数删除指定Object版本的标签信息。
+调用DeleteObjectTagging接口时，默认只能删除Object当前版本的标签信息。您可以通过指定versionId参数来删除指定Object版本的标签信息。如果Object的对应版本为删除标记（Delete Marker），则OSS将返回404 Not Found。
 
 ## 请求语法
 
@@ -17,17 +17,19 @@ Authorization: SignatureValue
 
 ## 请求头
 
-此接口仅涉及公共请求头，详情请参见[公共请求头（Common Request Headers）](/cn.zh-CN/API 参考/公共HTTP头定义.md)。
+此接口仅包含公共请求头。关于公共请求头的更多信息，请参见[公共请求头（Common Request Headers）](/cn.zh-CN/API 参考/公共HTTP头定义.md)。
 
 ## 响应头
 
-此接口仅涉及公共响应头，详情请参见[公共响应头（Common Response Headers）](/cn.zh-CN/API 参考/公共HTTP头定义.md)。
+此接口仅包含公共响应头。关于公共响应头的更多信息，请参见[公共响应头（Common Response Headers）](/cn.zh-CN/API 参考/公共HTTP头定义.md)。
 
 ## 示例
 
--   未开启版本控制的请求示例
+-   未开启版本控制
 
-    在未开启版本控制情况下，通过DELETE请求删除了存储空间bucketname中对象objectname已有的标签信息，OSS解析此请求后删除此对象中的所有标签。
+    在未开启版本控制的情况下，通过DELETE请求删除了存储空间bucketname中对象objectname已有的标签信息，OSS解析此请求后删除此对象中的所有标签。
+
+    请求示例
 
     ```
     DELETE /objectname?tagging
@@ -46,9 +48,11 @@ Authorization: SignatureValue
     date: Tue, 09 Apr 2019 03:00:33 GMT
     ```
 
--   开启版本控制的请求示例
+-   已启用版本控制
 
-    在启用了版本控制的情况下，通过DELETE请求删除存储空间bucketname中对象objectname已有的标签信息，删除时指定了对象版本号（即请求示例中的versionId），OSS解析此请求后删除此版本对象中的所有标签。
+    在启用版本控制的情况下，通过DELETE请求删除存储空间bucketname中对象objectname已有的标签信息，删除时指定了对象版本号（即请求示例中的versionId），OSS解析此请求后删除此版本对象中的所有标签。
+
+    请求示例
 
     ```
     DELETE /objectname?tagging&versionId=CAEQExiBgID.jImWlxciIDQ2ZjgwODIyNDk5MTRhNzBiYmQwYTZkMTYzZjM0****
