@@ -1,27 +1,25 @@
 # PutObjectTagging
 
-PutObjectTagging接口用于设置或更新对象（Object）的标签（Tagging）信息。
+调用PutObjectTagging接口设置或更新对象（Object）的标签（Tagging）信息。对象标签使用一组键值对（Key-Value）标记对象。
 
 ## 注意事项
 
-对象标签使用一组键值对（Key-Value）标记对象。调用PutObjectTagging接口时，有如下注意事项：
-
--   单个Object最多可设置10个标签，Key不可重复。
--   每个Key长度不超过128字节，每个Value长度不超过256字节。
+-   单个Object最多能设置10个标签，Key不能重复。
+-   每个Key长度不能超过128字节，每个Value长度不能超过256字节。
 -   Key和Value区分大小写。
--   标签合法字符集包括大小写字母、数字、空格和以下符号：
+-   标签的合法字符集包括大小写字母、数字、空格和以下符号：
 
     +‑=.\_:/
 
-    通过HTTP header的方式设置标签且标签中包含任意字符时，您需要对标签的Key和Value做URL编码。
+    通过HTTP header的方式设置标签且标签中包含任意字符时，您需要对标签的Key和Value进行URL编码。
 
 -   更改标签信息不会更新Object的Last‑Modified时间。
 
-有关对象标签的更多信息，请参见[对象标签](/cn.zh-CN/开发指南/对象/文件（Object）/管理文件/对象标签.md)。
+关于对象标签的更多信息，请参见[对象标签](/cn.zh-CN/开发指南/对象/文件（Object）/管理文件/对象标签.md)。
 
 ## 版本控制
 
-调用PutObjectTagging接口时，默认设置Object当前版本的标签信息。如果Object的当前版本是删除标记（Delete Marker），OSS将返回404 Not Found。您可以通过指定versionId参数来设置指定Object版本的标签信息。
+调用PutObjectTagging接口时，默认设置Object当前版本的标签信息。您可以通过指定versionId参数来设置指定Object版本的标签信息。如果Object的对应版本为删除标记（Delete Marker），则OSS将返回404 Not Found。
 
 ## 请求语法
 
@@ -61,9 +59,11 @@ Authorization: SignatureValue
 
 ## 示例
 
--   未开启版本控制的请求示例
+-   未开启版本控制
 
     在未开启版本控制情况下，针对存储空间bucketname中的对象objectname，通过PUT请求设置\{a:1\}和\{b:2\}两个标签。标签设置成功后返回200 \(OK\)。
+
+    请求示例
 
     ```
     PUT /objectname?tagging
@@ -95,9 +95,11 @@ Authorization: SignatureValue
     date: Mon, 18 Mar 2019 08:25:17 GMT
     ```
 
--   启用版本控制的请求示例
+-   已启用版本控制
 
     在启用了版本控制的情况下，针对存储空间bucketname中的对象objectname的指定版本（即请求示例中的versionId），通过PUT请求设置\{age:18\}标签。标签设置成功后返回200 \(OK\)。
+
+    请求示例
 
     ```
     PUT /objectname?tagging&versionId=CAEQExiBgID.jImWlxciIDQ2ZjgwODIyNDk5MTRhNzBiYmQwYTZkMTYzZjM0****
