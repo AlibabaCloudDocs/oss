@@ -42,7 +42,7 @@ Authorization: SignatureValue
 -   低频访问存储类型适合需要长期存储但不经常被访问的数据（平均每月访问频率1到2次）。
 -   归档存储类型适合需要长期存储（建议半年以上）的归档数据，在存储周期内极少被访问，数据进入到可读取状态需要1分钟的解冻时间。
 -   冷归档存储类型适用于需要长期保存且几乎不访问的数据。 |
-|x-oss-object-type|字符串|表示Object的类型。 -   通过PutObject上传的Object类型为Normal。
+|x-oss-object-type|字符串|表示Object的类型。 -   通过PutObject上传或者通过CreateDirectory创建的Object类型为Normal。
 -   通过AppendObject上传的Object类型为Appendable。
 -   通过MultipartUpload上传的Object类型为Multipart。 |
 |x-oss-next-append-position|字符串|对于Appendable类型的Object会返回此Header，指明下一次请求应当提供的position。|
@@ -65,7 +65,9 @@ Authorization: SignatureValue
 
 ## 示例
 
--   未启用版本控制的请求示例
+-   未启用版本控制
+
+    请求示例
 
     ```
     HEAD /oss.jpg HTTP/1.1
@@ -74,7 +76,7 @@ Authorization: SignatureValue
     Authorization: OSS qn6qrrqxo2oawuk53otfjbyc:JbzF2LxZUtanlJ5dLA092wpD****
     ```
 
-    返回示例
+    返回示例（当Object为文件时）
 
     ```
     HTTP/1.1 200 OK
@@ -90,7 +92,25 @@ Authorization: SignatureValue
     Server: AliyunOSS
     ```
 
+    返回示例（当Object为目录时）
+
+    ```
+    HTTP/1.1 200 OK
+    x-oss-request-id: 559CC9BDC755F95A6448****
+    x-oss-object-type: Normal
+    x-oss-storage-class: Standard
+    Date: Wed, 31 Mar 2021 07:32:52 GMT
+    Last-Modified: Tue, 30 Mar 2021 06:07:48 GMT
+    ETag: "null"
+    Content-Length: 0
+    Content-Type: application/x-directory
+    Connection: keep-alive
+    Server: AliyunOSS
+    ```
+
 -   请求对象指定版本（启用版本控制）
+
+    请求示例
 
     ```
     HEAD /example?versionId=CAEQNRiBgICb8o6D0BYiIDNlNzk5NGE2M2Y3ZjRhZTViYTAxZGE0ZTEyMWYy****
@@ -118,6 +138,8 @@ Authorization: SignatureValue
 
 -   请求对象最新版本（启用版本控制）
 
+    请求示例
+
     ```
     HEAD /example HTTP/1.1    
     Host: versioning-test.oss-cn-hangzhou.aliyuncs.com
@@ -142,7 +164,9 @@ Authorization: SignatureValue
     Server: AliyunOSS
     ```
 
--   提交Restore请求但Restore没有完成时的请求示例
+-   提交Restore请求但Restore未完成
+
+    请求示例
 
     ```
     HEAD /oss.jpg HTTP/1.1
@@ -168,7 +192,9 @@ Authorization: SignatureValue
     Server: AliyunOSS
     ```
 
--   提交Restore请求且Restore已经完成时的请求示例
+-   提交Restore请求且Restore已完成
+
+    请求示例
 
     ```
     HEAD /oss.jpg HTTP/1.1
@@ -191,7 +217,9 @@ Authorization: SignatureValue
     Content-Length: 344606
     ```
 
--   使用服务端加密SSE-OSS的请求示例
+-   使用服务端加密SSE-OSS
+
+    请求示例
 
     ```
     HEAD /oss.jpg HTTP/1.1
@@ -217,7 +245,9 @@ Authorization: SignatureValue
     Server: AliyunOSS
     ```
 
--   使用服务器端加密SSE-KMS的请求示例
+-   使用服务器端加密SSE-KMS
+
+    请求示例
 
     ```
     HEAD /oss.jpg HTTP/1.1
@@ -252,8 +282,8 @@ Authorization: SignatureValue
 |Not Found|404|请求的文件不存在。|
 |SymlinkTargetNotExist|404|请求的文件类型为软链接。|
 |InvalidTargetType|400|请求的文件类型为软链接，且对应的目标文件类型也为软链接。|
-|Not Modified|304|-   指定了If-Modified-Since请求头，但源Object在指定的时间后没被修改过。
+|Not Modified|304|返回该错误的可能原因如下：-   指定了If-Modified-Since请求头，但源Object在指定的时间后没被修改过。
 -   指定了If-None-Match请求头，且源Object的ETag值和您提供的ETag相等。 |
-|Precondition Failed|412|-   指定了If-Unmodified-Since，但指定的时间早于Object实际修改时间 。
+|Precondition Failed|412|返回该错误的可能原因如下：-   指定了If-Unmodified-Since，但指定的时间早于Object实际修改时间。
 -   指定了If-Match，但源Object的ETag值和您提供的ETag不相等。 |
 
