@@ -30,5 +30,5 @@ ossClient.renameObject(renameObjectRequest);
 ossClient.shutdown();
 ```
 
-For more information about how to rename objects, see [Rename]().
+For more information about how to rename objects, see [Rename](/intl.en-US/API Reference/Object operations/Directory management/Rename.md).
 
