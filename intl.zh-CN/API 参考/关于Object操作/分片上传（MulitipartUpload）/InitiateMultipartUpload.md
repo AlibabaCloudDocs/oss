@@ -1,12 +1,10 @@
 # InitiateMultipartUpload
 
-使用Multipart Upload模式传输数据前，必须先调用该接口来通知OSS初始化一个Multipart Upload事件。
+使用Multipart Upload模式传输数据前，您必须先调用InitiateMultipartUpload接口来通知OSS初始化一个Multipart Upload事件。
 
 ## 注意事项
 
-调用此接口时，有如下注意事项：
-
--   调用接口会返回一个OSS服务器创建的全局唯一的Upload ID，用于标识本次Multipart Upload事件。您可以根据这个ID来发起相关的操作，如中止Multipart Upload、查询Multipart Upload等。
+-   调用接口会返回一个OSS服务器创建的全局唯一的Upload ID，用于标识本次Multipart Upload事件。您可以根据这个ID来发起相关的操作，例如中止Multipart Upload、查询Multipart Upload等。
 -   初始化Multipart Upload请求，并不影响已存在的同名Object。
 -   该操作计算认证签名时，需要添加`?uploads`到`CanonicalizedResource`中。
 
@@ -31,7 +29,7 @@ Authorization: SignatureValue
 
 ## 请求头
 
-初始化Multipart Upload请求时，支持如下标准的HTTP请求头：Cache-Control、Content-Disposition、Content-Encoding、Content-Type、Expires以及以`x-oss-meta-`开头的用户自定义Header。更多信息，请参见[PutObject](/intl.zh-CN/API 参考/关于Object操作/基础操作/PutObject.md)。
+初始化Multipart Upload请求时，支持标准的HTTP请求头Cache-Control、Content-Disposition、Content-Encoding、Content-Type、Expires以及以`x-oss-meta-`开头的用户自定义Header。更多信息，请参见[PutObject](/intl.zh-CN/API 参考/关于Object操作/基础操作/PutObject.md)。
 
 |名称|类型|描述|
 |:-|:-|:-|
@@ -39,10 +37,10 @@ Authorization: SignatureValue
 |Content-Disposition|字符串|指定该Object被下载时的名称。更多信息，请参见[RFC2616](https://www.ietf.org/rfc/rfc2616.txt)。 默认值：无 |
 |Content-Encoding|字符串|指定该Object被下载时的内容编码格式。更多信息，请参见[RFC2616](https://www.ietf.org/rfc/rfc2616.txt)。 默认值：无 |
 |Expires|整数|过期时间，单位为毫秒。更多信息，请参见[RFC2616](https://www.ietf.org/rfc/rfc2616.txt)。 默认值：无 |
-|x-oss-forbid-overwrite|字符串|指定InitiateMultipartUpload操作时是否覆盖同名Object。当目标Bucket处于已开启或已暂停的版本控制状态时，x-oss-forbid-overwrite请求Header设置无效，即允许覆盖同名Object。 -   不指定x-oss-forbid-overwrite时，默认覆盖同名Object。
--   指定x-oss-forbid-overwrite为true时，表示禁止覆盖同名Object；指定x-oss-forbid-overwrite为false时，表示允许覆盖同名Object。
+|x-oss-forbid-overwrite|字符串|指定InitiateMultipartUpload操作时是否覆盖同名Object。当目标Bucket处于已开启或已暂停的版本控制状态时，x-oss-forbid-overwrite请求Header设置无效，即允许覆盖同名Object。 -   不指定x-oss-forbid-overwrite或者指定x-oss-forbid-overwrite为false时，默认允许覆盖同名Object。
+-   指定x-oss-forbid-overwrite为true时，表示禁止覆盖同名Object。
 
-设置x-oss-forbid-overwrite请求Header会导致QPS处理性能下降，如果您有大量的操作需要使用x-oss-forbid-overwrite请求Header（QPS \> 1000），请联系技术支持，避免影响您的业务。 |
+设置x-oss-forbid-overwrite请求Header会导致QPS处理性能下降，如果您有大量的操作需要使用x-oss-forbid-overwrite请求Header（QPS\>1000），请联系技术支持，避免影响您的业务。 |
 |x-oss-server-side-encryption|字符串|指定上传该Object的每个part时使用的服务器端加密方式。取值：AES256、KMS
 
 **说明：** 使用KMS加密算法前，您需要先开通密钥管理服务KMS。
@@ -125,5 +123,6 @@ Authorization: SignatureValue
 |InvalidArgument|400|在上传每个part时继续添加x-oss-server-side-encryption请求头。|
 |InvalidArgument|400|指定存储类型的值不合法。|
 |KmsServiceNotEnabled|403|使用KMS加密算法时，没有在控制台开通密钥管理服务KMS。|
-|FileAlreadyExists|409|当请求的Header中携带x-oss-forbid-overwrite=true时，表示禁止覆盖同名文件。如果文件已存在，则返回此错误。|
+|FileAlreadyExists|409|返回该错误的可能原因如下：-   请求Header中携带了`x-oss-forbid-overwrite=true`来禁止覆盖同名文件，但是Bucket中已有同名文件。
+-   Bucket开启分层命名空间后，当您要在该Bucket中初始化一个Multipart Upload事件时，设置的Object为目录。 |
 
