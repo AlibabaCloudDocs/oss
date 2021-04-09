@@ -4,12 +4,12 @@ You can call this operation to query the tags of an object.
 
 ## Versioning
 
-By default, the GetObjectTagging operation is called to query the tags of the current version of an object. If the current version of the object is a delete marker, OSS returns 404 Not Found. You can query the tags of a specified version of an object by specifying the versionId parameter.
+By default, when you call GetObjectTagging to query the tags of an object, only the tags of the current version of the object are returned. You can specify the versionId parameter in the request to query the tags of a specified version of an object. If the current version of the object is a delete marker, OSS returns 404 Not Found.
 
 ## Request structure
 
 ```
-GET /objectname? tagging
+GET /objectname?tagging
 Host: BucketName.oss-cn-hangzhou.aliyuncs.com
 Date: Wed, 20 Mar 2019 02:02:36 GMT
 Authorization: SignatureValue
@@ -27,43 +27,45 @@ The response to a GetObjectTagging request contains only common response headers
 
 |Element|Type|Description|
 |-------|----|-----------|
-|Tagging|Container|The collection of tags. Child node: TagSet |
-|TagSet|Container|The collection of tags. Parent node: Tagging
+|Tagging|Container|The container used to store the collection of tags. Child nodes: TagSet |
+|TagSet|Container|The collection of tags. Parent nodes: Tagging
 
-Child node: Tag |
+Child nodes: Tag |
 |Tag|Container|The collection of tags. Parent nodes: TagSet
 
 Child nodes: Key and Value |
 |Key|String|The key of the object tag. Parent nodes: Tag
 
-Child node: none |
+Child nodes: none |
 |Value|String|The value of the object tag. Parent nodes: Tag
 
-Child node: none |
+Child nodes: none |
 
 ## Examples
 
--   Sample request for querying the tags of an object in an unversioned bucket
+-   Query the tags of an object in an unversioned bucket.
 
-    You can send this request to query the tags \{a:1\} and \{b:2\} of objectname in bucketname that is unversioned. After the two object tags are obtained, 200 OK is returned.
+    In this example, an object named objectname is stored in an unversioned bucket named bucketname. A GetObjectTagging request is sent to query the \{a:1\} and \{b:2\} tags of objectname. After the tags of the object are obtained, 200 OK is returned.
+
+    Sample requests
 
     ```
-    GET /objectname? tagging
+    GET /objectname?tagging
     Host: BucketName.oss-cn-hangzhou.aliyuncs.com
     Date: Wed, 20 Mar 2019 02:02:36 GMT
     Authorization: OSS qn6qrrqxo2oawuk53otf****:kZoYNv66bsmc10+dcGKw5x2P****
     ```
 
-    Sample response
+    Sample responses
 
     ```
     200 (OK)
     content-length: 209
     server: AliyunOSS
-    x-oss-request-id: 5C8F55ED461FB4A64C00****
+    x-oss-request-id: 5C919F38461FB4282600****
     date: Wed, 20 Mar 2019 02:02:32 GMT
     content-type: application/xml
-    <? xml version="1.0" encoding="UTF-8"? >
+    <?xml version="1.0" encoding="UTF-8"?>
     <Tagging>
       <TagSet>
         <Tag>
@@ -78,18 +80,20 @@ Child node: none |
     </Tagging>
     ```
 
--   Sample requests for querying the tags of an object in a versioned bucket
+-   Query the tags of an object in a versioned bucket.
 
-    You can send this request to query the tag \{age:18\} of the specified version of objectname in bucketname that is versioned. The version is specified by versionId. After the tag of the specified version of the object is obtained, 200 OK is returned.
+    In this example, an object named objectname is stored in a versioned bucket named bucketname. A GetObjectTagging request is sent to query the \{age:18\} tags of the specified version of objectname. After the tag of the specified version of the object is obtained, 200 OK is returned.
+
+    Sample requests
 
     ```
-    GET /objectname? tagging&versionId=CAEQExiBgID.jImWlxciIDQ2ZjgwODIyNDk5MTRhNzBiYmQwYTZkMTYzZjM0****
+    GET /objectname?tagging&versionId=CAEQExiBgID.jImWlxciIDQ2ZjgwODIyNDk5MTRhNzBiYmQwYTZkMTYzZjM0****
     Host: BucketName.oss-cn-hangzhou.aliyuncs.com
     Date: Wed, 24 Jun 2020 08:50:28 GMT
     Authorization: OSS ************:********************
     ```
 
-    Sample response
+    Sample responses
 
     ```
     200 (OK)
@@ -99,7 +103,7 @@ Child node: none |
     date: Wed, 24 Jun 2020 08:50:28 GMT
     content-type: application/xml
     x-oss-version-id: CAEQExiBgID.jImWlxciIDQ2ZjgwODIyNDk5MTRhNzBiYmQwYTZkMTYzZjM0****
-    <? xml version="1.0" encoding="UTF-8"? >
+    <?xml version="1.0" encoding="UTF-8"?>
     <Tagging>
       <TagSet>
         <Tag>
@@ -113,7 +117,7 @@ Child node: none |
 
 ## SDK
 
-You can call GetObjectTagging by using OSS SDKs for the following programming languages:
+You can use OSS SDKs for the following programming languages to call GetObjectTagging:
 
 -   [Java](/intl.en-US/SDK Reference/Java/Object tagging/Obtain the tags added to an object.md)
 -   [Python](/intl.en-US/SDK Reference/Python/Object tagging/Obtain the tags added to an object.md)
@@ -121,4 +125,10 @@ You can call GetObjectTagging by using OSS SDKs for the following programming la
 -   [C++](/intl.en-US/SDK Reference/C++/Object tagging/Obtain the tags added to an object.md)
 -   [.NET](/intl.en-US/SDK Reference/. NET/Object tagging/Query the tags added to an object.md)
 -   [Node.js](/intl.en-US/SDK Reference/Node. js/Object tagging/Obtain the tags added to an object.md)
+
+## Error codes
+
+|Error code|HTTP status code|Description|
+|----------|----------------|-----------|
+|FileAlreadyExists|409|The error message returned because the object whose tagging configurations you want to query is a directory within a bucket with the hierarchical namespace feature enabled.|
 
