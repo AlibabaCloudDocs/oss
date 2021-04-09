@@ -40,7 +40,7 @@ When you create a bucket, specify whether to enable the hierarchical namespace f
 
 -   Create a bucket for which the hierarchical namespace feature is enabled
 
-    After hierarchical namespace is enabled, you can manage the directory in the bucket, such as creating a directory. For more information about the hierarchical namespace feature, see [Hierarchical namespace]().
+    After hierarchical namespace is enabled, you can manage the directory in the bucket, such as creating a directory. For more information about the hierarchical namespace feature, see [Hierarchical namespace](/intl.en-US/Developer Guide/Buckets/Hierarchical namespace.md).
 
     The following code provides an example on how to create a bucket named examplebucket and for which the hierarchical namespace feature is enabled when you create the bucket.
 
