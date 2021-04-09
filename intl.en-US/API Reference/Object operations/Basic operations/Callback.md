@@ -1,39 +1,38 @@
 # Callback
 
-To enable OSS to return callback information of an object to an application server after the object is uploaded to OSS, you just need to add a callback parameter in the upload request sent to OSS. This topic describes the implementation of upload callback in detail.
+You can call this operation to implement callback by sending a request that contains callback parameters to OSS. This topic describes how to implement upload callback.
 
 **Note:**
 
--   The API operations that support upload callback include [PutObject](/intl.en-US/API Reference/Object operations/Basic operations/PutObject.md), [PostObject](/intl.en-US/API Reference/Object operations/Basic operations/PostObject.md), and [CompleteMultipartUpload](/intl.en-US/API Reference/Object operations/Multipart upload/CompleteMultipartUpload.md). For more information about callback, see [Add signatures on the server, configure upload callback, and directly transfer data](/intl.en-US/Best Practices/Upload data to OSS through Web applications/Use PostObject to upload data to OSS through Web applications/Add signatures on the server, configure upload callback, and directly transfer data.md).
+-   The following API operations support callback: [PutObject](/intl.en-US/API Reference/Object operations/Basic operations/PutObject.md), [PostObject](/intl.en-US/API Reference/Object operations/Basic operations/PostObject.md), and [CompleteMultipartUpload](/intl.en-US/API Reference/Object operations/Multipart upload/CompleteMultipartUpload.md). For more information about callback, see [Add signatures on the server, configure upload callback, and directly transfer data](/intl.en-US/Best Practices/Upload data to OSS through Web applications/Use PostObject to upload data to OSS through Web applications/Add signatures on the server, configure upload callback, and directly transfer data.md).
 -   Callback does not support server name indication \(SNI\).
 
 ## Step 1: Construct parameters
 
--   Construct a callback parameter.
+-   Callback parameter
 
-    A callback parameter is a Base64-encoded string \(field\) in JSON format. To construct a callback parameter, you must specify the URL \(callbackUrl\) of the server to which the callback information is sent and the content \(callbackBody\) of the callback information.
+    A callback parameter is a Base64-encoded string \(field\) in the JSON format. To create a callback parameter, you must specify the URL \(callbackUrl\) of the server to which the callback request is sent and the content \(callbackBody\) of the callback information.
 
-    The following table describes the JSON fields included in a callback parameter.
+    The following table describes the fields in the JSON format.
 
     |Field|Description|Required|
     |:----|:----------|:-------|
-    |callbackUrl|    -   After an object is uploaded, OSS sends a callback request by using the POST method to this URL. The body of the request is the content specified in callbackBody. In normal cases, the URL returns an `HTTP/1.1 200 OK` response. The response body must be in JSON format, and the Content-Length header of the response is a valid value smaller than 3 MB.
-    -   You can configure up to five URLs separated by semicolons \(;\) for a request. OSS sends requests to each URL until the first success response is returned.
-    -   If no URLs are configured or the value of this field is null, OSS determines that the callback function is not configured.
+    |callbackUrl|    -   The URL of the server to which OSS sends a callback request. After an object is uploaded, OSS uses POST to send a callback request to the URL. The body of the request is the content specified in callbackBody. In most cases, the server configured with the URL returns the `HTTP/1.1 200 OK` response. The response body must be in the JSON format, and the Content-Length response header value must be valid and smaller than 3 MB.
+    -   You can configure up to five URLs that are separated by semicolons \(;\) in a request. OSS sends requests to each URL until the first success response is returned.
+    -   If the value of this field is not configured or is empty, callback is not configured.
     -   HTTPS-based URLs are supported.
-    -   To ensure that Chinese characters can be correctly processed, the callback URL must be encoded. For example, if the value of callbackUrl is `http://example.com/ChineseCharacters.php?key=value&ChineseName=ChineseValue`, it must be encoded into `http://example.com/%E4%B8%AD%E6%96%87.php?key=value&%E4%B8%AD%E6%96%87%E5%90%8D%E7%A7%B0=%E4%B8%AD%E6%96%87%E5%80%BC`.
-|Yes|
+    -   |Yes|
     |callbackHost|    -   The value of the Host header in the callback request. This field is valid only when callbackUrl is specified.
-    -   If callbackHost is not specified, the hosts are resolved from the URLs of callbackUrl field and are specified as the value of callbackHost.
+    -   If callbackHost is not specified, the domain names of hosts are resolved from the URLs specified by the callbackUrl field and are specified as the value of callbackHost.
 |No|
-    |callbackBody|    -   The value of the callback request body, such as key=$\(key\)&etag=$\(etag\)&my\_var=$\(x:my\_var\).
-    -   System variables, custom variables, and constants are supported for this field. The following table lists the supported system variables. Custom variables are passed through the callback-var parameter in the PutObject and CompleteMultipart operations and through form fields in the PostObject operation.
+    |callbackBody|    -   The value of the callback request body. Example: key=$\(object\)&etag=$\(etag\)&my\_var=$\(x:my\_var\).
+    -   System variables, custom variables, and constants are supported for this field. The following table lists the supported system variables. Custom variables are passed by using callback-var in the PutObject and CompleteMultipart operations and by using form fields in the PostObject operation.
 |Yes|
     |callbackBodyType|    -   The Content-Type header in the callback request. Valid values: application/x-www-form-urlencoded and application/json. Default value: application/x-www-form-urlencoded.
-    -   If the value of callbackBodyType is application/x-www-form-urlencoded, variables in callbackBody are replaced by the encoded URLs. If the value of callbackBodyType is application/json, the variables are replaced in JSON format.
+    -   If the value of callbackBodyType is application/x-www-form-urlencoded, variables in callbackBody are replaced by the URL-encoded values. If the value of callbackBodyType is application/json, the variables are replaced by the values in the JSON format.
 |No|
 
-    Examples of the JSON fields in a callback parameter are as follows:
+    Examples of the JSON fields in a callback parameter:
 
     ```
     {
@@ -51,30 +50,30 @@ To enable OSS to return callback information of an object to an application serv
     }
     ```
 
-    The following table describes configurable system parameters in callbackBody.
+    The following table describes the system parameters you can configure for callbackBody.
 
     |System parameter|Description|
     |:---------------|:----------|
     |bucket|The bucket that contains the requested object.|
     |object|The name of the requested object.|
     |etag|The ETag field configured for the object and returned to the requester.|
-    |size|The size of the requested object, which is the total size of the entire object in CompleteMultipartUpload operations.|
+    |size|The size of the requested object, which is the size of the entire object in a CompleteMultipartUpload operation.|
     |mimeType|The resource type. For example, the resource type of JPEG images is image/jpeg.|
-    |imageInfo.height|The height of an image.|
-    |imageInfo.width|The width of an image.|
-    |imageInfo.format|The format of an image, such as JPG or PNG.|
+    |imageInfo.height|The height of the image.|
+    |imageInfo.width|The width of the image.|
+    |imageInfo.format|The format of the image. Example: JPG or PNG.|
 
-    **Note:** Only an image object supports the imageInfo parameter. If the object is not an image, the values of imageInfo.height, imageInfo.width, and imageInfo.format are null.
+    **Note:** The imageInfo parameter can be configured only for an image object. If the object is not an image, imageInfo.height, imageInfo.width, and imageInfo.format are empty.
 
--   Construct custom parameters by using callback-var.
+-   Custom parameters of callback-var
 
-    You can configure custom parameters by using the callback-var parameter. Custom parameters are key-value pairs in Map. You can add required parameters to the map. When a POST callback request is initiated, OSS adds these custom parameters and the system parameters described in the preceding section to the body of the POST request, so that these parameters can be easily obtained by the requester.
+    You can configure custom parameters by using the callback-var parameter. Custom parameters are key-value pairs in a map. You can add required parameters to the map. When a callback request is initiated by using the POST method, OSS adds the custom parameters and the system parameters described in the preceding section to the body of the POST request. This way, the parameters can be easily obtained by the requester.
 
-    You can construct a custom parameter the way you construct a callback parameter. Each parameter has a key-value pair, which is a map that consists of key-value pairs of all custom parameters.
+    You can construct a custom parameter the way you construct a callback parameter. The parameters are passed in the JSON format. Each parameter has a key-value pair, which is a map that consists of key-value pairs of all custom parameters.
 
-    **Note:** The key of a custom parameter must start with "x:" and be in lowercase letters. Otherwise, OSS returns an error.
+    **Note:** The key of a custom parameter must start with "x:" and must contain only lowercase letters. Otherwise, OSS returns an error.
 
-    Assume that you need to configure two custom parameters x:var1 and x:var2. The value of x:var1 is. The value of x:var2 is value2. The constructed JSON string is as follows:
+    For example, if you want to configure two custom parameters x:var1 and x:var2. The value of x:var1 is value1. The value of x:var2 is value2. The following JSON string is constructed:
 
     ```
     {
@@ -84,42 +83,42 @@ To enable OSS to return callback information of an object to an application serv
     ```
 
 
-**Note:** If the input callback parameter or callback-var parameter is invalid, status code 400 is returned with the InvalidArgument error code. This error occurs in the following scenarios:
+**Note:** If the imported callback parameter or callback-var parameters are invalid, HTTP status code 400 and the InvalidArgument error code are returned. This error occurs in the following scenarios:
 
--   URLs and headers are passed in at the same time to the callback parameter \(x-oss-callback\) or the callback-var parameter \(x-oss-callback-var\) in PutObject and CompleteMultipartUpload operations.
--   The size of the callback or callback-var parameter exceeds 5 KB. This does not occur in PostObject operations because the callback-var parameter is not available in PostObject operations.
--   The callback or callback-var parameter is not Base64-encoded or is not in the valid JSON format after being decoded.
--   The callbackUrl field decoded from the callback parameter includes more than five URLs, or the port in the URL is invalid. Example:
+-   URLs and headers are passed in at the same time to the callback parameter \(x-oss-callback\) or the callback-var parameter \(x-oss-callback-var\) in PutObject\(\) and CompleteMultipartUpload\(\) operations.
+-   The size of the callback or callback-var parameter exceeds 5 KB. This does not occur in PostObject operations because the callback-var parameter is unavailable in PostObject operations.
+-   The callback or callback-var parameter is not Base64-encoded or is not in the valid JSON format after the parameter is decoded.
+-   The callbackUrl field value decoded from the callback parameter includes more than five URLs, or the port number in the URL is invalid. Example:
 
     ```
     {"callbackUrl":"10.101.166.30:test",
         "callbackBody":"test"}
     ```
 
--   The callbackBody field decoded from the callback parameter is null.
+-   The callbackBody field decoded from the callback parameter is empty.
 -   The value of the callbackBodyType field decoded from the callback parameter is not `application/x-www-form-urlencoded` or `application/json`.
--   The variables in the callbackBody field decoded from the callback parameter are not in the valid format of $ \{var\}.
+-   The variables in the callbackBody field decoded from the callback parameter are not in the valid format. The valid format is $ \{var\}.
 -   The variables in the callbackBody field decoded from the callback-var parameter are not in the expected JSON format of `{"x:var1":"value1","x:var2":"value2"...}`.
 
 ## Step 2: Construct a callback request
 
-After constructing the callback and callback-var parameters, you must add the parameters to the callback request sent to OSS.
+After you construct the callback and callback-var parameters, you must add the parameters to the callback request sent to OSS.
 
 You can use the following methods to add parameters:
 
--   Add the parameters to the URL.
--   Add the parameters to the header.
--   Add the parameters to the form fields in the body of a POST request.
+-   Include the parameters in the URL.
+-   Include the parameters in the header.
+-   Include the parameters in the form fields in the body of a POST request.
 
-    **Note:** You can use only this method to specify callback parameters when uploading objects by using POST requests.
+    **Note:** You can use only this method to specify callback parameters when you upload objects by using POST requests.
 
 
-The preceding three methods are alternative. If you use more than one method, OSS returns InvalidArgument error code.
+You can use only one of the three methods to add parameters. If you use more than one method, OSS returns the InvalidArgument error code.
 
-To add the parameters to a request sent to OSS, you must use Base64 to encode the JSON string constructed in the preceding section, and then add the parameters as follows:
+To include the parameters in a request sent to OSS, you must use Base64 to encode the JSON string constructed in the preceding section. Then, use the following methods to include the parameters:
 
--   To add the parameters to the URL, add `callback=[CallBack]` or `callback-var=[CallBackVar]` to the request as a URL parameter. When the CanonicalizedResource field in the signature is calculated, callback or callback-var is used as a sub-resource.
--   To add the parameters to the header, add `x-oss-callback=[CallBack]` or `x-oss-callback-var=[CallBackVar]` to the request as a header. When the CanonicalizedOSSHeaders field in the signature is calculated, x-oss-callback-var and x-oss-callback are included. Example:
+-   To include the parameters in the URL, include `callback=[CallBack]` or `callback-var=[CallBackVar]` as a URL parameter in the request. When the CanonicalizedResource field in the signature is calculated, callback or callback-var is used as a subresource.
+-   To include the parameters to the header, include `x-oss-callback=[CallBack]` or `x-oss-callback-var=[CallBackVar]` as a header in the request. When the system calculates the CanonicalizedOSSHeaders field, include x-oss-callback-var and x-oss-callback. Examples:
 
     ```
     PUT /test.txt HTTP/1.1
@@ -130,15 +129,15 @@ To add the parameters to a request sent to OSS, you must use Base64 to encode th
     User-Agent: aliyun-sdk-python/0.4.0 (Linux/2.6.32-220.23.2.ali1089.el5.x86_64/x86_64;2.5.4)
     x-oss-callback: eyJjYWxsYmFja1VybCI6IjEyMS40My4xMTMuODoyMzQ1Ni9pbmRleC5odG1sIiwgICJjYWxsYmFja0JvZHkiOiJidWNrZXQ9JHtidWNrZXR9Jm9iamVjdD0ke29iamVjdH0mZXRhZz0ke2V0YWd9JnNpemU9JHtzaXplfSZtaW1lVHlwZT0ke21pbWVUeXBlfSZpbWFnZUluZm8uaGVpZ2h0PSR7aW1hZ2VJbmZvLmhlaWdodH0maW1hZ2VJbmZvLndpZHRoPSR7aW1hZ2VJbmZvLndpZHRofSZpbWFnZUluZm8uZm9ybWF0PSR7aW1hZ2VJbmZvLmZvcm1hdH0mbXlfdmFyPSR7eDpteV92YXJ9In0=
     Host: callback-test.oss-test.aliyun-inc.com
-    Expect: 100-continue
+    Expect: 100-Continue
     Date: Mon, 14 Sep 2015 12:37:27 GMT
     Content-Type: text/plain
     Authorization: OSS mlepou3zr4u7b14:5a74vhd4UXpmyuudV14Kaen5****
     Test
     ```
 
--   Add the parameters to the form fields in the body of a POST request.
-    -   It is slightly complicated to add the callback parameter when the POST method is used to upload an object because the callback parameter must be added by using a separate form field. Example:
+-   Include the parameters in the form fields in the body of a POST request.
+    -   If the callback parameters are included when the POST method is used to upload an object, the procedure becomes more complex. The callback parameters must be included by using a separate form field. Example:
 
         ```
         --9431149156168
@@ -146,7 +145,7 @@ To add the parameters to a request sent to OSS, you must use Base64 to encode th
         eyJjYWxsYmFja1VybCI6IjEwLjEwMS4xNjYuMzA6ODA4My9jYWxsYmFjay5waHAiLCJjYWxsYmFja0hvc3QiOiIxMC4xMDEuMTY2LjMwIiwiY2FsbGJhY2tCb2R5IjoiZmlsZW5hbWU9JChmaWxlbmFtZSkmdGFibGU9JHt4OnRhYmxlfSIsImNhbGxiYWNrQm9keVR5cGUiOiJhcHBsaWNhdGlvbi94LXd3dy1mb3JtLXVybGVuY29kZWQifQ==
         ```
 
-    -   Each custom parameter uses a separate form field. You cannot add the callback-var parameter to existing fields. For example, if the JSON string for the custom parameter is as follows:
+    -   Each custom parameter uses a separate form field. You cannot directly include the callback-var parameters in existing form fields. Examples of JSON fields for customer parameters:
 
         ```
         {
@@ -155,7 +154,7 @@ To add the parameters to a request sent to OSS, you must use Base64 to encode th
         }
         ```
 
-        Then the form fields in the POST request are as follows:
+        Form fields in the POST request:
 
         ```
         --9431149156168
@@ -169,7 +168,7 @@ To add the parameters to a request sent to OSS, you must use Base64 to encode th
         value2
         ```
 
-        You can also add callback conditions in the policy \(if callback parameters are not added, upload verification is not performed on policy\). Example:
+        You can also add callback conditions to the policy. If the callback parameters are not added, upload verification is not performed on the policy. Example:
 
         ```
         { "expiration": "2014-12-01T12:00:00.000Z",
@@ -184,7 +183,7 @@ To add the parameters to a request sent to OSS, you must use Base64 to encode th
 
 ## Step 3: Initiate a callback request
 
-If an object is uploaded, OSS sends the content specified by the callback and callback-var parameters in the request to the application server by using the POST method. Example:
+If an object is uploaded, OSS uses POST to send the content specified by the callback and callback-var parameters in the request to the application server. Example:
 
 ```
 POST /index.html HTTP/1.0
@@ -196,31 +195,31 @@ User-Agent: http-client/0.0.1
 bucket=callback-test&object=test.txt&etag=D8E8FCA2DC0F896FD7CB4CB0031BA249&size=5&mimeType=text%2Fplain&imageInfo.height=&imageInfo.width=&imageInfo.format=&x:var1=for-callback-test
 ```
 
-## \(Optional\) Step 4: Sign the callback request
+## Step 4: \(Optional\) Sign the callback request
 
-If the callback parameter is configured in the request, OSS uses POST to send a callback request to the application server based on the specified callback URL. To verify whether the callback request received by the application server is initiated by OSS, you can sign the callback request.
+If the callback parameters are configured in the request, OSS uses POST to send a callback request to the application server based on the specified callback URL. To verify whether the callback request received by the application server is initiated by OSS, you can sign the callback request.
 
--   Generate a signature.
+-   Generate a signature
 
-    A callback request is signed by OSS by using the RSA asymmetric algorithm.
+    A callback request is signed by OSS by using the Rivest–Shamir–Adleman \(RSA\) asymmetric algorithm.
 
-    To generate a signature, encrypt the callback string with a private key. Example:
+    To generate a signature, encrypt the callback string by using a private key. Example:
 
     ```
     authorization = base64_encode(rsa_sign(private_key, url_decode(path) + query_string + '\n' + body, md5))
     ```
 
-    **Note:** In the preceding code, private\_key is a private key only known by OSS, path is the resource path included in the callback request, query\_string is the query string, and body is the message body specified in the callback request.
+    **Note:** In the preceding code, private\_key specifies a private key known only by OSS. path specifies the resource path included in the callback request. query\_string specifies the query string. body specifies the message body specified in the callback request.
 
-    A callback request is signed in the following steps:
+    To sign a callback request, perform the following steps:
 
-    1.  Obtain the callback string to be signed, which consists of the resource path obtained by decoding the URL, the original query string, a carriage return, and the callback message body.
+    1.  Obtain the callback string-to-sign. The callback string consists of the resource path that is obtained by decoding the URL-encoded string, the original query string, a carriage return, and the callback message body.
     2.  Sign the callback string by using the RSA encryption algorithm. Use the private key to encrypt the signature string. The hash function used for the signature is MD5.
     3.  Use Base64 to encode the signed result to obtain the final signature and add the signature to the Authorization header in the callback request.
-    Example:
+    Examples:
 
     ```
-    POST /index.php? id=1&index=2 HTTP/1.0
+    POST /index.php?id=1&index=2 HTTP/1.0
     Host: 121.43.113.8
     Connection: close
     Content-Length: 18
@@ -231,33 +230,33 @@ If the callback parameter is configured in the request, OSS uses POST to send a 
     bucket=yonghu-test
     ```
 
-    In the preceding code, path is set to `/index.php`, query\_string is set to `? id=1&index=2`, and body is set to `bucket=yonghu-test`. The final signature is `kKQeGTRccDKyHB3H9vF+xYMSrmhMZjzzl2/kdD1ktNVgbWEfYTQG0G2SU/RaHBovRCE8OkQDjC3uG33esH2txA==`.
+    In the preceding code, path is set to `/index.php`. query\_string is set to `?id=1&index=2`. body is set to `bucket=yonghu-test`. The final signature is `kKQeGTRccDKyHB3H9vF+xYMSrmhMZjzzl2/kdD1ktNVgbWEfYTQG0G2SU/RaHBovRCE8OkQDjC3uG33esH2txA==`.
 
--   Verify the signature.
+-   Verify the signature
 
-    Signature verification is an inverse process of signing a request. The signature is verified by the application server as follows:
+    Signature verification is an inverse process of signing a request. The signature is verified by the application server. Process:
 
     ```
     Result = rsa_verify(public_key, md5(url_decode(path) + query_string + '\n' + body), base64_decode(authorization))
     ```
 
-    The fields in the preceding code have the same meanings as they are used to sign the request. Public\_key indicates the public key and authorization indicates the signature in the callback request header. The signature is verified as follows:
+    The descriptions of some fields in the preceding code are the same as those of the fields that are used to sign the request. public\_key specifies the public key. authorization specifies the signature in the callback request header. To verify the signature, perform the following steps:
 
-    1.  The x-oss-pub-key-url header in the callback request stores the Base64-encoded URL of the public key. Therefore, you must decode the Base64-encoded URL to obtain the public key.
+    1.  Decode the Base64-encoded URL to obtain the public key. The x-oss-pub-key-url header in the callback request stores the Base64-encoded URL of the public key.
 
         ```
-        public_key = urlopen(base64_decode(x-oss-pub-key-url header))
+        public_key = urlopen(base64_decode(x-oss-pub-key-url header value))
         ```
 
-        **Note:** To ensure that the public key is issued by OSS, you must verify whether the value of the `x-oss-pub-key-url` header starts with `http://gosspublic.alicdn.com/` or `https://gosspublic.alicdn.com/`.
+        **Note:** To ensure that the public key is issued by OSS, you must verify whether the `x-oss-pub-key-url` header value starts with `http://gosspublic.alicdn.com/` or `https://gosspublic.alicdn.com/`.
 
     2.  Obtain the signature decoded in Base64.
 
         ```
-        signature = base64_decode(authorization header)
+        signature = base64_decode(authorization header value)
         ```
 
-    3.  Obtain the string to be signed in the same way as described in the process of signing the callback request.
+    3.  Obtain the string-to-sign by using the same procedure that is used to obtain the string when the callback request is signed.
 
         ```
         sign_str = url_decode(path) + query_string + '\n' + body
@@ -269,15 +268,15 @@ If the callback parameter is configured in the request, OSS uses POST to send a 
         result = rsa_verify(public_key, md5(sign_str), signature)
         ```
 
-    The preceding code is used as an example:
+    Complete process of signature verification:
 
-    1.  Obtain the URL of the public key by decoding `aHR0cDovL2dvc3NwdWJsaWMuYWxpY2RuLmNvbS9jYWxsYmFja19wdWJfa2V5X3YxLnBlbQ==` in Base64. The decoded URL is `http://gosspublic.alicdn.com/callback_pub_key_v1.pem`.
-    2.  Decode the signature header `kKQeGTRccDKyHB3H9vF+xYMSrmhMZjzzl2/kdD1ktNVgbWEfYTQG0G2SU/RaHBovRCE8OkQDjC3uG33esH2txA==` in Base64. The decoded result cannot be displayed because it is a nonprintable string.
-    3.  Obtain the string to be signed, which is url\_decode\("index.php"\) + "? id=1&index=2" + "\\n" + "bucket=yonghu-test", and perform MD5 verification on the string.
+    1.  To obtain the URL of the public key, decode `aHR0cDovL2dvc3NwdWJsaWMuYWxpY2RuLmNvbS9jYWxsYmFja19wdWJfa2V5X3YxLnBlbQ==` in Base64. The decoded URL is `http://gosspublic.alicdn.com/callback_pub_key_v1.pem`.
+    2.  Decode signature header `kKQeGTRccDKyHB3H9vF+xYMSrmhMZjzzl2/kdD1ktNVgbWEfYTQG0G2SU/RaHBovRCE8OkQDjC3uG33esH2txA==` in Base64. The decoded result cannot be displayed because it is a nonprintable string. Therefore, the result cannot be displayed.
+    3.  Obtain the string-to-sign, which is url\_decode\("index.php"\) + "?id=1&index=2" + "\\n" + "bucket=yonghu-test", and perform MD5 verification on the string.
     4.  Verify the signature.
 -   Application server example
 
-    The following Python code shows how an application server verifies a signature. Before you run the code, the M2Crypto library must be installed.
+    The following Python code shows you how an application server verifies a signature. Before you run the code, the M2Crypto library must be installed.
 
     ```
     import httplib
@@ -292,7 +291,7 @@ If the callback parameter is configured in the request, OSS uses POST to send a 
             csock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
             csock.connect(('8.8.8.8', 80))
             (addr, port) = csock.getsockname()
-            conn.close()
+            csock.close()
             return addr
         except socket.error:
             return ""
@@ -367,38 +366,31 @@ If the callback parameter is configured in the request, OSS uses POST to send a 
     server.serve_forever()
     ```
 
-    The code for the server in other languages is as follows:
+    The following table describes the code in other programming languages used to verify a signature on the server.
 
-    Java:
+    |Programming language|Description|
+    |--------------------|-----------|
+    |Java|    -   Download link: [Java](https://gosspublic.alicdn.com/images/AppCallbackServer.zip)
+    -   Running method: Decompress the package and run `java -jar oss-callback-server-demo.jar 9000`. 9000 is the port number and can be customized. |
+    |Python|    -   Download link: [Python](https://gosspublic.alicdn.com/images/callback_app_server.py.zip)
+    -   Running method: Decompress the package and run `python callback_app_server.py`. Before you run the code, RSA dependencies must be installed. |
+    |Go|    -   Download link: [Go](https://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/31989/cn_zh/1501048745465/callback-server-go.zip)
+    -   Running method: Decompress the package and follow `README.md`. |
+    |PHP|    -   Download link: [PHP](https://gosspublic.alicdn.com/callback-php-demo.zip)
+    -   Running method: Deploy the code to an Apache environment because some headers in the PHP code depend on the environment. You can modify the example code based on the environment. |
+    |.NET|    -   Download link: [.NET](https://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/131396/intl_en/1597211267799/callback-server-dotnet-20200810.zip)
+    -   Running method: Decompress the package and follow `README.md`. |
+    |Node.js|    -   Download link: [Node.js](http://gosspublic.alicdn.com/doc/oss-doc/callback-nodejs-demo.zip)
+    -   Running method: Decompress the package and directly run `node example.js`. |
+    |Ruby|    -   Download link: [Ruby](https://github.com/rockuw/oss-callback-server)
+    -   Running method: Run the ruby aliyun\_oss\_callback\_server.rb command. |
 
-    -   Click [here](https://gosspublic.alicdn.com/images/AppCallbackServer.zip) to download the code.
-    -   Running method: Decompress the package and run `java -jar oss-callback-server-demo.jar 9000`. 9000 is the port number and can be specified as needed.
-    PHP:
-
-    -   Click [here](https://gosspublic.alicdn.com/callback-php-demo.zip) to download the code.
-    -   Running method: Deploy the code to an Apache environment because some headers in the PHP code depend on the environment. You can modify the example code based on the environment.
-    Python:
-
-    -   Click [here](https://gosspublic.alicdn.com/images/callback_app_server.py.zip) to download the code.
-    -   Running method: Decompress the package and run `python callback_app_server.py`. Before you run the code, RSA dependencies must be installed.
-    .NET:
-
-    -   Click [here](https://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/31989/cn_zh/1501048926621/callback-server-dotnet.zip) to download the code.
-    -   Running method: Decompress the package and follow `README.md`.
-    Go:
-
-    -   Click [here](https://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/31989/cn_zh/1501048745465/callback-server-go.zip) to download the code.
-    -   Running method: Decompress the package and follow `README.md`.
-    Ruby:
-
-    -   Click [here](https://github.com/rockuw/oss-callback-server) to download the code.
-    -   Running method: Run ruby aliyun\_oss\_callback\_server.rb.
 
 ## Step 5: Return the callback result
 
 The application server returns the response to OSS.
 
-The response to the callback request is as follows:
+The following response is the response to the callback request:
 
 ```
 HTTP/1.0 200 OK
@@ -415,7 +407,7 @@ Content-Length: 9
 
 OSS returns the information that is returned by the application server to the user.
 
-An example of the returned response is as follows:
+The following example shows a returned response:
 
 ```
 HTTP/1.1 200 OK
@@ -432,6 +424,6 @@ x-oss-request-id: 55F6BF87207FB30F2640C548
 
 **Note:**
 
--   The body of responses for some requests such as CompleteMultipartUpload contains content, such as information in XML format. If you use the upload callback function, the original body content is overwritten such as `{"a":"b"}`. Exercise caution when you implement upload callback.
--   If the upload callback fails, status code 203 is returned with the error code CallbackFailed. This response indicates that the object is successfully uploaded to OSS, but the callback fails. A callback failure only indicates that OSS does not receive the expected callback response. It does not indicate that the application server does not receive a callback request. For example, a callback failure will occur if the response returned by the application server is not in JSON format.
+-   The body of responses for some requests such as CompleteMultipartUpload requests contains content such as information in the XML format. If you use the upload callback function, the original body content such as `{"a":"b"}` is overwritten. Exercise caution when you implement upload callback.
+-   If the upload callback fails, HTTP status code 203 and the CallbackFailed error code are returned. This response indicates that the object is uploaded to OSS. However, the callback fails. A callback failure only indicates that OSS does not receive the expected callback response. The failure does not indicate that the application server does not receive a callback request. For example, if the response returned by the application server is not in the JSON format, the callback fails.
 
