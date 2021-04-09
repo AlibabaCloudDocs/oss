@@ -1,14 +1,13 @@
 # DeleteObject
 
-DeleteObject用于删除某个文件（Object）。
+调用DeleteObject删除某个文件（Object）。
 
 ## 注意事项
 
-调用DeleteObject接口时，有如下注意事项：
-
--   您需要对要删除的Object有写权限。
+-   要删除文件，您必须有Object的写权限。
 -   无论要删除的Object是否存在，删除成功后均会返回204状态码。
--   如果Object类型为软链接，使用DeleteObject仅会删除该软链接。
+-   如果Object类型为软链接，使用DeleteObject接口只会删除该软链接。
+-   Bucket开启分层命名空间后，使用DeleteObject接口不能删除该Bucket中的目录（Directory）。
 
 ## 版本控制
 
@@ -25,23 +24,6 @@ DeleteObject用于删除某个文件（Object）。
     如果在指定versionId的情况下执行删除操作时，OSS会根据`params`中指定的`versionId`参数永久删除该版本。如果要删除ID为“null”的版本，请在`params`参数中添加`params['versionId'] = “null”`，OSS将“null”字符串当成“null”的versionId，从而删除versionId为“null”的Object。
 
 
-## 请求头
-
-此接口涉及的公共请求头的更多信息，请参见[公共请求头（Common Request Headers）](/intl.zh-CN/API 参考/公共HTTP头定义.md)。
-
-## 响应头
-
-|名称|类型|示例值|描述|
-|:-|:-|---|:-|
-|x-oss-delete-marker|布尔型|true|-   未指定versionId执行DeleteObject 操作时，OSS会创建删除标记，响应中会返回此Header，且值为true。
--   指定versionId来永久删除指定Object版本时，如果该版本是删除标记，响应中会返回此Header，且值为true。
-
-有效值：true|
-|x-oss-version-id|字符串|CAEQMxiBgIDh3ZCB0BYiIGE4YjIyMjExZDhhYjQxNzZiNGUyZTI4ZjljZDcz\*\*\*\*|-   未指定versionId执行DeleteObject操作时，OSS会创建删除标记，响应中会返回此Header，表示新创建的删除标记的versionId。
--   指定versionId来永久删除Object指定版本时，响应中会返回此Header，表示删除Object的versionId。 |
-
-有关其他公共响应头的更多信息，请参见[公共响应头（Common Response Headers）](/intl.zh-CN/API 参考/公共HTTP头定义.md)。
-
 ## 请求语法
 
 ```
@@ -51,9 +33,28 @@ Date: Wed, 02 Jan 2019 13:28:38 GMT
 Authorization: SignatureValue
 ```
 
+## 请求头
+
+此接口仅包含公共请求头。关于公共请求头的更多信息，请参见[公共请求头（Common Request Headers）](/intl.zh-CN/API 参考/公共HTTP头定义.md)。
+
+## 响应头
+
+|名称|类型|示例值|描述|
+|:-|:-|---|:-|
+|x-oss-delete-marker|布尔型|true|Object为删除标记。-   未指定versionId执行DeleteObject操作时，OSS会创建删除标记，响应中会返回此Header，且值为true。
+-   指定versionId来永久删除指定Object版本时，如果该版本是删除标记，响应中会返回此Header，且值为true。
+
+有效值：true|
+|x-oss-version-id|字符串|CAEQMxiBgIDh3ZCB0BYiIGE4YjIyMjExZDhhYjQxNzZiNGUyZTI4ZjljZDcz\*\*\*\*|Object的versionId。-   未指定versionId执行DeleteObject操作时，OSS会创建删除标记，响应中会返回此Header，表示新创建的删除标记的versionId。
+-   指定versionId来永久删除Object指定版本时，响应中会返回此Header，表示删除Object的versionId。 |
+
+此接口还需要包含公共响应头。关于公共响应头的更多信息，请参见[公共响应头（Common Response Headers）](/intl.zh-CN/API 参考/公共HTTP头定义.md)。
+
 ## 示例
 
--   请求示例
+-   执行DeleteObject操作
+
+    请求示例
 
     ```
     DELETE /AK.txt HTTP/1.1
@@ -79,9 +80,11 @@ Authorization: SignatureValue
     x-oss-server-time: 134
     ```
 
--   未指定versionId执行DeleteObject的请求示例
+-   未指定versionId执行DeleteObject操作
 
-    此时，OSS中会插入删除标记，响应中返回了x-oss-delete-marker=true。
+    此时OSS中会插入删除标记，响应中将返回`x-oss-delete-marker=true`。
+
+    请求示例
 
     ```
     DELETE /example HTTP/1.1
@@ -102,9 +105,11 @@ Authorization: SignatureValue
     Server: AliyunOSS
     ```
 
--   指定versionId执行DeleteObject操作的请求示例
+-   指定versionId执行DeleteObject操作
 
-    以下示例中通过指定versionId来执行DeleteObject操作时，将永久删除该指定versionId的Object。
+    通过指定versionId来执行DeleteObject操作时，将永久删除该指定versionId的Object。
+
+    请求示例
 
     ```
     DELETE /example?versionId=CAEQOBiBgIDNlJeB0BYiIDAwYjJlNDQ4YjJkMzQxMmY5NTM5N2UzZWNiZTQ2**** HTTP/1.1
@@ -125,9 +130,11 @@ Authorization: SignatureValue
     Server: AliyunOSS
     ```
 
--   指定versionId删除“删除标记”的请求示例
+-   指定versionId删除“删除标记”
 
-    以下示例中指定删除的版本为删除标记，则响应中将返回`x-oss-delete-marker=true`。
+    指定删除的版本为删除标记时，响应中将返回`x-oss-delete-marker=true`。
+
+    请求示例
 
     ```
     DELETE /example?versionId=CAEQOBiBgIDNlJeB0BYiIDAwYjJlNDQ4YjJkMzQxMmY5NTM5N2UzZWNiZTQ2**** HTTP/1.1
@@ -169,5 +176,6 @@ DeleteObject接口所对应的各语言SDK如下：
 
 |错误码|HTTP状态码|描述|
 |---|-------|--|
-|FileImmutable|409|Bucket内的数据处于被保护状态时，若您尝试删除或修改这些数据，将返回此错误码。|
+|FileImmutable|409|Bucket中的数据处于被保护状态时，如果尝试删除或修改这些数据，则返回该错误。|
+|FileAlreadyExists|409|Bucket开启分层命名空间后，当您要在该Bucket中删除某个Object时，如果设置的Object为目录，则返回该错误。|
 
