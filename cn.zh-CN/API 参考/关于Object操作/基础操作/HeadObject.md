@@ -35,14 +35,14 @@ Authorization: SignatureValue
 |名称|类型|描述|
 |:-|:-|:-|
 |x-oss-meta-\*|字符串|以x-oss-meta-为前缀的参数作为用户自定义meta header。当用户在PutObject时设置了以x-oss-meta-为前缀的自定义meta，则响应中会包含这些自定义meta。|
-|非x-oss-meta-开头的自定义header|字符串|当用户在PutObject时，自定义一些非x-oss-meta为前缀的Header，如x-oss-persistent-headers:key1:base64\_encode\(value1\),key2:base64\_encode\(value2\).... ，响应中会增加相应的自定义Header。 详情请参见[OSS如何添加非x-oss-meta-开头的自定义](https://yq.aliyun.com/articles/499171)。 |
+|非x-oss-meta-开头的自定义header|字符串|当用户在PutObject时，自定义一些非x-oss-meta为前缀的Header，如x-oss-persistent-headers:key1:base64\_encode\(value1\),key2:base64\_encode\(value2\).... ，响应中会增加相应的自定义Header。 具体操作，请参见[OSS如何添加非x-oss-meta-开头的自定义](https://yq.aliyun.com/articles/499171)。 |
 |x-oss-server-side-encryption|字符串|若该Object为进行服务器端熵编码加密存储的，则在响应头头中会返回此参数，其值表明该Object的服务器端加密算法。|
 |x-oss-server-side-encryption-key-id|字符串|如果用户在创建Object时使用了服务端加密，且加密方法为KMS，则响应中会包含此Header，表示加密所使用的用户KMS key ID。|
 |x-oss-storage-class|字符串|表示Object的存储类型，分别为：标准存储类型（Standard）、低频访问存储类型（IA）、归档存储类型（Archive）和冷归档存储类型（ColdArchive）。 -   标准存储类型提供高可靠、高可用、高性能的对象存储服务，能够支持频繁的数据访问。
 -   低频访问存储类型适合需要长期存储但不经常被访问的数据（平均每月访问频率1到2次）。
 -   归档存储类型适合需要长期存储（建议半年以上）的归档数据，在存储周期内极少被访问，数据进入到可读取状态需要1分钟的解冻时间。
 -   冷归档存储类型适用于需要长期保存且几乎不访问的数据。 |
-|x-oss-object-type|字符串|表示Object的类型。 -   通过PutObject上传的Object类型为Normal。
+|x-oss-object-type|字符串|表示Object的类型。 -   通过PutObject上传或者通过CreateDirectory创建的Object类型为Normal。
 -   通过AppendObject上传的Object类型为Appendable。
 -   通过MultipartUpload上传的Object类型为Multipart。 |
 |x-oss-next-append-position|字符串|对于Appendable类型的Object会返回此Header，指明下一次请求应当提供的position。|
@@ -65,7 +65,9 @@ Authorization: SignatureValue
 
 ## 示例
 
--   未启用版本控制的请求示例
+-   未启用版本控制
+
+    请求示例
 
     ```
     HEAD /oss.jpg HTTP/1.1
@@ -91,6 +93,8 @@ Authorization: SignatureValue
     ```
 
 -   请求对象指定版本（启用版本控制）
+
+    请求示例
 
     ```
     HEAD /example?versionId=CAEQNRiBgICb8o6D0BYiIDNlNzk5NGE2M2Y3ZjRhZTViYTAxZGE0ZTEyMWYy****
@@ -118,6 +122,8 @@ Authorization: SignatureValue
 
 -   请求对象最新版本（启用版本控制）
 
+    请求示例
+
     ```
     HEAD /example HTTP/1.1    
     Host: versioning-test.oss-cn-hangzhou.aliyuncs.com
@@ -142,7 +148,9 @@ Authorization: SignatureValue
     Server: AliyunOSS
     ```
 
--   提交Restore请求但Restore没有完成时的请求示例
+-   提交Restore请求但Restore未完成
+
+    请求示例
 
     ```
     HEAD /oss.jpg HTTP/1.1
@@ -168,7 +176,9 @@ Authorization: SignatureValue
     Server: AliyunOSS
     ```
 
--   提交Restore请求且Restore已经完成时的请求示例
+-   提交Restore请求且Restore已完成
+
+    请求示例
 
     ```
     HEAD /oss.jpg HTTP/1.1
@@ -191,7 +201,9 @@ Authorization: SignatureValue
     Content-Length: 344606
     ```
 
--   使用服务端加密SSE-OSS的请求示例
+-   使用服务端加密SSE-OSS
+
+    请求示例
 
     ```
     HEAD /oss.jpg HTTP/1.1
@@ -217,7 +229,9 @@ Authorization: SignatureValue
     Server: AliyunOSS
     ```
 
--   使用服务器端加密SSE-KMS的请求示例
+-   使用服务器端加密SSE-KMS
+
+    请求示例
 
     ```
     HEAD /oss.jpg HTTP/1.1
@@ -252,8 +266,8 @@ Authorization: SignatureValue
 |Not Found|404|请求的文件不存在。|
 |SymlinkTargetNotExist|404|请求的文件类型为软链接。|
 |InvalidTargetType|400|请求的文件类型为软链接，且对应的目标文件类型也为软链接。|
-|Not Modified|304|-   指定了If-Modified-Since请求头，但源Object在指定的时间后没被修改过。
+|Not Modified|304|返回该错误的可能原因如下：-   指定了If-Modified-Since请求头，但源Object在指定的时间后没被修改过。
 -   指定了If-None-Match请求头，且源Object的ETag值和您提供的ETag相等。 |
-|Precondition Failed|412|-   指定了If-Unmodified-Since，但指定的时间早于Object实际修改时间 。
+|Precondition Failed|412|返回该错误的可能原因如下：-   指定了If-Unmodified-Since，但指定的时间早于Object实际修改时间。
 -   指定了If-Match，但源Object的ETag值和您提供的ETag不相等。 |
 
