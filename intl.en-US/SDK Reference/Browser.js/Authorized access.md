@@ -1,80 +1,52 @@
-# Authorized access {#concept_303922 .concept}
+# Authorized access
 
 This topic describes how to authorize access to OSS.
 
-## Use STS for temporary access authorization {#section_iy3_bfe_7mn .section}
+## Use STS to authorize temporary access
 
-You can use Alibaba Cloud Security Token Service \(STS\) to authorize temporary access to OSS. STS is a Web service that provides a temporary access token to a cloud computing user. You can use STS to grant a third-party application or a RAM user \(whose user ID is managed by yourself\) an access credential with customized validity period and permissions. For more information about STS, see [STS introduction](../../../../reseller.en-US/API Reference (STS)/What is STS?.md#).
+You can use Alibaba Cloud Security Token Service \(STS\) to authorize temporary access to OSS. STS is a web service that provides temporary access tokens for cloud computing users. You can use STS to grant a third-party application or your RAM user an access credential with a customized validity period and permissions. For more information about STS, see [What is STS?](/intl.en-US/API Reference/API Reference (STS)/What is STS?.md)
 
-STS has the following advantages:
+STS has the following benefits:
 
--   You can generate an access token and send it to the third-party application for authorization without exposing your long-term key \(AccessKey\). You can customize the access permissions and validity period of the token.
--   The access token automatically becomes invalid after expiration.
+-   You need only to generate an access token and send the access token to a third-party application, instead of exposing your long-term AccessKey pair to the third-party application. You can customize the access permissions and validity period of this token.
+-   The access token automatically expires when the validity period ends.
 
-For more information about how to use STS to access OSS, see [Access control](../../../../reseller.en-US/Developer Guide/Access and control/Overview.md#) in OSS Developer Guide.
+For more information about how to set up a security token service \(STS\), see [Access OSS with a temporary access credential provided by STS](/intl.en-US/Developer Guide/Data security/Access and control/Access OSS with a temporary access credential provided by STS.md) in OSS Developer Guide.
 
-Run the following code to create a signed request by using STS:
+The following code provides an example on how to use STS to create a signed request:
 
-``` {#codeblock_kjr_4d5_c4q}
-const express = require('express');
-const { STS } = require('ali-oss');
-const fs = require('fs');
-
-const app = express();
-const path = require('path');
-const conf = require('./config');
-
-app.get('/sts', (req, res) => {
-  console.log(conf);
-  let policy;
-  if (conf.PolicyFile) {
-    policy = fs.readFileSync(path.resolve(__dirname, conf.PolicyFile)).toString('utf-8');
-  }
-
-  const client = new STS({
-    accessKeyId: conf.AccessKeyId,
-    accessKeySecret: conf.AccessKeySecret
-  });
-
-  client.assumeRole(conf.RoleArn, policy, conf.TokenExpireTime).then((result) => {
-    console.log(result);
-    res.set('Access-Control-Allow-Origin', '*');
-    res.set('Access-Control-Allow-METHOD', 'GET');
-    res.json({
-      AccessKeyId: result.credentials.AccessKeyId,
-      AccessKeySecret: result.credentials.AccessKeySecret,
-      SecurityToken: result.credentials.SecurityToken,
-      Expiration: result.credentials.Expiration
+```
+// Obtain a temporary access credential from the STS you set up.
+fetch('http://your_sts_server/')
+  .then(resp => resp.json())
+  .then(result => {
+    const store = new OSS({
+      accessKeyId: result.AccessKeyId,
+      accessKeySecret: result.AccessKeySecret,
+      stsToken: result.SecurityToken,
+      // Set region to the region where the requested bucket is located. For example, if the requested bucket is located in the China (Hangzhou) region, set region to oss-cn-hangzhou.
+      region: 'oss-cn-hangzhou',
+      bucket: 'examplebucket'
     });
-  }).catch((err) => {
-    console.log(err);
-    res.status(400).json(err.message);
-  });
-});
-
-app.use('/static', express.static('public'));
-app.get('/', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../index.html'));
-});
-
-app.listen(9000, () => {
-  console.log('App started.');
-});
+    // Generate a signed URL.
+    const url = store.signatureUrl('ossdemo.txt');
+    console.log(url);
+  })
 ```
 
-## Sign a URL to authorize temporary access {#section_j5o_0n2_9c6 .section}
+## Use a signed URL to authorize temporary access
 
--   Sign a URL
+-   Generate a signed URL
 
-    You can provide a signed URL to a visitor for temporary access. When you sign a URL, you can specify the expiration time of the URL to restrict the period of access from visitors.
+    You can generate a signed URL and provide it to a visitor to grant temporary access. When you generate a signed URL, you can specify the validity period of the URL to limit the period of access from visitors.
 
--   Sign a URL for an object
+-   Generate a signed URL for an object
 
-    **Note:** name \{String\} indicates the name of the target object. \[expires\] \{Number\} indicates the expiration period of the URL, which is 1,800 seconds by default. For more information about other parameters, see [Github](https://github.com/ali-sdk/ali-oss#signatureurlname-options).
+    **Note:** name \{String\} specifies the name of the object stored in OSS. \[expires\] \{Number\} specifies the validity period of the URL. Unit: seconds. Default value: 1800. For more information about other parameters, visit [GitHub](https://github.com/ali-sdk/ali-oss#signatureurlname-options).
 
-    Run the following code to sign a URL for an object:
+    The following code provides an example on how to generate a signed URL for an object:
 
-    ``` {#codeblock_nns_zte_fja}
+    ```
     const url = store.signatureUrl('ossdemo.txt');
     console.log(url);
     // --------------------------------------------------
@@ -107,9 +79,9 @@ app.listen(9000, () => {
     // put operation
     ```
 
--   Run the following code to sign a URL for image processing:
+-   Generate a signed URL that contains IMG parameters
 
-    ``` {#codeblock_zx2_8so_xlv}
+    ```
     const url = store.signatureUrl('ossdemo.png', {
       process: 'image/resize,w_200'
     });
