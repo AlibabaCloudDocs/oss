@@ -4,12 +4,12 @@ You can call this operation to delete the tags of a specified object.
 
 ## Versioning
 
-By default, the DeleteObjectTagging operation is called to delete the tags of the current version of an object. If the current version of the object is a delete marker, OSS returns 404 Not Found. You can delete the tags of a specified version of an object by specifying the versionId parameter.
+By default, when you call DeleteObjectTagging to delete the tags of an object, the tags of the current version of the object are deleted. You can specify the versionId parameter in the request to delete the tags of a specified version of an object. If the current version of the object is a delete marker, OSS returns 404 Not Found.
 
 ## Request structure
 
 ```
-DELETE /objectname? tagging
+DELETE /objectname?tagging
 Host: BucketName.oss-cn-hangzhou.aliyuncs.com
 Date: Mon, 18 Mar 2019 08:25:17 GMT
 Authorization: SignatureValue
@@ -25,18 +25,20 @@ The response to a DeleteObjectTagging request contains only common response head
 
 ## Examples
 
--   Sample request for deleting the tags of an object in an unversioned bucket
+-   Delete the tags of an object in an unversioned bucket.
 
-    You can send this request to delete all tags of objectname in bucketname that is unversioned.
+    In this example, an object named objectname is stored in an unversioned bucket named bucketname. A DeleteObjectTagging request is sent to delete all tags of objectname.
+
+    Sample requests
 
     ```
-    DELETE /objectname? tagging
+    DELETE /objectname?tagging
     Host: BucketName.oss-cn-hangzhou.aliyuncs.com
     Date: Tue, 09 Apr 2019 03:00:33 GMT
     Authorization: OSS qn6qrrqxo2oawuk53otf****:kZoYNv66bsmc10+dcGKw5x2P****
     ```
 
-    Sample response
+    Sample responses
 
     ```
     204 (No Content)
@@ -46,18 +48,20 @@ The response to a DeleteObjectTagging request contains only common response head
     date: Tue, 09 Apr 2019 03:00:33 GMT
     ```
 
--   Sample request for deleting the tags of an object in a versioned bucket
+-   Delete the tags of an object in a versioned bucket.
 
-    You can send this request to delete all tags of the specified version of objectname in bucketname that is versioned. The version is specified by versionId.
+    In this example, an object named objectname is stored in a versioned bucket named bucketname. A DeleteObjectTagging request is sent to delete all tags of a specified version of objectname.
+
+    Sample requests
 
     ```
-    DELETE /objectname? tagging&versionId=CAEQExiBgID.jImWlxciIDQ2ZjgwODIyNDk5MTRhNzBiYmQwYTZkMTYzZjM0****
+    DELETE /objectname?tagging&versionId=CAEQExiBgID.jImWlxciIDQ2ZjgwODIyNDk5MTRhNzBiYmQwYTZkMTYzZjM0****
     Host: BucketName.oss-cn-hangzhou.aliyuncs.com
     Date: Wed, 24 Jun 2020 09:01:09 GMT
     Authorization: OSS qn6qrrqxo2oawuk53otf****:kZoYNv66bsmc10+dcGKw5x2P****
     ```
 
-    Sample response
+    Sample responses
 
     ```
     204 (No Content)
@@ -71,7 +75,7 @@ The response to a DeleteObjectTagging request contains only common response head
 
 ## SDK
 
-You can call DeleteObjectTagging by using OSS SDKs for the following programming languages:
+You can use OSS SDKs for the following programming languages to call DeleteObjectTagging:
 
 -   [Java](/intl.en-US/SDK Reference/Java/Object tagging/Delete the tags added to an object.md)
 -   [Python](/intl.en-US/SDK Reference/Python/Object tagging/Delete the tags added to an object.md)
@@ -79,4 +83,10 @@ You can call DeleteObjectTagging by using OSS SDKs for the following programming
 -   [C++](/intl.en-US/SDK Reference/C++/Object tagging/Delete the tags added to an object.md)
 -   [.NET](/intl.en-US/SDK Reference/. NET/Object tagging/Delete the tags added to an object.md)
 -   [Node.js](/intl.en-US/SDK Reference/Node. js/Object tagging/Delete the tags added to an object.md)
+
+## Error codes
+
+|Error code|HTTP status code|Description|
+|----------|----------------|-----------|
+|FileAlreadyExists|409|The error message returned because the object whose tags you want to delete is a directory in a bucket with the hierarchical namespace feature enabled.|
 
