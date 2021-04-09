@@ -21,9 +21,9 @@ The following table describes the methods that you can use to create, rename, or
 
 |Implementation method|Description|
 |---------------------|-----------|
-|Console-   [Create a directory](/intl.en-US/Console User Guide/Upload, download, and manage objects/Create directories.md)
--   [Rename a directory or object](/intl.en-US/Console User Guide/Upload, download, and manage objects/Rename a directory or object.md)
--   [Delete a directory](/intl.en-US/Console User Guide/Upload, download, and manage objects/Delete directories.md)
+|Console-   [Create directories](/intl.en-US/Console User Guide/Upload, download, and manage objects/Create directories.md)
+-   [Rename directories or objects](/intl.en-US/Console User Guide/Upload, download, and manage objects/Rename a directory or object.md)
+-   [Delete directories](/intl.en-US/Console User Guide/Upload, download, and manage objects/Delete directories.md)
 
 |A user-friendly and intuitive web application|
 |[Java SDK](/intl.en-US/SDK Reference/Java/Manage directories.md)|Simple and easy-to-use SDK demos|
@@ -34,7 +34,7 @@ The following table describes the methods that you can use to create, rename, or
 
     The hierarchical namespace feature is available only in the Australia \(Sydney\) and US \(Silicon Valley\) regions.
 
--   Create a directory
+-   Create directories
 
     A directory name cannot contain consecutive forward slashes \(/\).
 
@@ -42,13 +42,13 @@ The following table describes the methods that you can use to create, rename, or
 
     The Content-Type of a directory can be set only to `application/x-directory`.
 
--   Rename a directory or object
+-   Rename directories or objects
 
     The name of a renamed directory or object cannot be the same as the name of an existing directory or object in the same bucket.
 
     The parent directory that is included in the name of a renamed directory or object must exist. For example, if you rename a directory `destfolder/examplefolder/test`, the parent directory `destfolder/examplefolder` must exist in the bucket.
 
--   Delete a directory
+-   Delete directories
     -   Recursive delete
 
         Recursive delete is used to delete a directory and all the objects and subdirectories within the directory. To use recursive delete, you must have the DeleteObject permission on the directory and the objects and subdirectories within the directory that you want to delete.
