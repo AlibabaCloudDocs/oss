@@ -31,7 +31,7 @@ Authorization: SignatureValue
 |Owner|容器|存放Bucket拥有者信息的容器。父节点：BucketInfo.Bucket |
 |ID|字符串|Bucket拥有者的用户ID。父节点：BucketInfo.Bucket.Owner |
 |DisplayName|字符串|Bucket拥有者的名称（目前和用户ID一致）。父节点：BucketInfo.Bucket.Owner |
-|AccessControlList|容器|Bucket读写权限（ACL）信息的容器。有关Bucket ACL详情请参见[设置存储空间读写权限（ACL）](/intl.zh-CN/开发指南/存储空间（Bucket）/设置存储空间读写权限（ACL）.md)。
+|AccessControlList|容器|Bucket读写权限（ACL）信息的容器。关于Bucket ACL的更多信息，请参见[设置存储空间读写权限（ACL）](/intl.zh-CN/开发指南/存储空间（Bucket）/设置存储空间读写权限（ACL）.md)。
 
 父节点：BucketInfo.Bucket |
 |Grant|枚举字符串|Bucket的ACL权限。有效值：private、public-read、public-read-write
@@ -42,18 +42,27 @@ Authorization: SignatureValue
 父节点：BucketInfo.Bucket |
 |StorageClass|字符串|Bucket的存储类型。有效值：Standard、IA、Archive和ColdArchive
 
-有关存储类型的详情请参见[存储类型介绍](/intl.zh-CN/开发指南/存储类型/存储类型介绍.md)。 |
+关于存储类型的更多信息，请参见[存储类型介绍](/intl.zh-CN/开发指南/存储类型/存储类型介绍.md)。 |
 |Versioning|字符串|Bucket的版本控制状态。有效值：Enabled、Suspended
 
-有关版本控制状态的详情请参见[PutBucketVersioning](/intl.zh-CN/API 参考/关于Bucket的操作/版本控制（Versioning）/PutBucketVersioning.md)。
+关于版本控制状态的更多信息，请参见[PutBucketVersioning](/intl.zh-CN/API 参考/关于Bucket的操作/版本控制（Versioning）/PutBucketVersioning.md)。
 
 父节点：BucketInfo.Bucket |
-|ServerSideEncryptionRule|容器|服务器端加密方式的容器。有关服务器端加密方式的详情请参见[服务器端加密](/intl.zh-CN/开发指南/数据安全/数据加密/服务器端加密.md)。
+|ServerSideEncryptionRule|容器|服务器端加密方式的容器。关于服务器端加密方式的更多信息，请参见[服务器端加密](/intl.zh-CN/开发指南/数据安全/数据加密/服务器端加密.md)。
 
 父节点：BucketInfo.Bucket |
 |ApplyServerSideEncryptionByDefault|容器|服务器端默认加密方式的容器。父节点：BucketInfo.Bucket |
 |SSEAlgorithm|字符串|显示服务器端默认加密方式。有效值：KMS、AES256 |
 |KMSMasterKeyID|字符串|显示当前使用的KMS密钥ID。仅当SSEAlgorithm为KMS，且指定了密钥ID时返回取值。其他情况下，返回为空。|
+|CrossRegionReplication|字符串|显示Bucket的跨区域复制状态。有效值：Enabled、Disabled
+
+父节点：BucketInfo.Bucket |
+|TransferAcceleration|字符串|显示Bucket的传输加速状态。有效值：Enabled、Disabled
+
+父节点：BucketInfo.Bucket |
+|HierarchicalNamespace|字符串|显示Bucket的分层命名空间状态。有效值：Enabled
+
+父节点：BucketInfo.Bucket |
 
 ## 示例
 
@@ -85,7 +94,10 @@ Authorization: OSS qn6qrrqxo2oawuk53otf****: BuG4rRK+zNhH1AcF51NNHD39****
         <ExtranetEndpoint>oss-cn-hangzhou.aliyuncs.com</ExtranetEndpoint>
         <IntranetEndpoint>oss-cn-hangzhou-internal.aliyuncs.com</IntranetEndpoint>
         <Location>oss-cn-hangzhou</Location>
-        <StorageClass>ColdArchive</StorageClass>
+        <StorageClass>Standard</StorageClass>
+        <TransferAcceleration>Disabled</TransferAcceleration>
+        <CrossRegionReplication>Disabled</CrossRegionReplication>
+        <HierarchicalNamespace\>Enabled</HierarchicalNamespace\>
         <Name>oss-example</Name>
         <Owner>
           <DisplayName>username</DisplayName>
@@ -93,7 +105,7 @@ Authorization: OSS qn6qrrqxo2oawuk53otf****: BuG4rRK+zNhH1AcF51NNHD39****
         </Owner>
         <AccessControlList>
           <Grant>private</Grant>
-        </AccessControlList>
+        </AccessControlList>  
         <Comment>test</Comment>
       </Bucket>
     </BucketInfo>
