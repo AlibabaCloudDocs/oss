@@ -1,6 +1,6 @@
 # CompleteMultipartUpload
 
-在将所有数据Part都上传完成后，必须调用CompleteMultipartUpload接口来完成整个文件的分片上传。
+在将所有数据Part都上传完成后，您必须调用CompleteMultipartUpload接口来完成整个文件的分片上传。
 
 ## 注意事项
 
@@ -26,12 +26,12 @@
 
 -   x-oss-server-side-encryption请求头
 
-    若调用InitiateMultipartUpload接口时，指定了x-oss-server-side-encryption请求头，则在CompleteMultipartUpload的响应头中返回x-oss-server-side-encryption，其值表明该Object的服务器端加密算法。
+    如果调用InitiateMultipartUpload接口时，指定了x-oss-server-side-encryption请求头，则在CompleteMultipartUpload的响应头中返回x-oss-server-side-encryption，其值表示该Object的服务器端加密算法。
 
 
 ## 版本控制
 
-在开启了版本控制的状态下，调用CompleteMultipartUpload接口来完成整个文件的MultipartUpload，OSS会为整个文件生成唯一的版本ID，并在响应header中以x-oss-version-id的形式返回。
+在开启版本控制的情况下，调用CompleteMultipartUpload接口来完成整个文件的MultipartUpload，OSS会为整个文件生成唯一的版本ID，并在响应header中以x-oss-version-id的形式返回。
 
 ## 请求语法
 
@@ -52,32 +52,32 @@ Authorization: Signature
 
 ## 请求参数（Request Parameters）
 
-调用CompleteMultipartUpload时，可以通过Encoding-type对返回结果中的Key进行编码。
+调用CompleteMultipartUpload接口时，可以通过Encoding-type对返回结果中的Key进行编码。
 
 |名称|类型|描述|
 |:-|:-|:-|
-|encoding-type|字符串|指定对返回的Key进行编码，目前支持URL编码。Key使用UTF-8字符，但XML 1.0标准不支持解析一些控制字符，例如ascii值从0到10的字符。对于Key中包含XML 1.0标准不支持的控制字符，可以通过指定Encoding-type对返回的Key进行编码。
+|encoding-type|字符串|指定对返回的Key进行编码，目前只支持URL编码。Key使用UTF-8字符，但XML 1.0标准不支持解析一些控制字符，例如ASCII码值从0到10的字符。当Key中包含XML 1.0标准不支持的控制字符时，您可以通过指定Encoding-type对返回的Key进行编码。
 
 默认值：无
 
-可选值：url |
-
-其他公共请求头例如Host、Date等，详情请参见[公共HTTP头定义](/intl.zh-CN/API 参考/公共HTTP头定义.md)。
+有效值：url |
 
 ## 请求头
 
 |名称|类型|是否必选|描述|
 |--|--|----|--|
-|x-oss-forbid-overwrite|字符串|否|指定CompleteMultipartUpload操作时是否覆盖同名Object。 -   不指定x-oss-forbid-overwrite时，默认覆盖同名Object。
--   指定x-oss-forbid-overwrite为true时，表示禁止覆盖同名Object；指定x-oss-forbid-overwrite为false时，表示允许覆盖同名Object。
+|x-oss-forbid-overwrite|字符串|否|指定CompleteMultipartUpload操作时是否覆盖同名Object。 -   不指定x-oss-forbid-overwrite或者指定x-oss-forbid-overwrite为false时，表示允许覆盖同名Object。
+-   指定x-oss-forbid-overwrite为true时，表示禁止覆盖同名Object。
 
 **说明：**
 
 -   当目标Bucket的版本控制状态为“开启”或“暂停”时，x-oss-forbid-overwrite请求Header设置无效，即允许覆盖同名Object。
 -   设置x-oss-forbid-overwrite请求Header会导致QPS处理性能下降，如果您有大量的操作需要使用x-oss-forbid-overwrite请求Header（QPS \> 1000），请工单联系我们进行确认，避免影响您的业务。 |
-|x-oss-complete-all:yes|字符串|否|指定是否列举当前UploadId已上传的所有Part。-   若指定了x-oss-complete-all:yes，则OSS会列举当前UploadId已上传的所有Part，然后按照PartNumber的序号排序并执行CompleteMultipartUpload操作。执行CompleteMultipartUpload过程中无法检测正在上传或者漏传的Part，因此用户需要自己确保Part的完整性。
--   若指定了x-oss-complete-all:yes，则不允许继续指定body，否则报错。
--   若指定了x-oss-complete-all:yes，response的格式保持不变。 |
+|x-oss-complete-all:yes|字符串|否|指定是否列举当前UploadId已上传的所有Part。-   如果指定了x-oss-complete-all:yes，则OSS会列举当前UploadId已上传的所有Part，然后按照PartNumber的序号排序并执行CompleteMultipartUpload操作。执行CompleteMultipartUpload过程中无法检测正在上传或者漏传的Part，因此用户需要自己确保Part的完整性。
+-   如果指定了x-oss-complete-all:yes，则不允许继续指定body，否则报错。
+-   如果指定了x-oss-complete-all:yes，response的格式保持不变。 |
+
+此接口还需要包含Host、Date等公共请求头。关于公共请求头的更多信息，请参见[公共HTTP头定义](/intl.zh-CN/API 参考/公共HTTP头定义.md)。
 
 ## 请求元素
 
@@ -87,16 +87,16 @@ Authorization: Signature
 
 父节点：无 |
 |ETag|字符串|Part成功上传后，OSS返回的ETag值。 父节点：Part |
-|Part|容器|保存已经上传Part信息的容器。 子节点：ETag、PartNumber
+|Part|容器|保存已上传Part信息的容器。 子节点：ETag、PartNumber
 
 父节点：CompleteMultipartUpload |
-|PartNumber|整数|Part数目父节点：Part |
+|PartNumber|整数|Part数目。父节点：Part |
 
 ## 响应元素
 
 |名称|类型|描述|
 |:-|:-|:-|
-|Bucket|字符串|Bucket名称父节点：CompleteMultipartUploadResult |
+|Bucket|字符串|Bucket名称。父节点：CompleteMultipartUploadResult |
 |CompleteMultipartUploadResult|容器|保存Complete Multipart Upload请求结果的容器。 子节点：Bucket、Key、ETag、Location
 
 父节点：None |
@@ -107,11 +107,13 @@ Authorization: Signature
 父节点：CompleteMultipartUploadResult |
 |Location|字符串|新创建Object的URL。 父节点：CompleteMultipartUploadResult |
 |Key|字符串|新创建Object的名字。 父节点：CompleteMultipartUploadResult |
-|EncodingType|字符串|指明返回结果中编码使用的类型。如果请求参数中指定了Encoding-type，那返回的结果会对Key进行编码。 父节点：容器 |
+|EncodingType|字符串|显示返回结果中编码使用的类型。如果请求参数中指定了Encoding-type，那返回的结果会对Key进行编码。 父节点：容器 |
 
 ## 示例
 
--   请求示例
+-   未开启版本控制
+
+    请求示例
 
     ```
     POST /multipart.data?uploadId=0004B9B2D2F7815C432C9057C031****&encoding-type=url HTTP/1.1
@@ -155,7 +157,9 @@ Authorization: Signature
     </CompleteMultipartUploadResult>
     ```
 
--   版本控制请求示例
+-   已启用版本控制
+
+    请求示例
 
     ```
     POST /multipart.data?uploadId=63C06A5CFF6F4AE4A6BB3AD7F01C****  HTTP/1.1
@@ -215,5 +219,6 @@ Authorization: Signature
 |错误码|HTTP 状态码|描述|
 |:--|:-------|:-|
 |InvalidDigest|400|为了保证数据在网络传输过程中不出现错误，用户发送请求时可以携带Content-MD5，OSS计算上传数据的MD5与用户上传的MD5值不一致。|
-|FileAlreadyExists|409|当请求的Header中携带x-oss-forbid-overwrite=true时，表示禁止覆盖同名文件。如果文件已存在，则返回此错误。|
+|FileAlreadyExists|409|返回该错误的可能原因如下：-   请求Header中携带了`x-oss-forbid-overwrite=true`来禁止覆盖同名文件，但是Bucket中已有同名文件。
+-   Bucket开启分层命名空间后，当您要在该Bucket中完成某个文件的分片上传时，设置的Object为目录。 |
 
