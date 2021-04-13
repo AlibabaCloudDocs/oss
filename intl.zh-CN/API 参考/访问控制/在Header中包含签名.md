@@ -48,7 +48,7 @@ Signature = base64(hmac-sha1(AccessKeySecret,
 所有以 x-oss- 为前缀的HTTP Header被称为CanonicalizedOSSHeaders。它的构建方法如下：
 
 1.  将所有以 x-oss- 为前缀的HTTP请求头的名字转换成小写 。如`X-OSS-Meta-Name: TaoBao`转换成`x-oss-meta-name: TaoBao`。
-2.  如果请求是以STS获得的AccessKeyId和AccessKeySecret发送时，还需要将获得的security-token值以 `x-oss-security-token:security-token` 的形式加入到签名字符串中。
+2.  如果请求是以STS获得的AccessKeyId和AccessKeySecret发送时，还需要将获得的security-token值以 `security-token:SecurityToken` 的形式加入到签名字符串中。
 3.  将上一步得到的所有HTTP请求头按照名字的字典序进行升序排列。
 4.  删除请求头和内容之间分隔符两端出现的任何空格。如`x-oss-meta-name: TaoBao`转换成：`x-oss-meta-name:TaoBao`。
 5.  将每一个头和内容用 `\n` 分隔符分隔拼成最后的CanonicalizedOSSHeaders。
