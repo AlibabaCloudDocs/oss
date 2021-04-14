@@ -1,16 +1,14 @@
 # Configure CRR
 
-Cross-region replication \(CRR\) allows you to perform automatic and asynchronous \(near real-time\) replication on objects across buckets in different regions. If you enable CRR, operations such as the creation, overwriting, and deletion of objects can be synchronized from the source bucket to the destination bucket to implement geo-disaster recovery or data replication.
+Cross-region replication \(CRR\) provides automatic and asynchronous \(near real-time\) replication of objects across buckets in different OSS regions. Operations such as the creation, overwriting, and deletion of objects can be synchronized from a source bucket to a destination bucket.
 
 When you use CRR, take note of the following items:
 
 -   Billing
     -   OSS charges you for the traffic generated when you use CRR to replicate objects. For more information about the billing methods, see [Traffic fees](/intl.en-US/Pricing/Billing items and methods/Traffic fees.md).
     -   Each time an object is synchronized, OSS counts the number of requests and charges fees for the requests. For more information about the billing methods, see [API operation calling fees](/intl.en-US/Pricing/Billing items and methods/API operation calling fees.md).
-    -   If you enable transfer acceleration, you are charged for transfer acceleration. For more information about the billing methods, see [Transfer acceleration fees](/intl.en-US/Pricing/Billing items and methods/Transfer acceleration fees.md).
 -   Usage notes
-    -   The source bucket and the destination bucket must be in different regions
-    -   The source bucket and destination bucket specified in a CRR rule cannot synchronize data with other buckets. For example, if you configure a CRR rule to synchronize data from Bucket A to Bucket B, both Bucket A and Bucket B cannot synchronize data with Bucket C.
+    -   You can configure CRR rules to synchronize data from a source bucket to multiple destination buckets. You can configure up to 100 CRR rules for a bucket. A bucket can be configured as the source bucket or destination bucket. If your business requires more than 100 CRR rules for a bucket, contact the [technical support](https://workorder-intl.console.aliyun.com/#/ticket/createIndex).
     -   The source bucket and destination bucket must be both versioned or unversioned. The versioning state of the source bucket and destination bucket cannot be changed when data is being synchronized between the two buckets.
 
 For more information about CRR, see [Cross-region replication](/intl.en-US/Developer Guide/Data security/Disaster recovery/Cross-region replication.md).
@@ -31,19 +29,19 @@ For more information about CRR, see [Cross-region replication](/intl.en-US/Devel
     |**Source Bucket**|The name of the current bucket.|
     |**Destination Region**|Select the region where the destination bucket is located.|
     |**Destination Bucket**|Select the destination bucket to which you want to synchronize data.|
-    |**Acceleration Type**|Only **Transfer Acceleration** is supported. Transfer acceleration can be used to increase the transfer speed when data is replicated across regions within mainland China and outside mainland China. For more information about transfer acceleration, see [Transfer acceleration](/intl.en-US/Developer Guide/Buckets/Transfer acceleration.md).|
+    |**Acceleration Type**|Only **Transfer Acceleration** is supported. Transfer acceleration can be used to increase the transfer speed when data is replicated across regions within mainland China and outside mainland China. If you enable transfer acceleration, you are charged for this feature. For information about the billing methods, see [Transfer acceleration fees](/intl.en-US/Pricing/Billing items and methods/Transfer acceleration fees.md).|
     |**Applied To**|Select the source data that you want to synchronize.     -   **All Files in Source Bucket**: synchronizes all objects from the source bucket to the destination bucket.
     -   **Files with Specified Prefix**: synchronizes the objects whose names contain the specified prefix from the source bucket to the destination bucket. You can specify up to 10 prefixes. |
-    |**Object Tagging**|Objects that have the specified tags are synchronized to the destination bucket. Select **Configure Rules** and add tags \(key-value pairs\). You can add up to 10 tags.When you set this parameter, make sure that the following conditions are met:
+    |**Object Tagging**|Objects that have the specified tags are synchronized to the destination bucket. Select **Configure Rules** and add tags \(key-value pairs\). You can add up to 10 tags. When you set this parameter, make sure that the following conditions are met:
 
     -   Object tags are configured. For more information, see [Configure object tagging](/intl.en-US/Console User Guide/Upload, download, and manage objects/Configure object tagging.md).
     -   Versioning is enabled for the source bucket and destination bucket.
     -   **Add/Change** is set for Operations.
-    -   If the source region is China \(Hangzhou\), the destination region can be a region except China \(Hangzhou\). If the source region is Australia \(Sydney\), the destination region can be a different region outside mainland China. |
+    -   If the source region is China \(Hangzhou\), the destination region can be a region except for China \(Hangzhou\). If the source region is Australia \(Sydney\), the destination region can be a different region outside mainland China. |
     |**Operations**|Select the synchronization policy.     -   **Add/Change**: synchronizes only the added or changed data from the source bucket to the destination bucket.
     -   **Add/Delete/Change**: synchronizes all data changes such as the creation, overwriting, and deletion of objects from the source bucket to the destination bucket.
 For more information about how to configure CRR for objects in versioned buckets, see [Cross-region replication in specific scenarios](/intl.en-US/Developer Guide/Data security/Disaster recovery/Cross-region replication in specific scenarios.md). |
-    |**Replicate Historical Data**|Specify whether to synchronize historical data before you enable CRR.    -   **Yes**: synchronizes historical data to the destination bucket.
+    |**Replicate Historical Data**|Specify whether to synchronize historical data before you enable CRR.     -   **Yes**: synchronizes historical data to the destination bucket.
 
 **Note:** When historical data is synchronized, objects in the source bucket may overwrite objects in the destination bucket if these objects have the same names. To avoid data loss, we recommend that you enable versioning for the source and destination buckets.
 
