@@ -6,7 +6,7 @@ OSS provides the hierarchical namespace feature for you to manage objects in a m
 
 -   Atomic operations on directories
 
-    If a bucket uses a flat namespace in which real directories are not supported, applications may need to process millions of objects to complete a task at the directory level. In contrast, if a bucket uses the hierarchical namespace feature, applications can update a parent directory in a single atomic operation to complete multiple directory-level tasks at the same time.
+    If a bucket uses a flat namespace in which real directories are not supported, applications may need to process millions of objects to complete a task at the directory level. In contrast, if the hierarchical namespace feature is enabled for a bucket, applications can update a parent directory in a single atomic operation to complete multiple directory-level tasks at the same time.
 
 -   Optimized performance
 
@@ -21,8 +21,8 @@ The following table describes the methods that you can use to create, rename, or
 
 |Implementation method|Description|
 |---------------------|-----------|
-|Console-   [Create directories](/intl.en-US/Console User Guide/Upload, download, and manage objects/Create directories.md)
--   [Rename directories or objects](/intl.en-US/Console User Guide/Upload, download, and manage objects/Rename a directory or object.md)
+|Create an elastic container instance from an image cache by using the Elastic Container Instance console-   [Create directories](/intl.en-US/Console User Guide/Upload, download, and manage objects/Create directories.md)
+-   [Rename a directory or object](/intl.en-US/Console User Guide/Upload, download, and manage objects/Rename directories or objects.md)
 -   [Delete directories](/intl.en-US/Console User Guide/Upload, download, and manage objects/Delete directories.md)
 
 |A user-friendly and intuitive web application|
@@ -30,11 +30,11 @@ The following table describes the methods that you can use to create, rename, or
 
 ## Usage notes
 
--   Supported regions
+-   Supported region
 
-    The hierarchical namespace feature is available only in the Australia \(Sydney\) and US \(Silicon Valley\) regions.
+    The hierarchical namespace feature is available only in the following regions: Australia \(Sydney\), US \(Silicon Valley\), Japan \(Tokyo\), India \(Mumbai\), UK \(London\), and Malaysia \(Kuala Lumpur\).
 
--   Create directories
+-   Create a directory
 
     A directory name cannot contain consecutive forward slashes \(/\).
 
@@ -42,16 +42,16 @@ The following table describes the methods that you can use to create, rename, or
 
     The Content-Type of a directory can be set only to `application/x-directory`.
 
--   Rename directories or objects
+-   Rename a directory or object
 
     The name of a renamed directory or object cannot be the same as the name of an existing directory or object in the same bucket.
 
     The parent directory that is included in the name of a renamed directory or object must exist. For example, if you rename a directory `destfolder/examplefolder/test`, the parent directory `destfolder/examplefolder` must exist in the bucket.
 
--   Delete directories
+-   Delete a directory
     -   Recursive delete
 
-        Recursive delete is used to delete a directory and all the objects and subdirectories within the directory. To use recursive delete, you must have the DeleteObject permission on the directory and the objects and subdirectories within the directory that you want to delete.
+        Recursive delete is used to delete a directory and all objects and subdirectories within the directory. To use recursive delete, you must have the DeleteObject permission on the directory and all objects and subdirectories within the directory that you want to delete.
 
         For example, if you want to use recursive delete to delete the dest/testfolder directory and the objects in the directory, you must have the DeleteObject permission on `dest/testfolder` and `dest/testfolder/*`.
 
@@ -66,8 +66,8 @@ The following table describes the methods that you can use to create, rename, or
 
 The following table describes the features that are not supported by buckets for which the hierarchical namespace feature is enabled.
 
-|Category|Description|
-|--------|-----------|
+|Requirement|Feature|
+|-----------|-------|
 |Bucket features|-   Cross-region replication \(CRR\)
 -   Versioning
 -   Bucket inventory
@@ -83,7 +83,7 @@ The following table describes the features that are not supported by buckets for
 -   Archive and Cold Archive objects
 -   Callback
 -   The RestoreObject operation that is used to restore Archive and Cold Archive objects
--   The `x-oss-forbid-overwrite` parameter that is used to forbid a parameter from overwriting another parameter that has the same name
+-   The `x-oss-forbid-overwrite` parameter that is used to prevent an object from being overwritten by another object that has the same name
 -   The `response-content-*` parameter in GetObject requests that are sent to query directories
 -   Operations that are related to LiveChannel
 -   The DeleteMultipleObjects operation that is used to batch delete objects
