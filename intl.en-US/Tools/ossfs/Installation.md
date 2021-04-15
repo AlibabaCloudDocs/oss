@@ -7,7 +7,7 @@ ossfs allows you to mount OSS buckets as local file systems in Linux. Then, you 
 We recommend that you run ossfs in the following environments:
 
 -   Linux-based operating systems
-    -   CentOS later than 7.0 and earlier than 8.0
+    -   CentOS later than 7.0
     -   Ubuntu 14.04 or later
 -   Fuse 2.8.4 or later
 
@@ -77,7 +77,7 @@ The preceding table provides the download URLs of ossfs installation packages fo
 4.  Mount the bucket to the specified directory.
 
     ```
-    ossfs BucketName mountfolder -ourl=Endpoint
+    ossfs BucketNamemountfolder -ourl=Endpoint
     ```
 
     Example: Mount a bucket named `bucket-test` to the `/tmp/ossfs` directory.
