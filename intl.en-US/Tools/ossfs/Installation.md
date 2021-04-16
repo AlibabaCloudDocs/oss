@@ -77,7 +77,7 @@ The preceding table provides the download URLs of ossfs installation packages fo
 4.  Mount the bucket to the specified directory.
 
     ```
-    ossfs BucketNamemountfolder -ourl=Endpoint
+    ossfs BucketName mountfolder -ourl=Endpoint
     ```
 
     Example: Mount a bucket named `bucket-test` to the `/tmp/ossfs` directory.
