@@ -28,7 +28,7 @@ The ICP filing for the custom domain name is complete. For more information, see
         2.  Click **Submit**.
     -   If the domain name is not managed by the current Alibaba Cloud account, manually add a CNAME record.
 
-        If your domain name is not managed by Alibaba Cloud DNS, you must configure the DNS of your DNS provider, such as Tencent Cloud DNS \(DNSPod\) or Xinnet. For more information, see [Configure a CNAME record on Tencent Cloud \(DNSPod\)](https://help.aliyun.com/document_detail/27145.html) or [Configure a CNAME on Xinnet](https://help.aliyun.com/document_detail/27146.html).
+        If your domain name is not managed by Alibaba Cloud DNS, you must configure the DNS of your DNS provider, such as Tencent Cloud DNS \(DNSPod\) or Xinnet. For more information, see [Add a CNAME record for a domain name](/intl.en-US/Quick Start/Add a CNAME record for a domain name.md).
 
         The following example shows how to use Alibaba Cloud DNS to manually add a CNAME record for a domain name that does not belong to an Alibaba Cloud account.
 
