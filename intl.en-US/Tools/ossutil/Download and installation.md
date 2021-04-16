@@ -87,7 +87,7 @@ Download the package based on your operating system and run the corresponding bi
 
 1.  Click the download URL listed in the preceding section to download the installation package of ossutil.
 2.  Decompress the downloaded installation package. Run the ossutil.bat file.
-3.  Generate a configuration file. For more information about how to generate a configuration file, see [Generate a configuration file in interactive mode](#li_j6f_g28_vfx).
+3.  Generate a configuration file. For more information about how to generate a configuration file, see [Generate a configuration file in interactive mode](#Linux).
 
     You can run the following command to generate a configuration file:
 
@@ -110,7 +110,7 @@ Download the package based on your operating system and run the corresponding bi
     chmod 755 ossutilmac64
     ```
 
-3.  Run the following command to generate configurations. For more information about how to generate a configuration file, see [Generate a configuration file in interactive mode](#li_j6f_g28_vfx).
+3.  Run the following command to generate configurations. For more information about how to generate a configuration file, see [Generate a configuration file in interactive mode](#Linux).
 
     Run the following command:
 
@@ -133,7 +133,7 @@ Download the package based on your operating system and run the corresponding bi
     chmod 755 ossutilarm64
     ```
 
-3.  Generate a configuration file. For more information about how to generate a configuration file, see [Generate a configuration file in interactive mode](#li_j6f_g28_vfx).
+3.  Generate a configuration file. For more information about how to generate a configuration file, see [Generate a configuration file in interactive mode](#Linux).
 
     Run the following command:
 
