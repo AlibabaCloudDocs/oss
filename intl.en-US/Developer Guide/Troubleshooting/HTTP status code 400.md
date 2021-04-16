@@ -194,7 +194,7 @@ This topic describes the causes of errors returned with HTTP status code 400 and
     -   Solution: Set the transmission speed limit of a single link to a value from 819200 bit/s \(100 KB/s\) to 838860800 bit/s \(100 MB/s\).
 -   Error message: The format of persistent header is invalid, should be \\"name:Base64Encode\(value\),name:Base64Encode\(value\)... \\". or The header value specified by persistent header is not base64 encoded.
     -   Cause: The format of the custom header is invalid.
-    -   Solution: Specify the custom headers in the`x-oss-persistent-headers: key1:base64_encode(value1),key2:base64_encode(value2)...` format, where key1 and key2 indicates the custom headers, value1 and value2 indicates the values of the custom headers, and base64\_encode indicates that the values of the custom headers are Base64-encoded.
+    -   Solution: Specify the custom headers in the `x-oss-persistent-headers: key1:base64_encode(value1),key2:base64_encode(value2)...` format, where key1 and key2 indicates the custom headers, value1 and value2 indicates the values of the custom headers, and base64\_encode indicates that the values of the custom headers are Base64-encoded.
 
         For example, if you configure two custom headers named myheader1 and myheader2 and set their values to myvalue1 and myvalue2 respectively, the custom headers contained in the request is `x-oss-persistent-headers:myheader1:bXl2YWx1ZTE=,myheader2:bXl2YWx1ZTI=`.
 
