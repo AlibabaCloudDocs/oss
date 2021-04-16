@@ -1,6 +1,6 @@
 # set-acl（设置或修改ACL）
 
-ACL是授予Bucket和Object访问权限的访问策略。您可以在创建存储空间（Bucket）或上传文件（Object）时设置ACL，也可以在创建Bucket或上传Object后的任意时间内修改ACL。set-acl命令用于设置或修改Bucket或Object的访问权限ACL。
+ACL是授予存储空间（Bucket）和文件（Object）访问权限的访问策略。您可以在创建Bucket或上传Object时设置ACL，也可以在创建Bucket或上传Object后的任意时间内修改ACL。set-acl命令用于设置或修改Bucket或Object的访问权限ACL。
 
 **说明：** 本文各命令行示例均基于Linux 64位系统，其他系统请将命令开头的./ossutil64替换成对应的Binary名称。详情请参见[命令行工具ossutil快速入门](/cn.zh-CN/快速入门/命令行工具ossutil快速入门.md)。
 
