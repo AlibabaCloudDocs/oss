@@ -37,7 +37,7 @@ Bucket Policy是阿里云OSS推出的针对Bucket的授权策略，您可以通�
 
     -   **其他账号**：如果您需要给其他阿里云账号、RAM用户以及通过STS生成的临时用户授予访问权限，请选中此项。
 
-        -   当您需要给其他其他阿里云账号或RAM用户授权时，请输入被授权账号的UID。
+        -   当您需要给其他阿里云账号或RAM用户授权时，请输入被授权账号的UID。
         -   当您需要给STS临时用户授权时，输入格式为`arn:sts::{RoleOwnerUid}:assumed-role/{RoleName}/{RoleSessionName}`。例如生成临时用户时使用的角色为testrole，角色拥有者的阿里云账号UID为12345，生成临时用户时指定的RoleSessionName为testsession。此时应填写`arn:sts::12345:assumed-role/testrole/testsession`。当您需要给所有临时用户授权时，请使用通配符星号（\*）。例如配置为`arn:sts::*:*/*/*`。生成临时授权用户的操作请参见[STS临时授权访问OSS](/cn.zh-CN/开发指南/数据安全/访问控制/STS临时授权访问OSS.md)。
 **说明：** 当被授权的用户是STS临时用户时，该账号无法通过OSS控制台访问授权资源，您可以通过命令行工具ossutil、OSS SDK、OSS API访问授权资源。 |
     |**授权操作**|您可以通过**简单设置**和**高级设置**两种方式进行授权操作。    -   简单设置
