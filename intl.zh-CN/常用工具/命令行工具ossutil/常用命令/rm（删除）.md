@@ -90,7 +90,7 @@
 
 -   返回结果
 
-    以上示例删除成功后，返回结果中将包含删除的Object个数以及完成删除操作所用时长，具体示例如下：
+    以上示例删除成功后，返回结果中将包含删除的Object个数以及完成删除操作所用时长，示例如下：
 
     ```
     Succeed: Total 8 objects. Removed 8 objects.
@@ -101,20 +101,20 @@
 ## 删除Part
 
 -   删除示例
-    -   结合-m选项删除目标存储空间examplebucket下exampleobject.txt中未完成的Multipart事件所产生的Part
+    -   结合-m选项删除目标存储空间examplebucket下exampleobject.txt中未完成的Multipart事件所产生的Part。
 
         ```
         ./ossutil64 rm -m oss://examplebucket/exampleobject.txt
         ```
 
-    -   结合-m和-r选项递归删除目标存储空间examplebucket下与指定前缀test匹配的所有文件中未完成的Multipart事件所产生的Part
+    -   结合-m和-r选项递归删除目标存储空间examplebucket下与指定前缀test匹配的所有文件中未完成的Multipart事件所产生的Part。
 
         ```
         ./ossutil64 rm -m oss://examplebucket/test -r 
         Do you really mean to remove recursively multipart uploadIds of oss://examplebucket/test(y or N)? y 
         ```
 
-    -   结合-a和-r选项递归删除目标存储空间examplebucket下与指定前缀src匹配的所有已上传完成文件、以及未完成的Multipart事件所产生的Part
+    -   结合-a和-r选项递归删除目标存储空间examplebucket下与指定前缀src匹配的所有已上传完成文件、以及未完成的Multipart事件所产生的Part。
 
         ```
         ./ossutil64 rm  oss://examplebucket/src -a -r
@@ -123,7 +123,7 @@
 
 -   返回结果
 
-    以上示例删除成功后，返回结果中将包含删除的Object数量、Part对应的UploadID数量以及完成删除操作所用时长，具体示例如下：
+    以上示例删除成功后，返回结果中将包含删除的Object数量、Part对应的UploadID数量以及完成删除操作所用时长，示例如下：
 
     ```
     Succeed: Total 1 objects, 3 uploadIds. Removed 1 objects, 3 uploadIds.
@@ -133,7 +133,7 @@
 
 ## 删除Bucket
 
--   删除不包含Object或Part的目标存储空间examplebucket
+-   删除不包含Object或Part的目标存储空间examplebucket。
 
     ```
     ./ossutil64 rm  oss://examplebucket -b
@@ -147,7 +147,7 @@
     2.230745(s) elapsed
     ```
 
--   删除目标存储空间examplebucket及其包含的所有Object和Part
+-   删除目标存储空间examplebucket及其包含的所有Object和Part。
 
     **警告：** 此操作将清除Bucket中的所有数据，且删除后不可恢复。请谨慎使用。
 
