@@ -18,7 +18,7 @@
 
     |参数|说明|
     |--|--|
-    |bucke\_tname|填写待设置请求者付费模式的目标Bucket名称。|
+    |bucket\_name|填写待设置请求者付费模式的目标Bucket名称。|
     |payment|第三方用户访问目标Bucket内的数据产生费用时的付费模式。取值如下：
 
     -   Requester：访问此Bucket内的数据产生的所有费用由请求者支付。
