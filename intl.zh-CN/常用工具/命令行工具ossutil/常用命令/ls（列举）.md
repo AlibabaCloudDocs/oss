@@ -1,12 +1,10 @@
 # ls（列举）
 
-ls命令用于列举存储空间（Bucket）、对象（Object）和碎片（Part）。
+您可以通过ls命令列举存储空间（Bucket）、对象（Object）和碎片（Part）信息。
 
-**说明：** 本文涉及命令均基于Linux 64位系统。如果您使用Windows 64位系统，请将如下示例中的./ossutil64替换为ossutil64.exe。
+**说明：** 本文各命令行示例均基于Linux 64位系统，其他系统请将命令开头的./ossutil64替换成对应的Binary名称。详情请参见[命令行工具ossutil快速入门](/intl.zh-CN/快速入门/命令行工具ossutil快速入门.md)。
 
 ## 列举Bucket
-
-**说明：** 使用传输加速Endpoint时无法列举Bucket，建议使用默认Endpoint。关于传输加速功能介绍，请参见[传输加速](/intl.zh-CN/开发指南/存储空间（Bucket）/传输加速.md)。
 
 -   命令格式
 
@@ -109,7 +107,7 @@ ls命令用于列举存储空间（Bucket）、对象（Object）和碎片（Par
         ./ossutil64 ls oss://examplebucket
         ```
 
-        以下输出结果表明已成功列举examplebucket内所有Object。
+        以下输出结果表明已成功列举examplebucket内所有Object的信息，包括文件最后更新时间（LastModifiedTime）、以字节为单位统计的文件大小（Size）、ETAG值以及文件名称（ObjectName）。其中ETAG值用于标识一个Object的内容。对于通过PutObject请求创建的Object，ETag值是其内容的MD5值；对于通过其他方式创建的Object，ETag值是其内容的UUID。
 
         ```
         LastModifiedTime                    Size(B)  StorageClass   ETAG                                    ObjectName
@@ -136,13 +134,13 @@ ls命令用于列举存储空间（Bucket）、对象（Object）和碎片（Par
         0.007379(s) elapsed                 
         ```
 
-    -   列举examplebucket内所有MP4文件
+    -   列举examplebucket内所有后缀名为.mp4的文件
 
         ```
         ./ossutil64 ls oss://examplebucket --include *.mp4
         ```
 
-        以下输出结果表明已成功列举examplebucket内所有MP4文件。
+        以下输出结果表明已成功列举examplebucket内所有后缀名为.mp4的文件。
 
         ```
         LastModifiedTime                    Size(B)  StorageClass   ETAG                                    ObjectName
