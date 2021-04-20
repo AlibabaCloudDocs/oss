@@ -1,84 +1,88 @@
 # Configure versioning
 
-OSS allows you to configure versioning for a bucket to protect the data stored in the bucket. After you enable versioning for a bucket, data that is overwritten or deleted in the bucket is saved as a previous version. You can recover objects in a versioned bucket to any previous version to protect your data from being accidentally overwritten or deleted.
+OSS allows you to configure versioning for a bucket to protect objects stored in the bucket. After you enable versioning for a bucket, objects that are overwritten or deleted in the bucket are saved as previous versions. You can use versioning to recover a previous version of an object that was accidentally overwritten or deleted.
 
-When versioning is enabled for a bucket, OSS specifies a unique ID for each version of all objects in the bucket. You can download or recover a previous object version based on its version ID. For more information, see [Overview](/intl.en-US/Developer Guide/Data security/Versioning/Overview.md).
-
-If you enable versioning for a bucket, you are charged only for the storage of the current versions and previous versions of all objects in the bucket. If you download a previous version of an object or recover the previous version as the current version, fees are incurred by the requests and traffic. To avoid unnecessary storage costs, we recommend that you delete the previous versions of objects that you no longer need. For more information, see [Billing items and methods](/intl.en-US/Pricing/Billing items and methods/Overview.md).
+If you enable versioning for a bucket, you are charged for the storage of previous versions of objects in the bucket. If you download or recover a previous version of an object, you are charged for the requests and traffic. To avoid unnecessary storage costs, we recommend that you delete the previous versions of objects that you no longer need at your earliest opportunity. For more information, see [Billing items and methods](/intl.en-US/Pricing/Billing items and methods/Overview.md).
 
 ## Enable versioning
 
+When versioning is enabled for a bucket, OSS specifies a unique ID for each version of an object stored in the bucket.
+
 -   Enable versioning when you create a bucket
     1.  Log on to the [OSS console](https://oss.console.aliyun.com/).
-    2.  On the **Overview** page, click **Create Bucket** in the upper-right corner.
+    2.  In the left-side navigation pane, click **Buckets**. On the Buckets page, click **Create Bucket**.
     3.  In the Create Bucket panel, configure parameters.
 
         Set **Versioning** to **Enable**. For more information about how to configure other parameters, see [Create buckets](/intl.en-US/Console User Guide/Manage buckets/Create buckets.md).
 
     4.  Click **OK**.
 -   Enable versioning for an existing bucket
-    1.  Log on to the [OSS console](https://oss.console.aliyun.com/).
-    2.  In the left-side navigation pane, click **Buckets**. On the Buckets page, click the name of the bucket for which you want to enable versioning.
-    3.  Choose **Redundancy for Fault Tolerance** \> **Versioning**.
+    1.  In the left-side navigation pane, click **Buckets**. On the Buckets page, click the name of the bucket for which you want to enable versioning.
+    2.  Choose **Redundancy for Fault Tolerance** \> **Versioning**.
+    3.  Click **Configure**. Set Versioning to **Enabled**.
+    4.  Click **Save**.
 
-        You can also click **Buckets** in the left-side navigation pane and turn on **Versioning** for the corresponding bucket.****
-
-    4.  Click **Configure**. Then, click **Enabled**.
-
-        You can also suspend versioning for a versioned bucket to stop generating new object versions. If a new version is added to an object in a versioning-suspended bucket, OSS specifies a version ID of null for the new version and retains the previous versions of the object.
-
-    5.  Click **Save**.
+After versioning is enabled for a bucket, you can view all versions of objects in the bucket on the Files page. If you want to view only the current versions of objects, set **Display Previous Versions** to **Hide**. Listing previous versions of objects do not affect the performance of the console. If the response time of the console is slow when you list objects, see [FAQ](/intl.en-US/Developer Guide/Data security/Versioning/FAQ.md) to troubleshoot the problem.
 
 ## Recover previous versions
 
 You can recover a specified previous version of an object as the current version.
 
-1.  Log on to the [OSS console](https://oss.console.aliyun.com/).
+1.  On the Overview page, click **Files** in the left-side navigation pane.
 
-2.  In the left-side navigation pane, click **Buckets**. On the Buckets page, click the name of the bucket that contains the previous version you want to recover.
+2.  Recover a specified previous version as the current version.
 
-3.  Click **Files**. In the upper-right corner, set **Display Previous Versions** to **Show**.
+    **Note:** You can recover only one previous version of an object at a time. The previous version that you want to recover cannot be a delete marker.
 
-4.  Click **Restore** in the Actions column corresponding to the previous version that you want to recover.
+    -   Recover the previous version of an object
 
-    OSS recovers the previous version as the current version of the object.
+        Click **Restore** in the Actions column that corresponds to the previous version that you want to recover.
 
+    -   Recover the previous versions of multiple objects
 
-## Download previous versions
-
-You can download a previous version of an object.
-
-1.  Log on to the [OSS console](https://oss.console.aliyun.com/).
-
-2.  In the left-side navigation pane, click **Buckets**. On the Buckets page, click the name of the bucket that contains the previous version you want to download.
-
-3.  Click **Files**. In the upper-right corner, set **Display Previous Versions** to **Show**.
-
-4.  Click the object version you want to download. In the panel that appears, click **Download** on the right side of **Signed URL**.
-
-5.  Select the location where you want to store the version and click **Save**.
+        Select the previous versions that you want to recover and then choose **Batch Operation** \> **Restore**.
 
 
-## Delete previous versions
+## Download a specified version of an object
 
-We recommend that you delete previous versions that you no longer need in a timely manner to minimize storage costs.
+You can download a specified previous version of an object.
 
-1.  Log on to the [OSS console](https://oss.console.aliyun.com/).
+1.  On the Overview page, click **Files** in the left-side navigation pane.
 
-2.  In the left-side navigation pane, click **Buckets**. On the Buckets page, click the name of the bucket that contains the previous version you want to delete.
+2.  Click the version that you want to download. In the panel that appears, click **Download** to the right of **Object URL**.
 
-3.  Click **Files**. In the upper-right corner, set **Display Previous Versions** to **Show**.
+3.  Select the location where you want to store the downloaded version and then click **Save**.
 
-4.  Click **Completely Delete** in the Actions column corresponding to the previous version you want to delete.
+
+## Delete the previous version of an object
+
+To minimize storage costs, we recommend that you delete previous versions that you no longer need at your earliest opportunity.
+
+**Warning:** Deleted previous versions cannot be recovered. Exercise caution when you delete previous versions.
+
+1.  On the Overview page, click **Files** in the left-side navigation pane.
+
+2.  Click **Completely Delete** in the Actions column that corresponds to the previous version you want to delete.
 
     To delete multiple unnecessary previous versions, select the previous versions you want to delete and choose **Batch Operation** \> **Completely Delete**.
 
-5.  Click **OK**.
+3.  Click **OK**.
 
 
-**Note:**
+You can also configure lifecycle rules to allow OSS to delete previous versions on a regular basis. For more information, see [Configure lifecycle rules](/intl.en-US/Console User Guide/Manage buckets/Basic settings/Configure lifecycle rules.md).
 
--   Deleted previous versions cannot be recovered. Exercise caution when you delete previous versions.
--   If you delete the current version of an object, the latest previous version becomes the current version.
--   You can also configure lifecycle rules to automatically delete previous versions on a regular basis. For more information about how to configure lifecycle rules, see [Configure lifecycle rules](/intl.en-US/Console User Guide/Manage buckets/Basic settings/Configure lifecycle rules.md).
+## Suspend versioning
+
+You can suspend versioning for a versioned bucket to stop OSS from generating new versions for objects. If a new version is generated for an object in a versioning-suspended bucket, OSS sets the ID of the new version to null and retains the previous versions of the object.
+
+You can perform the following steps to suspend versioning for a bucket:
+
+1.  In the left-side navigation pane, click **Buckets**. On the Buckets page, click the name of the bucket for which you want to suspend versioning.
+
+2.  Choose **Redundancy for Fault Tolerance** \> **Versioning**.
+
+3.  Click **Configure** and then set the versioning state to **Suspended**.
+
+4.  Click **Save**.
+
 
