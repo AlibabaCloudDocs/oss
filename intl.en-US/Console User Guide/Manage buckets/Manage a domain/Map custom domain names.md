@@ -2,12 +2,6 @@
 
 After you upload objects to a bucket, OSS automatically generates URLs that include the public endpoint of the bucket for the uploaded objects. You can use these URLs to access the objects. If you want to access the objects by using custom domain names \(CNAMEs\), you must map the custom domain names to the bucket in which the objects are stored.
 
-## Video tutorial
-
-The following video shows you how to map a custom domain name to a bucket. 
-
-**Note:** For more information about how to map custom domain names and the limits, see [Bind custom domain names](/intl.en-US/Developer Guide/Buckets/Bind custom domain names.md).
-
 ## Procedure
 
 1.  Map a custom domain name to a bucket.
@@ -36,7 +30,7 @@ The following video shows you how to map a custom domain name to a bucket.
         2.  Click **Submit**.
     -   If the domain name is not managed by your Alibaba Cloud account, manually add a CNAME record.
 
-        If your domain name is not managed by Alibaba Cloud DNS, you must configure the DNS of your DNS provider, such as Tencent Cloud DNS \(DNSPod\) or Xinnet. For more information, see [Add a CNAME record for a domain name](/intl.en-US/Quick Start/Add a CNAME record for a domain name.md) .
+        If your domain name is not managed by Alibaba Cloud DNS, you must configure the DNS of your DNS provider .
 
         The following example shows how to use Alibaba Cloud DNS to manually add a CNAME record for a domain name that does not belong to an Alibaba Cloud account.
 
