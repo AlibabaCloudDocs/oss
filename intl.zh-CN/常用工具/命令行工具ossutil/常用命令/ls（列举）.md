@@ -107,10 +107,12 @@
         ./ossutil64 ls oss://examplebucket
         ```
 
-        以下输出结果表明已成功列举examplebucket内所有Object的信息，包括文件最后更新时间（LastModifiedTime）、以字节为单位统计的文件大小（Size）、ETAG值以及文件名称（ObjectName）。其中ETAG值用于标识一个Object的内容。对于通过PutObject请求创建的Object，ETag值是其内容的MD5值；对于通过其他方式创建的Object，ETag值是其内容的UUID。
+        以下输出结果表明已成功列举examplebucket内所有Object的信息，包括文件最后更新时间（LastModifiedTime）、以字节为单位统计的文件大小（Size）、ETag值以及文件名称（ObjectName）。
+
+        其中，ETag值用于标识一个Object的内容。对于通过PutObject请求创建的Object，ETag值是其内容的MD5值；对于通过其他方式创建的Object，ETag值是其内容的UUID。
 
         ```
-        LastModifiedTime                    Size(B)  StorageClass   ETAG                                    ObjectName
+        LastModifiedTime                    Size(B)  StorageClass   ETag                                    ObjectName
         2020-12-01 15:06:37 +0800 CST           114      Standard   61DE142E5AFF9A6748707D4A77BFBCFB        oss://examplebucket/example.txt
         2020-12-01 15:06:42 +0800 CST        363812      Standard   E7581E5D2EBC56ECCB6FB6050B4C6545        oss://examplebucket/examplefolder/photo.jpg
         2020-12-01 15:06:45 +0800 CST      57374182      Standard   BE97B7AD7A2C1277B11221E5C9537544        oss://examplebucket/video.mp4
@@ -127,7 +129,7 @@
         以下输出结果表明已成功列举examplebucket内所有前缀为example的Object。
 
         ```
-        LastModifiedTime                    Size(B)  StorageClass   ETAG                                    ObjectName
+        LastModifiedTime                    Size(B)  StorageClass   ETag                                     ObjectName
         2020-12-01 15:06:37 +0800 CST           114      Standard   61DE142E5AFF9A6748707D4A77BFBCFB        oss://examplebucket/example.txt
         2020-12-01 15:06:42 +0800 CST        363812      Standard   E7581E5D2EBC56ECCB6FB6050B4C6545        oss://examplebucket/examplefolder/photo.jpg
         Object Number is:2
@@ -143,7 +145,7 @@
         以下输出结果表明已成功列举examplebucket内所有后缀名为.mp4的文件。
 
         ```
-        LastModifiedTime                    Size(B)  StorageClass   ETAG                                    ObjectName
+        LastModifiedTime                    Size(B)  StorageClass   ETag                                     ObjectName
         2020-12-01 15:06:45 +0800 CST      57374182      Standard   BE97B7AD7A2C1277B11221E5C9537544        oss://examplebucket/video.mp4
         Object Number is:1
         0.007379(s) elapsed                 
@@ -175,7 +177,7 @@
         以下输出结果表明已成功列举examplebucket内所有Object的所有版本。
 
         ```
-        LastModifiedTime                   Size(B)  StorageClass   ETAG                                  VERSIONID                                                           IS-LATEST   DELETE-MARKER   ObjectName
+        LastModifiedTime                   Size(B)  StorageClass   ETag                                   VERSIONID                                                           IS-LATEST   DELETE-MARKER   ObjectName
         2020-12-01 15:06:37 +0800 CST         114      Standard   61DE142E5AFF9A6748707D4A77BFBCFB      CAEQARiBgICUsOuR2hYiIDI3NWVjNmEyYmM0NTRkZWNiMTkxY2VjMDMwZjFlMDA3    true        false           oss://examplebucket/example.txt
         2020-06-11 11:03:37 +0800 CST      363812      Standard   E7581E5D2EBC56ECCB6FB6050B4C6545      CAEQARiBgIDZtvuR2hYiIDNhYjRkN2M5NTA5OTRlN2Q4YTYzODQwMzQ4NDYwZDdm    true        false           oss://examplebucket/examplefolder/photo.jpg
         2021-01-26 13:27:08 +0800 CST           0                                                       CAEQLxiBgIDd7NH0uRciIDA3Yzg0MTZjOWNlYzQ4ODZhMzVkZWE0MmE2NzBlYTYx    true        true            oss://examplebucket/image.png
@@ -196,7 +198,7 @@
         以下输出结果表明已成功列举example.txt的所有版本。
 
         ```
-        LastModifiedTime                   Size(B)  StorageClass  ETAG                                  VERSIONID                                                           IS-LATEST   DELETE-MARKER  ObjectName
+        LastModifiedTime                   Size(B)  StorageClass  ETag                                   VERSIONID                                                           IS-LATEST   DELETE-MARKER  ObjectName
         2020-12-01 15:06:37 +0800 CST         114      Standard   61DE142E5AFF9A6748707D4A77BFBCFB      CAEQARiBgICUsOuR2hYiIDI3NWVjNmEyYmM0NTRkZWNiMTkxY2VjMDMwZjFlMDA3    true        false           oss://examplebucket/example.txt
         2016-06-11 10:53:46 +0800 CST         114      Standard   61DE142E5AFF9A6748707D4A77BFBCFB      CAEQARiBgID8rumR2hYiIGUyOTAyZGY2MzU5MjQ5ZjlhYzQzZjNlYTAyZDE3MDRk    false       false           oss://examplebucket/example.txt
         Object Number is: 2
@@ -254,7 +256,7 @@
         以下输出结果表明已成功列举examplebucket内所有Object和Part。
 
         ```
-        LastModifiedTime                    Size(B)  StorageClass   ETAG                                    ObjectName
+        LastModifiedTime                    Size(B)  StorageClass   ETag                                     ObjectName
         2020-12-01 15:06:37 +0800 CST           114      Standard   61DE142E5AFF9A6748707D4A77BFBCFB        oss://examplebucket/example.txt
         2020-12-01 15:06:42 +0800 CST        363812      Standard   E7581E5D2EBC56ECCB6FB6050B4C6545        oss://examplebucket/examplefolder/photo.jpg
         2020-12-01 15:06:45 +0800 CST      57374182      Standard   BE97B7AD7A2C1277B11221E5C9537544        oss://examplebucket/video.mp4
