@@ -62,7 +62,7 @@ PutBucketInventory接口用于为某个存储空间（Bucket）配置清单（In
 |Prefix|字符串|否|Pics|筛选规则的匹配前缀。 父节点：Filter |
 |Destination|容器|是|不涉及|存放清单结果。|
 |OSSBucketDestination|容器|是|不涉及|清单结果导出后存放的Bucket信息。 父节点：Destination |
-|Format|字符串|是|CSV|导出清单文件的文件格式。 有效值：CSV
+|Format|字符串|是|CSV|清单文件的文件格式。 清单文件导出后的格式为使用GZIP压缩的CSV文件。有效值：CSV
 
 父节点：OSSBucketDestination |
 |AccountId|字符串|是|100000000000000|Bucket所有者授予的账户ID。 父节点：OSSBucketDestination |
