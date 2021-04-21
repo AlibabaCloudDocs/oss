@@ -286,7 +286,7 @@ This topic describes the types of error messages returned with HTTP status code 
 
 -   Error message: The encryption algorithm specified is not valid.or The Encryption request you specified is not valid. Supported value: AES256/SM4/KMS.
 -   Cause: The value of `x-oss-server-side-encryption` is invalid.
--   Solution: Set `x-oss-server-side-encryption` to one of the following valid values: AES256 or KMS. For more information about server-side encryption, see[PutObject](/intl.en-US/API Reference/Object operations/Basic operations/PutObject.md).
+-   Solution: Set `x-oss-server-side-encryption` to one of the following valid values: AES256 or KMS. For more information about server-side encryption, see [PutObject](/intl.en-US/API Reference/Object operations/Basic operations/PutObject.md).
 
 ## InvalidDataEncryptionAlgorithmError
 
