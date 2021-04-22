@@ -18,7 +18,7 @@ du命令用于获取指定存储空间（Bucket）、文件目录下包含的所
 |prefix|Bucket下的某个文件目录或指定前缀。|
 |--payer|请求的支付方式。如果希望访问指定路径下的资源产生的流量、请求次数等费用由请求者支付，请将此选项的值设置为requester。|
 |--all-versions|获取所有版本Object的大小。不添加此选项时，默认查询当前版本Object的大小。|
-|--block-size|定义输出结果中指定Bucket或目录下包含的Object大小，取值为KB、MB、GB或TB。不添加此选项时，默认以Byte为单位统计Object的大小。|
+|--block-size|定义输出结果中指定Bucket或目录下包含的Object大小，取值为KB、MB、GB或TB。不添加此选项时，默认以Byte为单位统计Object的大小。**说明：** 此选项仅在ossutil1.7.3及以上版本可用。 |
 
 ## 查询指定Bucket下所有版本Object的大小
 
