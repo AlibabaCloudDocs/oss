@@ -25,15 +25,15 @@ Download the package based on your operating system and run the corresponding bi
 
 ## Install ossutil on Linux
 
-1.  Download the ossutil installation package.
+1.  Run the following command to download the ossutil installation package:
 
     ```
     wget http://gosspublic.alicdn.com/ossutil/1.7.3/ossutil64                           
     ```
 
-    **Note:** When you use the copied URL in the wget command to download ossutil, delete the`?spm=xxxx` from the URL.
+    **Note:** When you use the copied URL in the wget command to download ossutil, delete the`?spm=xxxx` part from the URL.
 
-2.  Modify the execution permissions of the file.
+2.  Run the following command to modify the execution permissions of the file:
 
     ```
     chmod 755 ossutil64
@@ -52,7 +52,7 @@ Download the package based on your operating system and run the corresponding bi
         We recommend that you use the default path for the configuration file by pressing the Enter key.
 
         ```
-        Please enter the config file name, the file name can include path (default C:\\Users\Administrator\.ossutilconfig, carriage return will use the default file.
+        Please enter the config file name, the file name can include path (default C:\\Users\Administrator\.ossutilconfig, carriage return will use the default file. 
         If you specified this option to other file, you should specify --config-file option to the file when you use other commands): 
         ```
 
@@ -68,7 +68,7 @@ Download the package based on your operating system and run the corresponding bi
         Enter the language: CH or EN. The default language is CH. This parameter takes effect after the config command is run. 
         ```
 
-    4.  Configure the parameters, including endpoint, AccessKey ID, AccessKey secret, and STS token.
+    4.  Configure the parameters, including endpoint, AccessKey ID, AccessKey secret, and Security Token Service \(STS\) token.
 
         You can configure the following parameters for ossutil:
 
@@ -79,7 +79,7 @@ Download the package based on your operating system and run the corresponding bi
         -   accessKeyID and accessKeySecret: Enter the AccessKey pair of your account.
             -   For more information about how to obtain the AccessKey pair of an Alibaba Cloud account or a RAM user, see [Create an AccessKey pair]().
             -   For more information about how to obtain the AccessKey pair of a temporary STS token, see [Access OSS with a temporary access credential provided by STS](/intl.en-US/Developer Guide/Data security/Access and control/Access OSS with a temporary access credential provided by STS.md).
-        -   stsToken: This option is required only when you use a temporary STS token to access OSS buckets. Otherwise, you can leave this parameter empty. For more information about how to generate an STS token, see [Access OSS with a temporary access credential provided by STS](/intl.en-US/Developer Guide/Objects/Upload files/Authorized third-party upload.md).
+        -   stsToken: This option is required only when you use a temporary STS token to access an OSS bucket. Otherwise, you can leave this parameter empty. For more information about how to generate an STS token, see [Access OSS with a temporary access credential provided by STS](/intl.en-US/Developer Guide/Objects/Upload files/Authorized third-party upload.md).
     **Note:** For more information about configuration files, see [config](/intl.en-US/Tools/ossutil/Common commands/config.md).
 
 
@@ -87,58 +87,55 @@ Download the package based on your operating system and run the corresponding bi
 
 1.  Click the download URL listed in the preceding section to download the installation package of ossutil.
 2.  Decompress the downloaded installation package. Run the ossutil.bat file.
-3.  Generate a configuration file. For more information about how to generate a configuration file, see [Generate a configuration file in interactive mode](#Linux).
-
-    You can run the following command to generate a configuration file:
+3.  Run the following command to generate a configuration file:
 
     ```
     D:\ossutil>ossutil64.exe config
     ```
 
+4.  Configure the configuration file as prompted. You can configure the configuration file in the same way as you generate configuration files in Linux. For more information, see [Generate a configuration file in interactive mode](#linux).
 
 ## Install ossutil on macOS
 
-1.  Download the ossutil installation package.
+1.  Run the following command to download the ossutil installation package:
 
     ```
     curl -o ossutilmac64 http://gosspublic.alicdn.com/ossutil/1.7.3/ossutilmac64
     ```
 
-2.  Modify the execution permissions of the file.
+2.  Run the following command to modify the execution permissions of the file:
 
     ```
     chmod 755 ossutilmac64
     ```
 
-3.  Run the following command to generate configurations. For more information about how to generate a configuration file, see [Generate a configuration file in interactive mode](#Linux).
-
-    Run the following command:
+3.  Run the following command to generate a configuration file:
 
     ```
     ./ossutilmac64 config
     ```
 
+4.  Configure the configuration file as prompted. You can configure the configuration file in the same way as you generate configuration files in Linux. For more information, see [Generate a configuration file in interactive mode](#linux).
 
 ## Install ossutil on ARM systems
 
-1.  Download the ossutil installation package.
+1.  Run the following command to download the ossutil installation package:
 
     ```
     wget http://gosspublic.alicdn.com/ossutil/1.7.3/ossutilarm64
     ```
 
-2.  Modify the execution permissions of the file.
+2.  Run the following command to modify the execution permissions of the file:
 
     ```
     chmod 755 ossutilarm64
     ```
 
-3.  Generate a configuration file. For more information about how to generate a configuration file, see [Generate a configuration file in interactive mode](#Linux).
-
-    Run the following command:
+3.  Run the following command to generate a configuration file:
 
     ```
     ./ossutilarm64 config
     ```
 
+4.  Configure the configuration file as prompted. You can configure the configuration file in the same way as you generate configuration files in Linux. For more information, see [Generate a configuration file in interactive mode](#linux).
 
