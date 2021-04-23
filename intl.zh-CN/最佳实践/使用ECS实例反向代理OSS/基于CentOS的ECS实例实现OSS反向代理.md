@@ -83,6 +83,8 @@
 
     ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/1554449951/p38588.png)
 
+    如果访问的文件读写权限为私有，文件URL中还需要包含签名信息。详情请参见[在URL中包含签名](/intl.zh-CN/API 参考/访问控制/在URL中包含签名.md)。
+
 
 ## 更多参考
 
