@@ -1,89 +1,93 @@
-# Initialization {#concept_32028_zh .concept}
+# Initialization
 
-This topic describes how to initialize OSS Python SDK.
+This topic describes how to initialize OSS SDK for Python.
 
-Most operations in OSS Python SDK are performed through oss2.Service and oss2.Bucket.
+OSS SDK for Python allows you to use oss2.Serviceand oss2.Bucketto perform most operations.
 
--   The oss2.Service class is used to list buckets.
--   The oss2.Bucket class is used to upload, download, and delete objects, and configure buckets.
+-   oss2.oss2.Service is used to list buckets.
+-   oss2.oss2.Bucket is used to upload, download, and delete objects as well as configure buckets.
 
-To initialize the two classes, you must specify an endpoint. The oss2.Service class does not support access with the custom domain \(CNAME\). For more information about endpoints, see [Regions and endpoints](../../../../reseller.en-US/Developer Guide/Regions and endpoints.md#) and [Bind a custom domain name](../../../../reseller.en-US/Developer Guide/Access and control/Bind a custom domain name.md#).
+You must specify the endpoint when you initiate the two classes. Custom domain names cannot be used to accessthe oss2.Service class. For more information about endpoints, see [Regions and endpoints](/intl.en-US/Developer Guide/Endpoint/Regions and endpoints.md) and [Bind a custom domain name](/intl.en-US/Developer Guide/Buckets/Bind custom domain names.md).
 
-## Initialize the oss2.Service class { .section}
+## Initialize the oss2.Serviceclass
 
-For more information, see the bucket listing part in [Manage buckets](reseller.en-US/SDK Reference/Python/Bucket.md#).
+For more information, see [List buckets](/intl.en-US/SDK Reference/Python/Buckets/List buckets.md).
 
-## Initialize the oss2.Bucket class. {#section_ld1_jbj_kfb .section}
+## Initialize the oss2.Bucketclass
 
--   Use a OSS domain name to initialize the class
+-   Use the default domain name of a bucket to initialize the class
 
-    Run the following code to initialize the oss2.Bucket class with a OSS domain name.
+    The following code provides an example on how to use the default domain name of a bucket to initialize the oss2.Bucket class:
 
-    ```language-python
+    ```
     # -*- coding: utf-8 -*-
     import oss2
     
-    # It is highly risky to log on with AccessKey of an Alibaba Cloud account because the account has permissions on all the APIs in OSS. We recommend that you log on as a RAM user to access APIs or perform routine operations and maintenance. To create a RAM account, log on to https://ram.console.aliyun.com.
-    auth = oss2. Auth('<yourAccessKeyId>', '<yourAccessKeySecret>')
-    # This case uses the Hangzhou endpoint as an example. Fill in the region endpoint name according to the actual circumstances.
-    endpoint = 'http://oss-cn-hangzhou.aliyuncs.com'
+    # Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS because the account has permissions on all API operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create a RAM user, log on to the RAM console. 
+    auth = oss2.Auth('yourAccessKeyId', 'yourAccessKeySecret')
     
-    bucket = oss2. Bucket(auth, endpoint, '<yourBucketName>')
+    # Set yourEndpoint to the endpoint of the region in which the bucket is located. For example, if your bucket is located in the China (Hangzhou) region, set yourEndpoint to https://oss-cn-hangzhou.aliyuncs.com. 
+    endpoint = 'yourEndpoint'
     
+    # Specify the bucket name. 
+    bucket = oss2.Bucket(auth, endpoint, 'examplebucket')                    
     ```
 
--   Use a custom domain name to initialize the class
+-   Use a custom domain name that is mapped to a bucket to initialize the class
 
-    Run the following code to initialize the oss2.Bucket class with a custom domain name
+    The following code provides an example on how to use a custom domain name that is mapped to a bucket to initialize the oss2.Bucket class:
 
-    ```language-python
+    ```
     # -*- coding: utf-8 -*-
     import oss2
+    # Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS because the account has permissions on all API operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create a RAM user, log on to the RAM console. 
+    auth = oss2.Auth('yourAccessKeyId', 'yourAccessKeySecret')
     
-    # It is highly risky to log on with AccessKey of an Alibaba Cloud account because the account has permissions on all the APIs in OSS. We recommend that you log on as a RAM user to access APIs or perform routine operations and maintenance. To create a RAM account, log on to https://ram.console.aliyun.com.
-    auth = oss2. Auth('<yourAccessKeyId>', '<yourAccessKeySecret>')
-    
-    # Use a custom domain name: my-domain.com as an example. is_cname=True indicates that the CNAME is enabled. Cname means binding a custom domain name to the storage space. CNAME indicates a custom domain bound to a bucket.
+    # In this example, my-domain.com is used as the custom domain name. 
     cname = 'http://my-domain.com'
-    bucket = oss2. Bucket(auth, cname, '<yourBucketName>', is_cname=True)
     
+    # Specify the bucket name. Set is_cname to True to enable CNAME. If CNAME is enabled, custom domain names can be mapped to the bucket. 
+    bucket = oss2.Bucket(auth, cname, 'examplebucket', is_cname=True)                    
     ```
 
--   Set connection timeout
+-   Configure the connection timeout period
 
-    Run the following code to set connection timeout:
+    The following code provides an example on how to configure the connection timeout period:
 
-    ```language-python
+    ```
     # -*- coding: utf-8 -*-
     import oss2
     
-    // It is highly risky to log on with AccessKey of an Alibaba Cloud account because the account has permissions on all the APIs in OSS. We recommend that you log on as a RAM user to access APIs or perform routine operations and maintenance. To create a RAM account, log on to https://ram.console.aliyun.com.
-    auth = oss2. Auth('<yourAccessKeyId>', '<yourAccessKeySecret>')
-    // This example uses endpoint China (Hangzhou). Specify the actual endpoint based on your requirements.
-    endpoint = 'http://oss-cn-hangzhou.aliyuncs.com'
+    # Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS because the account has permissions on all API operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create a RAM user, log on to the RAM console. 
+    auth = oss2.Auth('yourAccessKeyId', 'yourAccessKeySecret')
     
-    # Set the connection timeout to 30 seconds.
-    bucket = oss2. Bucket(auth, endpoint, '<yourBucketName>', connect_timeout=30)
+    // Set yourEndpoint to the endpoint of the region in which the bucket is located. For example, if your bucket is located in the China (Hangzhou) region, set yourEndpoint to https://oss-cn-hangzhou.aliyuncs.com. 
+    endpoint = 'yourEndpoint'
     
+    # Specify the bucket name and set the connection timeout period to 30 seconds. 
+    bucket = oss2.Bucket(auth, endpoint, 'examplebucket', connect_timeout=30)                    
     ```
 
--   Disable CRC verification
+-   Disable CRC
 
-    CRC verification is enabled by default during uploads and downloads to ensure data integrity during uploads and downloads. Run the following code to disable CRC verification:
+    By default, cyclic redundancy check \(CRC\) is enabled to ensure data integrity when you upload or download objects.
 
-    **Warning:** We recommended that you do not disable CRC verification. If you disable CRC verification, the data integrity during uploads and downloads is not guaranteed.
+    **Warning:** We recommend that you do not disable CRC. If you disable CRC, data integrity may be affected during object upload and download.
 
-    ```language-python
+    The following code provides an example on how to disable CRC:
+
+    ```
     # -*- coding: utf-8 -*-
     import oss2
     
-    # It is highly risky to log on with AccessKey of an Alibaba Cloud account because the account has permissions on all the APIs in OSS. We recommend that you log on as a RAM user to access APIs or perform routine operations and maintenance. To create a RAM account, log on to https://ram.console.aliyun.com.
-    auth = oss2. Auth('<yourAccessKeyId>', '<yourAccessKeySecret>')
-    // This example uses endpoint China (Hangzhou). Specify the actual endpoint based on your requirements.
-    endpoint = 'http://oss-cn-hangzhou.aliyuncs.com'
+    # Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS because the account has permissions on all API operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create a RAM user, log on to the RAM console. 
+    auth = oss2.Auth('yourAccessKeyId', 'yourAccessKeySecret')
     
-    bucket = oss2. Bucket(auth, endpoint, '<yourBucketName>', enable_crc=False)
+    # Set yourEndpoint to the endpoint of the region in which the bucket is located. For example, if your bucket is located in the China (Hangzhou) region, set yourEndpoint to https://oss-cn-hangzhou.aliyuncs.com. 
+    endpoint = 'yourEndpoint'
     
+    # Specify the bucket name and set enable_crc to False to disable CRC. 
+    bucket = oss2.Bucket(auth, endpoint, 'examplebucket', enable_crc=False)                   
     ```
 
 
