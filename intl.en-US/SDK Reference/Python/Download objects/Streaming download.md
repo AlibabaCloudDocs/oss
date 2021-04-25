@@ -1,47 +1,65 @@
-# Streaming download {#concept_88441_zh .concept}
+# Streaming download
 
-If you have a large object to download or it is time-consuming to download the entire object at a time, you can use streaming download. Streaming download enables you to download part of the object each time until you have downloaded the entire object.
+If you need to download a large object or it takes a long time to download an object at a time, you can use streaming download to download the object in increments.
 
-Run the following code for streaming download:
+The following code provides an example on how to use streaming download to download an object named exampleobject.txt from a bucket named examplebucket:
 
-```language-python
+```
 # -*- coding: utf-8 -*-
 import oss2
 
-# It is highly risky to log on with AccessKey of an Alibaba Cloud account because the account has permissions on all the APIs in OSS. We recommend that you log on as a RAM user to access APIs or perform routine operations and maintenance. To create a RAM account, log on to https://ram.console.aliyun.com.
-auth = oss2. Auth('<yourAccessKeyId>', '<yourAccessKeySecret>')
-// This example uses the endpoint China East 1 (Hangzhou). Specify the actual endpoint based on your requirements.
-bucket = oss2. Bucket(auth, 'http://oss-cn-hangzhou.aliyuncs.com', '<yourBucketName>')
+# Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS because the account has permissions on all API operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create a RAM user, log on to the RAM console. 
+auth = oss2.Auth('yourAccessKeyId', 'yourAccessKeySecret')
+# Set yourEndpoint to the endpoint of the region in which the bucket is located. For example, if your bucket is located in the China (Hangzhou) region, set yourEndpoint to https://oss-cn-hangzhou.aliyuncs.com. 
+# Specify the bucket name. 
+bucket = oss2.Bucket(auth, 'yourEndpoint', 'examplebucket')
 
-# The return value of bucket.get_object is a file-like object, which is also an iterable object.
-object_stream = bucket.get_object('<yourObjectName>')
+# The value returned by bucket.get_object is a file-like and iterable object. 
+# Specify the full path of the object. The full path of the object cannot contain bucket names. 
+object_stream = bucket.get_object('exampleobject.txt')
 print(object_stream.read())
 
-# The get_object interface returns a stream, which must be read by read() before being used to calculate the CRC checksum of the returned object data. Therefore, you must perform CRC verification after calling the interface.
-if object_stream.client_crc ! = object_stream.server_crc:
-    print "The CRC checksum between client and server is inconsistent!"
-
+# You must call read() to read the object from the stream returned by get_object before you can calculate the CRC-64 value of the object. 
+if object_stream.client_crc != object_stream.server_crc:
+    print("The CRC checksum between client and server is inconsistent!")       
 ```
 
-Run the following code to download data to a local file:
+The following code provides an example on how to download the data of an object named exampleobject.txt from a stream to a file named examplefile.txt in the local directory D:\\localpath:
 
-```language-python
+```
 import shutil
+import oss2
 
-# object_stream is a file-like object. Therefore, you can use the shutil.copyfileobj method to download data to a local file.
-object_stream = bucket.get_object('<yourObjectName>')
-with open('<yourLocalFile>', 'wb') as local_fileobj:
-    shutil.copyfileobj(object_stream, local_fileobj)
+# Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS because the account has permissions on all API operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create a RAM user, log on to the RAM console. 
+auth = oss2.Auth('yourAccessKeyId', 'yourAccessKeySecret')
+# Set yourEndpoint to the endpoint of the region in which the bucket is located. For example, if your bucket is located in the China (Hangzhou) region, set yourEndpoint to https://oss-cn-hangzhou.aliyuncs.com. 
+# Specify the bucket name. 
+bucket = oss2.Bucket(auth, 'yourEndpoint', 'examplebucket')
 
+# object_stream is a file-like object. You can use the shutil.copyfileobj method to download the data from a stream to the local file. 
+# Specify the full path of the object. The full path of the object cannot contain bucket names. 
+object_stream = bucket.get_object('exampleobject.txt')
+# Download the object to a local file in the specified path. If the specified local file exists, the downloaded object overwrites the local file. Otherwise, the local file is created. 
+# If the path for the object is not specified, the downloaded object is saved to the path of the project to which the sample program belongs. 
+with open('D:\\localpath\\examplefile.txt', 'wb') as local_fileobj:
+    shutil.copyfileobj(object_stream, local_fileobj)        
 ```
 
-Run the following code to copy an object to another object using streaming copy.
+The following code provides an example on how to copy the data of an object named exampleobject.txt from a stream to an object named exampleobjectnew.txt:
 
-```language-python
+```
+import oss2
 
-# object_stream is an iterable object, which can be copied to another object using streaming copy.
-object_stream = bucket.get_object('<yourObjectName>')
-bucket.put_object('<yourBackupObjectName>', object_stream)
+# Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS because the account has permissions on all API operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create a RAM user, log on to the RAM console. 
+auth = oss2.Auth('yourAccessKeyId', 'yourAccessKeySecret')
+# Set yourEndpoint to the endpoint of the region in which the bucket is located. For example, if your bucket is located in the China (Hangzhou) region, set yourEndpoint to https://oss-cn-hangzhou.aliyuncs.com. 
+# Specify the bucket name. 
+bucket = oss2.Bucket(auth, 'yourEndpoint', 'examplebucket')
 
+# object_stream is an iterable object. You can copy the data of the object from a stream to another object in the same bucket. 
+# Specify the full path of the source object. The full path of the object cannot contain bucket names. 
+object_stream = bucket.get_object('exampleobject.txt')
+# Specify the full path of the destination object. The full path of the object cannot contain bucket names. 
+bucket.put_object('exampleobjectnew.txt', object_stream)       
 ```
 
