@@ -14,7 +14,7 @@ When you upload a ZIP package that matches the configured decompression rules to
 
 Take note of the following items when you use the ZIP package decompression feature:
 
--   ZIP package decompression is available in all regions except the following regions: China \(Heyuan\), China \(Guangzhou\), China \(Chengdu\), China \(Ulanqab\), China \(HongKong\), Malaysia \(Kuala Lumpur\), UAE \(Dubai\), and UK \(London\).
+-   ZIP package decompression is available in all regions except the following regions: China \(Heyuan\), China \(Guangzhou\), China \(Ulanqab\) and UAE \(Dubai\).
 -   We recommend that you encode your object or folder names in UTF-8 or GB 2312. Otherwise, the decompressed object or folder names may be corrupted or the decompression process may be interrupted.
 -   If the storage class of a ZIP package is Archive or Cold Archive, you must restore the object before it can be decompressed.
 -   If the decompression of a ZIP package takes more than 10 minutes, the ZIP package fails to be decompressed.
@@ -24,7 +24,7 @@ Take note of the following items when you use the ZIP package decompression feat
 
 1.  Log on to the [OSS console](https://oss.console.aliyun.com/).
 
-2.  In the left-side navigation pane, click **Buckets**. On the Buckets page, click the name of the bucket to which you want to upload objects.
+2.  Click **Buckets**, and then click the name of the target bucket.
 
 3.  In the left-side navigation pane, choose **Data Processing** \> **Decompress ZIP Package**.
 
