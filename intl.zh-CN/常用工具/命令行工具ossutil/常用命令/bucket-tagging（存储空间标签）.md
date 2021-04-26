@@ -14,14 +14,14 @@
 -   命令格式
 
     ```
-    ./ossutil64 bucket-tagging --method put oss://bucket\_name key\#value
+    ./ossutil64 bucket-tagging --method put oss://bucketname key\#value
     ```
 
     参数说明如下：
 
     |参数|说明|
     |--|--|
-    |bucket\_name|添加或修改标签信息的Bucket名称。|
+    |bucketname|添加或修改标签信息的Bucket名称。|
     |key\#value|标签信息的Key-Value对。    -   Key和Value以井号（\#）分隔，且Key和Value必须为UTF-8编码。
     -   Key最大长度为64字节，不能以`http://`、`https://`、`Aliyun`为前缀，且不能为空。
     -   Value最大长度为128字节，可以为空。 |
@@ -48,7 +48,7 @@
 -   命令格式
 
     ```
-    ./ossutil64 bucket-tagging --method get oss://bucket\_name
+    ./ossutil64 bucket-tagging --method get oss://bucketname
     ```
 
 -   使用示例
@@ -76,7 +76,7 @@
 -   命令格式
 
     ```
-    ./ossutil64 bucket-tagging --method delete oss://bucket\_name 
+    ./ossutil64 bucket-tagging --method delete oss://bucketname 
     ```
 
 -   使用示例
