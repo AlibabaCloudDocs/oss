@@ -9,14 +9,14 @@ ACL是授予存储空间（Bucket）和文件（Object）访问权限的访问�
 -   命令格式
 
     ```
-    ./ossutil64 set-acl oss://bucket\_name acl -b [--retry-times <value>]
+    ./ossutil64 set-acl oss://bucketname acl -b [--retry-times <value>]
     ```
 
     参数及选项说明如下：
 
     |配置项|说明|
     |---|--|
-    |bucket\_name|待设置或修改ACL的Bucket名称。|
+    |bucketname|待设置或修改ACL的Bucket名称。|
     |acl|Bucket的读写权限ACL。取值如下：    -   private（默认值）：只有该Bucket的拥有者可以对该Bucket内的文件进行读写操作，其他人无法访问该Bucket内的文件。
     -   public-read：只有Bucket拥有者可以对该Bucket内的文件进行写操作，其他用户（包括匿名访问者）都可以对该Bucket中的文件进行读操作。这有可能造成您数据的外泄以及费用激增，若被人恶意写入违法信息还可能会侵害您的合法权益。除特殊场景外，不建议您配置公共读写权限。
     -   public-read-write：任何人（包括匿名访问者）都可以对该Bucket内文件进行读写操作。这有可能造成您数据的外泄以及费用激增，请谨慎操作。 |
@@ -37,7 +37,7 @@ ACL是授予存储空间（Bucket）和文件（Object）访问权限的访问�
 -   命令格式
 
     ```
-    ./ossutil64 set-acl oss://bucket\_name[/prefix]acl 
+    ./ossutil64 set-acl oss://bucketname[/prefix]acl 
     [-r]
     [--include <value>] 
     [--exclude <value>]
@@ -51,7 +51,7 @@ ACL是授予存储空间（Bucket）和文件（Object）访问权限的访问�
 
     |配置项|说明|
     |---|--|
-    |bucket\_name|Bucket名称。|
+    |bucketname|Bucket名称。|
     |prefix|Bucket下的资源、例如目录、文件等。|
     |acl|Object的读写权限ACL。取值如下：    -   default：继承Bucket的读写权限。
     -   private（默认值）：只有该Bucket的拥有者可以对该Bucket内的文件进行读写操作，其他人无法访问该Bucket内的文件。
