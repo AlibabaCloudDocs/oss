@@ -82,14 +82,14 @@
 -   命令格式
 
     ```
-    ./ossutil64 ls oss://bucket\_name[/prefix] [-s] [-d] [--limited-num] [--marker] [--include] [--exclude]  [--version-id-marker] [--all-versions]
+    ./ossutil64 ls oss://bucketname[/prefix] [-s] [-d] [--limited-num] [--marker] [--include] [--exclude]  [--version-id-marker] [--all-versions]
     ```
 
     参数说明如下：
 
     |选项|说明|
     |--|--|
-    |bucket\_name|目标Bucket名称。|
+    |bucketname|目标Bucket名称。|
     |prefix|目标Object前缀。当您列举目标Bucket中指定前缀的Object时添加此项。|
     |-s|列举结果仅返回Object的名称。|
     |-d|仅列举Object和子目录，忽略子目录下的Object。|
@@ -212,14 +212,14 @@
 -   命令格式
 
     ```
-    ./ossutil64 ls oss://bucket\_name[/prefix] [-s] [-d] [-m] [-a] [--limited-num] [--upload-id-marker] 
+    ./ossutil64 ls oss://bucketname[/prefix] [-s] [-d] [-m] [-a] [--limited-num] [--upload-id-marker] 
     ```
 
     参数说明如下：
 
     |选项|说明|
     |--|--|
-    |bucket\_name|目标Bucket名称。当您需要列举指定Bucket中的Object时添加此项。 |
+    |bucketname|目标Bucket名称。当您需要列举指定Bucket中的Object时添加此项。 |
     |prefix|列举指定前缀下的Part。|
     |-s|列举结果仅返回UploadID和Object名称。|
     |-d|列举Object和子目录，忽略子目录下的Object。|
