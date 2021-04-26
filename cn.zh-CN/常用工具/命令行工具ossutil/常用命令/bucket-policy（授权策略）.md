@@ -5,7 +5,7 @@ Bucket Policy是基于资源的授权策略，Bucket拥有者可以通过Bucket 
 **说明：**
 
 -   本文涉及命令均基于Linux 64位系统。如果您使用Windows 64位系统，请将如下示例中的./ossutil64替换为ossutil64.exe。
--   有关Bucket Policy的更多信息，请参见[添加Bucket授权策略（Bucket Policy）](/cn.zh-CN/控制台用户指南/文件管理/添加Bucket授权策略（Bucket Policy）.md)。
+-   有关Bucket Policy的更多信息，请参见[通过Bucket Policy授权用户访问指定资源](/cn.zh-CN/控制台用户指南/文件管理/通过Bucket Policy授权用户访问指定资源.md)。
 
 ## 添加或修改Bucket Policy
 
@@ -16,14 +16,14 @@ Bucket Policy是基于资源的授权策略，Bucket拥有者可以通过Bucket 
 -   命令格式
 
     ```
-    ./ossutil64 bucket-policy --method put oss://bucket\_name local\_json\_file
+    ./ossutil64 bucket-policy --method put oss://bucketname local\_json\_file
     ```
 
     参数说明如下：
 
     |参数|说明|
     |--|--|
-    |bucket\_name|添加或修改Bucket Policy的目标存储空间名称。|
+    |bucketname|添加或修改Bucket Policy的目标存储空间名称。|
     |local\_json\_file|配置Bucket Policy的本地JSON文件名称。|
 
 -   使用示例
@@ -220,12 +220,12 @@ Bucket Policy是基于资源的授权策略，Bucket拥有者可以通过Bucket 
 -   命令格式
 
     ```
-    ./ossutil64 bucket-policy --method get oss://bucket\_name local\_json\_file
+    ./ossutil64 bucket-policy --method get oss://bucketname local\_json\_file
     ```
 
     |参数|说明|
     |--|--|
-    |bucket\_name|获取Policy配置的目标Bucket名称。|
+    |bucketname|获取Policy配置的目标Bucket名称。|
     |local\_json\_file|用于存放Policy配置的本地JSON文件名称。如果未指定此参数，则Policy配置将直接输出到屏幕。|
 
 -   使用示例
@@ -250,7 +250,7 @@ Bucket Policy是基于资源的授权策略，Bucket拥有者可以通过Bucket 
 -   命令格式
 
     ```
-    ./ossuitl64 bucket-policy --method delete oss://bucket\_name
+    ./ossuitl64 bucket-policy --method delete oss://bucketname
     ```
 
 -   使用示例
