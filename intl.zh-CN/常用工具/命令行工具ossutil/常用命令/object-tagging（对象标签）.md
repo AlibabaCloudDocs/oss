@@ -18,7 +18,7 @@ OSS支持以标签的方式对存储的对象（Object）进行分类，方便�
 ## 命令格式
 
 ```
-./ossutil64 object-tagging oss://bucket\_name[/prefix][key#value]
+./ossutil64 object-tagging oss://bucketname[/prefix][key#value]
 --method <value>
 [--encoding-type <value>]
 [-r，--recursive]
@@ -30,7 +30,7 @@ OSS支持以标签的方式对存储的对象（Object）进行分类，方便�
 
 |配置项|说明|
 |---|--|
-|bucket\_name|Bucket名称。|
+|bucketname|Bucket名称。|
 |prefix|Bucket下的资源，例如目录、文件等。|
 |key|对象标签使用一组键值对（Key-Value）标记对象。单个文件可设置最多10个标签，Key不可重复。设置Key时，需满足以下条件：-   每个Key长度不超过128字符，且区分大小写。
 -   Key的合法字符集包括大小写字母、数字、空格和以下符号：
