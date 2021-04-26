@@ -7,15 +7,15 @@
 ## 命令格式
 
 ```
-./ossutil64 mkdir oss://bucket\_name dir\_name [--encoding-type <value>]
+./ossutil64 mkdir oss://bucketname dirname [--encoding-type <value>]
 ```
 
 参数及选项说明如下：
 
 |配置项|说明|
 |---|--|
-|bucket\_name|目标Bucket名称。|
-|dir\_name|创建的目录名称。目录名称须以正斜线（/）结尾。若未添加正斜线（/），ossutil会在目录末尾自动添加。|
+|bucketname|目标Bucket名称。|
+|dirname|创建的目录名称。目录名称须以正斜线（/）结尾。若未添加正斜线（/），ossutil会在目录末尾自动添加。|
 |--encoding-type|对`oss://bucket_name`后面的key（目录名称）进行编码，取值为url。如果不指定该选项，则表示目录名称未经过编码。|
 
 ## 使用示例
