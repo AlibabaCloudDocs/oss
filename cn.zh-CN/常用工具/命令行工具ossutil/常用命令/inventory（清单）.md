@@ -2,22 +2,10 @@
 
 您可以使用清单功能获取存储空间（Bucket）中指定文件（Object）的数量、大小、存储类型、加密状态等信息。相对于GetBucket \(ListObjects\)接口，在海量Object的列举场景中，建议您优先使用清单功能。本文介绍如何通过inventory命令添加、查询、列举或删除Bucket清单规则。
 
-**说明：** 有关Bucket清单功能的更多信息，参见[存储空间清单](/cn.zh-CN/开发指南/存储空间（Bucket）/存储空间清单.md)。
+**说明：**
 
-## 注意事项
-
-本文各命令行示例均基于Linux 64位系统，其他系统请将命令开头的./ossutil64替换成对应的Binary名称。例如对于Windows 64位系统，请将./ossutil64替换成ossutil64.exe。各系统对应的Binary名称如下。
-
-|系统|Binary名称|
-|--|--------|
-|Linux 64位|./ossutil64|
-|Linux 32位|./ossutil32|
-|Windows 64位|ossutil64.exe|
-|Windows 32位|ossutil32.exe|
-|macOS 64位|./ossutilmac64|
-|macOS 32位|./ossutilmac32|
-|ARM 64位|./ossutilarm64|
-|ARM 32位|./ossutilarm32|
+-   本文各命令行示例均基于Linux 64位系统，其他系统请将命令开头的./ossutil64替换成对应的Binary名称。详情请参见[命令行工具ossutil快速入门](/cn.zh-CN/快速入门/命令行工具ossutil快速入门.md)。
+-   有关Bucket清单功能的更多信息，参见[存储空间清单](/cn.zh-CN/开发指南/存储空间（Bucket）/存储空间清单.md)。
 
 ## 添加清单规则
 
@@ -30,14 +18,14 @@
 -   命令格式
 
     ```
-    ./ossutil64 inventory --method put oss://bucket\_name local\_xml\_file
+    ./ossutil64 inventory --method put oss://bucketname local\_xml\_file
     ```
 
     参数说明如下：
 
     |参数|说明|
     |--|--|
-    |bucket\_name|添加清单规则的存储空间名称。|
+    |bucketname|添加清单规则的存储空间名称。|
     |local\_xml\_file|配置清单规则的本地文件名称，例如`localfile.txt`。|
 
 -   使用示例
@@ -97,14 +85,14 @@
 -   命令格式
 
     ```
-    ./ossutil64 inventory --method get oss://bucket\_name inventory\_id [--local\_xml\_file ]
+    ./ossutil64 inventory --method get oss://bucketname inventory\_id [--local\_xml\_file ]
     ```
 
     参数说明如下：
 
     |参数|说明|
     |--|--|
-    |bucket\_name|查询清单配置的目标Bucket名称。|
+    |bucketname|查询清单配置的目标Bucket名称。|
     |inventory\_id|清单规则名称。|
     |local\_xml\_file|用于存放清单配置的本地文件名称，例如`localfile.txt`。如果未指定此参数，则清单配置将直接输出到屏幕。|
 
@@ -126,14 +114,14 @@
 -   命令格式
 
     ```
-    ./ossutil64 inventory --method list oss://bucket\_name [--local\_xml\_file ] [--marker <value>]
+    ./ossutil64 inventory --method list oss://bucketname [--local\_xml\_file ] [--marker <value>]
     ```
 
     参数说明如下：
 
     |参数|说明|
     |--|--|
-    |bucket\_name|获取清单配置的目标Bucket名称。|
+    |bucketname|获取清单配置的目标Bucket名称。|
     |local\_xml\_file|用于存放清单配置的本地XML文件名称。如果未指定此参数，则清单配置将直接输出到屏幕。|
     |marker|清单过滤条件，只对与指定前缀匹配的Object生成清单文件。如果此项置空，表示对目标Bucket中的所有Object生成清单文件。|
 
@@ -155,14 +143,14 @@
 -   命令格式
 
     ```
-    ./ossutil64 inventory --method delete oss://bucket\_name inventory\_id
+    ./ossutil64 inventory --method delete oss://bucketname inventory\_id
     ```
 
     参数说明如下：
 
     |参数|说明|
     |--|--|
-    |bucket\_name|删除清单配置的目标Bucket名称。|
+    |bucketname|删除清单配置的目标Bucket名称。|
     |inventory\_id|清单规则名称。|
 
 -   使用示例
