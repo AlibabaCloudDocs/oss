@@ -1,8 +1,6 @@
-# 基于Ubuntu的ECS实例实现OSS反向代理 {#concept_f45_wcn_qgb .concept}
+# 基于Ubuntu的ECS实例实现OSS反向代理
 
 阿里云OSS的存储空间（Bucket）访问地址会随机变换，您可以通过在ECS实例上配置OSS的反向代理，实现通过固定IP地址访问OSS的存储空间。
-
-## 背景信息 {#section_av4_kdn_qgb .section}
 
 阿里云OSS通过Restful API方式对外提供服务。最终用户通过OSS默认域名或者绑定的自定义域名方式访问，但是在某些场景下，用户需要通过固定的IP地址访问OSS：
 
@@ -11,71 +9,85 @@
 
 以上问题可以通过在ECS实例上搭建反向代理的方式访问OSS。
 
-![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/123246/156888749038572_zh-CN.png)
+![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/1554449951/p38572.png)
 
-## 配置步骤 {#section_o22_12n_qgb .section}
+## 配置步骤
 
-1.  创建一个和对应Bucket相同地域的Ubuntu系统的ECS实例，本文演示系统为Ubuntu 18.04 64位系统。创建过程可参考[创建ECS实例](../../../../cn.zh-CN/个人版快速入门/创建ECS实例.md#)。
-2.  使用root用户登录ECS实例，并更新apt源：
+1.  创建一个和对应Bucket相同地域的Ubuntu系统的ECS实例。
 
-    ``` {#codeblock_zbd_mi8_sk2}
+    本文演示系统为Ubuntu 18.04 64位系统，创建过程请参见[创建ECS实例]()。
+
+2.  使用root用户登录ECS实例，并更新apt源。
+
+    ```
     root@test:~# apt-get update
     ```
 
-3.  安装Nginx：
+3.  安装Nginx。
 
-    ``` {#codeblock_1jf_uk7_92g}
+    ```
     root@test:~# apt-get install nginx
     ```
 
     **说明：** Nginx默认安装位置：
 
-    ``` {#codeblock_fco_ctq_8ji}
+    ```
      /usr/sbin/nginx       主程序 
      /etc/nginx            存放配置文件 
      /usr/share/nginx      存放静态文件 
      /var/log/nginx        存放日志
     ```
 
-4.  打开Nginx配置文件：
+4.  打开Nginx配置文件。
 
-    ``` {#codeblock_q0f_i3r_ajt}
+    ```
     root@test:~# vi /etc/nginx/nginx.conf
     ```
 
-5.  在config文件中的http模块添加如下内容：
+5.  在config文件中的HTTP模块添加如下内容。
 
-    ``` {#codeblock_enm_z4e_xjy}
+    ```
     server {
             listen 80;
-            server_name 47.**.**.73; #对外提供反向代理服务的IP，即ECS实例的外网地址;
+            server_name 47.**.**.73; 
     
             location / {
-                proxy_pass http://bucketname.oss-cn-beijing-internal.aliyuncs.com; #填写Bucket的内网访问域名，如果ECS实例与Bucket不在同一个地域，需填写外网域名;
-           }
+                proxy_pass http://bucketname.oss-cn-beijing-internal.aliyuncs.com; 
+                #proxy_set_header Head $host; 
+         }  
     }
     ```
 
-    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/123246/156888749038579_zh-CN.png)
+    -   server\_name：对外提供反向代理服务的IP，即ECS实例的外网地址。
+    -   proxy\_pass：填写跳转的域名。
+        -   当ECS实例与Bucket在同一地域时，填写目标Bucket的内网访问域名。访问域名介绍请参见[OSS访问域名使用规则](/cn.zh-CN/开发指南/访问域名（Endpoint）/OSS访问域名使用规则.md)。
+        -   当ECS实例与Bucket不在同一地域时，填写目标Bucket的外网访问域名。
+        -   因OSS的安全设置，当使用默认域名通过浏览器访问OSS中的图片或网页文件时，会直接下载。所以，若您的用户需通过浏览器预览Bucket中的图片或网页文件，需为Bucket绑定自定义域名，并在此项中添加已绑定的域名。绑定自定义域名操作请参见[绑定自定义域名](/cn.zh-CN/控制台用户指南/存储空间管理/传输管理/绑定自定义域名.md)。
+    -   proxy\_set\_header Head $host：添加此项时，Nginx会在向OSS请求的时候，将host替换为ECS的访问地址。遇到以下情况时，您需要添加此项。
+        -   遇到签名错误问题。
+        -   如果您的域名已解析到ECS实例的外网上，且您的用户需要通过浏览器预览Bucket中的图片或网页文件。您可以将您的域名绑定到ECS实例代理的Bucket上，不配置CNAME。这种情况下，proxy\_pass项可直接配置Bucket的内网或外网访问地址。绑定自定义域名操作请参见[绑定自定义域名](/cn.zh-CN/控制台用户指南/存储空间管理/传输管理/绑定自定义域名.md)。
+    **说明：**
 
-    **说明：** 
+    -   本文为演示环境，实际环境中，为了您的数据安全，建议配置HTTPS模块，配置方法请参见[反向代理配置](https://help.aliyun.com/knowledge_detail/39544.html)。
+    -   此种配置方式只能代理一个Bucket的访问。
+6.  进入Nginx主程序文件夹，启动Nginx。
 
-    -   本文为演示环境，实际环境中，为了您的数据安全，建议配置https模块，配置方法可参考[反向代理配置](https://help.aliyun.com/knowledge_detail/39544.html)。
-    -   如果遇到签名错误问题，请在 nginx 的配置中添加 `proxy_set_header Host $host;`。
-    -   此种配置方式只能代理一个bucket的访问。
-6.  进入Nginx主程序文件夹，启动Nginx：
-
-    ``` {#codeblock_dkp_5sg_dvn}
+    ```
     root@test:~# cd /usr/sbin/
     root@test:~# ./nginx
     ```
 
-7.  测试使用ECS外网地址加文件访问路径访问OSS资源。
+7.  开放ECS实例的TCP 80端口。
 
-    ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/123246/156888749038580_zh-CN.png)
+    Nginx默认使用80端口，需在ECS的安全组配置中，允许用户访问TCP 80端口。配置方式请参见[添加安全组规则](/cn.zh-CN/安全/安全组/添加安全组规则.md)。
+
+8.  测试使用ECS外网地址加文件访问路径访问OSS资源。
+
+    ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/9454449951/p38580.png)
 
 
-## 更多参考 {#section_d2t_53n_qgb .section}
+## 更多参考
 
- [基于CentOS的ECS实例实现OSS反向代理](cn.zh-CN/最佳实践/使用ECS实例反向代理OSS/基于CentOS的ECS实例实现OSS反向代理.md#)
+-   [基于Windows的ECS实例实现OSS反向代理](/cn.zh-CN/最佳实践/使用ECS实例反向代理OSS/基于Windows的ECS实例实现OSS反向代理.md)
+-   [基于CentOS的ECS实例实现OSS反向代理](/cn.zh-CN/最佳实践/使用ECS实例反向代理OSS/基于CentOS的ECS实例实现OSS反向代理.md)
 
