@@ -11,14 +11,14 @@
 -   命令格式
 
     ```
-    ./ossutil64 request-payment --method put oss://bucket\_name payment
+    ./ossutil64 request-payment --method put oss://bucketname payment
     ```
 
     参数说明如下：
 
     |参数|说明|
     |--|--|
-    |bucket\_name|填写待设置请求者付费模式的目标Bucket名称。|
+    |bucketname|填写待设置请求者付费模式的目标Bucket名称。|
     |payment|第三方用户访问目标Bucket内的数据产生费用时的付费模式。取值如下：
 
     -   Requester：访问此Bucket内的数据产生的所有费用由请求者支付。
@@ -53,10 +53,10 @@
 -   命令格式
 
     ```
-    ./ossutil64 request-payment --method get oss://bucket\_name
+    ./ossutil64 request-payment --method get oss://bucketname
     ```
 
-    bucket\_name填写待获取请求者付费模式的目标Bucket。
+    bucketname填写待获取请求者付费模式的目标Bucket。
 
 -   使用示例
 
