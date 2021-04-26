@@ -9,16 +9,16 @@
 -   命令格式
 
     ```
-    ./ossutil64 bucket-versioning --method put oss://bucket\_name versioning\_parameter
+    ./ossutil64 bucket-versioning --method put oss://bucketname versioning
     ```
 
     参数说明如下：
 
     |参数|说明|
     |--|--|
-    |bucket\_name|待设置版本控制状态的目标Bucket名称。|
-    |versioning\_parameter|为目标Bucket设置版本控制状态。取值如下：    -   enabled：开启版本控制。当Bucket处于开启版本控制状态时，OSS将为新上传的Object生成全局唯一的随机字符串版本ID。有关启用版本控制状态下Object相关操作的更多信息，请参见[开启版本控制](/cn.zh-CN/开发指南/数据安全/版本控制/开启版本控制.md)。
-    -   suspended：暂停版本控制。当Bucket处于暂停版本控制状态时，OSS将为新上传的Object生成特殊字符串为“null”的版本ID。有关暂停版本控制状态下Object的相关操作的更多信息，请参见[暂停版本控制](/cn.zh-CN/开发指南/数据安全/版本控制/暂停版本控制.md)。
+    |bucketname|待设置版本控制状态的目标Bucket名称。|
+    |versioning|为目标Bucket设置版本控制状态。取值如下：    -   enabled：开启版本控制。当Bucket处于开启版本控制状态时，OSS将为新上传的Object生成全局唯一的随机字符串版本ID。有关启用版本控制状态下Object相关操作的更多信息，请参见[开启版本控制下Object的操作](/cn.zh-CN/开发指南/数据安全/版本控制/开启版本控制下Object的操作.md)。
+    -   suspended：暂停版本控制。当Bucket处于暂停版本控制状态时，OSS将为新上传的Object生成特殊字符串为“null”的版本ID。有关暂停版本控制状态下Object的相关操作的更多信息，请参见[暂停版本控制下Object的操作](/cn.zh-CN/开发指南/数据安全/版本控制/暂停版本控制下Object的操作.md)。
 **说明：** 默认情况下，Bucket版本控制状态为“未开启”。一旦Bucket开启了版本控制，将无法返回至“未开启”状态。但是，您可以暂停Bucket版本控制。 |
 
 -   使用示例
@@ -47,7 +47,7 @@
 -   命令格式
 
     ```
-    ./ossutil64 bucket-versioning --method get oss://bucket\_name
+    ./ossutil64 bucket-versioning --method get oss://bucketname
     ```
 
 -   使用示例
