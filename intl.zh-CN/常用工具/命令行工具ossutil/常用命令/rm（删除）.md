@@ -7,7 +7,7 @@
 ## 命令格式
 
 ```
-./ossutil64 rm oss://bucket\_name[/prefix]
+./ossutil64 rm oss://bucketname[/prefix]
 [-r，--recursive]
 [-b，--bucket]
 [-m，--multipart]
@@ -25,7 +25,7 @@
 
 |配置项|说明|
 |---|--|
-|bucket\_name|Bucket名称。|
+|bucketname|Bucket名称。|
 |prefix|Bucket下的资源、例如目录、文件等。|
 |-r，--recursive|如果指定该选项时，ossutil将删除Bucket下所有符合prefix条件的Object。如果不指定该选项，则ossutil只删除指定Object。|
 |-b，--bucket|仅在删除Bucket时使用此选项。|
