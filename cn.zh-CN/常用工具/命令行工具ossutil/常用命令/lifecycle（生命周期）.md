@@ -2,22 +2,10 @@
 
 配置生命周期规则后，OSS会定期将对象（Object）转储为低频访问、归档存储或冷归档存储类型，或将过期的Object和碎片删除，从而节省存储费用。本文介绍如何通过lifecycle命令添加、修改、查询、删除生命周期规则配置。
 
-**说明：** 有关生命周期规则的更多信息，请参见[生命周期规则介绍](/cn.zh-CN/开发指南/对象/文件（Object）/文件生命周期/生命周期规则介绍.md)。
+**说明：**
 
-## 注意事项
-
-本文各命令行示例均基于Linux 64位系统，其他系统请将命令开头的./ossutil64替换成对应的Binary名称。例如对于Windows 64位系统，请将./ossutil64替换成ossutil64.exe。各系统对应的Binary名称如下。
-
-|系统|Binary名称|
-|--|--------|
-|Linux 64位|./ossutil64|
-|Linux 32位|./ossutil32|
-|Windows 64位|ossutil64.exe|
-|Windows 32位|ossutil32.exe|
-|macOS 64位|./ossutilmac64|
-|macOS 32位|./ossutilmac32|
-|ARM 64位|./ossutilarm64|
-|ARM 32位|./ossutilarm32|
+-   本文各命令行示例均基于Linux 64位系统，其他系统请将命令开头的./ossutil64替换成对应的Binary名称。详情请参见[命令行工具ossutil快速入门](/cn.zh-CN/快速入门/命令行工具ossutil快速入门.md)。
+-   有关生命周期规则的更多信息，请参见[生命周期规则介绍](/cn.zh-CN/开发指南/对象/文件（Object）/文件生命周期/生命周期规则介绍.md)。
 
 ## 添加或修改生命周期规则
 
@@ -29,14 +17,14 @@
 -   命令格式
 
     ```
-    ./ossutil64 lifecycle --method put oss://bucket\_name local\_xml\_file
+    ./ossutil64 lifecycle --method put oss://bucketname local\_xml\_file
     ```
 
     参数说明如下：
 
     |参数|说明|
     |--|--|
-    |bucket\_name|添加或修改生命周期规则的存储空间名称。|
+    |bucketname|添加或修改生命周期规则的存储空间名称。|
     |local\_xml\_file|配置生命周期规则的本地文件名称，例如`localfile.txt`。|
 
 -   使用示例
@@ -136,14 +124,14 @@
 -   命令格式
 
     ```
-    ./ossutil64 lifecycle --method get oss://bucket\_name [local\_xml\_file]
+    ./ossutil64 lifecycle --method get oss://bucketname [local\_xml\_file]
     ```
 
     参数说明如下：
 
     |参数|说明|
     |--|--|
-    |bucket\_name|获取生命周期规则配置的目标Bucket名称。|
+    |bucketname|获取生命周期规则配置的目标Bucket名称。|
     |local\_xml\_file|用于存放生命周期规则配置的本地文件名称，例如`localfile.txt`。如果未指定此参数，则生命周期规则配置将直接输出到屏幕。|
 
 -   使用示例
@@ -166,7 +154,7 @@
 -   命令格式
 
     ```
-    ./ossuitl64 lifecycle --method delete oss://bucket\_name
+    ./ossuitl64 lifecycle --method delete oss://bucketname
     ```
 
 -   使用示例
