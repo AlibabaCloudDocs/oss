@@ -2,32 +2,19 @@
 
 存储空间（Bucket）是用于存储对象（Object）的容器。在上传任意类型的Object前，您需要先创建Bucket。本文介绍如何通过mb命令创建Bucket。
 
-## 注意事项
-
-本文各命令行示例均基于Linux 64位系统，其他系统请将命令开头的./ossutil64替换成对应的Binary名称。例如对于Windows 64位系统，请将./ossutil64替换成ossutil64.exe。各系统对应的Binary名称如下。
-
-|系统|Binary名称|
-|--|--------|
-|Linux 64位|./ossutil64|
-|Linux 32位|./ossutil32|
-|Windows 64位|ossutil64.exe|
-|Windows 32位|ossutil32.exe|
-|macOS 64位|./ossutilmac64|
-|macOS 32位|./ossutilmac32|
-|ARM 64位|./ossutilarm64|
-|ARM 32位|./ossutilarm32|
+**说明：** 本文各命令行示例均基于Linux 64位系统，其他系统请将命令开头的./ossutil64替换成对应的Binary名称。详情请参见[命令行工具ossutil快速入门](/intl.zh-CN/快速入门/命令行工具ossutil快速入门.md)。
 
 ## 命令格式
 
 ```
-./ossutil64 mb oss://bucket\_name [--acl <value>][--storage-class <value>][--redundancy-type <value>]
+./ossutil64 mb oss://bucketname [--acl <value>][--storage-class <value>][--redundancy-type <value>]
 ```
 
 参数说明如下：
 
 |参数|说明|
 |--|--|
-|bucket\_name|创建的Bucket名称。Bucket名称在OSS范围内必须全局唯一，一旦创建完成则无法修改。|
+|bucketname|创建的Bucket名称。Bucket名称在OSS范围内必须全局唯一，一旦创建完成则无法修改。|
 |--acl|Bucket的读写权限ACL。取值如下：-   private（默认值）：只有该Bucket的拥有者可以对该Bucket内的文件进行读写操作，其他人无法访问该Bucket内的文件。
 -   public-read：只有Bucket拥有者可以对该Bucket内的文件进行写操作，其他用户（包括匿名访问者）都可以对该Bucket中的文件进行读操作。这有可能造成您数据的外泄以及费用激增，若被人恶意写入违法信息还可能会侵害您的合法权益。除特殊场景外，不建议您配置公共读写权限。
 -   public-read-write：任何人（包括匿名访问者）都可以对该Bucket内文件进行读写操作。这有可能造成您数据的外泄以及费用激增，请谨慎操作。 |
