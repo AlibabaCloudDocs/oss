@@ -10,16 +10,16 @@ appendfromfile命令用于在已上传的追加类型文件（Appendable Object�
 ## 命令格式
 
 ```
-./ossutil64 appendfromfile local\_file\_name oss://bucket\_name object\_name [--meta ]
+./ossutil64 appendfromfile localfilename oss://bucketname objectname [--meta ]
 ```
 
 参数说明如下：
 
 |选项|说明|
 |--|--|
-|local\_file\_name|本地文件完整路径。|
-|bucket\_name|目标Bucket名称。|
-|object\_name|目标Object名称。追加上传时可直接将本地文件名称保留为Object名称，也可以自定义上传至Bucket后的Object名称。|
+|localfilename|本地文件完整路径。|
+|bucketname|目标Bucket名称。|
+|objectname|目标Object名称。追加上传时可直接将本地文件名称保留为Object名称，也可以自定义上传至Bucket后的Object名称。|
 |--meta|设置Object的meta信息。仅支持在首次追加上传时附加此选项，例如`--meta "x-oss-object-acl:private"`。Object的meta信息配置完成后，您可以通过[set-meta](/intl.zh-CN/常用工具/命令行工具ossutil/常用命令/set-meta.md)命令修改Object的meta信息。 |
 
 ## 使用示例
