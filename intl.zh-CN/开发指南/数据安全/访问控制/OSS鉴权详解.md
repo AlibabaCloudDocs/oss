@@ -6,7 +6,7 @@
 
 收到用户请求时，OSS会通过身份验证、基于角色的会话策略、基于身份的策略（RAM Policy）、Bucket Policy、Object ACL、Bucket ACL等鉴权结果来判断是允许或拒绝该请求。
 
-![process](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/8353959161/p254657.jpg)
+![process](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/4838959161/p254657.jpg)
 
 以上鉴权流程包含的权限状态说明如下：
 
