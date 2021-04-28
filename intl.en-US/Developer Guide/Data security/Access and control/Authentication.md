@@ -6,7 +6,7 @@ By default, the access control list \(ACL\) of OSS resources including buckets a
 
 When OSS receives a request, OSS determines whether to allow or deny the request based on authentication. The authentication is performed based on identity verification, role-based session policies, Resource Access Management \(RAM\) policies, bucket policies, object ACLs, and bucket ACLs.
 
-![process](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/3832458161/p254657.jpg)
+![process](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/0286959161/p254657.jpg)
 
 In the preceding figure, the following states are used to indicate the authentication result of a request:
 
