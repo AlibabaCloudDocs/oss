@@ -54,11 +54,9 @@ The following table lists the features provided by OSS.
 |Traffic throttling|OSS supports single-connection bandwidth throttling. You can configure single-connection bandwidth throttling for upload, download, and copy operations on OSS to ensure sufficient bandwidth for other applications.|[Single-connection bandwidth throttling](/intl.en-US/Developer Guide/Objects/Single-connection bandwidth throttling.md)|
 |Analyze and process data|OSS supports Image Processing \(IMG\) and video snapshot capturing for you to analyze and process data stored in OSS:-   IMG: You can perform operations such as format conversion, cropping, scaling, rotating, watermarking, and style encapsulation on images stored in OSS.
 -   Capture video snapshots: You can capture images from video objects in the H.264 format.
--   Intelligent Media Management \(IMM\): OSS uses IMM to support various data analysis and processing operations such as document preview, document format conversion, facial recognition, image analysis, and QR code recognition.
 
 |-   [IMG](/intl.en-US/Developer Guide/Data Processing/Image Processing/IMG implementation modes.md)
--   [Video snapshots](/intl.en-US/Developer Guide/Data Processing/Video snapshots.md)
--   [IMM]() |
+-   [Video snapshots](/intl.en-US/Developer Guide/Data Processing/Video snapshots.md) |
 |Use tools to manage OSS resources|OSS provides graphical, command-line, file mounting, and FTP tools for you to manage OSS resources.|[OSS tools](/intl.en-US/Tools/OSS tools.md)|
 |Use SDKs to manage OSS resources|OSS provides SDKs for a variety of programming languages to facilitate further development.|[SDK sample code](SDK sample codet22258.dita#concept_dcn_tp1_kfb)|
 
