@@ -180,4 +180,5 @@ OSS会默认匹配您上传的文件类型，例如.jpg会自动识别为图片�
 |.sis|application/vnd.symbian.install|.sisx|application/vnd.symbian.install|
 |.x\_t|application/x-x\_t|.ipa|application/vnd.iphone|
 |.apk|application/vnd.android.package-archive|.xap|application/x-silverlight-app|
+|.webp|image/webp|无|无|
 
