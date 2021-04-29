@@ -18,7 +18,7 @@ You can use the bucket inventory feature to export the information about specifi
      <Id>report1</Id>
      <IsEnabled>true</IsEnabled>
      <Filter>
-        <Prefix>filterPrefix</Prefix>
+        <Prefix>filterPrefix/</Prefix>
      </Filter>
      <Destination>
         <OSSBucketDestination>
@@ -59,7 +59,7 @@ You can use the bucket inventory feature to export the information about specifi
 -   true: The inventory is enabled.
 -   false: The inventory feature is disabled. |
 |Filter|Container|No|N/A|The container that stores the prefix used to filter the objects included in the inventory list. Only objects whose names contain the specified prefix are included in the inventory list.|
-|Prefix|String|No|Pics|The prefix specified in the inventory. Parent nodes: Filter |
+|Prefix|String|No|Pics/|The prefix specified in the inventory. Parent nodes: Filter |
 |Destination|Container|Yes|N/A|The container that stores the information about the exported inventory list.|
 |OSSBucketDestination|Container|Yes|N/A|The container that stores the information about the bucket in which the exported inventory list is stored. Parent nodes: Destination |
 |Format|String|Yes|CSV|The format of the exported inventory list. Valid value: CSV
