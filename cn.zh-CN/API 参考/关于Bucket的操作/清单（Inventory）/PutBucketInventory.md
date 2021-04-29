@@ -1,6 +1,6 @@
 # PutBucketInventory
 
-PutBucketInventory接口用于为某个存储空间（Bucket）配置清单（Inventory）规则。
+调用PutBucketInventory接口用于为某个存储空间（Bucket）配置清单（Inventory）规则。
 
 ## 注意事项
 
@@ -18,7 +18,7 @@ PutBucketInventory接口用于为某个存储空间（Bucket）配置清单（In
      <Id>report1</Id>
      <IsEnabled>true</IsEnabled>
      <Filter>
-        <Prefix>filterPrefix</Prefix>
+        <Prefix>filterPrefix/</Prefix>
      </Filter>
      <Destination>
         <OSSBucketDestination>
@@ -59,7 +59,7 @@ PutBucketInventory接口用于为某个存储空间（Bucket）配置清单（In
 -   true：启用清单功能。
 -   false：不启用清单功能。 |
 |Filter|容器|否|不涉及|清单筛选的前缀。指定前缀后，清单将筛选出符合前缀设置的对象。|
-|Prefix|字符串|否|Pics|筛选规则的匹配前缀。 父节点：Filter |
+|Prefix|字符串|否|Pics/|筛选规则的匹配前缀。 父节点：Filter |
 |Destination|容器|是|不涉及|存放清单结果。|
 |OSSBucketDestination|容器|是|不涉及|清单结果导出后存放的Bucket信息。 父节点：Destination |
 |Format|字符串|是|CSV|清单文件的文件格式。 清单文件导出后的格式为使用GZIP压缩的CSV文件。有效值：CSV
@@ -68,7 +68,7 @@ PutBucketInventory接口用于为某个存储空间（Bucket）配置清单（In
 |AccountId|字符串|是|100000000000000|Bucket所有者授予的账户ID。 父节点：OSSBucketDestination |
 |RoleArn|字符串|是|acs:ram::100000000000000:role/AliyunOSSRole|具有读取源Bucket所有文件和向目标Bucket写入文件权限的角色名，格式为`acs:ram::uid:role/rolename`。父节点：OSSBucketDestination |
 |Bucket|字符串|是|acs:oss:::bucket\_0001|存放导出的清单文件的Bucket。 父节点：OSSBucketDestination |
-|Prefix|字符串|否|prefix1|清单文件的存储路径前缀。 父节点：OSSBucketDestination |
+|Prefix|字符串|否|prefix1/|清单文件的存储路径前缀。 父节点：OSSBucketDestination |
 |Encryption|容器|否|不涉及|清单文件的加密方式。 有效值：
 
 -   SSE-OSS：使用OSS完全托管密钥进行加解密。
@@ -119,7 +119,7 @@ PutBucketInventory接口用于为某个存储空间（Bucket）配置清单（In
          <Id>report1</Id>
          <IsEnabled>true</IsEnabled>
          <Filter>
-            <Prefix>Pics</Prefix>
+            <Prefix>Pics/</Prefix>
          </Filter>
          <Destination>
             <OSSBucketDestination>
@@ -127,7 +127,7 @@ PutBucketInventory接口用于为某个存储空间（Bucket）配置清单（In
                <AccountId>100000000000000</AccountId>
                <RoleArn>acs:ram::100000000000000:role/AliyunOSSRole</RoleArn>
                <Bucket>acs:oss:::bucket_0001</Bucket>
-               <Prefix>prefix1</Prefix>
+               <Prefix>prefix1/</Prefix>
                <Encryption>
                   <SSE-KMS>
                      <KeyId>keyId</KeyId>
