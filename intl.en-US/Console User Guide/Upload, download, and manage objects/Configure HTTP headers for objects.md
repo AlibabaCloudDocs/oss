@@ -24,7 +24,7 @@ You can configure HTTP headers for up to 100 objects at a time in the OSS consol
 
     |Parameter|Description|
     |---------|-----------|
-    |**Content-Type**|The type of the object. The browser determines the default opening method of an object based on the object type. For example, the Content-Type value of a GIF image is **image/gif**.For more information about how to set Content-Type for different types of objects, see [How do I configure the Content-Type of objects?](https://help.aliyun.com/knowledge_detail/39522.html) |
+    |**Content-Type**|The type of the object. The browser determines the default opening method of an object based on the object type. For example, the Content-Type value of a GIF image is **image/gif**.For more information about how to set Content-Type for different types of objects, see [How do I configure the Content-Type of objects?](/intl.en-US/Developer Guide/Objects/FAQ/How do I configure the Content-Type of objects?.md) |
     |**Content-Encoding**|The encoding method of the object. You must set this parameter based on the encoding type of the object. Otherwise, the client \(browser\) may fail to parse the encoding type of the object, or the object may fail to be downloaded. If the object is not encoded, leave this parameter empty. Default value: identity. Valid values:    -   gzip: OSS uses the Lempel-Ziv coding \(LZ77\) compression algorithm and 32-bit CRC to encode the object.
     -   compress: OSS uses the Lempel-Ziv-Welch \(LZW\) compression algorithm to encode the object.
     -   deflate: OSS uses the zlib library and the deflate algorithm to encode the object.
