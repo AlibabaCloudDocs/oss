@@ -2,7 +2,7 @@
 
 You can call this operation to view the information about a bucket. Only the bucket owner can view the information about a bucket.
 
-**Note:** The request can be initiated from an OSS endpoint.
+**Note:** The request can be initiated from an Object Storage Service \(OSS\) endpoint.
 
 ## Request structure
 
@@ -23,23 +23,23 @@ Parent nodes: none |
 |Bucket|Container|The container that stores the bucket information. Parent nodes: BucketInfo |
 |CreationDate|Date|The time when the bucket was created. The time follows the ISO 8601 standard in the YYYY-MM-DDTHH:mm:ss.sssZ format. Example: 2013-07-31T10:56:21.000Z.
 
-Parent nodes: BucketInfo and Bucket |
-|ExtranetEndpoint|String|The public endpoint that is used to access the bucket over the Internet. Parent nodes: BucketInfo and Bucket |
-|IntranetEndpoint|String|The internal endpoint that is used to access the bucket from Elastic Compute Service \(ECS\) instances in the same region. Parent nodes: BucketInfo and Bucket |
-|Location|String|The region where the bucket is located. Parent nodes: BucketInfo and Bucket |
-|Name|String|The name of the bucket. Parent nodes: BucketInfo and Bucket |
-|Owner|Container|The container that stores the information about the bucket owner. Parent nodes: BucketInfo and Bucket |
-|ID|String|The user ID of the bucket owner. Parent nodes: BucketInfo, Bucket, and Owner |
-|DisplayName|String|The name of the bucket owner, which is the same as the user ID. Parent nodes: BucketInfo, Bucket, and Owner |
+Parent nodes: BucketInfo.Bucket |
+|ExtranetEndpoint|String|The public endpoint that is used to access the bucket over the Internet. Parent nodes: BucketInfo.Bucket |
+|IntranetEndpoint|String|The internal endpoint that is used to access the bucket from Elastic Compute Service \(ECS\) instances in the same region. Parent nodes: BucketInfo.Bucket |
+|Location|String|The region where the bucket is located. Parent nodes: BucketInfo.Bucket |
+|Name|String|The name of the bucket. Parent nodes: BucketInfo.Bucket |
+|Owner|Container|The container that stores the information about the bucket owner. Parent nodes: BucketInfo.Bucket |
+|ID|String|The user ID of the bucket owner. Parent nodes: BucketInfo.Bucket.Owner |
+|DisplayName|String|The name of the bucket owner, which is the same as the user ID. Parent nodes: BucketInfo.Bucket.Owner |
 |AccessControlList|Container|The container that stores the access control list \(ACL\) information. For more information about bucket ACLs, see [Set the ACL for a bucket](/intl.en-US/Developer Guide/Buckets/Set the ACL for a bucket.md).
 
-Parent nodes: BucketInfo and Bucket |
+Parent nodes: BucketInfo.Bucket |
 |Grant|Enumerated string|The ACL for the bucket. Valid values: private, public-read, and public-read-write
 
-Parent nodes: BucketInfo, Bucket, and AccessControlList |
+Parent nodes: BucketInfo.Bucket.AccessControlList |
 |DataRedundancyType|Enumerated string|The redundancy option for the bucket. Valid values: LRS and ZRS
 
-Parent nodes: BucketInfo and Bucket |
+Parent nodes: BucketInfo.Bucket |
 |StorageClass|String|The storage class of the bucket. Valid values: Standard, IA, Archive, and ColdArchive
 
 For more information about storage classes, see [Overview](/intl.en-US/Developer Guide/Storage classes/Overview.md). |
@@ -47,14 +47,22 @@ For more information about storage classes, see [Overview](/intl.en-US/Developer
 
 For more information about versioning, see [PutBucketVersioning](/intl.en-US/API Reference/Bucket operations/Versioning/PutBucketVersioning.md).
 
-Parent nodes: BucketInfo and Bucket |
-|ServerSideEncryptionRule|Container|The container that stores server-side encryption rules. For more information about server-side encryption, see [A](/intl.en-US/Developer Guide/Data security/Data encryption/Server-side encryption.md).
+Parent nodes: BucketInfo.Bucket |
+|ServerSideEncryptionRule|Container|The container that stores server-side encryption rules. For more information about server-side encryption, see [Server-side encryption](/intl.en-US/Developer Guide/Data security/Data encryption/Server-side encryption.md).
 
-Parent nodes: BucketInfo and Bucket |
-|ApplyServerSideEncryptionByDefault|Container|The container that stores the default server-side encryption method. Parent nodes: BucketInfo and Bucket |
+Parent nodes: BucketInfo.Bucket |
+|ApplyServerSideEncryptionByDefault|Container|The container that stores the default server-side encryption method. Parent nodes: BucketInfo.Bucket |
 |SSEAlgorithm|String|The default server-side encryption method. Valid values: KMS and AES256 |
-|KMSMasterKeyID|String|The customer master key \(CMK\) ID in use. A valid value is returned only when you set SSEAlgorithm to KMS and specify the CMK ID. In other cases, null is returned.|
-|HierarchicalNamespace|String|The status of the hierarchical namespace feature for the bucket. Set the value to Enabled. Parent nodes: BucketInfo and Bucket |
+|KMSMasterKeyID|String|The customer master key \(CMK\) ID in use. A valid value is returned only when you set SSEAlgorithm to KMS and specify the CMK ID. In other cases, an empty value is returned.|
+|CrossRegionReplication|String|The cross-region replication \(CRR\) status of the bucket. Valid values: Enabled and Disabled
+
+Parent nodes: BucketInfo.Bucket |
+|TransferAcceleration|String|The status of the transfer acceleration feature for the bucket. Valid values: Enabled and Disabled
+
+Parent nodes: BucketInfo.Bucket |
+|HierarchicalNamespace|String|The status of the hierarchical namespace feature for the bucket. Valid values: Enabled
+
+Parent nodes: BucketInfo.Bucket |
 
 ## Examples
 
@@ -70,7 +78,7 @@ Authorization: OSS qn6qrrqxo2oawuk53otf****: BuG4rRK+zNhH1AcF51NNHD39****
 
 Sample responses
 
--   Sample success responses when information about the specified bucket is obtained
+-   Sample success responses when the information about the specified bucket is obtained
 
     ```
     HTTP/1.1 200
@@ -87,7 +95,9 @@ Sample responses
         <IntranetEndpoint>oss-cn-hangzhou-internal.aliyuncs.com</IntranetEndpoint>
         <Location>oss-cn-hangzhou</Location>
         <StorageClass>Standard</StorageClass>
-        <HierarchicalNamespace>Enabled</HierarchicalNamespace>
+        <TransferAcceleration>Disabled</TransferAcceleration>
+        <CrossRegionReplication>Disabled</CrossRegionReplication>
+        <HierarchicalNamespace\>Enabled</HierarchicalNamespace\>
         <Name>oss-example</Name>
         <Owner>
           <DisplayName>username</DisplayName>
@@ -120,7 +130,7 @@ Sample responses
     </Error>
     ```
 
--   Sample error responses when you are not authorized to access information about the bucket
+-   Sample error responses when you are not authorized to access the information about the bucket
 
     ```
     HTTP/1.1 403
