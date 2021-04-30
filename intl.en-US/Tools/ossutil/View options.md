@@ -30,7 +30,7 @@ The following section describes some common options that can be added to most co
 
     Specifies the AccessKey secret used to access OSS. When you manage buckets that belong to different accounts, you can use the -k option to specify the corresponding AccessKey secrets.
 
--   -p， --password
+-   -p, --password
 
     Specifies the AccessKey secret used to access OSS. When you use this option in a command, ossutil reads the AccessKey secret that is entered by using the keyboard and ignores the AccessKey secret configured by using other methods.
 
