@@ -14,7 +14,7 @@ A bucket is a container for objects stored in OSS. Before you upload objects to 
 
 If you no longer use a bucket, you can delete it to avoid incurring further fees. For more information, see [Delete buckets](/intl.en-US/Console User Guide/Manage buckets/Basic settings/Delete buckets.md). |
 |Object-related operations|ossbrowser supports operations such as upload, download, preview, move, and copy objects as well as generate object URLs. When you use ossbrowser to perform object-related operations, take note of the following items:-   By default, ossbrowser uses multipart upload and resumable upload to upload objects. The object to upload cannot exceed 48.8 TB in size. If the upload of an object is unexpectedly interrupted before the object is uploaded, the uploaded content is stored as parts in an OSS bucket. To avoid additional storage fees, we recommend that you use the following methods to delete these parts if you no longer use these parts.
-    -   Manually delete parts. For more information, see [Delete parts](#li_3rq_l1e_6gg).
+    -   Manually delete parts. For more information, see [Delete parts](/intl.en-US/Console User Guide/Upload, download, and manage objects/Manage parts.md).
     -   Configure lifecycle rules to delete parts. For more information, see [Configure lifecycle rules](/intl.en-US/Console User Guide/Manage buckets/Basic settings/Configure lifecycle rules.md).
 -   The object that you can move or copy by using ossbrowser cannot exceed 5 GB in size. To move or copy objects that are larger than 5 GB, we recommend that you use [ossutil](/intl.en-US/Tools/ossutil/Overview.md).
 
