@@ -1,227 +1,256 @@
-# Authorized access {#concept_32016_zh .concept}
+# Authorized access
 
-This topic describes how to authorize access to users.
+This topic describes how to authorize temporary access to Object Storage Service \(OSS\) by using Security Token Service \(STS\) or a signed URL.
 
-## Use STS for temporary access authorization {#section_nyk_bzc_kfb .section}
+## Use STS to authorize temporary access
 
-OSS supports Alibaba Cloud Security Token Service \(STS\) for temporary access authorization. STS is a web service that provides a temporary access token to a cloud computing user. Through the STS, you can assign a third-party application or a RAM user \(you can manage the user ID\) an access credential with a custom validity period and permissions. For more information about STS, see [STS introduction](../../../../reseller.en-US/API reference/API reference (STS)/Introduction.md#).
+You can use STS to authorize temporary access to OSS. STS is a web service that provides temporary access tokens for cloud computing users. You can use STS to grant an access credential with a custom validity period and custom permissions for a third-party application or a RAM user managed by you. For more information about STS, see [What is STS?](/intl.en-US/API Reference/API Reference (STS)/What is STS?.md)
 
-STS advantages:
+STS has the following benefits:
 
--   Your long-term key \(AccessKey\) is not exposed to a third-party application. You only need to generate an access token and send the access token to the third-party application. You can customize access permissions and the validity of this token.
--   You do not need to keep track of permission revocation issues. The access token automatically becomes invalid when it expires.
+-   You need only to generate an access token and send the access token to a third-party application, instead of exposing your AccessKey pair to the third-party application. You can customize the access permissions and validity period of this token.
+-   The access token automatically expires after the validity period. Therefore, you do not need to manually revoke the permissions of an access token.
 
-For more information about the process of access to OSS with STS, see [RAM and STS scenario practices](../../../../reseller.en-US/Developer Guide/Access and control/Access control.md#) in OSS Developer Guide.
+For more information about how to access OSS by using STS, see [Access OSS with a temporary access credential provided by STS](/intl.en-US/Developer Guide/Data security/Access and control/Access OSS with a temporary access credential provided by STS.md) in OSS Developer Guide.
 
-Run the following code to create a signature request with STS:
-
-```language-java
-// This example uses endpoint China (Hangzhou). Specify the actual endpoint based on your requirements.
-String endpoint = "http://oss-cn-hangzhou.aliyuncs.com";
-// It is highly risky to log on with AccessKey of an Alibaba Cloud account because the account has permissions on all APIs in OSS. We recommend that you log on as a RAM user to access APIs or perform routine operations and maintenance. To create a RAM account, log on to https://ram.console.aliyun.com.
-String accessKeyId = "<yourAccessKeyId>";
-String accessKeySecret = "<yourAccessKeySecret>";
-String securityToken = "<yourSecurityToken>";
-
-// After a user obtains a temporary STS credential, the OSSClient is generated with the security token and temporary access key (AccessKeyId and AccessKeySecret).
-// Create an OSSClient instance.
-OSSClient ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret, securityToken);
-
-// Perform operations on OSS.
-
-// Close your OSSClient.
-ossClient.shutdown();
+The following code provides an example on how to generate a signed request by using an STS credential:
 
 ```
+// Set yourEndpoint to the endpoint of the region in which the bucket is located. For example, if your bucket is located in the China (Hangzhou) region, set yourEndpoint to https://oss-cn-hangzhou.aliyuncs.com. 
+String endpoint = "yourEndpoint";
+// Specify the temporary access credential obtained from STS. The temporary access credential contains a security token and a temporary AccessKey pair that consists of an AccessKey ID and an AccessKey secret. 
+String accessKeyId = "yourAccessKeyId";
+String accessKeySecret = "yourAccessKeySecret";
+String securityToken = "yourSecurityToken";
+// Specify the bucket name. 
+//String bucketName = "examplebucket";
+// Specify the full path of the object. The full path of the object does not contain bucket names. 
+//String objectName = "exampleobject.txt";
 
-## Sign a URL to authorize temporary access { .section}
+// You can use the AccessKey pair and security token contained in the temporary access credential obtained from STS to create an OSSClient. 
+// Create an OSSClient instance. 
+OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret, securityToken);
 
--   Sign a URL
+// Perform operations on OSS resources, such as upload or download objects. 
+// Upload an object. In this example, a local file is uploaded to OSS as an object. 
+// Specify the full path of the local file to upload. If the path of the local file is not specified, the file is uploaded to the path of the project to which the sample program belongs. 
+//PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, objectName, new File("D:\\localpath\\examplefile.txt"));
+//ossClient.putObject(putObjectRequest);
 
-    You can provide a signed URL to a visitor for temporary access. When you sign a URL, you can specify the expiration time for a URL to restrict the period of access from visitors.
+// Download an object as a local file. If the specified local file already exists, the file is replaced by the downloaded object. If the specified local file does not exist, the local file is created. 
+// If the path for the object is not specified, the downloaded object is saved to the path of the project to which the sample program belongs. 
+//ossClient.getObject(new GetObjectRequest(bucketName, objectName), new File("D:\\localpath\\examplefile.txt"));
 
--   Sign a URL for access with HTTP GET
+// Shut down the OSSClient instance. 
+ossClient.shutdown();
+```
 
-    Use the following code to sign a URL that allows access with HTTP GET:
+## Use a signed URL to authorize temporary access
 
-    ```language-java
-    // This example uses endpoint China (Hangzhou). Specify the actual endpoint based on your requirements.
-    String endpoint = "http://oss-cn-hangzhou.aliyuncs.com";
-    // It is highly risky to log on with AccessKey of an Alibaba Cloud account because the account has permissions on all APIs in OSS. We recommend that you log on as a RAM user to access APIs or perform routine operations and maintenance. To create a RAM account, log on to https://ram.console.aliyun.com.
-    String accessKeyId = "<yourAccessKeyId>";
-    String accessKeySecret = "<yourAccessKeySecret>";
-    String bucketName = "<yourBucketName>";
-    String objectName = "<yourObjectName>";
+This section provides examples on how to use a signed URL to authorize temporary access.
+
+**Note:** The validity period must be set for both an STS temporary account and a signed URL. When you use an STS temporary account to generate a signed URL to perform operations such as object upload and download, the minimum validity period takes precedence. For example, you can set the validity period of your STS temporary account to 1200 seconds, and that of the signed URL to 3600 seconds. After 1200 seconds, you cannot use the signed URL generated by the STS temporary account to upload objects.
+
+-   Generate a signed URL
+
+    You can generate a signed URL and provide the URL to a visitor for temporary access. When you generate a signed URL, you can specify the validity period of the URL to limit the period of access from visitors.
+
+    For more information about how to add signature information to a URL and forward the URL to a third party for authorized access, see [Generate a signed URL](/intl.en-US/API Reference/Access control/Generate a signed URL.md).
+
+-   Generate a signed URL to allow HTTP GET requests
+
+    The following code provides an example on how to generate a signed URL to allow HTTP GET requests:
+
+    ```
+    // Set yourEndpoint to the endpoint of the region in which the bucket is located. For example, if your bucket is located in the China (Hangzhou) region, set yourEndpoint to https://oss-cn-hangzhou.aliyuncs.com. 
+    String endpoint = "yourEndpoint";
+    // Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS because the account has permissions on all API operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create a RAM user, log on to the RAM console. 
+    String accessKeyId = "yourAccessKeyId";
+    String accessKeySecret = "yourAccessKeySecret";
+    // Specify the bucket name. 
+    String bucketName = "examplebucket";
+    // Specify the full path of the object. The full path of the object does not contain bucket names. 
+    String objectName = "exampleobject.txt";
     
-    // Create an OSSClient instance.
-    OSSClient ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret);
+    // Create an OSSClient instance. 
+    OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
     
-    // Set the expiration time of a URL to one hour.
+    // Set the validity period of the URL to one hour. 
     Date expiration = new Date(new Date().getTime() + 3600 * 1000);
-    // Generate the URL that allows access with HTTP GET. Visitors can use a browser to access relevant content.
+    // Generate the signed URL that allows HTTP GET requests. Visitors can enter the URL in a browser to access specified OSS resources. 
     URL url = ossClient.generatePresignedUrl(bucketName, objectName, expiration);
-    
-    // Close your OSSClient.
+    System.out.println(url);
+    // Shut down the OSSClient instance. 
     ossClient.shutdown();
-    
+                        
     ```
 
--   Sign a URL for access with other HTTP methods
+-   Generate a signed URL that allows other HTTP requests
 
-    A URL needs to be signed for temporary access from a visitor to perform other operations such as file upload and deletion. For example:
+    To authorize other users to temporarily perform operations such as object upload and deletion, you must generate a signed URL that allows corresponding HTTP requests. For example, you can generate a signed URL that allows HTTP PUT requests to authorize users to upload objects.
 
-    ```language-java
-    // This example uses endpoint China (Hangzhou). Specify the actual endpoint based on your requirements.
-    String endpoint = "oss-cn-hangzhou.aliyuncs.com";
-    // It is highly risky to log on with AccessKey of an Alibaba Cloud account because the account has permissions on all APIs in OSS. We recommend that you log on as a RAM user to access APIs or perform routine operations and maintenance. To create a RAM account, log on to https://ram.console.aliyun.com.
-    String accessKeyId = "<yourAccessKeyId>";
-    String accessKeySecret = "<yourAccessKeySecret>";
-    String securityToken = "<yourSecurityToken>";
-    String bucketName = "<yourBucketName>";
-    String objectName = "<yourObjectName>";
+    ```
+    // Set yourEndpoint to the endpoint of the region in which the bucket is located. For example, if your bucket is located in the China (Hangzhou) region, set yourEndpoint to https://oss-cn-hangzhou.aliyuncs.com. 
+    String endpoint = "yourEndpoint";
+    // Specify the temporary access credential obtained from STS. The temporary access credential contains a security token and a temporary AccessKey pair that consists of an AccessKey ID and an AccessKey secret. 
+    String accessKeyId = "yourAccessKeyId";
+    String accessKeySecret = "yourAccessKeySecret";
+    String securityToken = "yourSecurityToken";
+    // Specify the bucket name. 
+    String bucketName = "examplebucket";
+    // Specify the full path of the object. The full path of the object does not contain bucket names. 
+    String objectName = "exampleobject.txt";
     
-    // After a user obtains a temporary STS credential, the OSSClient is generated with the security token and temporary access key (AccessKeyId and AccessKeySecret).
-    OSSClient ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret, securityToken);
+    // You can use the AccessKey pair and security token contained in the temporary access credential obtained from STS to create an OSSClient. 
+    // Create an OSSClient instance. 
+    OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret, securityToken);
     
     GeneratePresignedUrlRequest request = new GeneratePresignedUrlRequest(bucketName, objectName, HttpMethod.PUT);
-    // Set the expiration time of a URL to one hour.
+    // Set the validity period of the URL to one hour. 
     Date expiration = new Date(new Date().getTime() + 3600 * 1000);
     request.setExpiration(expiration);
-    // Set ContentType.
+    // Set ContentType. 
     request.setContentType(DEFAULT_OBJECT_CONTENT_TYPE);
-    // Configure custom Object Meta.
+    // Set user metadata. 
     request.addUserMetadata("author", "aliy");
     
-    // Sign a URL that allows access with HTTP PUT.
+    // Generate a signed URL. 
     URL signedUrl = ossClient.generatePresignedUrl(request);
     
     Map<String, String> requestHeaders = new HashMap<String, String>();
     requestHeaders.put(HttpHeaders.CONTENT_TYPE, DEFAULT_OBJECT_CONTENT_TYPE);
     requestHeaders.put(OSS_USER_METADATA_PREFIX + "author", "aliy");
     
-    // Upload a file with the signed URL.
+    // Use the signed URL to upload an object. 
     ossClient.putObject(signedUrl, new ByteArrayInputStream("Hello OSS".getBytes()), -1, requestHeaders, true);
     
-    // Close your OSSClient.
+    // Shut down the OSSClient instance. 
     ossClient.shutdown();
-    
+                        
     ```
 
-    Visitors can use a signed URL to upload a file by passing in the HttpMethod.PUT parameter.
+    Visitors can specify the HttpMethod.PUT parameter and use the signed URL to upload objects.
 
--   Add specified parameters to a URL
+-   Generate a signed URL with specified parameters
 
-    Run the following code to add specified parameters to a URL:
+    The following code provides an example on how to generate a signed URL that contains specified parameters:
 
-    ```language-java
-    // This example uses endpoint China (Hangzhou). Specify the actual endpoint based on your requirements.
-    String endpoint = "http://oss-cn-hangzhou.aliyuncs.com";
-    // It is highly risky to log on with AccessKey of an Alibaba Cloud account because the account has permissions on all APIs in OSS. We recommend that you log on as a RAM user to access APIs or perform routine operations and maintenance. To create a RAM account, log on to https://ram.console.aliyun.com.
-    String accessKeyId = "<yourAccessKeyId>";
-    String accessKeySecret = "<yourAccessKeySecret>";
-    String bucketName = "<yourBucketName>";
-    String objectName = "<yourObjectName>";
+    ```
+    // Set yourEndpoint to the endpoint of the region in which the bucket is located. For example, if your bucket is located in the China (Hangzhou) region, set yourEndpoint to https://oss-cn-hangzhou.aliyuncs.com. 
+    String endpoint = "yourEndpoint";
+    // Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS because the account has permissions on all API operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create a RAM user, log on to the RAM console. 
+    String accessKeyId = "yourAccessKeyId";
+    String accessKeySecret = "yourAccessKeySecret";
+    // Specify the bucket name. 
+    String bucketName = "examplebucket";
+    // Specify the full path of the object excluding the bucket name. 
+    String objectName = "exampleobject.txt";
     
-    // Create an OSSClient instance.
-    OSSClient ossClient  = new OSSClient(endpoint, accessKeyId, accessKeySecret);
+    // Create an OSSClient instance. 
+    OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
     
-    // Create a request.
+    // Create a request. 
     GeneratePresignedUrlRequest generatePresignedUrlRequest = new GeneratePresignedUrlRequest(bucketName, objectName);
-    // Set HttpMethod to PUT.
+    // Set HttpMethod to PUT. 
     generatePresignedUrlRequest.setMethod(HttpMethod.PUT);
-    // Add custom Object Meta.
+    // Add user metadata. 
     generatePresignedUrlRequest.addUserMetadata("author", "baymax");
-    // Add Content-Type.
-    generatePresignedUrlRequest.setContentType("application/octet-stream");
-    // Set the expiration time of a URL to one hour.
+    // Set ContentType. 
+    generatePresignedUrlRequest.setContentType("application/txt");
+    // Set the validity period of the URL to one hour. 
     Date expiration = new Date(new Date().getTime() + 3600 * 1000);
     generatePresignedUrlRequest.setExpiration(expiration);
-    // Generate the signed URL.
+    // Generate the signed URL. 
     URL url = ossClient.generatePresignedUrl(generatePresignedUrlRequest);
-    
-    // Close your OSSClient.
-    ossClient.shutdown();
-    
+    System.out.println(url);
+    // Shut down the OSSClient instance. 
+    ossClient.shutdown();                    
     ```
 
--   Use a signed URL to obtain or upload an object
-    -   Use a signed URL to obtain an object
+-   Use a signed URL to upload or obtain an object
+    -   Use a signed URL to upload an object
 
-        Run the following code to obtain a specified object through a signed URL:
+        The following code provides an example on how to upload an object by using a signed URL:
 
-        ```language-java
-        // This example uses endpoint China (Hangzhou). Specify the actual endpoint based on your requirements.
-        String endpoint = "http://oss-cn-hangzhou.aliyuncs.com";
-        // It is highly risky to log on with AccessKey of an Alibaba Cloud account because the account has permissions on all APIs in OSS. We recommend that you log on as a RAM user to access APIs or perform routine operations and maintenance. To create a RAM account, log on to https://ram.console.aliyun.com.
-        String accessKeyId = "<yourAccessKeyId>";
-        String accessKeySecret = "<yourAccessKeySecret>";
-        String bucketName = "<yourBucketName>";
-        String objectName = "<yourObjectName>";
-        
-        // Create an OSSClient instance.
-        OSSClient ossClient  = new OSSClient(endpoint, accessKeyId, accessKeySecret);
-        
-        Date expiration = DateUtil.parseRfc822Date("Wed, 18 Mar 2022 14:20:00 GMT");
-        GeneratePresignedUrlRequest request = new GeneratePresignedUrlRequest(bucketName, objectName, HttpMethod.GET);
-        // Configure the expiration time.
-        request.setExpiration(expiration);
-        // Generate a signed URL that allows HTTP GET access.
-        URL signedUrl = ossClient .generatePresignedUrl(request);
-        System.out.println("signed url for getObject: " + signedUrl);
-        
-        // Use the signed URL to send a request.
-        Map<String, String> customHeaders = new HashMap<String, String>();
-        // Add a request header to GetObject.
-        customHeaders.put("Range", "bytes=100-1000");
-        OSSObject object = ossClient.getObject(signedUrl,customHeaders);
-        
-        // Close your OSSClient.
-        ossClient.shutdown();
-        
         ```
-
-    -   Use a signed URL to upload a file
-
-        Run the following code to upload a file with a signed URL:
-
-        ```language-java
-        // This example uses endpoint China (Hangzhou). Specify the actual endpoint based on your requirements.
-        String endpoint = "http://oss-cn-hangzhou.aliyuncs.com";
-        // It is highly risky to log on with AccessKey of an Alibaba Cloud account because the account has permissions on all APIs in OSS. We recommend that you log on as a RAM user to access APIs or perform routine operations and maintenance. To create a RAM account, log on to https://ram.console.aliyun.com.
-        String accessKeyId = "<yourAccessKeyId>";
-        String accessKeySecret = "<yourAccessKeySecret>";
-        String bucketName = "<yourBucketName>";
-        String objectName = "<yourObjectName>";
+        // Set yourEndpoint to the endpoint of the region in which the bucket is located. For example, if your bucket is located in the China (Hangzhou) region, set yourEndpoint to https://oss-cn-hangzhou.aliyuncs.com. 
+        String endpoint = "yourEndpoint";
+        // Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS because the account has permissions on all API operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create a RAM user, log on to the RAM console. 
+        String accessKeyId = "yourAccessKeyId";
+        String accessKeySecret = "yourAccessKeySecret";
+        // Specify the bucket name. 
+        String bucketName = "examplebucket";
+        // Specify the full path of the object excluding the bucket name. 
+        String objectName = "exampleobject.txt";
         
-        // Create an OSSClient instance.
-        OSSClient ossClient  = new OSSClient(endpoint, accessKeyId, accessKeySecret);
+        // Create an OSSClient instance. 
+        OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
         
-        // Generate the signed URL.
-        Date expiration = DateUtil.parseRfc822Date("Thu, 19 Mar 2019 18:00:00 GMT");
+        // Specify the expiration date of the signed URL. 
+        Date expiration = DateUtil.parseRfc822Date("Wed, 18 Mar 2022 14:20:00 GMT");
+        // Generate a signed URL. 
         GeneratePresignedUrlRequest request = new GeneratePresignedUrlRequest(bucketName, objectName, HttpMethod.PUT);
-        // Configure the expiration time.
+        // Set the validity period of the signed URL. 
         request.setExpiration(expiration);
-        // Configure Content-Type.
-        request.setContentType("application/octet-stream");
-        // Configure custom Object Meta.
+        // Set ContentType. 
+        request.setContentType("application/txt");
+        // Add user metadata. 
         request.addUserMetadata("author", "aliy");
-        // Generate a signed URL that allows access with HTTP PUT.
+        // Generate a signed URL to allow HTTP PUT requests. 
         URL signedUrl = ossClient.generatePresignedUrl(request);
         System.out.println("signed url for putObject: " + signedUrl);
         
-        // Use the signed URL to send a request.
-        File f = new File("<yourLocalFile>");
+        // Use the signed URL to send a request. 
+        // Specify the full path of the local file to upload. If the path of the local file is not specified, the file is uploaded to the path of the project to which the sample program belongs. 
+        File f = new File("D:\\localpath\\examplefile.txt");
         FileInputStream fin = new FileInputStream(f);
-        // Add a request header to PutObject.
+        // Add headers to the PutObject request. 
         Map<String, String> customHeaders = new HashMap<String, String>();
-        customHeaders.put("Content-Type", "application/octet-stream");
+        customHeaders.put("Content-Type", "application/txt");
         customHeaders.put("x-oss-meta-author", "aliy");
         
         PutObjectResult result = ossClient.putObject(signedUrl, fin, f.length(), customHeaders);
         
-        // Close your OSSClient.
-        ossClient.shutdown();
+        // Shut down the OSSClient instance. 
+        ossClient.shutdown();                           
+        ```
+
+    -   Use a signed URL to download an object
+
+        The following code provides an example on how to download a specified object by using a signed URL:
+
+        ```
+        // Set yourEndpoint to the endpoint of the region in which the bucket is located. For example, if your bucket is located in the China (Hangzhou) region, set yourEndpoint to https://oss-cn-hangzhou.aliyuncs.com. 
+        String endpoint = "yourEndpoint";
+        // Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS because the account has permissions on all API operations. We recommend that you use your RAM user's credentials to call API operations or perform routine operations and maintenance. To create a RAM user, log on to the RAM console. 
+        String accessKeyId = "yourAccessKeyId";
+        String accessKeySecret = "yourAccessKeySecret";
+        // Specify the bucket name. 
+        String bucketName = "examplebucket";
+        // Specify the full path of the object. The full path of the object does not contain bucket names. 
+        String objectName = "exampleobject.txt";
         
+        // Create an OSSClient instance. 
+        OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
+        
+        // Specify the expiration date of the signed URL. 
+        Date expiration = DateUtil.parseRfc822Date("Wed, 18 Mar 2022 14:20:00 GMT");
+        // Generate a signed URL. 
+        GeneratePresignedUrlRequest request = new GeneratePresignedUrlRequest(bucketName, objectName, HttpMethod.GET);
+        // Set the validity period of the signed URL. 
+        request.setExpiration(expiration);
+        // Generate a signed URL to allow HTTP GET requests. 
+        URL signedUrl = ossClient .generatePresignedUrl(request);
+        System.out.println("signed url for getObject: " + signedUrl);
+        
+        // Use the signed URL to send a request. 
+        Map<String, String> customHeaders = new HashMap<String, String>();
+        // Add headers to the GetObject request. 
+        customHeaders.put("Range", "bytes=100-1000");
+        OSSObject object = ossClient.getObject(signedUrl,customHeaders);
+        
+        // Shut down the OSSClient instance. 
+        ossClient.shutdown();                           
         ```
 
 
