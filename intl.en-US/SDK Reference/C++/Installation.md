@@ -1,30 +1,29 @@
-# Installation {#concept_nrg_gym_4gb .concept}
+# Installation
 
-This topic describes how to install the OSS C++ SDK.
+This topic describes how to install OSS SDK for C++ and configure compilation options in different operating systems.
 
-## Prerequisites {#section_g2p_w14_4gb .section}
+## Prerequisites
 
-Install a compiler that supports C++ V11 and later.
+-   A compiler that supports C++ V11 and later is installed.
+-   Visual Studio 2013 or later is installed.
+-   GCC 4.8 or later is installed.
+-   Clang 3.3 or later is installed.
 
--   Visual Studio V2013 and later
--   GCC V4.8 and later
--   Clang V3.3 and later
+## Download the SDK
 
-## Download the SDK {#section_s2t_wn4_4gb .section}
-
-[Download the SDK directly](https://github.com/aliyun/aliyun-oss-cpp-sdk/archive/master.zip)
+[Download directly](https://gosspublic.alicdn.com/doc/c-sdk/aliyun-oss-cpp-sdk-master.zip)
 
 [Download from GitHub](https://github.com/aliyun/aliyun-oss-cpp-sdk.git)
 
-## Install the SDK {#section_vlq_f44_4gb .section}
+## Install the SDK
 
-You can install the SDK in Linux, Windows, Android, and Mac.
+You can install OSS SDK for C++ in Linux, Windows, Android, and Mac.
 
 -   Linux:
 
-    1.  Install CMake.
+    1.  Install CMake
 
-        Install CMake V3.1 and later. Open the SDK installation package and use CMake to compile and generate the required files.
+        Install CMake 3.1 and later. Open the SDK installation package and use CMake to compile and generate the required files.
 
         The compilation commands are as follows:
 
@@ -35,9 +34,9 @@ You can install the SDK in Linux, Windows, Android, and Mac.
         cmake ..
         ```
 
-    2.  Install third-party libraries libcurl and openssl.
+    2.  Install libcurl and openssl
 
-        RedHat/Centos:
+        RedHat or CentOS:
 
         ```
         yum –y install libcurl-devel openssl-devel
@@ -49,28 +48,29 @@ You can install the SDK in Linux, Windows, Android, and Mac.
         sudo dnf install libcurl-devel openssl-devel
         ```
 
-    3.  Install the SDK.
+    3.  Install the SDK
 
         ```
         make && make install
         ```
 
-    **Note:** RTTI is disabled in the C++ SDK by default. Therefore, add -std=c++11, -fno-rtti, and -lalibabacloud-oss-cpp-sdk when you use g++ to compile and run the SDK. Example:
+    **Note:** RTTI is disabled in OSS SDK for C++ by default. Therefore, add the following options when you use g++ to install the SDK: -std=c++11, -fno-rtti, -lalibabacloud-oss-cpp-sdk, -lcurl, -lcrypto, and -lpthread.
+
+    Example:
 
     ```
-    g++ test.cpp -std=c++11 -fno-rtti -lalibabacloud-oss-cpp-sdk -o test.bin
+    g++ test.cpp -std=c++11 -fno-rtti -lalibabacloud-oss-cpp-sdk -lcurl -lcrypto -lpthread -o test.bin
     ```
 
 -   Windows:
+    1.  Install CMake Open the Command Prompt and go to the directory that stores the SDK files. Create a folder named build, and run cmake .. to generate required files, as shown in the following figure:
 
-    **Note:** The alibabacloud-oss-cpp-sdk.sln project file is not included in the downloaded SDK package. You must run the cmake command to generate the required project file.
+        ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/7286498951/p38252.png)
 
-    1.  Install CMake. Open cmd to go to the directory that stores the SDK files, create a folder named build, and run cmake to generate the required files, as shown in the following figure.
+        **Note:**
 
-        ![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/120374/155851078938252_en-US.png)
-
-        **Note:** To construct project files in the x64 architecture, run the cmake -A x64 .. command.
-
+        -   The SDK package does not include the project file alibabacloud-oss-cpp-sdk.sln. You must run the cmake command to generate required project files.
+        -   To build a x64 structure, run the cmake -A x64 .. command.
     2.  Run VS developer command prompt as an administrator. Go to the build folder and run the following command to compile and install the SDK:
 
         ```
@@ -78,7 +78,7 @@ You can install the SDK in Linux, Windows, Android, and Mac.
         msbuild INSTALL.vcxproj
         ```
 
-        You can also use Visual Studio to open alibabacloud-oss-cpp-sdk.sln to generate a solution.
+        You can also use Visual Studio to open the project file alibabacloud-oss-cpp-sdk.sln to generate a solution.
 
 -   Android:
 
@@ -96,7 +96,7 @@ You can install the SDK in Linux, Windows, Android, and Mac.
 
 -   Mac:
 
-    In Mac, you must specify the path where OpenSSL is installed.
+    Specify the installation path of OpenSSL in Mac.
 
     For example, if OpenSSL is installed in /usr/local/Cellar/openssl/1.0.2p, run the following command to compile and install the SDK:
 
@@ -107,4 +107,19 @@ You can install the SDK in Linux, Windows, Android, and Mac.
     make
     ```
 
+
+## Compilation options
+
+You can configure different compilation options in different scenarios in the following format: cmake -D$\{OptionName\}=ON\|OFF ..
+
+The following table describes the compilation options that you can configure.
+
+|Option|Description|
+|------|-----------|
+|BUILD\_SHARED\_LIBS|Build dynamic libraries. Default value: OFF. If you set this option to ON, dynamic libraries and static libraries are built at the same time, and the -static suffix is added to the name of static libraries. To build dynamic libraries in the compilation, run the cmake -DBUILD\_SHARED\_LIBS=ON .. command. |
+|ENABLE\_RTTI|Supports Run-Time Type Information. Default value: ON.|
+|OSS\_DISABLE\_BUCKET|Does not build interfaces related to buckets. Default value: OFF. You can set this option to ON to reduce code size.|
+|OSS\_DISABLE\_LIVECHANNEL|Does not build interfaces related to LivaChannels. Default value: OFF. You can set this option to ON to reduce code size.|
+|OSS\_DISABLE\_RESUAMABLE|Does not build interfaces related to resumble upload and download. Default value: OFF. You can set this option to ON to reduce code size.|
+|OSS\_DISABLE\_ENCRYPTION|Does not build interfaces related to client-side encryption. Default value: OFF. You can set this option to ON to reduce code size.|
 
