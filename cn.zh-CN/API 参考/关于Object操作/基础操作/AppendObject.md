@@ -1,6 +1,6 @@
 # AppendObject
 
-AppendObject接口用于以追加写的方式上传文件（Object）。通过AppendObject操作创建的Object类型为Appendable Object，而通过PutObject上传的Object是Normal Object。
+调用AppendObject接口用于以追加写的方式上传文件（Object）。通过AppendObject操作创建的Object类型为Appendable Object，而通过PutObject上传的Object是Normal Object。
 
 ## 版本控制
 
@@ -54,15 +54,18 @@ Authorization: SignatureValue
 |Expires|GMT|否|Wed, 08 Jul 2015 16:57:01 GMT|过期时间。更多信息，请参见[RFC2616](https://www.ietf.org/rfc/rfc2616.txt)。 默认值：无 |
 |x-oss-server-side-encryption|字符串|否|AES256|指定服务器端加密方式。 合法值：
 
--   AES256：使用OSS完全托管密钥进行加解密（SSE-OSS）
--   KMS：使用KMS托管密钥进行加解密
--   SM4：国密SM4算法 |
+-   AES256：使用OSS完全托管密钥进行加解密（SSE-OSS）。
+-   KMS：使用KMS托管密钥进行加解密。
+-   SM4：国密SM4算法。 |
 |x-oss-object-acl|字符串|否|private|指定Object的访问权限。 取值：
 
--   public-read：只有该存储空间的拥有者可以对该存储空间内的Object进行写操作，任何人（包括匿名访问者）可以对该存储空间中的文件进行读操作。
--   private：只有该存储空间的拥有者可以对该存储空间内的Object进行读写操作，其他人无法访问该存储空间内的Object。
--   public-read-write：任何人（包括匿名访问者）都可以对该存储空间中的Object进行读写操作，所有这些操作产生的费用由该存储空间的拥有者承担，请慎用该权限。 |
-|x-oss-storage-class|字符串|否|Standard|指定Object的存储类型。对于任意存储类型的Bucket，若上传Object时指定此参数，则此次上传的Object将存储为指定的类型。例如，在IA类型的Bucket中上传Object时，若指定x-oss-storage-class为Standard，则该Object直接存储为Standard。
+-   default（默认）：Object遵循所在存储空间的访问权限。
+-   private：Object是私有资源。只有Object的拥有者和授权用户有该Object的读写权限，其他用户没有权限操作该Object。
+-   public-read：Object是公共读资源。只有Object的拥有者和授权用户有该Object的读写权限，其他用户只有该Object的读权限。请谨慎使用该权限。
+-   public-read-write：Object是公共读写资源。所有用户都有该Object的读写权限。请谨慎使用该权限。
+
+关于访问权限的更多信息，请参见[读写权限ACL](/cn.zh-CN/开发指南/数据安全/访问控制/读写权限ACL.md)。 |
+|x-oss-storage-class|字符串|否|Standard|指定Object的存储类型。对于任意存储类型的Bucket，如果上传Object时指定此参数，则此次上传的Object将存储为指定的类型。例如在IA类型的Bucket中上传Object时，如果指定x-oss-storage-class为Standard，则该Object直接存储为Standard。
 
 取值：
 
@@ -70,14 +73,14 @@ Authorization: SignatureValue
 -   IA：低频访问
 -   Archive：归档存储
 
-**说明：** 该值仅在首次执行AppendObject操作时有效，后续追加时不生效。
+关于存储类型的更多信息，请参见[存储类型介绍](/cn.zh-CN/开发指南/存储类型/存储类型介绍.md)。
 
-支持配置x-oss-storage-class参数的接口：PutObject、InitMultipartUpload、AppendObject、 PutObjectSymlink、CopyObject。 |
+**说明：** 该值仅在首次执行AppendObject操作时有效，后续追加时不生效。 |
 |x-oss-meta-\*|字符串|否|x-oss-meta-location|创建AppendObject时可以添加x-oss-meta-\*，继续追加时不可以携带此参数。如果配置以x-oss-meta-\*为前缀的参数，则该参数视为元数据。元数据大小限制：一个Object可以包含多个元数据，但所有的元数据总大小不能超过8 KB。
 
 元数据命名规则：支持短划线（-）、数字、英文字母（a~z）。英文字符的大写字母会被转成小写字母，不支持下划线（\_）在内的其他字符。 |
 
-有关此接口涉及的其他公共请求头的更多信息，请参见[公共请求头（Common Request Headers）](/cn.zh-CN/API 参考/公共HTTP头定义.md)。
+关于此接口涉及的其他公共请求头的更多信息，请参见[公共请求头（Common Request Headers）](/cn.zh-CN/API 参考/公共HTTP头定义.md)。
 
 ## 响应头
 
@@ -86,7 +89,7 @@ Authorization: SignatureValue
 |x-oss-next-append-position|64位整型|1717|下一次请求应当提供的position，即当前Object大小。 当AppendObject执行成功，或者因position和Object大小不匹配而引起的409错误时，会返回此消息头。 |
 |x-oss-hash-crc64ecma|64位整型|3231342946509354535|表明Object的64位CRC值。该64位CRC由[ECMA-182](http://www.ecma-international.org/publications/standards/Ecma-182.htm)标准计算得出。|
 
-有关此接口涉及的其他公共响应头的更多信息，请参见[公共响应头（Common Response Headers）](/cn.zh-CN/API 参考/公共HTTP头定义.md)。
+关于此接口涉及的其他公共响应头的更多信息，请参见[公共响应头（Common Response Headers）](/cn.zh-CN/API 参考/公共HTTP头定义.md)。
 
 ## CRC64的计算方式
 
@@ -210,6 +213,6 @@ Appendable Object的CRC64采用[ECMA-182](http://www.ecma-international.org/publ
 
 -   position值为0时，如果没有同名Appendable Object，或者同名Appendable Object长度为0，该请求成功；其他情况均视为position和Object长度不匹配的情形，返回此错误码。 |
 |InvalidArgument|400|x-oss-storage-class、x-oss-object-acl等值设置无效。|
-|FileImmutable|409|Bucket内的数据处于被保护状态时，若您尝试删除或修改这些数据，将返回此错误码。|
+|FileImmutable|409|Bucket内的数据处于被保护状态时，如果您尝试删除或修改这些数据，将返回此错误码。|
 |KmsServiceNotEnabled|403|使用KMS加密算法时，没有在控制台预先开通密钥管理服务KMS。|
 
