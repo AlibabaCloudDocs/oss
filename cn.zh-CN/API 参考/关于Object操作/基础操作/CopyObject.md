@@ -69,23 +69,33 @@ OSS不会复制源Object的x-oss-server-side-encryption属性配置到目标Obje
 
 在目标Object被下载时，响应头中也会包含x-oss-server-side-encryption，值为该Object的加密算法。 |
 |x-oss-server-side-encryption-key-id|字符串|否|9468da86-3509-4f8d-a61e-6eab1eac\*\*\*\*|表示KMS托管的用户主密钥。 该参数仅在x-oss-server-side-encryption为KMS时有效。 |
-|x-oss-object-acl|字符串|否|private|指定OSS创建目标Object时的访问权限。 取值：public-read、private、public-read-write、default。
+|x-oss-object-acl|字符串|否|private|指定OSS创建目标Object时的访问权限。 取值：
+
+-   default（默认）：Object遵循所在存储空间的访问权限。
+-   private：Object是私有资源。只有Object的拥有者和授权用户有该Object的读写权限，其他用户没有权限操作该Object。
+-   public-read：Object是公共读资源。只有Object的拥有者和授权用户有该Object的读写权限，其他用户只有该Object的读权限。请谨慎使用该权限。
+-   public-read-write：Object是公共读写资源。所有用户都有该Object的读写权限。请谨慎使用该权限。
 
 关于访问权限的更多信息，请参见[读写权限ACL](/cn.zh-CN/开发指南/数据安全/访问控制/读写权限ACL.md)。 |
-|x-oss-storage-class|字符串|否|Standard|指定Object的存储类型。 取值：Standard、IA、Archive和ColdArchive
+|x-oss-storage-class|字符串|否|Standard|指定Object的存储类型。 对于任意存储类型Bucket，如果上传Object时指定该值，则此次上传的Object将存储为指定的类型。例如在IA类型的Bucket中上传Object时，如果指定x-oss-storage-class为Standard，则该Object直接存储为Standard类型。
 
-关于存储类型的更多信息，请参见[存储类型介绍](/cn.zh-CN/开发指南/存储类型/存储类型介绍.md)。
+取值：
 
-支持配置该请求头的接口包括PutObject、InitMultipartUpload、AppendObject、 PutObjectSymlink和CopyObject。 |
+-   Standard：标准存储
+-   IA：低频访问
+-   Archive：归档存储
+-   ColdArchive：冷归档存储
+
+关于存储类型的更多信息，请参见[存储类型介绍](/cn.zh-CN/开发指南/存储类型/存储类型介绍.md)。 |
 |x-oss-tagging|字符串|否|a:1|指定Object的对象标签，可同时设置多个标签，例如TagA=A&TagB=B。 **说明：** Key和Value需要先进行URL编码，如果某项没有“=”，则看作Value为空字符串。 |
 |x-oss-tagging-directive|字符串|否|Copy|指定如何设置目标Object的对象标签。取值如下： -   Copy（默认值）：复制源Object的对象标签到目标 Object。
 -   Replace：忽略源Object的对象标签，直接采用请求中指定的对象标签。 |
 
-此接口还需要包含Host、Date等公共请求头。关于公共请求头的更多信息，请参见[公共请求头（Common Request Headers）](/cn.zh-CN/API 参考/公共HTTP头定义.md)。
+此接口还需要包含Host、Date等公共请求头。更多信息，请参见[公共请求头（Common Request Headers）](/cn.zh-CN/API 参考/公共HTTP头定义.md)。
 
 ## 响应头
 
-此接口仅包含公共响应头。关于公共响应头的更多信息，请参见[公共响应头（Common Response Headers）](/cn.zh-CN/API 参考/公共HTTP头定义.md)。
+此接口仅包含公共响应头。更多信息，请参见[公共响应头（Common Response Headers）](/cn.zh-CN/API 参考/公共HTTP头定义.md)。
 
 ## 响应元素
 
