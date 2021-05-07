@@ -33,6 +33,21 @@ Date: GMT Date
 Authorization: SignatureValue
 ```
 
+## 请求头
+
+|名称|类型|是否必选|示例值|描述|
+|--|--|----|---|--|
+|x-oss-object-acl|字符串|否|public-read|指定OSS创建Object时的访问权限。 取值：
+
+-   default（默认）：Object遵循所在存储空间的访问权限。
+-   private：Object是私有资源。只有Object的拥有者和授权用户有该Object的读写权限，其他用户没有权限操作该Object。
+-   public-read：Object是公共读资源。只有Object的拥有者和授权用户有该Object的读写权限，其他用户只有该Object的读权限。请谨慎使用该权限。
+-   public-read-write：Object是公共读写资源。所有用户都有该Object的读写权限。请谨慎使用该权限。
+
+关于访问权限的更多信息，请参见[读写权限ACL](/cn.zh-CN/开发指南/数据安全/访问控制/读写权限ACL.md)。 |
+
+此接口还需要包含Host、Date等公共请求头。更多信息，请参见[公共请求头（Common Request Headers）](/cn.zh-CN/API 参考/公共HTTP头定义.md)。
+
 ## 示例
 
 -   未开启版本控制
