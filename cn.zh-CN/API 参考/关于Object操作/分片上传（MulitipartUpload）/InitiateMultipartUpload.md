@@ -37,7 +37,7 @@ Authorization: SignatureValue
 |Content-Disposition|字符串|指定该Object被下载时的名称。更多信息，请参见[RFC2616](https://www.ietf.org/rfc/rfc2616.txt)。 默认值：无 |
 |Content-Encoding|字符串|指定该Object被下载时的内容编码格式。更多信息，请参见[RFC2616](https://www.ietf.org/rfc/rfc2616.txt)。 默认值：无 |
 |Expires|整数|过期时间，单位为毫秒。更多信息，请参见[RFC2616](https://www.ietf.org/rfc/rfc2616.txt)。 默认值：无 |
-|x-oss-forbid-overwrite|字符串|指定InitiateMultipartUpload操作时是否覆盖同名Object。当目标Bucket处于已开启或已暂停的版本控制状态时，x-oss-forbid-overwrite请求Header设置无效，即允许覆盖同名Object。 -   不指定x-oss-forbid-overwrite或者指定x-oss-forbid-overwrite为false时，默认允许覆盖同名Object。
+|x-oss-forbid-overwrite|字符串|指定InitiateMultipartUpload操作时是否覆盖同名Object。当目标Bucket处于已开启或已暂停的版本控制状态时，x-oss-forbid-overwrite请求Header设置无效，即允许覆盖同名Object。 -   不指定x-oss-forbid-overwrite或者指定x-oss-forbid-overwrite为false时，表示允许覆盖同名Object。
 -   指定x-oss-forbid-overwrite为true时，表示禁止覆盖同名Object。
 
 设置x-oss-forbid-overwrite请求Header会导致QPS处理性能下降，如果您有大量的操作需要使用x-oss-forbid-overwrite请求Header（QPS\>1000），请联系技术支持，避免影响您的业务。 |
@@ -48,11 +48,16 @@ Authorization: SignatureValue
 指定此参数后，在响应头中会返回此参数，OSS会对上传的每个part进行加密编码存储。当下载该Object时，响应头中会包含x-oss-server-side-encryption，且该值会被设置成此Object的加密算法。 |
 |x-oss-server-side-data-encryption|字符串|指定Object的加密算法。若未指定此选项，表明Object使用AES256加密算法。此选项仅当x-oss-server-side-encryption为KMS时有效。取值：SM4 |
 |x-oss-server-side-encryption-key-id|字符串|表示KMS托管的用户主密钥。 该参数在x-oss-server-side-encryption值为KMS时有效。 |
-|x-oss-storage-class|字符串|指定Object的存储类型。 取值： Standard、IA、Archive或ColdArchive
+|x-oss-storage-class|字符串|指定Object的存储类型。 对于任意存储类型Bucket，如果上传Object时指定该值，则此次上传的Object将存储为指定的类型。例如在IA类型的Bucket中上传Object时，如果指定x-oss-storage-class为Standard，则该Object直接存储为Standard类型。
 
-对于任意存储类型Bucket，若上传Object时指定该值，则此次上传的Object将存储为指定的类型。例如，在IA类型的Bucket中上传Object时，若指定x-oss-storage-class为Standard，则该Object直接存储为Standard类型。
+取值：
 
-支持的接口：PutObject、InitMultipartUpload、AppendObject、 PutObjectSymlink、CopyObject。 |
+-   Standard：标准存储
+-   IA：低频访问
+-   Archive：归档存储
+-   ColdArchive：冷归档存储
+
+关于存储类型的更多信息，请参见[存储类型介绍](/cn.zh-CN/开发指南/存储类型/存储类型介绍.md)。 |
 |x-oss-tagging|字符串|指定Object的标签，可同时设置多个标签，例如： TagA=A&TagB=B **说明：** Key和Value需要先进行URL编码，如果某项没有`=`，则看作Value为空字符串。 |
 
 ## 响应元素
