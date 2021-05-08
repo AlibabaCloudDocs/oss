@@ -1,10 +1,10 @@
-# Commands for operations on parts {#concept_bvd_chc_wdb .concept}
+# Commands for operations on parts
 
 This topic describes commands that can be used to manage parts.
 
-**Note:** Commands supported by the osscmd tool have been integrated with the [ossutil](reseller.en-US/Tools/ossutil/Quick start.md#) tool. The osscmd tool is no longer available for downloads as of July 31, 2019.
+**Note:** Commands supported by the osscmd tool have been integrated with the [ossutil](/intl.en-US/Tools/ossutil/Overview.md) tool. The osscmd tool is no longer available for downloads as of July 31, 2019.
 
-## init {#section_w2y_rhc_wdb .section}
+## init
 
 Command:
 
@@ -14,24 +14,24 @@ Initialize an upload event to generate an upload ID. You can add this upload ID 
 
 Example:
 
- `python osscmd init oss://mybucket/myobject`
+`python osscmd init oss://mybucket/myobject`
 
-## listpart {#section_z2y_rhc_wdb .section}
+## listpart
 
 Command:
 
 `listpart oss://bucket/object --upload_id=xxx`
 
-List the parts that are uploaded by using the upload ID of a specified object. For more information about related concepts, see [OSS API Reference](../../../../reseller.en-US/API Reference/Overview.md#). You must specify the upload ID.
+List the parts that are uploaded by using the upload ID of a specified object. For more information about related concepts, see [OSS API Reference](/intl.en-US/API Reference/Description.md). You must specify the upload ID.
 
 Example:
 
-``` {#codeblock_nr1_ofb_mc8}
+```
 python osscmd listpart oss://mybucket/myobject --upload_id=
           75835E389EA648C0B93571B6A46023F3
 ```
 
-## listparts {#section_bfy_rhc_wdb .section}
+## listparts
 
 Command:
 
@@ -41,9 +41,9 @@ List the objects and upload IDs of multipart upload events that have not been co
 
 Example:
 
- `python osscmd listparts oss://mybucket`
+`python osscmd listparts oss://mybucket`
 
-## getallpartsize {#section_dfy_rhc_wdb .section}
+## getallpartsize
 
 Command:
 
@@ -53,9 +53,9 @@ List the total size of parts that are uploaded by using the existing upload IDs.
 
 Example:
 
- `python osscmd getallpartsize oss://mybucket`
+`python osscmd getallpartsize oss://mybucket`
 
-## cancel {#section_ffy_rhc_wdb .section}
+## cancel
 
 Command:
 
@@ -65,16 +65,16 @@ Terminate the multipart upload event that uses the upload ID.
 
 Example:
 
-``` {#codeblock_9nq_mu6_gb2}
+```
 python osscmd cancel oss://mybucket/myobject --upload_id=
           D9D278DB6F8845E9AFE797DD235DC576
 ```
 
-## multiupload\(multi\_upload,mp\) {#section_hfy_rhc_wdb .section}
+## multiupload\(multi\_upload,mp\)
 
 Command:
 
-``` {#codeblock_ysj_y51_ohl}
+```
 multiupload(multi_upload,mp) localfile oss://bucket/object --check_md5=false
         --thread_num=10
 ```
@@ -89,7 +89,7 @@ Example:
 
 Command:
 
-``` {#codeblock_7pr_hs1_2md}
+```
 multiupload(multi_upload,mp) localfile oss://bucket/object --upload_id=xxx --thread_num=10
         --max_part_num=1000 --check_md5=false
 ```
@@ -98,23 +98,23 @@ Use multipart upload to upload a local file to OSS. The part count of the local 
 
 Example:
 
--   ``` {#codeblock_906_ji8_8a7}
+-   ```
 python osscmd multiupload /tmp/localfile.txt oss://mybucket/object --upload_id=
           D9D278DB6F8845E9AFE797DD235DC576
 ```
 
--   ``` {#codeblock_73a_fdq_t3k}
+-   ```
 python osscmd multiup_load /tmp/localfile.txt oss://mybucket/object
         --thread_num=5
 ```
 
 -   `python osscmd mp /tmp/localfile.txt oss://mybucket/object --max_part_num=100`
 
-## copylargefile {#section_ph2_12y_32b .section}
+## copylargefile
 
 Command:
 
-``` {#codeblock_ygg_9fg_kya}
+```
 copylargefile oss://source_bucket/source_object oss://target_bucket/target_object
         --part_size=10*1024*1024 --upload_id=xxx
 ```
@@ -123,27 +123,27 @@ To replicate an object that is larger than 1 GB, use multipart to replicate the 
 
 Example:
 
-``` {#codeblock_uyj_npa_noo}
+```
 python osscmd copylargefile oss://source_bucket/source_object
           oss://target_bucket/target_object --part_size=10*1024*1024
 ```
 
-## uploadpartfromfile \(upff\) {#section_lfy_rhc_wdb .section}
+## uploadpartfromfile \(upff\)
 
 Command:
 
-``` {#codeblock_as5_yh0_vqw}
+```
 uploadpartfromfile (upff) localfile oss://bucket/object --upload_id=xxx
         --part_number=xxx
 ```
 
 This command is used for tests only.
 
-## uploadpartfromstring\(upfs\) {#section_mfy_rhc_wdb .section}
+## uploadpartfromstring\(upfs\)
 
 Command:
 
-``` {#codeblock_bak_jds_7lm}
+```
 uploadpartfromstring(upfs) oss://bucket/object --upload_id=xxx --part_number=xxx
         --data=xxx
 ```
