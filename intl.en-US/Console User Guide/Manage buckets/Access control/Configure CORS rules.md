@@ -2,12 +2,12 @@
 
 This topic describes how to configure cross-origin resource sharing \(CORS\) rules in the OSS console.
 
-OSS provides CORS over HTML5 to enable cross-origin access. When OSS receives a cross-origin request \(or an OPTIONS request\) sent to a bucket, OSS reads the CORS rules of the bucket and checks the relevant permissions. OSS matches the request with the rules one by one. When OSS finds the first match, OSS returns a corresponding header in the response. If no match is found, OSS does not include any CORS header in the response. For more information, see [Configure CORS](/intl.en-US/Developer Guide/Buckets/Configure CORS.md).
-
-**Note:**
+OSS provides CORS over HTML5 to enable cross-origin access. When OSS receives a cross-origin request \(or an OPTIONS request\) sent to a bucket, OSS reads the CORS rules of the bucket and checks the relevant permissions. OSS matches the request with the rules one by one. When OSS finds the first match, OSS returns a corresponding header in the response. If no match is found, OSS does not include any CORS header in the response.
 
 -   You can configure up to 10 CORS rules for a bucket.
 -   To implement cross-origin access \(CORS\) when Alibaba Cloud CDN is activated, you must configure CORS rules in the CDN console. For more information, see [Configure CORS for Alibaba Cloud CDN](https://www.alibabacloud.com/help/zh/faq-detail/40183.htm).
+
+For more information, see [Configure CORS](/intl.en-US/Developer Guide/Buckets/Configure CORS.md).
 
 ## Video tutorial
 
