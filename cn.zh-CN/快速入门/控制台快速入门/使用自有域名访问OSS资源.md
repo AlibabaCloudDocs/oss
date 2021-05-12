@@ -28,7 +28,7 @@
         2.  单击**提交**。
     -   如果添加的域名为非当前账号下的域名，手动添加CNAME记录。
 
-        若您的域名为非阿里云托管的域名，需在对应的域名解析商处配置云解析，如腾讯云解析（原DNSPod）或新网，详情请参见 [DNSPod配置CNAME流程](https://help.aliyun.com/document_detail/27145.html)或[新网配置CNAME流程](https://help.aliyun.com/document_detail/27144.html#title-6nk-0q4-2w1)。
+        若您的域名为非阿里云托管的域名，需在对应的域名解析商处配置云解析，如腾讯云解析（原DNSPod）或新网，详情请参见[配置CNAME](/cn.zh-CN/快速入门/配置CNAME.md)。
 
         此处以非当前账号下阿里云托管的域名为例，手动添加CNAME记录步骤如下：
 
