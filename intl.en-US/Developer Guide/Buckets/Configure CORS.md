@@ -85,7 +85,7 @@ For more information about CORS configurations, see [Configure CORS rules](/intl
 
 -   What do I do if CORS errors occur when I use an accelerated domain name to access OSS?
 
-    If a CORS error occurs when you use an accelerated domain name to access OSS, you must configure CORS rules in the CDN console. For more information, see[Configure CORS for Alibaba Cloud CDN](https://www.alibabacloud.com/help/zh/faq-detail/40183.htm).
+    If a CORS error occurs when you use an accelerated domain name to access OSS, you must configure CORS rules in the CDN console. For more information, see [Configure CORS for Alibaba Cloud CDN](https://www.alibabacloud.com/help/zh/faq-detail/40183.htm).
 
 -   What do I do if the `Response to preflight request doesn't pass access control check: The value of the 'Access-Control-Allow-Origin' header in the response must not be the wildcard '*' when the request's credentials mode is 'include'.`error occurs when I send a cross-origin request?
 
