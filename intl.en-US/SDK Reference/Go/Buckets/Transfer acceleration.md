@@ -2,7 +2,7 @@
 
 The transfer acceleration feature allows users worldwide to access objects stored in Object Storage Service \(OSS\) more quickly. This feature is applicable to scenarios where data needs to be transferred over long geographical distances. This feature can also be used to download or upload large objects that are gigabytes or terabytes in size.
 
-For more information about transfer acceleration, see [Transfer acceleration](https://icms.alibaba-inc.com/content/oss/f3b55d?l=1&m=151&n=1436619) in OSS Developer Guide.
+For more information about transfer acceleration, see [Transfer acceleration](/intl.en-US/Developer Guide/Buckets/Transfer acceleration.md) in OSS Developer Guide.
 
 ## Enable transfer acceleration
 
@@ -48,7 +48,7 @@ func main() {
 }
 ```
 
-For more information about the operation used to enable transfer acceleration, see [PutBucketTransferAcceleration](https://icms.alibaba-inc.com/content/oss/f6a517?l=1&m=154&n=2926996).
+For more information about the operation used to enable transfer acceleration, see [PutBucketTransferAcceleration](/intl.en-US/API Reference/Bucket operations/Transfer acceleration/PutBucketTransferAcceleration.md).
 
 ## Query the status of transfer acceleration
 
@@ -89,5 +89,5 @@ func main() {
 }
 ```
 
-For more information about the operation used to query the transfer acceleration status of a bucket, see [GetBucketTransferAcceleration](https://icms.alibaba-inc.com/content/oss/f6a517?l=1&m=154&n=2926998).
+For more information about the operation used to query the transfer acceleration status of a bucket, see [GetBucketTransferAcceleration](/intl.en-US/API Reference/Bucket operations/Transfer acceleration/GetBucketTransferAcceleration.md).
 
