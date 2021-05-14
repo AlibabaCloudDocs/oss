@@ -50,7 +50,7 @@ The following code provides an example on how to upload an object in synchronous
         console.error('error: %j', e);
       }
     }
-    put();
+    await put();
     ```
 
 -   Asynchronous mode
