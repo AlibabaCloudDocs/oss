@@ -207,7 +207,7 @@ ossClient.shutdown();
 
 -   报错The OSS Access Key Id you provided does not exist in our records.如何处理？
 
-    临时访问凭证已过期，过期后自动失效。请使用临时访问密钥（AccessKeyId和AccessKeySecret）向App服务器申请新的临时访问凭证。具体操作，请参见[步骤五：获取临时访问凭证](#section_5xa_zdn_s0q)。
+    临时访问凭证已过期，过期后自动失效。请使用临时访问密钥（AccessKeyId和AccessKeySecret）向App服务器申请新的临时访问凭证。具体操作，请参见[步骤五](#section_5xa_zdn_s0q)。
 
 -   获取STS时报错NoSuchBucket如何处理？
 
