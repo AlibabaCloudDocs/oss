@@ -23,7 +23,7 @@ RAM Policy是基于用户的授权策略。您可以使用RAM Policy控制用户
 
 ## OSS Action分类
 
-Action分为Service级别操作、Bucket级别操作以及Object级别的操作。
+Action分为Service级别操作、Bucket级别操作以及Object级别的操作。各API接口功能描述的更多信息，请参见[API概览](/cn.zh-CN/API 参考/API概览.md)。
 
 -   Service级别
 
