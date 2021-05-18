@@ -30,13 +30,13 @@ OSS支持HTTP协议规定的5个请求头Cache-Control、Expires、Content-Encod
 
 |名称|类型|是否必选|描述|
 |:-|:-|:---|:-|
-|Authorization|字符串|否|表示请求本身已被授权。更多信息，请参见[RFC2616](https://www.ietf.org/rfc/rfc2616.txt)。 通常情况下Authorization是必选请求头，但如果采用了URL包含签名，则不用携带该请求头。更多信息，请参见[在URL中包含签名](/intl.zh-CN/API 参考/访问控制/在URL中包含签名.md)。
+|Authorization|字符串|否|表示请求本身已被授权。更多信息，请参见[RFC2616](https://www.ietf.org/rfc/rfc2616.txt)。 关于Authorization计算方法的更多信息，请参见[在Header中包含签名](/intl.zh-CN/API 参考/访问控制/在Header中包含签名.md)。通常情况下Authorization是必选请求头，但如果采用了URL包含签名，则不用携带该请求头。更多信息，请参见[在URL中包含签名](/intl.zh-CN/API 参考/访问控制/在URL中包含签名.md)。
 
 默认值：无 |
 |Cache-Control|字符串|否|指定该Object被下载时网页的缓存行为。更多信息，请参见[RFC2616](https://www.ietf.org/rfc/rfc2616.txt)。 默认值：无 |
 |Content-Disposition|字符串|否|指定该Object被下载时的名称。更多信息，请参见[RFC2616](https://www.ietf.org/rfc/rfc2616.txt)。 默认值：无 |
 |Content-Encoding|字符串|否|指定该Object被下载时的内容编码格式。更多信息，请参见[RFC2616](https://www.ietf.org/rfc/rfc2616.txt)。 默认值：无 |
-|Content-MD5|字符串|否|用于检查消息内容是否与发送时一致。Content-MD5是由MD5算法生成的值。上传了Content-MD5请求头后，OSS会计算消息体的Content-MD5并检查一致性。更多信息，请参见[Content-MD5的计算方法](/intl.zh-CN/API 参考/访问控制/在Header中包含签名.md)。 为确保数据完整性，OSS提供多种方式对数据的MD5值进行校验。 如果需要通过Content-MD5进行MD5验证，可将Content-MD5加入到请求头中。
+|Content-MD5|字符串|否|用于检查消息内容是否与发送时一致。Content-MD5是由MD5算法生成的值。上传了Content-MD5请求头后，OSS会计算消息体的Content-MD5并检查一致性。更多信息，请参见[Content-MD5的计算方法](/intl.zh-CN/API 参考/访问控制/在Header中包含签名.mdsection_i74_k35_5w4)。 为确保数据完整性，OSS提供多种方式对数据的MD5值进行校验。 如果需要通过Content-MD5进行MD5验证，可将Content-MD5加入到请求头中。
 
 默认值：无 |
 |Content-Length|字符串|否|用于描述HTTP消息体的传输大小。 如果请求头中的Content-Length值小于实际请求体中传输的数据大小，OSS仍将成功创建Object，但Object的大小只能等于Content-Length中定义的大小，其他数据将被丢弃。 |
@@ -57,20 +57,32 @@ OSS支持HTTP协议规定的5个请求头Cache-Control、Expires、Content-Encod
 
 指定此选项后，在响应头中会返回此选项，OSS会对上传的Object进行加密编码存储。当下载该Object时，响应头中会包含x-oss-server-side-encryption，且该值会被设置成此Object的加密算法。 |
 |x-oss-server-side-encryption-key-id|字符串|否|KMS托管的用户主密钥。 此选项仅在x-oss-server-side-encryption为KMS时有效。 |
-|x-oss-object-acl|字符串|否|指定OSS创建Object时的访问权限。 取值：public-read、private、public-read-write |
+|x-oss-object-acl|字符串|否|指定OSS创建Object时的访问权限。 取值：
+
+-   default（默认）：Object遵循所在存储空间的访问权限。
+-   private：Object是私有资源。只有Object的拥有者和授权用户有该Object的读写权限，其他用户没有权限操作该Object。
+-   public-read：Object是公共读资源。只有Object的拥有者和授权用户有该Object的读写权限，其他用户只有该Object的读权限。请谨慎使用该权限。
+-   public-read-write：Object是公共读写资源。所有用户都有该Object的读写权限。请谨慎使用该权限。
+
+关于访问权限的更多信息，请参见[读写权限ACL](/intl.zh-CN/开发指南/数据安全/访问控制/读写权限ACL.md)。 |
 |x-oss-storage-class|字符串|否|指定Object的存储类型。 对于任意存储类型的Bucket，如果上传Object时指定此参数，则此次上传的Object将存储为指定的类型。例如在IA类型的Bucket中上传Object时，如果指定x-oss-storage-class为Standard，则该Object直接存储为Standard。
 
-取值：Standard、IA、Archive、ColdArchive
+取值：
 
-支持的接口：PutObject、InitMultipartUpload、AppendObject、 PutObjectSymlink、CopyObject。 |
+-   Standard：标准存储
+-   IA：低频访问
+-   Archive：归档存储
+-   ColdArchive：冷归档存储
+
+关于存储类型的更多信息，请参见[存储类型介绍](/intl.zh-CN/开发指南/存储类型/存储类型介绍.md)。 |
 |x-oss-meta-\*|字符串|否|使用PutObject接口时，如果配置以x-oss-meta-\*为前缀的参数，则该参数视为元数据，例如`x-oss-meta-location`。一个Object可以有多个类似的参数，但所有的元数据总大小不能超过8 KB。 元数据支持短划线（-）、数字、英文字母（a~z）。英文字符的大写字母会被转成小写字母，不支持下划线（\_）在内的其他字符。 |
 |x-oss-tagging|字符串|否|指定Object的标签，可同时设置多个标签，例如TagA=A&TagB=B。 **说明：** Key和Value需要先进行URL编码，如果某项没有”=“，则看作Value为空字符串。 |
 
-此接口还需要包含Host、Date等公共请求头。关于公共请求头的更多信息，请参见[公共请求头（Common Request Headers）](/intl.zh-CN/API 参考/公共HTTP头定义.md)。
+此接口还需要包含Host、Date等公共请求头。更多信息，请参见[公共请求头（Common Request Headers）](/intl.zh-CN/API 参考/公共HTTP头定义.md)。
 
 ## 响应头
 
-此接口仅包含公共响应头。关于公共响应头的更多信息，请参见[公共响应头（Common Response Headers）](/intl.zh-CN/API 参考/公共HTTP头定义.md)。
+此接口仅包含公共响应头。更多信息，请参见[公共响应头（Common Response Headers）](/intl.zh-CN/API 参考/公共HTTP头定义.md)。
 
 ## 示例
 
