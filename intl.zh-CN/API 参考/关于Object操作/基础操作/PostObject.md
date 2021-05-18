@@ -1,10 +1,8 @@
 # PostObject
 
-PostObject用于通过HTML表单上传的方式将文件（Object）上传至指定存储空间（Bucket）。
+调用PostObject用于通过HTML表单上传的方式将文件（Object）上传到指定存储空间（Bucket）。
 
 ## 注意事项
-
-调用此接口时，有如下注意事项：
 
 -   Post请求需要对Bucket拥有写权限。如果Bucket为public-read-write，可以不上传签名信息，否则要求对该操作进行签名验证。
 -   与Put操作不同，Post操作使用AccessKey Secret对Policy进行签名，计算出签名字符串作为Signature表单域的值，OSS通过验证该值从而判断签名的合法性。
@@ -59,64 +57,107 @@ Upload to OSS
 --9431149156168--
 ```
 
-## 请求Header
+## 请求头
 
-**说明：** PostObject的消息实体通过多重表单格式（multipart/form-data）编码，在PutObject操作中参数通过HTTP请求头传递，在PostObject操作中则作为消息体中的表单域传递。
+**说明：** PostObject的消息实体通过多重表单格式（multipart/form-data）编码，在PutObject操作中参数通过HTTP请求头传递，在PostObject操作中则作为消息体中的表单域传递。PostObject不支持传入x-oss-tagging请求头。
 
 |名称|类型|是否必选|描述|
 |:-|:-|----|:-|
-|OSSAccessKeyId|字符串|有条件|Bucket拥有者的AccessKey Id。 默认值：无
+|Content-Type|字符串|否|指定文件的类型和网页的编码，确定浏览器读取文件的形式和编码。Post操作提交表单编码必须为`multipart/form-data`，即Header中Content-Type为`multipart/form-data;boundary=xxxxxx`的形式。
+
+boundary为边界字符串，是由表单随机生成的一个随机值，无需指定。如果通过SDK拼表单，则SDK也会生成一个随机值。 |
+|x-oss-object-acl|字符串|否|在请求头中指定Object的访问权限。 当请求头和文件表单域中同时指定x-oss-object-acl时，文件表单域中设置的访问权限的优先级高于请求中设置的访问权限。
+
+取值：
+
+-   default（默认）：Object遵循所在存储空间的访问权限。
+-   private：Object是私有资源。只有Object的拥有者和授权用户有该Object的读写权限，其他用户没有权限操作该Object。
+-   public-read：Object是公共读资源。只有Object的拥有者和授权用户有该Object的读写权限，其他用户只有该Object的读权限。请谨慎使用该权限。
+-   public-read-write：Object是公共读写资源。所有用户都有该Object的读写权限。请谨慎使用该权限。
+
+关于访问权限的更多信息，请参见[读写权限ACL](/intl.zh-CN/开发指南/数据安全/访问控制/读写权限ACL.md)。 |
+
+此接口还需要包含Host、Date等公共请求头。更多信息，请参见[公共请求头（Common Request Headers）](/intl.zh-CN/API 参考/公共HTTP头定义.md)。
+
+## 请求元素
+
+|名称|类型|是否必选|描述|
+|:-|:-|----|:-|
+|Cache-Control|字符串|否|指定该Object被下载时网页的缓存行为。更多信息，请参见[RFC2616](https://www.ietf.org/rfc/rfc2616.txt)。 默认值：无 |
+|Content-Disposition|字符串|否|指定该Object被下载时的名称。更多信息，请参见[RFC2616](https://www.ietf.org/rfc/rfc2616.txt)。 默认值：无 |
+|Content-Encoding|字符串|否|指定该Object被下载时的内容编码格式。更多信息，请参见[RFC2616](https://www.ietf.org/rfc/rfc2616.txt)。 默认值：无 |
+|Expires|字符串|否|过期时间。更多信息，请参见[RFC2616](https://www.ietf.org/rfc/rfc2616.txt)。 默认值：无 |
+|OSSAccessKeyId|字符串|是，有条件|Bucket拥有者的AccessKey ID。 默认值：无
 
 限制：当Bucket为非public-read-write或者提供了Policy（或Signature）表单域时，必须提供OSSAccessKeyId表单域。 |
-|policy|字符串|有条件|Policy规定了请求表单域的合法性。不包含Policy表单域的请求被认为是匿名请求，并只能访问public-read-write的Bucket。 默认值：无
+|policy|字符串|是，有条件|Policy规定了请求表单域的合法性。不包含Policy表单域的请求被认为是匿名请求，并只能访问public-read-write的Bucket。默认值：无
 
 限制：当Bucket为非public-read-write或者提供了OSSAccessKeyId（或Signature）表单域时，必须提供Policy表单域。
 
-**说明：** 表单和Policy必须使用UTF-8编码。 |
-|Signature|字符串|有条件|根据AccessKeySecret和Policy计算的签名信息，OSS验证该签名信息从而验证该Post请求的合法性。详情请参见[附录：Post Signature](#section_wny_mww_wdb)。 默认值：无
+**说明：** 表单和Policy必须使用UTF-8编码，且Policy表单域要经过Base64编码。 |
+|Signature|字符串|是，有条件|根据AccessKey Secret和Policy计算的签名信息，OSS验证该签名信息从而验证该Post请求的合法性。更多信息，请参见[附录：Post Signature](#section_wny_mww_wdb)。 默认值：无
 
 限制：当Bucket为非public-read-write或者提供了OSSAccessKeyId（或Policy）表单域时，必须提供Signature表单域。
 
 **说明：** 表单域对大小写不敏感，但表单域的值对大小写敏感。 |
-|Cache-Control, Content-Type, Content-Disposition, Content-Encoding, Expires|字符串|可选|HTTP请求Header。详情请参见[PutObject](/intl.zh-CN/API 参考/关于Object操作/基础操作/PutObject.md)。 默认值：无
-
-Post操作提交表单编码必须为`multipart/form-data`，即Header中Content-Type为`multipart/form-data;boundary=xxxxxx`的形式，boundary为边界字符串。 |
-|x-oss-content-type|字符串|可选|由于浏览器会自动在文件表单域中增加Content-Type，为了解决此问题，OSS支持用户在Post请求体中增加x-oss-content-type，该项允许用户指定Content-Type，且拥有最高优先级。优先级顺序：x-oss-content-type \> 文件表单域的Content-Type \> Content-Type
+|x-oss-server-side-encryption-key-id|字符串|否|表示KMS托管的用户主密钥。 此选项仅当x-oss-server-side-encryption值为KMS时有效。|
+|x-oss-content-type|字符串|否|由于浏览器会自动在文件表单域中增加Content-Type，为了解决此问题，OSS支持用户在Post请求体中增加x-oss-content-type，该项允许用户指定Content-Type，且拥有最高优先级。优先级顺序：x-oss-content-type \> 文件表单域的Content-Type \> Content-Type
 
 默认值：无 |
-|key|字符串|必须|上传Object的名称。如果名称包含路径，例如`destfolder/example.jpg`，则OSS会自动创建相应的文件夹。 默认值：无 |
-|success\_action\_redirect|字符串|可选|上传成功后客户端跳转到的URL。如果未指定该表单域，返回结果由success\_action\_status表单域指定。如果上传失败，OSS返回错误码，并不进行跳转。 默认值：无 |
-|success\_action\_status|字符串|非选|未指定success\_action\_redirect表单域时，该表单域指定了上传成功后返回给客户端的状态码。 默认值：无
+|x-oss-forbid-overwrite|字符串|否|指定PostObject操作时是否覆盖同名Object。当目标Bucket处于已开启或已暂停的版本控制状态时，x-oss-forbid-overwrite请求Header设置无效，即允许覆盖同名Object。
+
+-   不指定x-oss-forbid-overwrite指定x-oss-forbid-overwrite为false时，表示允许覆盖同名Object。
+-   指定x-oss-forbid-overwrite为true时，表示禁止覆盖同名Object；
+
+设置x-oss-forbid-overwrite请求Header会导致QPS处理性能下降，如果您有大量的操作需要使用x-oss-forbid-overwrite请求头（QPS \> 1000），请联系技术支持，避免影响您的业务。 |
+|x-oss-object-acl|字符串|否|在文件表单域中指定Object的访问权限。此项支持同时在请求头和文件表单域中指定。当请求头和文件表单域中同时指定x-oss-object-acl时，文件表单域中设置的访问权限的优先级高于请求中设置的访问权限。
+
+取值：
+
+-   default（默认）：Object遵循所在存储空间的访问权限。
+-   private：Object是私有资源。只有Object的拥有者和授权用户有该Object的读写权限，其他用户没有权限操作该Object。
+-   public-read：Object是公共读资源。只有Object的拥有者和授权用户有该Object的读写权限，其他用户只有该Object的读权限。请谨慎使用该权限。
+-   public-read-write：Object是公共读写资源。所有用户都有该Object的读写权限。请谨慎使用该权限。
+
+关于访问权限的更多信息，请参见[读写权限ACL](/intl.zh-CN/开发指南/数据安全/访问控制/读写权限ACL.md)。 |
+|x-oss-storage-class|字符串|否|指定Object的存储类型。对于任意存储类型的Bucket，如果上传Object时指定此参数，则此次上传的Object将存储为指定的类型。例如在IA类型的Bucket中上传Object时，如果指定x-oss-storage-class为Standard，则该Object直接存储为Standard。
+
+取值：
+
+-   Standard：标准存储
+-   IA：低频访问
+-   Archive：归档存储
+-   ColdArchive：冷归档存储
+
+关于存储类型的更多信息，请参见[存储类型介绍](/intl.zh-CN/开发指南/存储类型/存储类型介绍.md)。 |
+|key|字符串|是|上传Object的名称。如果名称包含路径，例如`destfolder/example.jpg`，则OSS会自动创建相应的文件夹。 默认值：无 |
+|success\_action\_redirect|字符串|否|上传成功后客户端跳转到的URL。如果未指定该表单域，返回结果由success\_action\_status表单域指定。如果上传失败，OSS返回错误码，并不进行跳转。 默认值：无 |
+|success\_action\_status|字符串|否|未指定success\_action\_redirect表单域时，该表单域指定了上传成功后返回给客户端的状态码。 默认值：无
 
 有效值：200、201、204（默认）。
 
 -   如果该域的值设置为200或者204，OSS返回一个空文档和相应的状态码。
 -   如果该域的值设置为201，OSS返回一个XML文件和201状态码。
 -   如果该域的值未设置或者设置为一个非法值，OSS返回一个空文档和204状态码。 |
-|x-oss-meta-\*|字符串|可选|用户指定的user meta值。 默认值：无
+|x-oss-meta-\*|字符串|否|用户指定的user meta值。 默认值：无
 
 如果请求中携带以x-oss-meta-为前缀的表单域，则视为user meta，例如`x-oss-meta-location`。
 
 **说明：** 一个Object可以有多个类似的参数，但所有的user meta总大小不能超过8 KB。 |
-|x-oss-server-side-encryption|字符串|可选|创建Object时，指定服务器端加密方式。 取值：AES256、KMS
+|x-oss-security-token|字符串|否|如果本次访问是使用STS临时授权方式，则需要指定该项为SecurityToken的值，同时OSSAccessKeyId需要使用与之配对的临时AccessKey Id。计算签名时，与使用普通AccessKey Id签名方式一致。 默认值：无
 
-指定此参数后，在响应头中会返回此参数，OSS会对上传的Object进行加密编码存储。当下载该Object时，响应头中会包含x-oss-server-side-encryption，且该值会被设置成该Object的加密算法。 |
-|x-oss-server-side-encryption-key-id|字符串|可选|表示KMS托管的用户主密钥。 此选项仅当x-oss-server-side-encryption值为KMS时有效。|
-|x-oss-object-acl|字符串|可选|创建Object时，指定Object的访问权限。 有效值：public-read、private、public-read-write |
-|x-oss-security-token|字符串|可选|若本次访问是使用STS临时授权方式，则需要指定该项为SecurityToken的值，同时OSSAccessKeyId需要使用与之配对的临时AccessKey Id。计算签名时，与使用普通AccessKey Id签名方式一致。 默认值：无 |
-|x-oss-forbid-overwrite|字符串|可选|指定PostObject操作时是否覆盖同名Object。 当目标Bucket处于已开启或已暂停的版本控制状态时，x-oss-forbid-overwrite请求Header设置无效，即允许覆盖同名Object。-   不指定x-oss-forbid-overwrite时，默认覆盖同名Object。
--   指定x-oss-forbid-overwrite为true时，表示禁止覆盖同名Object；指定x-oss-forbid-overwrite为false时，表示允许覆盖同名Object。
-
-设置x-oss-forbid-overwrite请求Header会导致QPS处理性能下降，如果您有大量的操作需要使用x-oss-forbid-overwrite请求Header（QPS \> 1000），请联系技术支持，避免影响您的业务。 |
-|file|字符串|必选|文件或文本内容。浏览器会自动根据文件类型来设置Content-Type，并覆盖用户的设置。OSS一次只能上传一个文件。 默认值：无
+搭建STS服务的具体操作请参见开发指南中的[使用STS临时访问凭证访问OSS](/intl.zh-CN/开发指南/数据安全/访问控制/使用STS临时访问凭证访问OSS.md)。您可以通过调用STS服务的[AssumeRole](/intl.zh-CN/API参考/API 参考（STS）/操作接口/AssumeRole.md)接口或者使用[各语言STS SDK](/intl.zh-CN/SDK参考/SDK参考（STS）/STS SDK概览.md)来获取临时访问凭证。 |
+|file|字符串|是|文件或文本内容。浏览器会自动根据文件类型来设置Content-Type，并覆盖用户的设置。OSS一次只能上传一个文件。 默认值：无
 
 **说明：** file必须是表单中的最后一个域。 |
 
-## 响应Header
+## 响应头
 
 |名称|类型|描述|
 |:-|:-|:-|
 |x-oss-server-side-encryption|字符串|如果请求Header中指定了x-oss-server-side-encryption，则响应Header中将包含该头部，指明所使用的服务器端加密算法。|
+
+此接口还需包含公共响应头。更多信息，请参见[公共响应头（Common Response Headers）](/intl.zh-CN/API 参考/公共HTTP头定义.md)。
 
 ## 响应元素
 
@@ -187,14 +228,14 @@ Post操作提交表单编码必须为`multipart/form-data`，即Header中Content
 
 |错误码|HTTP状态码|描述|
 |---|-------|--|
-|InvalidArgument|400|无论Bucket是否为public-read-write，一旦上传OSSAccessKeyId、Policy、Signature表单域中的任意一个，则另两个表单域为必选项。若缺失，将返回此错误。|
+|InvalidArgument|400|无论Bucket是否为public-read-write，一旦上传OSSAccessKeyId、Policy、Signature表单域中的任意一个，则另两个表单域为必选项。如果缺失，将返回此错误。|
 |InvalidDigest|400|用户上传了Content-MD5请求Header，OSS会计算body的Content-MD5并检查一致性，如果不一致，将返回此错误。|
-|EntityTooLarge|400|请求的body总长度不允许超过5 GB。若文件长度过大，将返回此错误。|
-|InvalidEncryptionAlgorithmError|400|如果上传时指定了x-oss-server-side-encryption Header请求域，则必须设置其值为AES256或KMS。若设置为其他值，将返回此错误。|
-|IncorrectNumberOfFilesInPOSTRequest|400|请求必须指定key表单域。若缺失，将返回此错误。|
-|FileAlreadyExists|409|请求的Header中携带x-oss-forbid-overwrite=true时，表示禁止覆盖同名文件。若文件已存在，将返回此错误。|
+|EntityTooLarge|400|请求的body总长度不允许超过5 GB。如果文件长度过大，将返回此错误。|
+|InvalidEncryptionAlgorithmError|400|如果上传时指定了x-oss-server-side-encryption Header请求域，则必须设置其值为AES256或KMS。如果设置为其他值，将返回此错误。|
+|IncorrectNumberOfFilesInPOSTRequest|400|请求必须指定key表单域。如果缺失，将返回此错误。|
+|FileAlreadyExists|409|请求的Header中携带x-oss-forbid-overwrite=true时，表示禁止覆盖同名文件。如果文件已存在，将返回此错误。|
 |KmsServiceNotEnabled|403|将x-oss-server-side-encryption指定为KMS，但没有预先购买KMS套件。|
-|FileImmutable|409|Bucket内的数据处于被保护状态时，若您尝试删除或修改这些数据，将返回此错误码。|
+|FileImmutable|409|Bucket内的数据处于被保护状态时，如果您尝试删除或修改这些数据，将返回此错误码。|
 
 ## 附录：Post Policy
 
@@ -223,7 +264,7 @@ Post Policy中必须包含Expiration和Conditions。
 
     **说明：** 表单域对应的值在检查Policy之后进行扩展，因此，Policy中设置的表单域的合法值应当对应于扩展之前的表单域的值。
 
-    Policy中支持的Conditions项见下表：
+    Policy中支持的Conditions项请参见下表。
 
     |名称|描述|
     |:-|:-|
