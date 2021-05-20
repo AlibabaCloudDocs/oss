@@ -42,8 +42,10 @@ The service of signature-based upload on the server, configuring upload callback
     The application server verifies the identification information based on `authorization` in the message from OSS. If the verification is successful, the application server returns the following message in the JSON format to OSS:
 
     ```
-    String value: OK
-    Key: Status
+    {
+    "String value": "ok",
+    "Key": "Status"
+    }
     ```
 
 6.  OSS sends the message that is returned by the application server to the user.
