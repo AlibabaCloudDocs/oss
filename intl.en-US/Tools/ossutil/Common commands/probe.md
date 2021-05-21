@@ -2,7 +2,7 @@
 
 The probe command is used to probe access to OSS. You can use this command to detect network exceptions that occurred between the local client and OSS server and check upload and download bandwidths and the status of local symbolic links.
 
-**Note:** The commands described in this topic apply to Linux. To use the commands in other systems, replace ./ossutil in the command with the actual executable program name. For example, you can use the help command in 32-bit Windows systems by running ossutil32.exe help.
+**Note:** Sample command lines in this topic are based on the 64-bit Linux system. For other systems, replace ./ossutil64 in the commands with the corresponding binary name. For more information, see [ossutil](/intl.en-US/Quick Start/ossutil.md).
 
 ## Usage notes
 
@@ -28,7 +28,7 @@ After you run the probe command, you can view the procedures and results of each
     -   If the detection succeeds, the information about the upload or download task is displayed as the result, including the size of the uploaded or downloaded object, the time used to perform the upload or download task, and the location to which the object is uploaded or downloaded.
     -   If the detection fails, ossutil returns the error causes or error codes, which can be used to troubleshoot the errors.
 
-        For more information about error codes, see [Error responses](/intl.en-US/Developer Guide/Troubleshooting/Error responses.md).
+        For more information about error codes, see [Error responses](/intl.en-US/Troubleshooting/Error responses.md).
 
     -   After a detection, a log file whose name is in the following format is generated in the installation directory of ossutil: `logOssProbe + Timestamp when the detection ends.log`. The log file contains the detailed information about the execution of the probe command.
 -   Check a specific index
