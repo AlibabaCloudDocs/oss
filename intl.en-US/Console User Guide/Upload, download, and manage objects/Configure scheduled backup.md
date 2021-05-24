@@ -2,7 +2,7 @@
 
 You can use the scheduled backup feature provided by Object Storage Service \(OSS\) to back up objects in a bucket to Hybrid Backup Recovery \(HBR\) on a regular basis. If an object is unexpectedly lost, you can recover the object from HBR.
 
--   HBR is activated. You can go to the[HBR product page](https://www.alibabacloud.com/zh/products/hybrid-backup-recovery) to activate HBR.
+-   HBR is activated. You can go to the [HBR product page](https://www.alibabacloud.com/zh/products/hybrid-backup-recovery) to activate HBR.
 -   HBR is authorized to read data from OSS. Log on to the [HBR console](https://hbr.console.aliyun.com). In the left-side navigation pane, click **OSS Backup**. Follow the prompts to authorize HBR.
 
 ## Billing
@@ -15,7 +15,7 @@ When you use scheduled backup, you are charged for the following fees:
     -   After the object list is obtained, HBR uses the HeadObject operation to obtain the metadata of the objects to back up. Each HeadObject request can obtain the metadata of one object.
     -   HBR uses the GetObject operation to back up objects. Each GetObject request can back up one object.
     -   HBR uses the ListObject operation to query the backup progress and verify the objects that are backed up. Each ListObject request can verify up to 1,000 objects.
-    For more information about the billing methods for OSS API requests, see[API operation calling fees](/intl.en-US/Pricing/Billing items and methods/API operation calling fees.md).
+    For more information about the billing methods for OSS API requests, see [API operation calling fees](/intl.en-US/Pricing/Billing items and methods/API operation calling fees.md).
 
 -   If you back up an Infrequent Access \(IA\) object, you are charged for data retrieval fees. For more information about the billing methods, see [Data processing fees](/intl.en-US/Pricing/Billing items and methods/Data processing fees.md).
 -   You are charged for the objects stored in HBR vaults. For information about the billing methods, see [Billing methods and billable items](/intl.en-US/Pricing/Billing methods and billable items.md).
