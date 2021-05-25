@@ -19,7 +19,7 @@ You can use API operations and SDKs provided by Alibaba Cloud or OSS migration t
 
 ## Migrate data to OSS
 
-You can use Alibaba Cloud Data Online Migration to migrate data from a third-party storage service to OSS or between OSS buckets, such as Amazon Web Services \(AWS\), Google Cloud, Tencent Cloud, Qiniu Cloud, Huawei Cloud, and Baidu Cloud. For more information, see [Data Online Migration](https://www.alibabacloud.com/help/product/94157.htm).
+You can use Alibaba Cloud Data Online Migration to migrate data from a third-party storage service to OSS or between OSS buckets, such as Amazon Web Services \(AWS\) and Google Cloud. For more information, see [Data Online Migration](https://www.alibabacloud.com/help/product/94157.htm).
 
 Assume that you must migrate terabytes or petabytes of data to OSS. You can use the Data Offline Migration \(Lighting Cube\) service when the insufficient local low-bandwidth and high expansion costs are taken into consideration. For more information, see [What is Data Transport?](/intl.en-US/Product Introduction/What is Data Transport?.md)
 
@@ -81,7 +81,7 @@ For more information about OSS pricing, see [Object Storage Service Pricing](htt
 
 ## Alibaba Cloud storage service
 
-Additionally, Alibaba Cloud also provides storage services such as file storage and block storage in different scenarios. For more information, see [Overview](/intl.en-US/White paper/Overview of Alibaba Cloud storage services/Overview.md).
+Additionally, Alibaba Cloud also provides storage services such as file storage and block storage in different scenarios. For more information, see [Alibaba Cloud Storage Overview]().
 
 For more information about use cases and solutions of Alibaba Cloud storage services, see [Alibaba Cloud Storage](https://www.alibabacloud.com/product/storage).
 
