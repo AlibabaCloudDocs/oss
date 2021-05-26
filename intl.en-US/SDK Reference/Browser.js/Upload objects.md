@@ -1,173 +1,157 @@
-# Upload objects {#concept_64047_zh .concept}
+# Upload objects
 
-You can upload a file to OSS using any of the following methods:
+This topic describes how to use simple upload or multipart upload to upload local files or data to Object Storage Service \(OSS\) buckets.
 
--   Upload Blob data
--   Resumable upload
+## Simple upload
 
-## Upload Blob Data { .section}
+The following section describes how to use putObject to upload file objects, Blob data, or OSS buffers to OSS. You cannot use progress functions in simple upload.
 
-Binary Large Object \(Blob\) indicates a large object of the binary type. The concept of blob is used in some databases. For example, the BLOB type used in MySQL indicates a container for binary data.
+**Note:** Blob indicates large binary objects. For more information, see [Blob](https://developer.mozilla.org/zh-CN/docs/Web/API/Blob).
 
-You can also use the `put` interface to upload content in a Blob to OSS:
+The following code provides an example on how to upload data to an object named exampleobject.txt in a bucket named examplebucket.
 
-```language-js
+For more information about how to set up a security token service \(STS\), see [Access OSS with a temporary access credential provided by STS](/intl.en-US/Developer Guide/Data security/Access and control/Access OSS with a temporary access credential provided by STS.md) in OSS Developer Guide. You can call the [AssumeRole](/intl.en-US/API Reference/API Reference (STS)/Operation interfaces/AssumeRole.md) operation or use [STS SDKs in various programming languages](/intl.en-US/SDK Reference/STS SDK Reference/STS SDK overview.md) to obtain a temporary access credential.
+
+```
 let OSS = require('ali-oss');
 
 let client = new OSS({
-  region: '<Your region>',
-  accessKeyId: '<Your AccessKeyId>',
-  accessKeySecret: '<Your AccessKeySecret>',
-  bucket: 'Your bucket name'
-});
+    // Set yourRegion to the endpoint of the region in which the bucket is located. For example, if your bucket is located in the China (Hangzhou) region, set yourRegion to oss-cn-hangzhou. 
+    region: 'yourRegion',
+    // Obtain a temporary access credential from STS. The temporary access credential contains a security token and a temporary AccessKey pair that consists of an AccessKey ID and an AccessKey secret. 
+    accessKeyId: 'yourAccessKeyId',
+    accessKeySecret: 'yourAccessKeySecret',
+    stsToken: 'yourSecurityToken',
+    // Specify the bucket name. 
+    bucket: 'examplebucket'
+  });
 
-async function putBlob () {
+// You can upload file objects, Blob data, and OSS buffers to an OSS bucket. 
+// Specify the full path of the local file to upload. By default, if you do not specify the local file, the local file is uploaded from the path of the project to which the sample program belongs. 
+const data = 'D:\\localpath\\examplefile.txt';
+// Specify the content to upload. 
+//const data = new Blob('Hello OSS');
+// Specify the content to upload. 
+//const data = new OSS.Buffer('Hello OSS'));
+
+async function putObject () {
   try {
-    let result = await client.put('object-key', new Blob(['content'],{ type: 'text/plain' }));
+    // Specify the full path of the object. The full path of the object cannot contain bucket names. 
+    // You can customize an object name such as exampleobject.txt to upload data to the current bucket. You can also customize a directory named mytestdoc/exampleobject.txt to upload data to the specified directory in the bucket. 
+    let result = await client.put('exampleobject.txt', data);
     console.log(result);
   } catch (e) {
-    conosle.log(e);
+    console.log(e);
   }
 }
-putBlob();
-
+putObject();
 ```
 
-## Resumable upload {#section_snl_fxt_4fb .section}
+## Multipart upload
 
-When the file to be uploaded is large, you can use the multipartUpload interface for multipart upload. Multipartupload is to divide a large request into multiple small requests for execution. As a result, when some of the requests fail,you do not need to upload the entire file again, but only to upload the failed parts. Generally for a file larger than 100 MB, we recommend that you use the preceding multipart upload approach and create a new OSS instance before each multipart upload.
+To upload a large object, you can call [MultipartUpload]() to perform multipart upload. In multipart upload, a local file is split into multiple parts. Then, separately upload the parts. If some parts fail to upload, you can continue the upload based on the recorded upload progress to upload only the parts that fail to upload. To upload an object larger than 100 MB, we recommend that you use multipart upload. This improves the upload success rate.
 
-If a `ConnectionTimeoutError` error occurs when you use the multipartUpload interface, you must construct your own method to handle time-out issues. You can reduce the part size, increase the time-out period and allowed retry times, or catch the `ConnectionTimeoutError` error and return it to the user. For more information, see [network error handling](../../../../../reseller.en-US/Errors and Troubleshooting/Network connection timeout handling.md#).
+If the `ConnectionTimeoutError` occurs when you call the MultipartUpload operation, you must fix the error on your own. To fix the error, you can reduce the size of each part, extend the timeout period, or resend the request. You can also capture `ConnectionTimeoutError` to analyze the specific cause. For more information, see [Network connection timeout handling]().
 
-For the usage of multipartUpload API, see [MultipartUpload](../../../../../reseller.en-US/API Reference/Multipart upload operations/Introduction.md#).
+**Note:**
 
-Related parameters:
+-   The checkpoint parameter specifies a checkpoint file to record upload progress. To continue a resumable upload task, pass in the checkpoint parameter to the request.
+-   We recommend that you create an OSS client instance when you perform multipart upload.
+-   For more information about parameters for multipart upload, visit [GitHub](https://github.com/ali-sdk/ali-oss#multipartuploadname-file-options).
 
--   name \{String\}: Object name
--   file \{File\}: HTML5 Web File or Blob data
--   \[options\] \{Object\}: Additional parameters
-    -   \[checkpoint\] \{Object\}: Endpoint checkpoint used in resumable upload. If this parameter is set, the upload starts from the endpoint. If it is not set, the upload restarts.
-        -   file \{File\}: File object selected by the user. Users must manually set this parameter if the browser is restarted.
-        -   name \{String\}: Uploaded object key
-        -   fileSize \{Number\}: File size
-        -   partSize \{Number\}: Part size
-        -   uploadId \{String\}: Upload Id
-        -   doneParts \{Array\}: Array of uploaded parts, including the following objects:
-            -   number \{Number\}: Part number
-            -   etag \{String\}: Part etag
-    -   \[parallel\] \{Number\}: Number of parts uploaded simultaneously
-    -   \[partSize\] \{Number\}: Part size
-    -   \[progress\] \{Function\}: A generator function or a thunk. The callback function contains the following three parameters: `function`, `async`, and `promise`.
-        -   \(percentage \{Number\}: Percetage of upload progress \(a decimal range from 0 to 1\)
-        -   checkpoint \{Object\}: Endpoint checkpoint
-        -   res \{Object\}\): Response returned after a single part is successfully uploaded
-    -   \[meta\] \{Object\}: Header meta inforamtion defined by users with a prefix `x-oss-meta-` 
-    -   \[mime\] \{String\}: Custom `Content-Type header` 
-    -   \[headers\] \{Object\}: Extra headers. See [RFC 2616](http://www.w3.org/Protocols/rfc2616/rfc2616.html) for more information.
-        -   ‘Cache-Control’: General header used to implement cache mechanisms by specifying a command in HTTP requests and responses. For example: `Cache-Control: public, no-cache` 
-        -   ‘Content-Disposition’: Used to indicate the disposition form of a response, which can be an internal reference \(a part of a webpage or a page\) or an attachment downloaded and saved locally. For example: `Content-Disposition: somename` 
-        -   ‘Content-Encoding’: Used to compress data of specific media type. For example: `Content-Encoding: gzip` 
-        -   ‘Expires’: Expiration time. For example: `Expires: 3600000` 
-    -   \[callback\] \{Object\}: Callback settings For more information, see [Callback]().
-        -   url \{String\}: The address of the callback server communicated with the OSS server. It corresponds to callbackUrl in the CallBack parameter. Required
-        -   body \{String\}: The value of callback request. It is in the JSON format and corresponds to callbackBody in the Callback parameter. Required
-        -   \[host\] \{String\}: The value of the Host header in the callback request. It corresponds to callbackHost inthe CallBack parameter.
-        -   \[contentType\] \{String\}: The Content-Type of the callback request. It corresponds to callbackBodyType in the CallBack parameter.
-        -   \[customValue\] \{Object\}: Custom parameters in the callback request. It corresponds to callback-var in the CallBack parameter.
+The following code provides an example on how to perform resumable upload by using multipart upload:
 
-Example:
-
-1.  The upload progress is recorded. When the upload is initiated again, the recorded checkpoint parameter is passed in.
-2.  We recommend that you create a new OSS instance for each multipart upload task.
-
-```language-js
+```
 let OSS = require('ali-oss')
 
-let ossConfig = {
-  region: '<Your region>',
-  accessKeyId: '<Your AccessKeyId>',
-  accessKeySecret: '<Your AccessKeySecret>',
-  bucket: 'Your bucket name'
-}
+let client = new OSS({
+    // Set yourRegion to the endpoint of the region in which the bucket is located. For example, if your bucket is located in the China (Hangzhou) region, set yourRegion to oss-cn-hangzhou. 
+    region: 'yourRegion',
+    // Obtain a temporary access credential from STS. The temporary access credential contains a security token and a temporary AccessKey pair that consists of an AccessKey ID and an AccessKey secret. 
+    accessKeyId: 'yourAccessKeyId',
+    accessKeySecret: 'yourAccessKeySecret',
+    stsToken: 'yourSecurityToken',
+    // Specify the bucket name. 
+    bucket: 'examplebucket'
+  });
 
 let client = new OSS(ossConfig);
 
 let tempCheckpoint;
 
-// Define the upload method
+// Define the upload method. 
 async function multipartUpload () {
   try {
-    let result = await client.multipartUpload('object-key', 'local-file', { 
-      progress: async function (p, checkpoint) {
-        // Record the checkpoint. If you close the browser and continue the upload after restarting the browser, the upload cannot be continued. For more information, see the description of file objects.
+    // Specify the full paths of the object and the local file. The full path of the object cannot contain bucket names. 
+    // You can customize an object name such as exampleobject.txt to upload data to the current bucket or customize a directory name such as mytestdoc/exampleobject.txt to upload data to the specified directory in the bucket. 
+    // By default, if you do not specify the path of the local file, the local file is uploaded from the path of the project to which the sample program belongs. 
+    let result = await client.multipartUpload('exampleobject.txt', 'D:\\localpath\\examplefile.txt', { 
+      progress: function (p, checkpoint) {
+        // Set the checkpoint parameter. A resumable upload task cannot be automatically continued after the browser is restarted. You must manually continue the task. 
         tempCheckpoint = checkpoint;
-      }
-      meta: { year: 2017, people: 'test' },
-      mime: 'image/jpeg'
+      },
+      meta: { year: 2020, people: 'test' },
+      mime: 'text/plain'
    })
   } catch(e){
     console.log(e);
   }
 }
 
-// Start uploading
+// Start the multipart upload task. 
 multipartUpload();
 
-// Pause multipart upload
+// Stop the multipart upload task. 
 client.cancel();
 
-// Resume multipart upload
+// Resume the multipart upload task. 
 let resumeclient = new OSS(ossConfig);
 async function resumeUpload () {
   try {
-    let result = await resumeclient.multipartUpload('object-key', 'local-file', {
-	progress: async function (p, checkpoint) {
+    let result = await resumeclient.multipartUpload('exampleobject.txt', 'D:\\localpath\\examplefile.txt', {
+    progress: function (p, checkpoint) {
           tempCheckpoint = checkpoint;
         },
-        checkpoint: tempCheckpoint
-        meta: { year: 2017, people: 'test' },
-        mime: 'image/jpeg'
+        checkpoint: tempCheckpoint,
+        meta: { year: 2020, people: 'test' },
+        mime: 'text/plain'
   })
   } catch (e) {
     console.log(e);
   }
 }
 
-resumeUpload();
-
+resumeUpload();          
 ```
 
-The preceding `progress` parameter is a progress callback function used to get the upload progress.
+-   progress specifies a progress callback function that is used to query the upload progress.
 
-```language-js
-const progress = async function progress(p, checkpoint) {
-  console.log(p)
-};
+    ```
+    const progress = function progress(p, checkpoint) {
+      console.log(p)
+    };                   
+    ```
 
-```
+-   meta specifies the user metadata. You can call the HeadObject operation to obtain the object metadata. In addition, you must configure exposed headers in the OSS console. To configure exposed headers in the OSS console, find the required bucket. In the left-side navigation pane, choose Access Control \> **Cross-origin Resource Sharing \(CORS\)**. For more information, see [Configure CORS rules](/intl.en-US/Console User Guide/Manage buckets/Access control/Configure CORS rules.md).
 
-The preceding `meta` parameter is a user-defined metadata. You can obtain the meta value of the object using the head API, but the meta header must be set properly in the Exposed Headers of the Cross-region Settings in the console, as shown in the following figure:
+    The following figure shows the response returned when the request is successful.
 
-![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/22573/155186563813702_en-US.png)
+    ![fig_browserheader](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/4596498951/p13703.png)
 
-Returned results of successful requests are as follows:
+-   To obtain a callback for the request, you can add a `callback` field to the options parameter. The following code provides an example on the callback field:
 
-![](http://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/22573/155186563813703_en-US.png)
+    ```
+    callback: {
+      url: 'http://oss-demo.aliyuncs.com:23450',
+      host: 'oss-cn-hangzhou.aliyuncs.com',
+      /* eslint no-template-curly-in-string: [0] */
+      body: 'bucket=${bucket}&object=${object}&var1=${x:var1}',
+      contentType: 'application/x-www-form-urlencoded',
+      customValue: {
+        var1: 'value1',
+        var2: 'value2',
+      },
+    },                    
+    ```
 
-You can add `callback` in the option parameter to send callback information.
-
-```language-javascript
-callback: {
-  url: 'http://oss-demo.aliyuncs.com:23450',
-  host: 'oss-cn-hangzhou.aliyuncs.com',
-  /* eslint no-template-curly-in-string: [0] */
-  body: 'bucket=${bucket}&object=${object}&var1=${x:var1}',
-  contentType: 'application/x-www-form-urlencoded',
-  customValue: {
-    var1: 'value1',
-    var2: 'value2',
-  },
-},
-
-```
 
