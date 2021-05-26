@@ -1,72 +1,94 @@
-# Multipart upload {#concept_f3c_r55_kfb .concept}
+# Multipart upload
 
-This topic describes how to upload an object in multiple parts
+By using the multipart upload feature provided by OSS, you can split a large object into multiple parts and upload them separately. After all parts are uploaded, call the CompleteMultipartUpload operation to combine these parts into a single object to implement resumable upload.
 
-To enable multipart upload, perform the following steps:
+## Multipart upload process
 
-1.  Initiate a multipart upload event.
+To implement multipart upload, perform the following operations:
 
-    You can call Bucket.InitiateMultipartUpload to return the globally unique uploadId created in OSS.
+1.  Initiate a multipart upload task.
 
-2.  Start the multipart upload task.
+    You can call the Bucket.InitiateMultipartUpload method to obtain a unique upload ID in OSS.
 
-    You can call Bucket.UploadPart to upload data in multiple parts.
+2.  Upload parts.
 
-    **Note:** 
+    You can call the Bucket.UploadPart method to upload parts.
 
-    -   Parts with a same uploadId are sequenced by their part numbers. If you have uploaded a part and use the same part number to upload another part, the later part will replace the former part.
-    -   The MD5 values of a data part is included in the ETag header and is returned to the user.
-    -   OSS SDK automatically configures Content-MD5. OSS calculates the MD5 value of the uploaded data and compares it with the MD5 value calculated by SDK. If the two values are different, the InvalidDigest error code is returned.
+    **Note:**
+
+    -   Part numbers identify the relative positions of parts in an object that share the same upload ID. If you have uploaded a part and used its part number again to upload another part, the latter part overwrites the former part.
+    -   OSS includes the MD5 hash of part data in the ETag header and returns the MD5 hash to the user.
+    -   OSS calculates the MD5 hash of uploaded data and compares the MD5 hash with the MD5 hash calculated by the SDK. If the two hashes are different, the InvalidDigest error code is returned.
 3.  Complete the multipart upload task.
 
-    After you upload all parts, call Bucket.CompleteMultipartUpload to combine these parts into a complete object.
+    After all parts are uploaded, call the Bucket.CompleteMultipartUpload method to combine the parts into a complete object.
 
 
-The following code is used as a complete example that describes the process of multipart upload:
+## Complete sample code
+
+The following code provides a complete example that describes the process of multipart upload:
 
 ```
 package main
+
 import (
     "fmt"
     "os"
+
     "github.com/aliyun/aliyun-oss-go-sdk/oss"
 )
+
 func main() {
-    // Creates an OSSClient instance.
-    client, err := oss.New("<yourEndpoint>", "<yourAccessKeyId>", "<yourAccessKeySecret>")
-    if err ! = nil {
+    // Create an OSSClient instance. 
+    // Set yourEndpoint to the endpoint of the region where the bucket is located. For example, if your bucket is located in the China (Hangzhou) region, set yourEndpoint to https://oss-cn-hangzhou.aliyuncs.com. 
+    // Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS because the account has permissions on all API operations. We recommend that you use a Resource Access Management (RAM) user to call API operations or perform routine operations and maintenance. To create a RAM user, log on to the RAM console. 
+    client, err := oss.New("yourEndpoint", "yourAccessKeyId", "yourAccessKeySecret")
+    if err != nil {
         fmt.Println("Error:", err)
         os.Exit(-1)
     }
-    bucketName := "<yourBucketName>"
-    objectName := "<yourObjectName>"
-    locaFilename := "<yourLocalFilename>"
-    // Obtains a bucket.
+    // Specify the bucket name. 
+    bucketName := "examplebucket"
+    // Specify the full path of the object. The full path of the object cannot contain bucket names. 
+    objectName := "exampleobject.txt"
+    // Specify the full path of the local file. If the path of the local file is not specified, the local file is uploaded from the path of the project to which the sample program belongs. 
+    locaFilename := "D:\\localpath\\examplefile.txt"
+
+    // Obtain the bucket. 
     bucket, err := client.Bucket(bucketName)
-    if err ! = nil {
+    if err != nil {
         fmt.Println("Error:", err)
         os.Exit(-1)
     }
+    // Split the local file into three parts. 
     chunks, err := oss.SplitFileByPartNum(locaFilename, 3)
     fd, err := os.Open(locaFilename)
     defer fd.Close()
-    // Step 1: Initiates a multipart upload event.
-    imur, err := bucket.InitiateMultipartUpload(objectName)
-    // Step 2: Uploads parts.
+
+    // Set the storage class to Standard. 
+    storageType := oss.ObjectStorageClass(oss.StorageStandard)
+
+    // Step 1: Initiate a multipart upload task. Set the storage class to Standard. 
+    imur, err := bucket.InitiateMultipartUpload(objectName, storageType)
+    // Step 2: Upload parts. 
     var parts []oss.UploadPart
     for _, chunk := range chunks {
         fd.Seek(chunk.Offset, os.SEEK_SET)
-        // Calls UploadPart to upload each part.
+        // Call the UploadPart method to upload each part. 
         part, err := bucket.UploadPart(imur, fd, chunk.Size, chunk.Number)
-        if err ! = nil {
+        if err != nil {
             fmt.Println("Error:", err)
             os.Exit(-1)
         }
         parts = append(parts, part)
     }
-    // Step 3: Completes the multipart upload task.
-    cmur, err := bucket.CompleteMultipartUpload(imur, parts)
-    if err ! = nil {
+
+    // Set the access control list (ACL) of the object to public read. By default, the object inherits the ACL of the bucket. 
+    objectAcl := oss.ObjectACL(oss.ACLPublicRead)
+
+    // Step 3: Complete the multipart upload task. Set the ACL to public read. 
+    cmur, err := bucket.CompleteMultipartUpload(imur, parts, objectAcl)
+    if err != nil {
         fmt.Println("Error:", err)
         os.Exit(-1)
     }
@@ -74,9 +96,11 @@ func main() {
 }
 ```
 
-## Cancel a multipart upload event {#section_hxj_tfx_kfb .section}
+## Cancel a multipart upload task
 
-Run the following code to cancel a multipart upload event:
+You can call the bucket.AbortMultipartUpload method to cancel a multipart upload task. If you cancel a multipart upload task, you cannot use the upload ID to manage parts. The uploaded parts are deleted.
+
+The following code provides an example on how to cancel a multipart upload task:
 
 ```
 package main
@@ -86,36 +110,41 @@ import (
     "github.com/aliyun/aliyun-oss-go-sdk/oss"
 )
 func main() {
-    // Creates an OSSClient instance.
-    client, err := oss.New("<yourEndpoint>", "<yourAccessKeyId>", "<yourAccessKeySecret>")
-    if err ! = nil {
+    // Create an OSSClient instance. 
+    // Set yourEndpoint to the endpoint of the region where the bucket is located. For example, if your bucket is located in the China (Hangzhou) region, set yourEndpoint to https://oss-cn-hangzhou.aliyuncs.com. 
+    // Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS because the account has permissions on all API operations. We recommend that you use a RAM user to call API operations or perform routine operations and maintenance. To create a RAM user, log on to the RAM console. 
+    client, err := oss.New("yourEndpoint", "yourAccessKeyId", "yourAccessKeySecret")
+
+    if err != nil {
         fmt.Println("Error:", err)
         os.Exit(-1)
     }
-    // Obtains a bucket.
-    bucket, err := client.Bucket("<yourBucketName>")
-    if err ! = nil {
+    // Obtain the bucket. 
+    // Specify the bucket name. 
+    bucket, err := client.Bucket("examplebucket")
+    if err != nil {
         fmt.Println("Error:", err)
         os.Exit(-1)
     }
-    // Initiates a multipart upload event.
-    imur, err := bucket.InitiateMultipartUpload("<yourObjectName>")
-    if err ! = nil {
+    // Initiate a multipart upload task. 
+    // Specify the full path of the object. The full path of the object cannot contain bucket names. 
+    imur, err := bucket.InitiateMultipartUpload("exampleobject.txt")
+    if err != nil {
         fmt.Println("Error:", err)
         os.Exit(-1)
     }
-    // Cancels the multipart upload event.
+    // Cancel the multipart upload task. 
     err = bucket.AbortMultipartUpload(imur)
-    if err ! = nil {
+    if err != nil {
         fmt.Println("Error:", err)
         os.Exit(-1)
     }
 }
 ```
 
-## List uploaded parts {#section_djc_yfx_kfb .section}
+## List uploaded parts
 
-Run the following code to list parts uploaded in a multipart upload event:
+The following code provides an example on how to list the parts uploaded in a specified multipart upload task:
 
 ```
 package main
@@ -125,76 +154,83 @@ import (
     "github.com/aliyun/aliyun-oss-go-sdk/oss"
 )
 func main() {
-    // Creates an OSSClient instance.
-    client, err := oss.New("<yourEndpoint>", "<yourAccessKeyId>", "<yourAccessKeySecret>")
-    if err ! = nil {
+    // Create an OSSClient instance. 
+    // Set yourEndpoint to the endpoint of the region where the bucket is located. For example, if your bucket is located in the China (Hangzhou) region, set yourEndpoint to https://oss-cn-hangzhou.aliyuncs.com. 
+    // Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS because the account has permissions on all API operations. We recommend that you use a RAM user to call API operations or perform routine operations and maintenance. To create a RAM user, log on to the RAM console. 
+    client, err := oss.New("yourEndpoint", "yourAccessKeyId", "yourAccessKeySecret")
+    if err != nil {
         fmt.Println("Error:", err)
         os.Exit(-1)
     }
-    bucketName := "<yourBucketName>"
-    objectName := "<yourObjectName>"
-    locaFilename := "<yourLocalFilename>"
-    uploadID := "<yourUploadID>"
-    // Obtains a bucket.
+     // Specify the bucket name. 
+    bucketName := "examplebucket"
+    // Specify the full path of the object. The full path of the object cannot contain bucket names. 
+    objectName := "exampleobject.txt"
+    // Specify the full path of the local file. If the path of the local file is not specified, the local file is uploaded from the path of the project to which the sample program belongs. 
+    locaFilename := "D:\\localpath\\examplefile.txt"
+    // Specify the upload ID. 
+    uploadID := "EBF2CAC46F1748B99376D795********"
+
+    // Obtain the bucket. 
     bucket, err := client.Bucket(bucketName)
-    if err ! = nil {
+    if err != nil {
         fmt.Println("Error:", err)
         os.Exit(-1)
     }
-    // Splits the local file into multiple parts (3 parts in this example).
+    // Split the local file into three parts. 
     chunks, err := oss.SplitFileByPartNum(locaFilename, 3)
     fd, err := os.Open(locaFilename)
     defer fd.Close()
-    // Initiates a multipart upload event.
+    // Initiate a multipart upload task. 
     imur, err := bucket.InitiateMultipartUpload(objectName)
     uploadID = imur.UploadID
     fmt.Println("InitiateMultipartUpload UploadID: ", uploadID)
-    if err ! = nil {
+    if err != nil {
         fmt.Println("Error:", err)
         os.Exit(-1)
     }
-    // Uploads parts.
+    // Upload parts. 
     var parts []oss.UploadPart
     for _, chunk := range chunks {
         fd.Seek(chunk.Offset, os.SEEK_SET)
-        // Calls UploadPart to upload each part.
+        // Call the UploadPart method to upload each part. 
         part, err := bucket.UploadPart(imur, fd, chunk.Size, chunk.Number)
-        if err ! = nil {
+        if err != nil {
             fmt.Println("Error:", err)
             os.Exit(-1)
         }
         fmt.Println("UploadPartNumber: ", part.PartNumber, ", ETag: ", part.ETag)
         parts = append(parts, part)
     }
-    // Lists uploaded parts based on InitiateMultipartUploadResult
+    // List uploaded parts based on InitiateMultipartUploadResult. 
     lsRes, err := bucket.ListUploadedParts(imur)
-    if err ! = nil {
+    if err != nil {
         fmt.Println("Error:", err)
         os.Exit(-1)
     }
-    // Prints the uploaded parts. 
+    // Display the uploaded parts.  
     fmt.Println("\nParts:", lsRes.UploadedParts)
     for _, upload := range lsRes.UploadedParts {
         fmt.Println("List PartNumber:  ", upload.PartNumber, ", ETag: " ,upload.ETag, ", LastModified: ", upload.LastModified)
     }
-    // Generates InitiateMultipartUploadResult based on objectName and UploadID, and then list all uploaded parts, which applies to scenarios where you know the objectName and UploadID.
+    // Specify objectName and uploadID to obtain the result by using the InitiateMultipartUploadResult operation. List all uploaded parts based on the result. 
     var imur_with_uploadid oss.InitiateMultipartUploadResult
     imur_with_uploadid.Key = objectName
     imur_with_uploadid.UploadID = uploadID
-    // Lists uploaded parts.
+    // List uploaded parts. 
     lsRes, err = bucket.ListUploadedParts(imur_with_uploadid)
-    if err ! = nil {
+    if err != nil {
         fmt.Println("Error:", err)
         os.Exit(-1)
     }
-    // Prints the uploaded parts.
+    // Display the uploaded parts. 
     fmt.Println("\nListUploadedParts by UploadID: ", uploadID)
     for _, upload := range lsRes.UploadedParts {
         fmt.Println("List PartNumber:  ", upload.PartNumber, ", ETag: " ,upload.ETag, ", LastModified: ", upload.LastModified)
     }
-    // Completes the multipart upload task.
+    // Complete the multipart upload task. 
     cmur, err := bucket.CompleteMultipartUpload(imur, parts)
-    if err ! = nil {
+    if err != nil {
         fmt.Println("Error:", err)
         os.Exit(-1)
     }
@@ -202,24 +238,22 @@ func main() {
 }
 ```
 
-## List all part upload events for a bucket {#section_dxh_bgx_kfb .section}
+## List multipart upload tasks
 
-Call `Bucket.ListMultipartUploads` to list all ongoing multipart upload events \(events that are initiated but not completed or events that are canceled\). You can configure the following parameters:
+You can call the `Bucket.ListMultipartUploads` method to list all ongoing multipart upload tasks that are initiated but not completed or that are canceled. The following table describes the parameters that you can configure to list these tasks.
 
 |Parameter|Description|
 |:--------|:----------|
-|Delimiter|Specifies a delimiter of a forward slash \(/\) used to group object names. All objects whose names contain the specified prefix and between which the delimiter occurs for the first time form a group of elements.|
-|MaxUploads|Specifies the maximum number of part upload events. The maximum value \(also the default value\) you can set is 1,000.|
-|KeyMarker|Lists all multipart upload events in which object names start with the letter that follows the KeyMarker value in alphabetical order. This parameter can be used together with UploadIDMarker to specify the start point of the returned result.|
-|Prefix|Specifies the prefix that must be included in the returned object name. If you use a prefix for query, the returned object name will contain the prefix.|
-|UploadIDMarker|UploadIDMarker is used together with the KeyMarker parameter to specify the start point of the returned result.-   This parameter is ignored if KeyMarker is not configured.
--   If KeyMarker is configured, the query result contains:
-    -   Multipart upload events in which all object names start with the letter that follows the KeyMarker value in alphabetical order.
-    -   Multipart upload events in which the object names equal to the value of KeyMarker but the upload IDs of the objects are larger than the value of UploadIDMarker.
+|Delimiter|The character used to group objects by name. Objects whose names contain the same string from the prefix and the next occurrence of the delimiter are grouped as a single result element in CommonPrefixes.|
+|MaxUploads|The maximum number of multipart upload tasks to list in this query. The default value is 1000. The maximum value is 1000.|
+|KeyMarker|The name of the object after which the list of multipart upload tasks begins. All multipart upload tasks with objects whose names are alphabetically after the KeyMarker parameter value are included in the list. You can use this parameter with the UploadIDMarker parameter to specify the start position to list the returned results.|
+|Prefix|The prefix that returned object names must contain. Note that if you use a prefix for a query, the returned object name contains the prefix.|
+|UploadIDMarker|The start position from which to list the returned results. This parameter is used together with the KeyMarker parameter. -   This parameter is ignored if the KeyMarker parameter is not set.
+-   If the KeyMarker parameter is set, the response includes the following tasks:
+    -   Multipart upload tasks whose object names are alphabetically after the KeyMarker parameter value.
+    -   All multipart upload tasks in which the object names are alphabetically after the KeyMarker value and the upload IDs are greater than the UploadIDMarker value. |
 
-|
-
--   Use default parameters
+-   List multipart upload tasks by using default parameter values
 
     ```
     package main
@@ -229,30 +263,33 @@ Call `Bucket.ListMultipartUploads` to list all ongoing multipart upload events \
         "github.com/aliyun/aliyun-oss-go-sdk/oss"
     )
     func main() {
-        // Creates an OSSClient instance.
-        client, err := oss.New("<yourEndpoint>", "<yourAccessKeyId>", "<yourAccessKeySecret>")
-        if err ! = nil {
+        // Create an OSSClient instance. 
+        // Set yourEndpoint to the endpoint of the region where the bucket is located. For example, if your bucket is located in the China (Hangzhou) region, set yourEndpoint to https://oss-cn-hangzhou.aliyuncs.com. 
+        // Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to Object Storage Service (OSS) because the account has permissions on all API operations. We recommend that you use a RAM user to call API operations or perform routine operations and maintenance. To create a RAM user, log on to the RAM console. 
+        client, err := oss.New("yourEndpoint", "yourAccessKeyId", "yourAccessKeySecret")
+        if err != nil {
             fmt.Println("Error:", err)
             os.Exit(-1)
         }
-        // Obtains a bucket.
-        bucketName := "<yourBucketName>"
+        // Obtain the bucket. 
+        // Specify the bucket name. 
+        bucketName := "examplebucket"
         bucket, err := client.Bucket(bucketName)
-        if err ! = nil {
+        if err != nil {
             fmt.Println("Error:", err)
             os.Exit(-1)
         }
-        // Lists all multipart upload events.
+        // List all multipart upload tasks. 
         keyMarker := ""
         uploadIdMarker := ""
         for {
-            // 1000 records are listed at a time by default. 
+            // By default, up to 1,000 records can be listed each query.  
             lsRes, err := bucket.ListMultipartUploads(oss.KeyMarker(keyMarker), oss.UploadIDMarker(uploadIdMarker))
-            if err ! = nil {
+            if err != nil {
                 fmt.Println("Error:", err)
                 os.Exit(-1)
             }
-            // Prints multipart upload events. 
+            // Display multipart upload tasks.  
             for _, upload := range lsRes.Uploads {
                 fmt.Println("Upload: ", upload.Key, ", UploadID: ",upload.UploadID)
             }
@@ -266,33 +303,33 @@ Call `Bucket.ListMultipartUploads` to list all ongoing multipart upload events \
     }
     ```
 
--   Run the following code to list multipart upload events with a specified prefix:
+-   Specify file as the prefix
 
     ```
-        lsRes, err := bucket.ListMultipartUploads(oss.Prefix("<yourObjectNamePrefix>"))
-        if err ! = nil {
+        lsRes, err := bucket.ListMultipartUploads(oss.Prefix("file"))
+        if err != nil {
             fmt.Println("Error:", err)
             os.Exit(-1)
         }
         fmt.Println("Uploads:", lsRes.Uploads)
     ```
 
--   Run the following code to list 100 multipart upload events in maximum at a time:
+-   List a maximum of 100 multipart upload tasks
 
     ```
         lsRes, err := bucket.ListMultipartUploads(oss.MaxUploads(100))
-        if err ! = nil {
+        if err != nil {
             fmt.Println("Error:", err)
             os.Exit(-1)
         }
         fmt.Println("Uploads:", lsRes.Uploads)
     ```
 
--   Run the following code to list multipart upload events with a specified prefix and a maximum number:
+-   Specify file as the prefix and list a maximum of 100 multipart upload tasks
 
     ```
-        lsRes, err := bucket.ListMultipartUploads(oss.Prefix("<yourObjectNamePrefix>"), oss.MaxUploads(100))
-        if err ! = nil {
+        lsRes, err := bucket.ListMultipartUploads(oss.Prefix("file"), oss.MaxUploads(100))
+        if err != nil {
             fmt.Println("Error:", err)
             os.Exit(-1)
         }
