@@ -5,7 +5,7 @@
 ## 注意事项
 
 -   在客户端通过JavaScript代码完成签名，无需过多配置，即可实现直传，非常方便。但是客户端通过JavaScript把AccesssKeyID和AccessKeySecret写在代码里面有泄露的风险，建议采用[服务端签名后直传](/cn.zh-CN/最佳实践/Web端上传数据至OSS/Web端PostObject直传实践/服务端签名后直传.md)。
--   本文档提供的应用服务器代码支持html5、flash、silverlight、html4等协议，请保证您的浏览器支持以上协议。若提示“你的浏览器不支持flash,Silverlight或者HTML5！”，请升级您的浏览器版本。
+-   本文档提供的应用服务器代码支持html5、flash、silverlight、html4等协议，请保证您的浏览器支持以上协议。如果提示“你的浏览器不支持flash,Silverlight或者HTML5！”，请升级您的浏览器版本。
 
 ## 步骤1：下载浏览器客户端代码
 
@@ -23,10 +23,11 @@
 打开upload.js文件，修改访问配置。
 
 ```
+// 阿里云账号AccessKey拥有所有API的访问权限，风险很高。强烈建议您创建并使用RAM用户进行API访问或日常运维，请登录RAM控制台创建RAM用户。
 accessid= '<yourAccessKeyId>';
 accesskey= <yourAccessKeySecret>';
 host= <yourHost>';
-// 阿里云主账号AccessKey拥有所有API的访问权限，风险很高。强烈建议您创建并使用RAM账号进行API访问或日常运维，请登录 [https://ram.console.aliyun.com](https://ram.console.aliyun.com/)
+
 .....
 new_multipart_params = {
         ....
@@ -54,7 +55,7 @@ host = 'http://post-test.oss-cn-hangzhou.aliyuncs.com';
 -   accessid：您的AccessKeyId。
 -   accesskey：您的AcessKeySecret。
 -   STS\_ROLE：表示指定角色的ARN，详情请参见[AssumeRole](/cn.zh-CN/API参考/API 参考（STS）/操作接口/AssumeRole.md)中请求参数RoleArn的说明。
--   STSToken：您的STS token。使用STS方式验证时，您需要通过STS API获取STS AccessKeyId、STS AcessKeySecret、SecurityToken，详情请参见[STS临时授权访问OSS](/cn.zh-CN/开发指南/数据安全/访问控制/STS临时授权访问OSS.md)。若您的AccessKeyId和AcessKeySecret为主账号或永久子账号AK，此项可不填。
+-   STSToken：您的STS token。使用STS方式验证时，您需要通过STS API获取STS AccessKey ID、STS AcessKey Secret、SecurityToken，详情请参见[使用STS临时访问凭证访问OSS](/cn.zh-CN/开发指南/数据安全/访问控制/使用STS临时访问凭证访问OSS.md)。如果您的AccessKey ID和AccessKey Secret为阿里云账号或拥有永久权限的RAM用户AK，此项可不填。
 -   host：您的OSS访问域名，格式为`BucketName.Endpoint`，例如`post-test.oss-cn-hangzhou.aliyuncs.com`。 关于OSS访问域名的介绍请参见[OSS访问域名使用规则](/cn.zh-CN/开发指南/访问域名（Endpoint）/OSS访问域名使用规则.md)。
 
 ## 步骤3：设置CORS
@@ -71,7 +72,7 @@ host = 'http://post-test.oss-cn-hangzhou.aliyuncs.com';
 
     ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/9354449951/p12308.png)
 
-    **说明：** 为了您的数据安全，实际使用时，**来源**栏建议您填写自己需要的域名。更多配置信息请参见[设置跨域访问](/cn.zh-CN/控制台用户指南/存储空间管理/权限管理/设置跨域访问.md)。
+    **说明：** 为了您的数据安全，实际使用时，**来源**建议填写实际允许访问的域名。更多配置信息请参见[设置跨域访问](/cn.zh-CN/控制台用户指南/存储空间管理/权限管理/设置跨域访问.md)。
 
 
 ## 步骤4：体验JavaScript客户端签名直传
@@ -117,7 +118,7 @@ function set_upload_param(up, filename, ret)
 　....
 ```
 
-上述代码中，`’key’: g_object_name`表示上传后的文件路径。若您希望上传后保持原来的文件名，请将该字段改为`’key’: '${filename}'`。
+上述代码中，`’key’: g_object_name`表示上传后的文件路径。如果您希望上传后保持原来的文件名，请将该字段改为`’key’: '${filename}'`。
 
 如果您希望上传到特定目录，例如abc下，且文件名不变，请修改代码如下：
 
@@ -168,9 +169,9 @@ new_multipart_params = {
 
     ```
     var policyText = {
-        "expiration": "2020-01-01T12:00:00.000Z", // 设置Policy的失效时间，如果超过失效时间，就无法通过此Policy上传文件
+        "expiration": "UTC时间", // 为Policy指定合理的有效时长，Policy失效后，则无法通过此Policy上传文件。
         "conditions": [
-        ["content-length-range", 0, 1048576000] // 设置上传文件的大小限制，如果超过限制，文件上传到OSS会报错
+        ["content-length-range", 0, 1048576000] // 设置上传文件的大小限制。如果超过此限制，文件上传到OSS会报错。
         ]
     }
     ```
@@ -180,11 +181,11 @@ new_multipart_params = {
 
 -   如何限制上传文件的格式？
 
-    您可以利用Plupload的属性filters设置上传的过滤条件，如设置只能上传图片类型的文件、上传文件的大小、不能有重复上传等。详细代码请参见[服务端签名直传并设置上传回调—客户端源码解析](/cn.zh-CN/最佳实践/Web端上传数据至OSS/Web端PostObject直传实践/服务端签名直传并设置上传回调.md)中的“设置上传过滤条件”。
+    您可以利用Plupload的filters属性设置上传的过滤条件，例如设置上传的图片类型、上传的文件的大小等。详细代码请参见[设置上传过滤条件](/cn.zh-CN/最佳实践/Web端上传数据至OSS/Web端PostObject直传实践/服务端签名直传并设置上传回调.md)。
 
 -   上传后如何获取文件URL？
 
-    您可以根据Bucket访问域名及文件访问路径获取文件的URL，详情请参见[上传Object后如何获取访问URL？](/cn.zh-CN/开发指南/对象/文件（Object）/常见问题/上传Object后如何获取访问URL？.md)。
+    您可以根据Bucket访问域名及文件访问路径获取文件的URL，详情请参见[上传Object后如何获取访问URL？](/cn.zh-CN/开发指南/对象/文件（Object）/常见问题/上传Object后如何获取访问URL？.md)
 
 -   如何获取已上传文件的MD5值？
 
