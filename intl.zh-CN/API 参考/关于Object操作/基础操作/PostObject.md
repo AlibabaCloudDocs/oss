@@ -4,6 +4,7 @@
 
 ## 注意事项
 
+-   通过PostObject上传的Object大小不能超过5 GB。
 -   Post请求需要对Bucket拥有写权限。如果Bucket为public-read-write，可以不上传签名信息，否则要求对该操作进行签名验证。
 -   与Put操作不同，Post操作使用AccessKey Secret对Policy进行签名，计算出签名字符串作为Signature表单域的值，OSS通过验证该值从而判断签名的合法性。
 -   提交表单的URL为Bucket域名，不需要在URL中指定Object。即请求行是`POST / HTTP/1.1`，不能写为`POST /ObjectName HTTP/1.1`。
@@ -80,6 +81,8 @@ boundary为边界字符串，是由表单随机生成的一个随机值，无需
 此接口还需要包含Host、Date等公共请求头。更多信息，请参见[公共请求头（Common Request Headers）](/intl.zh-CN/API 参考/公共HTTP头定义.md)。
 
 ## 请求元素
+
+**说明：** 所有表单域的key大小不能超过8 KB，表单域的value不能超过2 MB。
 
 |名称|类型|是否必选|描述|
 |:-|:-|----|:-|
@@ -228,6 +231,7 @@ boundary为边界字符串，是由表单随机生成的一个随机值，无需
 
 |错误码|HTTP状态码|描述|
 |---|-------|--|
+|FieldItemTooLong|400|表单域的key或value的大小超出限制。|
 |InvalidArgument|400|无论Bucket是否为public-read-write，一旦上传OSSAccessKeyId、Policy、Signature表单域中的任意一个，则另两个表单域为必选项。如果缺失，将返回此错误。|
 |InvalidDigest|400|用户上传了Content-MD5请求Header，OSS会计算body的Content-MD5并检查一致性，如果不一致，将返回此错误。|
 |EntityTooLarge|400|请求的body总长度不允许超过5 GB。如果文件长度过大，将返回此错误。|
