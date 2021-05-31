@@ -58,3 +58,5 @@ For example, you can run the following command to create a symbolic link named t
 ./ossutil64 create-symlink  oss://testbucket/testobject.png  oss://testbucket/exampleobject.png -e oss-cn-shanghai.aliyuncs.com -i LTAI4Fw2NbDUCV8zYUzA****  -k 67DLVBkH7EamOjy2W5RVAHUY9H****
 ```
 
+For more information about other common options, see [Common options](/intl.en-US/Tools/ossutil/View options.md).
+
