@@ -1,33 +1,33 @@
 # Manage back-to-origin configurations
 
-If you access data in a bucket that has no back-to-origin rules configured and the data does not exist, 404 Not Found is returned. However, if you configure back-to-origin rules that contain the correct origin URL, you can obtain the data based on the back-to-origin rules.
+If you access data in a bucket that has no back-to-origin rules configured and the data does not exist, 404 Not Found is returned. However, if you configure back-to-origin rules that contain a valid origin for the bucket, you can obtain the data based on the rules.
 
-Back-to-origin supports the mirroring and redirection modes. You can configure back-to-origin rules for hot migration and specific request redirection. For more information about API operations used to configure back-to-origin rules, see [PutBucketWebsite](/intl.en-US/API Reference/Bucket operations/Static websites/PutBucketWebsite.md).
+You can configure mirroring-based or redirection-based back-to-origin rules for hot migration and specific request redirection. For more information about API operations used to configure back-to-origin rules, see [PutBucketWebsite](/intl.en-US/API Reference/Bucket operations/Static websites/PutBucketWebsite.md).
 
 ## Usage notes
 
--   You can configure up to 20 back-to-origin rules. Rules are implemented in a sequence that they are configured.
--   You cannot set origin URLs to internal endpoints.
+-   You can configure up to 20 back-to-origin rules for a bucket. The rules are used to match a request in a sequence of their [RuleNumber](/intl.en-US/API Reference/Bucket operations/Static websites/PutBucketWebsite.mdtable_fjp_2as_60m) values. If a request matches a rule, subsequent rules are not used to match the request. Object Storage Service \(OSS\) determines whether a request matches a back-to-origin rule based on whether the request meets the conditions specified in the rule. OSS does not check if a request can obtain the requested object from the origin.
+-   The origin URL in a back-to-origin rule cannot be set to an address of the internal network.
 -   Back-to-origin rules and versioning cannot be configured for a bucket at the same time.
 -   In regions within China, the default queries per second \(QPS\) of mirroring-based back-to-origin is 2,000, and the default bandwidth is 2 Gbit/s. In regions outside China, the default QPS for mirroring-based back-to-origin is 1,000, and the default bandwidth is 1 Gbit/s.
--   You can add Image Processing \(IMG\) parameters to origin URLs in mirroring-based back-to-origin, but cannot add video snapshot parameters.
+-   You can add Image Processing \(IMG\) parameters to origin URLs in mirroring-based back-to-origin rules. However, snapshot parameters cannot be added to origin URLs in mirroring-based back-to-origin rules.
 
-## Implementation modes
+## Implementation methods
 
-|Implementation mode|Description|
-|-------------------|-----------|
-|[Console](/intl.en-US/Console User Guide/Manage buckets/Basic settings/Configure back-to-origin rules.md)|A user-friendly and intuitive web application|
+|Implementation method|Description|
+|---------------------|-----------|
+|[Console](/intl.en-US/Console User Guide/Manage buckets/Basic settings/Back-to-origin rules/Overview.md)|A user-friendly and intuitive web application|
 |[ossutil](/intl.en-US/Tools/ossutil/Common commands/website.md)|A high-performance command-line tool|
 
 ## Mirroring-based back-to-origin
 
-When you call the GetObject operation to query an object that does not exist in the bucket, OSS retrieves the object based on the origin URL. After OSS retrieves the object, OSS stores the object in the bucket and returns the objects to you. The following figure shows the detailed process.
+When you call the GetObject operation to query an object that does not exist in a bucket, OSS sends a request to the origin URL specified in the back-to-origin rule to retrieve the object. After OSS retrieves the object, OSS stores the object in the bucket and returns the objects to you. The following figure shows the detailed process of mirroring-based back-to-origin.
 
 ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/6182364951/p1580.png)
 
 -   Scenarios
 
-    Mirroring-based back-to-origin is used to migrate data to OSS. This feature allows you to migrate any service that already runs on a user-created origin or in another cloud service to OSS without interrupting services. In this case, you can use mirroring-based back-to-origin to migrate data without stopping the service. For more information about the example, see [Seamlessly migrate data from a cloud service to OSS]().
+    Mirroring-based back-to-origin rules are used to seamlessly migrate data to OSS. This feature allows you to migrate any service that already runs on a user-created origin or in another cloud service to OSS without interrupting services. You can use mirroring-based back-to-origin to obtain the data that is not migrated to OSS during migration. This ensures service continuity. For detailed examples, see [Seamlessly migrate data from a cloud service to OSS]().
 
 -   Detail analysis
     -   Trigger conditions
@@ -36,15 +36,15 @@ When you call the GetObject operation to query an object that does not exist in 
 
     -   Naming conventions
 
-        The URL used by OSS to obtain an object is `http(s)://MirrorURL+ObjectName`, which indicates the name of the requested object. For example, the origin URL configured for a bucket is `https://aliyun.com`, and the example.jpg requested object is not in the bucket. OSS obtains the object from `https://aliyun.com/example.jpg` and stores the object as example.jpg.
+        The URL used by OSS to obtain an object is in the following format: `http(s)://MirrorURL+ObjectName`. ObjectName indicates the name of the requested object. For example, the origin URL configured for a bucket is `https://aliyun.com`, and the requested object named example.jpg does not exist in the bucket. OSS obtains the object by using `https://aliyun.com/example.jpg` and then stores the obtained object as example.jpg.
 
     -   Rules for failed back-to-origin requests
 
-        If a requested object is not found in the origin, HTTP status code 404 is returned to OSS, and OSS returns the same status code to the user. If the origin returns a non-200 HTTP status code to indicate an error, such as object retrieval failures due to network-related errors, OSS returns HTTP status code `424 MirrorFailed` to users.
+        If the object that you request is not found in the origin, the origin returns HTTP status code 404 to OSS. OSS then returns the same HTTP status code to you. If the origin returns a non-200 HTTP status code to OSS to indicate an error such as object retrieval failures due to network errors, OSS returns HTTP status code `424 MirrorFailed` to you.
 
     -   x-oss-tag response header
 
-        When OSS returns objects obtained by using mirroring-based back-to-origin, OSS adds the `x-oss-tag` response header and sets its value to `MIRROR + Space + url_decode (origin URL)`. Example:
+        When OSS returns an object obtained from the origin, OSS adds the `x-oss-tag` header to the response and sets its value to `MIRROR + Space + url_decode (origin URL)`. Example:
 
         ```
         x-oss-tag:MIRROR http%3a%2f%2fwww.example-domain.com%2fdir1%2fimage%2fexample_object.jpg
@@ -62,11 +62,16 @@ When you call the GetObject operation to query an object that does not exist in 
 
         ```
         Content-Type
-                                        
+        Content-Encoding
+        Content-Disposition
+        Cache-Control
+        Expires
+        Content-Language
+        Access-Control-Allow-Origin
         ```
 
     -   HTTP request rules
-        -   OSS does not send the header information transmitted by a user to the origin. Whether OSS sends the QueryString information to the origin depends on the back-to-origin rules configured in the OSS console.
+        -   Headers contained in the request sent to OSS are not contained in the request sent by OSS to the origin. Whether OSS sends the QueryString information to the origin depends on the back-to-origin rules configured in the OSS console.
         -   If the origin returns chunked-encoded data, OSS also returns chunked-encoded data to the user.
 
 ## Redirection-based back-to-origin
@@ -75,9 +80,9 @@ Redirection-based back-to-origin enables OSS to return a redirect response and s
 
 ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/6182364951/p1591.png)
 
-Scenario:
+Scenarios:
 
--   Seamless data migration from third-party data sources to OSS
+-   Seamless data migration from other data sources to OSS
 
     When you use redirection-based back-to-origin to asynchronously migrate data from your data source to OSS, OSS returns a 302 redirect request by using URL rewrite for the data that is not migrated to OSS. Your client then reads the data from your data source based on the Location value in the 302 redirect request.
 
@@ -85,7 +90,7 @@ Scenario:
 
     For example, you can use redirection-based back-to-origin to hide objects whose names contain a specified prefix and return a specific page to visitors.
 
--   Page redirection for a 404 or 500 error
+-   Page redirection for a 404 or 500 errors
 
     You can use redirection-based back-to-origin to redirect users to a preset error page when a 404 or 500 error occurs. This method can prevent OSS from exposing system errors to users.
 
