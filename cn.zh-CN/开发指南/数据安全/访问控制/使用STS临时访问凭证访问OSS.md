@@ -37,10 +37,11 @@
 ## 步骤三：创建用于获取临时访问凭证的角色
 
 1.  在左侧导航栏，单击**RAM角色管理**。
-2.  单击**新建RAM角色**，选择可信实体类型为**阿里云账号**，单击**下一步**。
-3.  在新建RAM角色页面，**RAM角色名称**填写为RamOssTest，**选择云账号**为**当前云账号**。
-4.  单击**完成**。
-5.  单击**复制**，保存角色的ARN。
+2.  单击**创建RAM角色**，选择可信实体类型为**阿里云账号**，单击**下一步**。
+3.  在创建RAM角色页面，**RAM角色名称**填写为RamOssTest，**选择云账号**为**当前云账号**。
+4.  单击**完成**。角色创建完成后，单击**关闭**。
+5.  在RAM角色管理页面，搜索框输入角色名称RamOssTest。
+6.  单击**复制**，保存角色的ARN。
 
     ![arn](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/5003790261/p273738.jpg)
 
@@ -50,6 +51,8 @@
 1.  在左侧导航栏的**权限管理**菜单下，单击**权限策略管理**。
 2.  单击**创建权限策略**。
 3.  在新建自定义权限策略页面，填写**策略名称**，配置模式选择**脚本配置**，并在**策略内容**中赋予角色向目标存储空间examplebucket下的目录exampledir上传文件的权限。
+
+    **警告：** 以下示例仅供参考。您需要根据实际需求配置更细粒度的授权策略，防止出现权限过大的风险。关于更细粒度的授权策略配置详情，请参见[通过RAM或STS服务向其他用户授权](/cn.zh-CN/开发指南/数据安全/访问控制/RAM Policy/RAM Policy常见示例.md)。
 
     ```
     {
@@ -68,8 +71,6 @@
         ]
     }
     ```
-
-    **警告：** 以上仅为参考示例，您需要根据实际需求配置更细粒度的授权策略，防止出现权限过大的风险。关于更细粒度的授权策略配置详情，请参见[通过RAM或STS服务向其他用户授权](/cn.zh-CN/开发指南/数据安全/访问控制/RAM Policy/RAM Policy常见示例.md)。
 
 4.  单击**确定**。
 
@@ -93,12 +94,12 @@ public class StsServiceSample {
         // STS接入地址，例如sts.cn-hangzhou.aliyuncs.com。       
         String endpoint = "<sts-endpoint>";
         // 填写步骤1生成的访问密钥AccessKey ID和AccessKey Secret。
-        String AccessKeyId = "<access-key-id>";
-        String accessKeySecret = "<access-key-secret>";
+        String AccessKeyId = "<yourAccessKeyId>"";
+        String accessKeySecret = "<yourAccessKeySecret>";
         // 填写步骤3获取的角色ARN。
-        String roleArn = "<role-arn>";
-        // 标识临时访问凭证的名称.
-        String roleSessionName = "<session-name>";
+        String roleArn = "<yourRoleArn>";
+        // 自定义角色会话名称，用来区分不同的令牌，例如可填写为SessionTest。        
+        String roleSessionName = "<yourRoleSessionName>";
         // 以下Policy用于限制仅允许使用临时访问凭证向目标存储空间examplebucket上传文件。
         // 临时访问凭证最后获得的权限是步骤4设置的角色权限和该Policy设置权限的交集，即仅允许将文件上传至目标存储空间examplebucket下的exampledir目录。
         String policy = "{\n" +
@@ -144,7 +145,10 @@ public class StsServiceSample {
 }
 ```
 
-**说明：** 临时访问凭证有效时间单位为秒，最小值为900，最大值以当前角色设定的最大会话时间为准。详情请参见[设置角色最大会话时间](/cn.zh-CN/角色管理/设置角色最大会话时间.md)。
+**说明：**
+
+-   临时访问凭证有效时间单位为秒，最小值为900，最大值以当前角色设定的最大会话时间为准。详情请参见[设置角色最大会话时间](/cn.zh-CN/角色管理/设置角色最大会话时间.md)。
+-   有关角色会话名称`roleSessionName`的命名规范，请参见[AssumeRole](/cn.zh-CN/API参考/API 参考（STS）/操作接口/AssumeRole.md)。
 
 ## 步骤六：使用临时访问凭证上传文件至OSS
 
