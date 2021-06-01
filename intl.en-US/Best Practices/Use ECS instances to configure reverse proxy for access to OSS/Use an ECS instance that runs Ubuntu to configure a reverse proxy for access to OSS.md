@@ -68,7 +68,7 @@ To resolve these issues, you can use an ECS instance to configure a reverse prox
         -   The custom domain name that is mapped to the bucket is resolved to the public IP address of the ECS instance. You must preview image or web page objects in the bucket by using a browser. You can map the custom domain name to the bucket for which a reverse proxy is configured without adding a CNAME record for the custom domain name. In this case, you can set proxy\_pass to the internal or public endpoint of the bucket. For more information about how to map a custom domain name to a bucket, see [Map custom domain names](/intl.en-US/Console User Guide/Manage buckets/Manage a domain/Map custom domain names.md).
     **Note:**
 
-    -   A demo environment is used in this topic as an example. For data security reasons, we recommend that you configure the https context. For more information, see[Configure HTTPS for your custom domain name in OSS by using reverse proxy](https://www.alibabacloud.com/help/zh/faq-detail/39544.htm).
+    -   A demo environment is used in this topic as an example. For data security reasons, we recommend that you configure the https context. For more information, see [Configure HTTPS for your custom domain name in OSS by using reverse proxy](https://www.alibabacloud.com/help/zh/faq-detail/39544.htm).
     -   You can configure a reverse proxy for only one bucket if you use this configuration method.
 6.  Go to the directory in which the NGINX executable file is located. Start NGINX.
 
@@ -88,6 +88,5 @@ To resolve these issues, you can use an ECS instance to configure a reverse prox
 
 ## References
 
-[Use ECS instances that run CentOS to configure reverse proxy for access to Alibaba Cloud OSS](/intl.en-US/Best Practices/Use ECS instances to configure reverse proxy for access to OSS/Use ECS instances that run CentOS to configure reverse proxy for access to Alibaba
-         Cloud OSS.md)
+[Use an ECS instance that runs CentOS to configure a reverse proxy for access to OSS](/intl.en-US/Best Practices/Use ECS instances to configure reverse proxy for access to OSS/Use an ECS instance that runs CentOS to configure a reverse proxy for access to OSS.md)
 
