@@ -71,9 +71,7 @@ Authorization: SignatureValue
 
 父节点：None |
 |Key|字符串|初始化一个Multipart Upload事件的Object名称。 父节点：InitiateMultipartUploadResult |
-|UploadId|字符串|唯一标识此次Multipart Upload事件的ID。 父节点：InitiateMultipartUploadResult
-
-**说明：** 请记录UploadID，以用于后续的Multipart相关操作。 |
+|UploadId|字符串|唯一标识此次Multipart Upload事件的ID，用于后续调用UploadPart和CompleteMultipartUpload接口。父节点：InitiateMultipartUploadResult |
 |EncodingType|字符串|指明返回结果中编码使用的类型。如果请求的参数中指定了encoding-type，那返回的结果会对Key进行编码。 父节点：容器 |
 
 ## 示例
