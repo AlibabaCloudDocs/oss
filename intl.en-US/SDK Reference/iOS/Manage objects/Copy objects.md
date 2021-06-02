@@ -1,8 +1,11 @@
 # Copy objects
 
-You can copy an object from a source bucket to a destination bucket within the same region.
+This topic describes how to copy an object from a source bucket to a destination bucket within the same region. The source bucket and the destination bucket can be the same or different buckets.
 
-Use the following code to copy an object:
+When you copy objects, take note of the following items:
+
+-   You must have read permissions on the source object and the read and write permissions on the destination bucket.
+-   The source bucket and destination bucket must be in the same region. For example, objects in a bucket located in the China \(Hangzhou\) region cannot be copied to another bucket located in the China \(Qingdao\) region.
 
 ```
 OSSCopyObjectRequest * copy = [OSSCopyObjectRequest new];
@@ -19,7 +22,7 @@ OSSTask * task = [client copyObject:copy];
     }
     return nil;s
 }];
-		
+        
 ```
 
 **Note:**
