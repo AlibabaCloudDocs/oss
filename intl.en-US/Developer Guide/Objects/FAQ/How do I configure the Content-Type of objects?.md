@@ -1,8 +1,8 @@
 # How do I configure the Content-Type of objects?
 
-The Content-Type \(MIME type\) header identifies the type of received or sent data. A browser determines how to open the data based on the value of the header. In general, this header is used to specify how to open files customized by clients or media files. This topic describes how to configure the Content-Type of objects.
+The Content-Type \(MIME type\) header identifies the type of received or sent data. A browser determines how to open the data based on the value of the header. In general, this header is used to specify how to open files customized by clients or media files.
 
-By default, OSS determines the Content-Type of an uploaded object based on the object extension. For example, objects with the .jpg extension are recognized as image objects. You can also modify the type of an object by modifying its object metadata. For more information about how to modify object metadata, see [Manage object metadata](/intl.en-US/Developer Guide/Objects/Manage files/Manage object metadata.md).
+By default, OSS determines the Content-Type of an uploaded object based on the object extension. For example, objects with the .jpg extension are recognized as image objects. You can also specify the type of an object by modifying its object metadata. For more information about how to modify object metadata, see [Manage object metadata](/intl.en-US/Developer Guide/Objects/Manage files/Manage object metadata.md).
 
 The following table describes the common values of Content-Type.
 
@@ -82,7 +82,7 @@ The following table describes the common values of Content-Type.
 |.mocha|application/x-javascript|.movie|video/x-sgi-movie|
 |.mp1|audio/mp1|.mp2|audio/mp2|
 |.mp2v|video/mpeg|.mp3|audio/mp3|
-|.mp4|video/mpeg4|.mpa|video/x-mpg|
+|.mp4|video/mp4|.mpa|video/x-mpg|
 |.mpd|application/vnd.ms-project|.mpe|video/x-mpeg|
 |.mpeg|video/mpg|.mpg|video/mpg|
 |.mpga|audio/rn-mpeg|.mpp|application/vnd.ms-project|
@@ -180,4 +180,5 @@ The following table describes the common values of Content-Type.
 |.sis|application/vnd.symbian.install|.sisx|application/vnd.symbian.install|
 |.x\_t|application/x-x\_t|.ipa|application/vnd.iphone|
 |.apk|application/vnd.android.package-archive|.xap|application/x-silverlight-app|
+|.webp|image/webp|N/A|N/A|
 
