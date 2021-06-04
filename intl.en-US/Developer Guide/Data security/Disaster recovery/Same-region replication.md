@@ -8,7 +8,7 @@ If your data cannot be transferred out of your country or region based on the co
 
 ## Configuration method
 
-You can enable SRR for a bucket in the OSS console. For more information, see [Configure SRR]().
+You can enable SRR for a bucket in the OSS console. For more information, see [Configure SRR](/intl.en-US/Console User Guide/Manage buckets/Redundancy for fault tolerance/Configure SRR.md).
 
 ## Capabilities
 
