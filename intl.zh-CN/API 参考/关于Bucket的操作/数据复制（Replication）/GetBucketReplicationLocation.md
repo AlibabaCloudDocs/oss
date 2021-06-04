@@ -9,8 +9,7 @@ GetBucketReplicationLocation接口用于获取可复制到的目标存储空间�
     GET /?replicationLocation HTTP/1.1
     Host: BucketName.oss-cn-hangzhou.aliyuncs.com 
     Date: GMT Date
-    Authorization: Si 
-    gnatureValue
+    Authorization: SignatureValue
 
 
 
