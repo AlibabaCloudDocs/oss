@@ -2,6 +2,10 @@
 
 You can use the `signatureUrl` method in a browser to generate an object URL for previews or downloads. You can also use the download attribute in the <a\> tag of an HTML page or window.open of a web API to obtain an object URL.
 
+**Note:**
+
+For more information about how to set up a security token service \(STS\), see [Access OSS with a temporary access credential provided by STS](/intl.en-US/Developer Guide/Data security/Access and control/Access OSS with a temporary access credential provided by STS.md) in OSS Developer Guide. You can call the [AssumeRole](/intl.en-US/API Reference/API Reference (STS)/Operation interfaces/AssumeRole.md) operation or use [STS SDKs for various programming languages](/intl.en-US/SDK Reference/STS SDK Reference/STS SDK overview.md) to obtain a temporary access credential. A temporary access credential contains a security token and a temporary AccessKey pair that consists of an AccessKey ID and an AccessKey secret.
+
 ## Obtain the URL to preview an object
 
 The following code provides an example on how to obtain the URL of an object named exampleobject.txt in a bucket named examplebucket.
@@ -14,9 +18,11 @@ const OSS = require('ali-oss');
 const client = new OSS({ 
   // Set yourRegion to the endpoint of the region where the bucket is located. For example, if your bucket is located in the China (Hangzhou) region, set yourRegion to oss-cn-hangzhou. 
   region: 'yourRegion',
-  // Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to Object Storage Service (OSS) because the account has permissions on all API operations. We recommend that you use a Resource Access Management (RAM) user to call API operations or perform routine operations and maintenance. To create a RAM user, log on to the RAM console. 
+  // Obtain a temporary AccessKey pair from STS. 
   accessKeyId: 'yourAccessKeyId',
   accessKeySecret: 'yourAccessKeySecret',
+  // Obtain a security token from STS. 
+  stsToken: 'yoursecurityToken',
   // Specify the bucket name. 
   bucket: 'examplebucket',
 });
@@ -41,9 +47,11 @@ const OSS = require('ali-oss');
 const client = new OSS({
   // Set yourRegion to the endpoint of the region where the bucket is located. For example, if your bucket is located in the China (Hangzhou) region, set yourRegion to oss-cn-hangzhou. 
   region: 'yourRegion',
-  // Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS because the account has permissions on all API operations. We recommend that you use a RAM user to call API operations or perform routine operations and maintenance. To create a RAM user, log on to the RAM console. 
+  // Obtain a temporary AccessKey pair from STS. 
   accessKeyId: 'yourAccessKeyId',
   accessKeySecret: 'yourAccessKeySecret',
+  // Obtain a security token from STS. 
+  stsToken: 'yoursecurityToken',
   // Specify the bucket name. 
   bucket: 'examplebucket',
 });
