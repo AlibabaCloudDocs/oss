@@ -12,7 +12,7 @@ OSS结合CDN加速服务使用时，会产生CDN流出流量费用、CDN回源�
 
 1.  绑定自定义域名。
 
-    1.  登录[OSS管理控制台](https://oss.console.aliyun.com/)
+    1.  登录[OSS管理控制台](https://oss.console.aliyun.com/)。
 
     2.  单击**Bucket列表**，之后单击目标Bucket名称。
 
