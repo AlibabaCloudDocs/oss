@@ -48,7 +48,7 @@ http://oss-example.oss-cn-hangzhou.aliyuncs.com/oss-api.pdf?OSSAccessKeyId=nz2pc
 
 A signed URL must include the following three parameters: Signature, Expires, and OSSAccessKeyId. When you generate the signature string, replace Date with Expires, but include the headers such as content-type and content-md5 defined in [Add signatures to headers](/intl.en-US/API Reference/Access control/Add signatures to headers.md). \(Although Date still exists in the request header, you do not need to add it to the signature string.\)
 
--   Expires specifies the expire date of the URL. The value of this parameter is in [UNIX time](https://baike.baidu.com/item/unix时间戳/2078227?fr=aladdin) format. The value is the number of seconds that elapsed since January 1, 1970 UTC. If the time OSS receives the URL request is later than the value of Expires that is included in the signature, a request timeout error is returned. For example, the current time is 1141889060. To create a URL that expires in 60 seconds, you can set the value of Expires to 1141889120.
+-   Expires specifies the expire date of the URL. The value of this parameter is in UNIX timestamp format. The value is the number of seconds that elapsed since January 1, 1970 UTC. If the time OSS receives the URL request is later than the value of Expires that is included in the signature, a request timeout error is returned. For example, the current time is 1141889060. To create a URL that expires in 60 seconds, you can set the value of Expires to 1141889120.
 
     **Note:** For security reasons, the default validity period of a URL is 3,600 seconds. The maximum validity period of a URL is 32,400 seconds.
 
