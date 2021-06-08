@@ -38,7 +38,7 @@ OSS结合CDN加速服务使用时，会产生CDN流出流量费用、CDN回源�
 
 3.  添加CNAME记录。
 
-    若您的域名为非阿里云托管的域名，需在对应的域名解析商处配置云解析。如腾讯云解析（原DNSPod）或新网添加CNAME的步骤，请参见 [DNSPod配置CNAME流程](https://help.aliyun.com/document_detail/27145.html)或[新网配置CNAME流程](https://help.aliyun.com/document_detail/27144.html#title-6nk-0q4-2w1)。此处以阿里云托管的域名为例，添加CNAME记录步骤如下：
+    若您的域名为非阿里云托管的域名，需在对应的域名解析商处配置云解析。如腾讯云解析（原DNSPod）或新网添加CNAME的步骤，请参见[DNSPod配置CNAME流程](https://help.aliyun.com/document_detail/27145.html)或[新网配置CNAME流程](https://help.aliyun.com/document_detail/27144.html#title-6nk-0q4-2w1)。此处以阿里云托管的域名为例，添加CNAME记录步骤如下：
 
     1.  登录[云解析DNS控制台](https://dns.console.aliyun.com/#/dns/domainList)。
 
