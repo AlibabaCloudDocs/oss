@@ -22,7 +22,7 @@ When you perform operations on append objects in a bucket for which versioning i
 ## Request structure
 
 ```
-POST /ObjectName? append&position=Position HTTP/1.1
+POST /ObjectName?append&position=Position HTTP/1.1
 Content-Length: ContentLength
 Content-Type: ContentType
 Host: BucketName.oss.aliyuncs.com
@@ -37,7 +37,7 @@ Authorization: SignatureValue
 |Header|Type|Required|Example|Description|
 |:-----|:---|:-------|-------|:----------|
 |append|String|Yes|N/A|Specifies that the request is an AppendObject request. Each time an AppendObject operation is performed on an object, the last modified time of this object is updated.|
-|position|String|Yes|0|The position from which the AppendObject operation starts. Each time an AppendObject operation succeeds, the x-oss-next-append-position header is included in the response to specify the position from which the next AppendObject operation starts.The value of position in the first AppendObject operation performed on an object must be 0. The value of position in subsequent AppendObject operations performed on the object is the current length of the object. For example, if the value of position specified in the first AppendObject request is 0 and the value of content-length is 65536, the value of position in the second AppendObject request must be set to 65536.
+|position|String|Yes|0|The position from which the AppendObject operation starts. Each time an AppendObject operation succeeds, the x-oss-next-append-position header is included in the response to specify the position from which the next AppendObject operation starts. The value of position in the first AppendObject operation performed on an object must be 0. The value of position in subsequent AppendObject operations performed on the object is the current length of the object. For example, if the value of position specified in the first AppendObject request is 0 and the value of content-length is 65536, the value of position in the second AppendObject request must be set to 65536.
 
 -   If the value of position in the AppendObject request is 0 and an object that has the same name as that of the object to append does not exist, you can set headers such as x-oss-server-side-encryption in the AppendObject request in the same way as you set in a PutObject request. If you add a valid x-oss-server-side-encryption header to an AppendObject request in which the value of position is 0, the x-oss-server-side-encryption header is included in the response to the request. To modify the metadata specified by the headers, you can initiate a CopyObject request.
 -   If you initiate an AppendObject request in which the value of position is valid to append an object 0 KB in size to an existing append object, the status of the append object is not changed. |
@@ -55,14 +55,16 @@ Limits: none |
 |x-oss-server-side-encryption|String|No|AES256|The method used to encrypt objects on the OSS server. Valid values:
 
 -   AES256: Keys managed by OSS are used for encryption and decryption \(SSE-OSS\).
--   KMS: CMKs managed by KMS are used for encryption and decryption.
--   SM4: The SM4 block cipher algorithm is used for encryption and decryption. |
-|x-oss-object-acl|String|No|private|The ACL of the object. Valid values:
+-   KMS: CMKs managed by KMS are used for encryption and decryption. |
+|x-oss-object-acl|String|No|private|The ACL of the object. Default value: default. Valid values:
 
--   public-read: Only the bucket owner can perform write operations on objects in the bucket. Other users, including anonymous users, can perform only read operations on the objects in the bucket.
--   private: Only the bucket owner can perform read and write operations on objects in the bucket. Other users cannot access the objects in the bucket.
--   public-read-write: All users, including anonymous users can read and write objects in the bucket. Fees incurred by such operations are paid by the owner of the bucket. Configure this ACL only when necessary. |
-|x-oss-storage-class|String|No|Standard|The storage class of the object.If you specify the storage class when you upload the object, the specified storage class applies regardless of the storage class of the bucket that contains the object. For example, if you set x-oss-storage-class to Standard when you upload an object to an IA bucket, the object is stored as a Standard object.
+-   default: The ACL of the object is the same as that of the bucket in which the object is stored.
+-   private: The object is a private resource. Only the owner of this object and authorized users have permissions to read and write the object.
+-   public-read: The object is a public-read resource. Only the owner of this object and authorized users have permissions to write this object. Other users can only read the object. Exercise caution when you set the object ACL to this value.
+-   public-read-write: The object is a public-read-write resource. All users have permissions to read and write the object. Exercise caution when you set the object ACL to this value.
+
+For more information about object ACLs, see [ACL](/intl.en-US/Developer Guide/Data security/Access and control/ACL.md). |
+|x-oss-storage-class|String|No|Standard|The storage class of the object. If you specify the storage class when you upload the object, the specified storage class applies regardless of the storage class of the bucket in which the object is stored. For example, if you set x-oss-storage-class to Standard when you upload an object to an IA bucket, the storage class of the uploaded object is Standard.
 
 Valid values:
 
@@ -70,10 +72,10 @@ Valid values:
 -   IA
 -   Archive
 
-**Note:** This header takes effect only when you perform the AppendObject operation on an object for the first time.
+For more information about storage classes, see [Overview](/intl.en-US/Developer Guide/Storage classes/Overview.md).
 
-Supported operations: PutObject, InitiateMultipartUpload, AppendObject, PutObjectSymlink, and CopyObject. |
-|x-oss-meta-\*|String|No|x-oss-meta-location|You can add parameters prefixed with x-oss-meta- when you create an append object by performing the AppendObject operation. These parameters cannot be included in the requests when you append objects to an existing append object. Parameters prefixed with x-oss-meta- are considered user metadata.You can configure multiple parameters prefixed with x-oss-meta- for an object. However, the total size of user metadata cannot exceed 8 KB.
+**Note:** This header takes effect only when you perform the AppendObject operation on an object for the first time. |
+|x-oss-meta-\*|String|No|x-oss-meta-location|You can add parameters prefixed with x-oss-meta- when you create an append object by performing the AppendObject operation. These parameters cannot be included in the requests when you append objects to an existing append object. Parameters prefixed with x-oss-meta- are considered the user metadata of the object. You can configure multiple parameters prefixed with x-oss-meta- for an object. However, the total size of user metadata cannot exceed 8 KB.
 
 The name of parameters prefixed with x-oss-meta- can contain hyphens \(-\), numbers, and letters. Uppercase letters are converted to lowercase letters. Other characters such as underscores \(\_\) are not supported. |
 
@@ -86,7 +88,7 @@ For more information about the common request headers included in an AppendObjec
 |x-oss-next-append-position|64-bit integer|1717|The position that must be provided in the next request, which is the current length of the object. This header is returned when a success message is returned for an AppendObject request, or when the 409 HTTP status code is returned because the position and the object length do not match. |
 |x-oss-hash-crc64ecma|64-bit integer|3231342946509354535|The 64-bit CRC value of the object. This value is calculated based on the [ECMA-182](http://www.ecma-international.org/publications/standards/Ecma-182.htm) standard.|
 
-For more information about the common response headers included in the response to the AppendObject request, see [Common response headers](/intl.en-US/API Reference/Common HTTP headers.md).
+For more information about the common response headers that are contained in the response to an AppendObject request, see [Common response headers](/intl.en-US/API Reference/Common HTTP headers.md).
 
 ## Methods used to calculate the 64-bit CRC value
 
@@ -128,7 +130,7 @@ The CRC value of an append object is calculated based on the [ECMA-182](http://w
 -   Sample requests
 
     ```
-    POST /oss.jpg? append&position=0 HTTP/1.1 
+    POST /oss.jpg?append&position=0 HTTP/1.1 
     Host: oss-example.oss.aliyuncs.com 
     Cache-control: no-cache 
     Expires: Wed, 08 Jul 2015 16:57:01 GMT 
@@ -161,7 +163,7 @@ The CRC value of an append object is calculated based on the [ECMA-182](http://w
     If you perform the AppendObject operation on an object in a bucket for which versioning is enabled or suspended, the x-oss-version-id header is included in the response and its value must be null.
 
     ```
-    POST /example? append&position=0 HTTP/1.1 
+    POST /example?append&position=0 HTTP/1.1 
     Host: versioning-append.oss.aliyuncs.com 
     Date: Tue, 09 Apr 2019 03:59:33 GMT
     Content-Length: 3
