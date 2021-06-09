@@ -4,19 +4,19 @@ You can call this operation to copy objects within a bucket or between buckets i
 
 ## Versioning
 
-By default, the value of the `x-oss-copy-source` header in a CopyObject request specifies the current version of the object to copy. You can add a version ID to the value of `x-oss-copy-source` to copy a specified version of the object. If the specified version of the object to copy is a delete marker, OSS returns 404 Not Found, which indicates that the object does not exist.
+By default, the value of the `x-oss-copy-source` header in a CopyObject request specifies the current version of the object to copy. You can add a version ID to the value of `x-oss-copy-source` to copy a specified version of the object. If the specified version of the object to copy is a delete marker, Object Storage Service \(OSS\) returns 404 Not Found, which indicates that the object does not exist.
 
 To recover a previous version of an object to the current version, you can copy the previous version of the object to the bucket in which the object is stored. OSS then stores the previous version of the object as the current version.
 
 If versioning is enabled for the destination bucket, OSS generates a unique version ID for the object copied to the destination bucket. The version ID is returned as the `x-oss-version-id` header in the response. If versioning is not enabled or suspended for the destination bucket, OSS generates a version whose ID is null for the object copied to the destination bucket, and overwrites the original version whose ID is null.
 
-## Limits
+## Usage notes
 
 -   CopyObject can be used to copy only objects smaller than 1 GB in size. To copy objects larger than 1 GB in size, we recommend that you call the [UploadPartCopy](/intl.en-US/API Reference/Object operations/Multipart upload/UploadPartCopy.md) operation.
 
-    To use CopyObject or UploadPartCopy, you must have read permissions on the source object.
+    To call CopyObject or UploadPartCopy, you must have read permissions on the source object.
 
--   If you use CopyObject to copy an object to the same unversioned bucket in which the object is stored, only the metadata of the object is updated. The content of the object is not copied.
+-   If you call CopyObject to copy an object to the same unversioned bucket in which the object is stored, only the metadata of the object is updated. The content of the object is not copied.
 -   Append objects stored in versioned buckets cannot be copied.
 -   If the source object is a symbolic link, only the symbolic link is copied. The object to which the symbolic link points is not copied.
 -   Directories in buckets for which the hierarchical namespace feature is enabled cannot be copied.
@@ -24,7 +24,7 @@ If versioning is enabled for the destination bucket, OSS generates a unique vers
 ## Billable items
 
 -   Each time when you call the CopyObject operation, fees are incurred for a GET request to the source bucket and a PUT request to the destination bucket.
--   Storage usage of the destination bucket is increased when you call the CopyObject operation.
+-   The storage usage of the destination bucket increases when you call the CopyObject operation.
 -   If you call the CopyObject operation to modify the storage class of an object by overwriting the object, corresponding fees are incurred. For example, if you call CopyObject to convert an IA object to a Standard object by overwriting the IA object 10 days after the IA object is created, you are charged for the entire minimum storage period of 30 days. For more information about storage fees, see [Storage fees](/intl.en-US/Pricing/Billing items and methods/Storage fees.md).
 
 ## Request structure
@@ -43,10 +43,10 @@ All headers in a CopyObject request start with x-oss-. Therefore, these headers 
 
 |Header|Type|Required|Example|Description|
 |:-----|:---|:-------|-------|:----------|
-|x-oss-forbid-overwrite|String|No|true|Specifies whether the CopyObject operation overwrites the object with the same name. The x-oss-forbid-overwrite request header is invalid when versioning is enabled or suspended for the destination bucket. In this case, the CopyObject operation overwrites the object with the same name. -   If x-oss-forbid-overwrite is not specified or set to false, the object with the same name in the destination bucket can be overwritten.
--   If x-oss-forbid-overwrite is set to true, the object with the same name in the destination bucket cannot be overwritten.
+|x-oss-forbid-overwrite|String|No|true|Specifies whether the CopyObject operation overwrites the object with the same name. The x-oss-forbid-overwrite request header does not take effect when versioning is enabled or suspended for the destination bucket. In this case, the CopyObject operation overwrites the existing object that has the same name as that of the object you want to copy. -   If x-oss-forbid-overwrite is not specified or the value of x-oss-forbid-overwrite is set to false, an existing object that has the same name as that of the object you want to copy is overwritten.
+-   If the value of x-oss-forbid-overwrite is set to true, an existing object that has the same name as that of the object you want to copy cannot be overwritten.
 
-If you specify the x-oss-forbid-overwrite request header, the queries per second \(QPS\) performance of OSS may degrade. If you want to specify the x-oss-forbid-overwrite header in multiple requests to perform a large number of operations \(QPS greater than 1,000\), submit a ticket.
+If you specify the x-oss-forbid-overwrite request header, the queries per second \(QPS\) performance of OSS may be degraded. If you want to specify the x-oss-forbid-overwrite header in a large number of requests \(QPS greater than 1,000\), submit a ticket.
 
 Default value: false. |
 |x-oss-copy-source|String|Yes|/oss-example/oss.jpg|The path of the source object. Default value: null |
@@ -66,27 +66,37 @@ The x-oss-server-side-encryption attribute of the source object is not copied to
 You must enable Key Management Service \(KMS\) on the console before you can use the KMS encryption algorithm. Otherwise, KmsServiceNotEnabled is returned.
 
 -   If the x-oss-server-side-encryption header is not specified in the CopyObject request, the destination object is not encrypted on the server regardless of whether the source object has been encrypted on the server.
--   If the x-oss-server-side-encryption header is specified in the CopyObject request, the destination object is encrypted on the server after the CopyObject operation is performed regardless of whether the source object is on the server. In addition, the CopyObject response header contains x-oss-server-side-encryption, the value of which is set to the encryption algorithm of the destination object.
+-   If the x-oss-server-side-encryption header is specified in the CopyObject request, the destination object is encrypted on the server after the CopyObject operation is performed regardless of whether the source object is on the server. In addition, the response to a CopyObject request contains the x-oss-server-side-encryption header, the value of which is set to the encryption algorithm of the destination object.
 
 When the destination object is downloaded, the x-oss-server-side-encryption header is included in the response header and its value is set to the algorithm used to encrypt the object. |
 |x-oss-server-side-encryption-key-id|String|No|9468da86-3509-4f8d-a61e-6eab1eac\*\*\*\*|The ID of the customer master key \(CMK\) hosted in KMS. This parameter is valid only when x-oss-server-side-encryption is set to KMS. |
-|x-oss-object-acl|String|No|private|The ACL configured when OSS creates the destination object. Valid values: public-read, private, public-read-write, and default.
+|x-oss-object-acl|String|No|private|The ACL of the destination object when the object is created. Default value: default. Valid values:
 
-For more information about object ACLs, see [ACL](/intl.en-US/Developer Guide/Data security/Access and control/ACL.md). |
-|x-oss-storage-class|String|No|Standard|The storage class of the destination object. Valid values: Standard, IA, Archive, and ColdArchive.
+-   default: The ACL of the object is the same as that of the bucket in which the object is stored.
+-   private: The object is a private resource. Only the owner of this object and authorized users have permissions to read and write this object.
+-   public-read: The object is a public-read resource. Only the owner of this object and authorized users have permissions to write this object. Other users can only read the object. Exercise caution when you set the ACL of the object to this value.
+-   public-read-write: The object is a public-read-write resource. All users have permissions to read and write the object. Exercise caution when you set the ACL of the object to this value.
 
-For more information about storage classes, see [Overview](/intl.en-US/Developer Guide/Storage classes/Overview.md).
+For more information about ACLs, see [ACL](/intl.en-US/Developer Guide/Data security/Access and control/ACL.md). |
+|x-oss-storage-class|String|No|Standard|The storage class of the object. If you specify the storage class when you upload the object, the specified storage class applies regardless of the storage class of the bucket in which the object is stored. For example, if you set x-oss-storage-class to Standard when you upload an object to an IA bucket, the storage class of the uploaded object is Standard.
 
-Supported operations: PutObject, InitiateMultipartUpload, AppendObject, PutObjectSymlink, and CopyObject |
+Valid values:
+
+-   Standard
+-   IA
+-   Archive
+-   ColdArchive
+
+For more information about storage classes, see [Overview](/intl.en-US/Developer Guide/Storage classes/Overview.md). |
 |x-oss-tagging|String|No|a:1|The tags of the destination object. You can configure multiple tags for the destination object. Example: TagA=A&TagB=B. **Note:** The tag key and value must be URL-encoded. If a key-value pair does not contain an equal sign \(=\), the tag value is considered to be an empty string. |
 |x-oss-tagging-directive|String|No|Copy|The method used to configure tags for the destination object. Default value: Copy. Valid values: -   Copy: The tags of the source object are copied to the destination object.
 -   Replace: The tags specified in the request instead of the tags of the source object are configured for the destination object. |
 
-For more information about the common request headers included in CopyObject requests such as Host and Date see [Common request headers](/intl.en-US/API Reference/Common HTTP headers.md).
+For more information about the common headers included in CopyObject requests such as Host and Date, see [Common request headers](/intl.en-US/API Reference/Common HTTP headers.md).
 
 ## Response headers
 
-The response to a CopyObject request contains only common response headers. For more information, see [Common response headers](/intl.en-US/API Reference/Common HTTP headers.md).
+The response headers involved in this API operation contain only common response headers. For more information, see [Common response headers](/intl.en-US/API Reference/Common HTTP headers.md).
 
 ## Response elements
 
@@ -229,7 +239,7 @@ You can use OSS SDKs for the following programming languages to call the CopyObj
 |Not Modified|304|Possible causes:-   The x-oss-copy-source-if-none-match header is specified in the request, but the ETag value of the source object is the same as the ETag value in the request.
 -   The x-oss-copy-source-if-modified-since header is specified in the request, but the source object has not been modified after the time specified in the request. |
 |KmsServiceNotEnabled|403|The error message returned because the x-oss-server-side-encryption header is set to KMS, but KMS is not activated in advance.|
-|FileAlreadyExists|409|Possible causes:-   An object that has the same name already exists when the header contains `x-oss-forbid-overwrite=true` that is used to prevent overwriting the object that has the same name.
--   The source object or destination object specified in the request is a directory in a bucket for which the hierarchical namespace feature is enabled. |
-|FileImmutable|409|The error message returned because you delete or modify protected. During the protection period, data in the bucket cannot be deleted or modified.|
+|FileAlreadyExists|409|Possible causes:-   An object that has the same name already exists when the header contains `x-oss-forbid-overwrite=true` that prevents OSS from overwriting the object that has the same name.
+-   The error message returned because the object that you want to delete is a directory within a bucket for which the hierarchical namespace feature is enabled. |
+|FileImmutable|409|The error message returned because the data you want to delete or modify is protected by a retention policy.|
 
