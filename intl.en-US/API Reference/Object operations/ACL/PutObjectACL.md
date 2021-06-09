@@ -1,27 +1,27 @@
 # PutObjectACL
 
-You can call this operation to modify the access control list \(ACL\) of an object. Only the bucket owner has permissions to perform this operation, and have the read and write permissions on the object.
+You can call this operation to modify the access control list \(ACL\) of an object. Only the bucket owner that has permissions to read and write objects in the bucket can call this operation to modify object ACLs.
 
 ## Versioning
 
-By default, the PutObjectACL operation is called to configure ACL only for the current version of an object. You can set ACL for a specified version of the object by specifying the versionId parameter. If the corresponding version of the object is a delete marker, OSS returns 404 Not Found.
+By default, the PutObjectACL operation is called to configure the ACL of the current version of an object. You can specify a version ID in the request to configure the ACL of the specified version of an object. If the specified version is a delete marker, OSS returns 404 Not Found.
 
-## ACL description
+## ACL overview
 
-When you call the PutObjectACL operation, you can set the `x-oss-object-acl` header in the PUT request to configure ACL for an object. The following table describes the four ACLs that can be set for an object.
+When you call the PutObjectACL operation, you can set the `x-oss-object-acl` header in request to configure the ACL of an object. The following table describes the ACLs that you can configure for an object.
 
-|Parameter|Description|
-|:--------|:----------|
-|private|The object is a private resource. Only the owner of this object has the permissions to read or write this object.|
-|public-read|The objetc is a public-read resource. Only the owner of this object has the permissions to read and write this object. Other users have only the permissions to read this object.|
-|public-read-write|The object is a public read/write resource. All users have the permissions to read and write this object.|
-|default|The ACL of the object is the same as that of the bucket that stores the object.|
+|ACL|Description|
+|:--|:----------|
+|private|The object is a private resource. Only the owner of this object has permissions to read and write this object. Other users cannot access the object.|
+|public-read|The object is a public-read resource. Only the owner of this object has permissions to write this object. Other users can only read the object.|
+|public-read-write|The object is a public-read-write resource. All users have permissions to read and write this object.|
+|default|The ACL of the object is the same as that of the bucket in which the object is stored.|
 
 **Note:**
 
--   The object ACL takes precedence over its bucket ACL. For example, the bucket ACL is private, but the object ACL is public-read-write. All users can access the object, even if the bucket ACL is private. If an object has no ACL configured, its bucket ACL applies.
--   The read operations on an object include GetObject, HeadObject, and CopyObject and UploadPartCopy that read the source object. The write operations on an object include PutObject, PostObject, AppendObject, DeleteObject, DeleteMultipleObjects, and CompleteMultipartUpload and CopyObject that write the destination object.
--   When you write an object, you can also include the x-oss-object-acl header in the request to configure ACL for the object. For example, you can include the x-oss-object-acl header in the request to configure ACL for an object when you call PutObject.
+-   The ACL of an object takes precedence over the ACL of the bucket in which the object is stored. For example, if an object whose ACL is public-read-write is stored in a bucket whose ACL is private, all users can read and write the object. By default, if you do not configure the ACL of an object, the ACL of the object is the same as that of the bucket in which the object is stored.
+-   Operations that read objects include GetObject, HeadObject, CopyObject, and UploadPartCopy, in which CopyObject and UploadPartCopy read the source object. Operations that write objects include PutObject, PostObject, AppendObject, DeleteObject, DeleteMultipleObjects, CompleteMultipartUpload, and CopyObject, in which CopyObject writes the destination object.
+-   When you call operations to write an object, you can also include the x-oss-object-acl header in the request to configure the ACL of the object. For example, you can include the x-oss-object-acl header in a PutObject request to configure the ACL of the object to upload.
 
 ## Request structure
 
@@ -33,9 +33,24 @@ Date: GMT Date
 Authorization: SignatureValue
 ```
 
+## Request headers
+
+|Header|Type|Required|Example|Description|
+|------|----|--------|-------|-----------|
+|x-oss-object-acl|String|No|public-read|The ACL of the object when the object is created. Default value: default. Valid values:
+
+-   default: The ACL of the object is the same as that of the bucket in which the object is stored.
+-   private: The object is a private resource. Only the owner of this object and authorized users have permissions to read and write this object.
+-   public-read: The object is a public-read resource. Only the owner of this object and authorized users have permissions to write this object. Other users can only read the object. Exercise caution when you set the ACL of the object to this value.
+-   public-read-write: The object is a public-read-write resource. All users have permissions to read and write the object. Exercise caution when you set the ACL of the object to this value.
+
+For more information about ACLs, see [ACL](/intl.en-US/Developer Guide/Data security/Access and control/ACL.md). |
+
+For more information about the common headers included in PutObjectACL requests such as Host and Date, see [Common request headers](/intl.en-US/API Reference/Common HTTP headers.md).
+
 ## Examples
 
--   Upload an object to a versioning disabled bucket
+-   Modify the ACL of an object in an unversioned bucket
 
     Sample requests
 
@@ -58,7 +73,7 @@ Authorization: SignatureValue
     Server: AliyunOSS
     ```
 
--   Upload an object to a versioning enabled bucket
+-   Modify the ACL of an object in a versioned bucket
 
     Sample requests
 
@@ -100,7 +115,7 @@ You can use OSS SDKs for the following programming languages to call the PutObje
 
 |Error code|HTTP status code|Description|
 |:---------|:---------------|:----------|
-|AccessDenied|403|The error message returned because the operation user is not the bucket owner or the bucket owner does not have the read or write permissions on the object.|
+|AccessDenied|403|The error message returned because you are not the bucket owner or do not have permissions to read and write the object whose ACL you want to modify.|
 |InvalidArgument|400|The error message returned because the specified x-oss-object-acl value is invalid.|
-|FileAlreadyExists|409|The error message returned because the hierarchical namespace feature is enabled for a bucket when you want to modify the ACL of an object within the bucket and the object is set to a directory.|
+|FileAlreadyExists|409|The error message returned because the object whose ACL you want to modify is a directory in a bucket for which the hierarchical namespace feature is enabled.|
 
