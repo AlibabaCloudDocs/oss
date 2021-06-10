@@ -1,6 +1,6 @@
 # GetBucketReplicationProgress
 
-GetBucketReplicationProgress用于获取某个存储空间（Bucket）的数据复制进度。
+GetBucketReplicationProgress用于获取某个存储空间（Bucket）的跨区域复制进度。
 
 ## 请求语法
 
@@ -53,19 +53,21 @@ Authorization: SignatureValue
 |Location|字符串|目标Bucket所在的Location。父节点：Destination
 
 子节点：无 |
-|TransferType|字符串|数据复制时使用的数据传输类型。-   internal（默认值）：OSS默认传输链路。
--   oss\_acc：传输加速链路。只有创建跨区域复制规则时才能使用传输加速链路。 |
-|HistoricalObjectReplication|字符串|是否复制历史数据。即开启数据复制前，是否将源Bucket中的数据复制到目标Bucket。取值：
+|TransferType|字符串|跨区域复制时使用的数据传输类型。取值：
 
--   enabled（默认值）：表示复制历史数据。
--   disabled：表示不复制历史数据，仅复制跨区域复制规则生效后新写入的数据。 |
+-   internal（默认值）：OSS默认传输链路
+-   oss\_acc：传输加速链路 |
+|HistoricalObjectReplication|字符串|是否复制历史数据。即开启跨区域复制前，是否将源Bucket中的数据复制到目标Bucket。取值：
+
+-   Enabled（默认值）：表示复制历史数据。
+-   Disabled：表示不复制历史数据，仅复制跨区域复制规则生效后新写入的数据。 |
 |Progress|容器|保存复制进度的容器，仅当数据处于同步状态（doing）时才返回此元素。父节点：Rule
 
 子节点：HistoricalObject、NewObject |
 |HistoricalObject|字符串|显示已复制历史数据的百分比。仅对开启了历史数据复制的Bucket有效。父节点：Progress
 
 子节点：无 |
-|NewObject|字符串|显示数据复制到目标Bucket的时间点（GMT格式）。例如Thu, 24 Sep 2015 15:39:18 GMT，表示早于该时间点写入的数据都已复制到目标Bucket。
+|NewObject|字符串|显示数据复制到目标Bucket的时间点（GMT格式）。例如Thu, 24 Sep 2015 15:39:18 GMT，表示早于这个时间点写入的数据都已复制到目标Bucket。
 
 父节点：Progress
 
@@ -127,6 +129,6 @@ Authorization: SignatureValue
 |---|-------|--|
 |NoSuchBucket|404 NotFound|请求的Bucket不存在。|
 |NoSuchReplicationRule|404 NotFound|指定的RuleId不存在。|
-|NoSuchReplicationConfiguration|404 NotFound|请求的Bucket没有配置数据复制。|
-|TooManyReplicationRules|400 BadRequest|请求中配置的数据复制规则超过一条。单次请求中只能配置一条数据复制规则。 |
+|NoSuchReplicationConfiguration|404 NotFound|请求的Bucket没有配置跨区域复制。|
+|TooManyReplicationRules|400 BadRequest|请求中配置的跨区域复制规则超过一条。单次请求中只能配置一条跨区域复制规则。 |
 
