@@ -9,7 +9,8 @@ GetBucketReplicationLocation接口用于获取可复制到的目标存储空间�
     GET /?replicationLocation HTTP/1.1
     Host: BucketName.oss-cn-hangzhou.aliyuncs.com 
     Date: GMT Date
-    Authorization: SignatureValue
+    Authorization: Si 
+    gnatureValue
 
 
 
@@ -25,7 +26,7 @@ GetBucketReplicationLocation接口用于获取可复制到的目标存储空间�
 | LocationTransferTypeConstraint | 容器  | 包含TransferType约束的Location信息容器。                                                                                                                                                                                  |
 | LocationTransferType           | 容器  | 包含TransferType的Location信息容器。                                                                                                                                                                                    |
 | TransferTypes                  | 容器  | 传输类型容器。                                                                                                                                                                                                         |
-| Type                           | 字符串 | 数据复制时使用的数据传输类型。 取值： * internal（默认值）：OSS默认传输链路。   * oss_acc：传输加速链路。只有创建跨区域复制规则时才能使用传输加速链路。    |
+| Type                           | 字符串 | 区域复制时使用的数据传输类型。 取值： * internal（默认值）：OSS默认传输链路。   * oss_acc：传输加速链路。只有创建跨区域复制规则时才能使用传输加速链路。    |
 
 
 
