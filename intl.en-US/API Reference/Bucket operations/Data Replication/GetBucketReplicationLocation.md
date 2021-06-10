@@ -1,16 +1,15 @@
 GetBucketReplicationLocation 
 =================================================
 
-You can call this operation to query the region in which the destination bucket can be located. You can determine the region of the destination bucket based on the response returned for the operation. 
+You can call this operation to query the region in which the destination bucket can be located. You can determine the region of the destination bucket based on the response returned for the operation.
 
-Request structure 
---------------------------------------
+Request syntax 
+-----------------------------------
 
-    GET /?replicationLocation HTTP/1.1
+    GET /? replicationLocation HTTP/1.1
     Host: BucketName.oss-cn-hangzhou.aliyuncs.com 
     Date: GMT Date
-    Authorization: Si 
-    gnatureValue
+    Authorization: SignatureValue
 
 
 
@@ -19,39 +18,36 @@ Response elements
 
 
 
-|            Element             |   Type    |                                                                                                                                                                                                      Description                                                                                                                                                                                                      |
-|--------------------------------|-----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ReplicationLocation            | Container | The container that stores the region in which the destination bucket can be located.                                                                                                                                                                                                                                                                                                                                  |
-| Location                       | String    | The region in which the destination bucket can be located. Example: oss-cn-beijing.  Parent node: ReplicationLocation Child nodes: none **Note** If the destination bucket can be located in multiple regions, multiple regions are contained in the response. If regions in which the destination bucket can be located do not exist, the value of Location is null. |
-| LocationTransferTypeConstraint | Container | The container that stores regions in which the destination bucket can be located with TransferType specified.                                                                                                                                                                                                                                                                                                         |
-| LocationTransferType           | Container | The container that stores regions in which the destination bucket can be located with the TransferType information.                                                                                                                                                                                                                                                                                                   |
-| TransferTypes                  | Container | The container that stores the transmission type.                                                                                                                                                                                                                                                                                                                                                                      |
-| Type                           | String    | The link used to transfer data in data replication. Default value: internal.  Valid values: * internal: the default link.   * oss_acc: the link in which data transmission is accelerated. TransferType can be set to oss_acc only for cross-region replication (CRR) rules.                       |
+|            Element             |   Type    |                                                                                                                                                                                                     Description                                                                                                                                                                                                     |
+|--------------------------------|-----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ReplicationLocation            | Container | The container that stores the region in which the destination bucket can be located.                                                                                                                                                                                                                                                                                                                                |
+| Location                       | String    | The region in which the destination bucket can be located. Example: oss-cn-beijing. Parent node: ReplicationLocation Child node: none **Note** If the destination bucket can be located in multiple regions, multiple regions are contained in the response. If regions in which the destination bucket can be located do not exist, the value of Location is null. |
+| LocationTransferTypeConstraint | Container | The container that stores regions in which the destination bucket can be located with TransferType specified.                                                                                                                                                                                                                                                                                                       |
+| LocationTransferType           | Container | The container that stores regions in which the destination bucket can be located with the TransferType information.                                                                                                                                                                                                                                                                                                 |
+| TransferTypes                  | Container | The container that stores the transmission type.                                                                                                                                                                                                                                                                                                                                                                    |
+| Type                           | String    | The link used to transfer data in CRR. Valid values: * internal: the default link.   * oss_acc: the link in which data transmission is accelerated.                                                                                                                                              |
 
 
 
 Examples 
 -----------------------------
 
-* Sample requests
+* Sample request
 
   
 
 
 
 
-    GET /?replicationLocation HTTP/1.1
+    GET /? replicationLocation HTTP/1.1
     Host: oss-example.oss-cn-hangzhou.aliyuncs.com 
     Date: Thu, 24 Sep 2015 15:39:15 GMT
     Authorization: OSS qn6qrrqxo2oawuk53otf****:CTkuxpLAi4XZ+WwIfNm0Fmgb****
 
 
 
-* Sample responses
+* Sample response
 
-  **Note**
-
-  The TransferType element is contained in the XML body of the response only when the value of TransferType is set to oss_acc in the request.
   
 
 
@@ -64,7 +60,7 @@ Examples
     Content-Type: application/xml Connection: close
     Server: AliyunOSS
     
-    <?xml version="1.0" ?>
+    <? xml version="1.0" ? >
     <ReplicationLocation>
       <Location>oss-cn-beijing</Location>
       <Location>oss-cn-qingdao</Location>
