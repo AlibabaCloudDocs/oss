@@ -32,7 +32,7 @@ After an inventory is configured for a bucket, the following objects are generat
 
     Inventory lists contain the exported object information and are stored in the data/ directory. You can query the fileSchema field in manifest.json to obtain the field columns included in the inventory lists. The following figure shows an example of an inventory list:
 
-    ![Inventory list](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/0295688951/p104943.png)
+    ![Inventory list](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/3222933261/p104943.png)
 
     The following table describes the fields contained in the inventory list in sequence:
 
@@ -41,15 +41,15 @@ After an inventory is configured for a bucket, the following objects are generat
     |Bucket|The name of the bucket for which the inventory is created.|
     |Key|The name of the object in the bucket. The object name is URL-encoded. You must decode the object name before you can view it. |
     |VersionId|The version ID of the object. This field exists only when versioning is enabled for the bucket and the inventory specifies that all versions of data are exported. |
-    |IsLatest|This field indicates whether the version is the current version. If the version is the current version, the value is True. Othewise, the value is False. This field exists only when versioning is enabled for the bucket and the inventory specifies that all versions of data are exported. |
+    |IsLatest|This field indicates whether the version is the current version. If the version is the current version, the value is True. Otherwise, the value is False. This field exists only when versioning is enabled for the bucket and the inventory specifies that all versions of data are exported. |
     |IsDeleteMarker|This field indicates whether the version is a delete marker. If the version is a delete marker, the value is True. Otherwise, the value is False. This field exists only when versioning is enabled for the bucket and the inventory specifies that all versions of data are exported. |
     |Size|The size of the object.|
+    |StorageClass|The storage class of the object.|
     |LastModifiedDate|The time when the object is last modified.|
     |ETag|The ETag of the object. An ETag is generated when an object is created. ETags are used to identify the content of the objects.
 
     -   If an object is created by using [PutObject](/intl.en-US/API Reference/Object operations/Basic operations/PutObject.md), the ETag of the object is the MD5 hash value of the object content.
     -   If an object is created by using other methods, the ETag of the object is the UUID of the object content. |
-    |StorageClass|The storage class of the object.|
     |IsMultipartUploaded|This field indicates whether the object is created by using multipart upload. If the object is created by using multipart upload, the value is True. Otherwise, the value is False.|
     |EncryptionStatus|This field indicates whether the object is encrypted. If the object is encrypted, the value is True. Otherwise, the value is False.|
 
