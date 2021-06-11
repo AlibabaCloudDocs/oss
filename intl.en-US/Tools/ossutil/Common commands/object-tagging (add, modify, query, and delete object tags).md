@@ -18,7 +18,7 @@ For more information about object tagging, see [Configure object tagging](/intl.
 ## Command syntax
 
 ```
-./ossutil64 object-tagging oss://bucket\_name[/prefix][key#value]
+./ossutil64 object-tagging oss://bucketname[/prefix][key#value]
 --method <value>
 [--encoding-type <value>]
 [-r, --recursive]
@@ -26,27 +26,27 @@ For more information about object tagging, see [Configure object tagging](/intl.
 [--version-id <value>] 
 ```
 
-The following table describes the parameters that you can configure in this command.
+The following table describes the parameters that you can configure when you run this command.
 
 |Parameter|Description|
 |---------|-----------|
-|bucket\_name|The name of the bucket in which the objects for which you want to configure tagging are stored.|
+|bucketname|The name of the bucket in which the objects for which you want to configure tagging are stored.|
 |prefix|The resources in the bucket, such as directories and objects.|
 |key|The key of the tag you want to configure. The object tagging feature uses a key-value pair to tag an object. You can add up to 10 tags to each object. The tags of the same object must have unique tag keys. The key of a tag must comply with the following conventions:-   The key of a tag is up to 128 characters in length and is case-sensitive.
 -   The key of a tag can contain letters, digits, spaces, and the following special characters:
 
-+ = . \_ : / |
++=.\_:/ |
 |value|The value of the tag you want to configure. The value of a tag must comply with the following conventions:-   The value of a tag is up to 256 characters in length and is case-sensitive.
 -   The value of a tag can contain letters, digits, spaces, and the following special characters:
 
-+ = . \_ : / |
++=.\_:/ |
 |--method|The type of the request. Valid values:-   put: The command to add tags to an object or modify the tags of an object.
 -   get: The command to query the tags of an object.
 -   delete: The command to delete the tags of an object. |
 |--encoding-type|The method used to encode the prefix specified by the object name that follows `oss://bucket_name` in the full object path. Valid value: url. If this parameter is not specified, the prefix is not encoded.|
 |-r, --recursive|If you specify this parameter in the command, ossutil configures tagging for all objects whose names contain the prefix specified by the prefix parameter. If you do not specify this parameter in the command, ossutil configures tagging only for the specified object.|
 |--version-id|The ID of the version of the object for which you want to configure tagging. This parameter applies only to objects in buckets for which versioning is enabled or suspended.|
-|--payer|The payer of the traffic and request fees incurred when the command is run. If you want that the requester who accesses the resources in the specified path to be charged for the traffic and request fees incurred when the command is run, set this parameter to requester.|
+|--payer|The payer of the traffic and request fees incurred during queries. If you want that the requester who accesses the resources in the specified path to be charged for the traffic and request fees incurred when the command is run, set this parameter to requester.|
 
 ## Add or modify object tags
 
@@ -54,7 +54,7 @@ Only the owner of a bucket and RAM users that have the PutObjectTagging permissi
 
 The following examples show how to add and modify tags of an object:
 
-**Note:** In the following examples, if no tags are added to the specified object, the tags are added. If the specified object already has tags, the existing tags are replaced.
+**Note:** In the following examples, if specified object does not have tags, the tags are added. If the specified object already has tags, the existing tags are replaced.
 
 -   Configure a tag whose key is tagkey and whose value is tagvalue for an object named exampleobject.txt in a bucket named examplebucket.
 
@@ -134,29 +134,29 @@ The following examples show how to query the tags of objects:
     ```
 
 
-## Delete object tags
+## Remove object tags
 
-Only the owner of a bucket and RAM users that have the DeleteObjectTagging permission can delete the tags of objects in the bucket.
+Only the owner of a bucket and RAM users that have the DeleteObjectTagging permission can remove the tags of objects in the bucket.
 
-The following examples show how to delete the tags of objects:
+The following examples show how to remove the tags of objects:
 
--   Delete the tags of an object
+-   Remove the tags of an object
 
-    Delete the tags of an object named exampleobject.txt in a bucket named examplebucket.
+    You can run the following command to remove the tags of an object named exampleobject.txt in a bucket named examplebucket:
 
     ```
     ./ossutil64 object-tagging --method delete oss://examplebucket/exampleobject.txt
     ```
 
--   Delete the tags of multiple objects
+-   Remove the tags of multiple objects
 
-    Delete tags of all objects whose names contain the "test" prefix in a bucket named examplebucket.
+    You can run the following command to remove the tags of all objects whose names contain the "test" prefix in a bucket named examplebucket:
 
     ```
     ./ossutil64 object-tagging --method delete oss://examplebucket/test -r
     ```
 
--   If the preceding commands are successful, an output similar to the following is returned to indicate the time used to delete tags:
+-   If the preceding commands are successful, an output similar to the following is returned to indicate the time used to remove tags:
 
     ```
     0.148970(s) elapsed
@@ -165,11 +165,13 @@ The following examples show how to delete the tags of objects:
 
 ## Common options
 
-When you use ossutil to manage buckets that are located in different regions, you can use the -e option to use the endpoint of the specified bucket. When you use ossutil to manage buckets that are owned by multiple Alibaba Cloud accounts, you can use the -i option to use the AccessKey ID of the specified account, and use the -k option to use the AccessKey secret of the specified account.
+To use ossutil to manage buckets that are located in different regions, you can use the -e option to use the endpoint of the specified bucket. To use ossutil to manage buckets that are owned by different Alibaba Cloud accounts, you can use the -i option to use the AccessKey ID of the specified account, and use the -k option to use the AccessKey secret of the specified account.
 
-For example, you can run the following command to configure a tag whose key is tagkey7 and whose value is tagvalue7 for an object named example.png in a bucket named testbucket, which is located in the China \(Shanghai\) region and owned by another Alibaba Cloud account.
+For example, you can run the following command to configure a tag whose key is tagkey7 and whose value is tagvalue7 for an object named example.png in a bucket named testbucket, which is located in the China \(Shanghai\) region and owned by another Alibaba Cloud account:
 
 ```
 ./ossutil64 object-tagging --method put oss://testbucket/exampletest.png tagkey7#tagvalue7 -e oss-cn-shanghai.aliyuncs.com -i LTAI4Fw2NbDUCV8zYUzA****  -k 67DLVBkH7EamOjy2W5RVAHUY9H****
 ```
+
+For more information the mb command, see [Common options](/intl.en-US/Tools/ossutil/View options.md).
 
