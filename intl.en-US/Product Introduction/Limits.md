@@ -8,14 +8,14 @@ The following table describes the performance metrics and limits of OSS.
 |:---|:----|
 |Bandwidth|Default bandwidth limit: 10 Gbit/s in mainland China regions and 5 Gbit/s in regions outside mainland China. If this limit is reached, requests are throttled. **Note:** When a request is throttled, the response to the request contains the `x-oss-qos-delay-time: number` header, in which `number` indicates the time period during which requests are throttled. Unit: ms. For an upload request, the exact time period during which requests are throttled is returned. For a download request, the estimated time period during which requests are throttled is returned. The time is estimated based on the throttling status and the object size.
 
-If you require a greater bandwidth \(10 Gbit/s to 100 Gbit/s\), for example, if you have offline big data processing requirements, contact the[technical support](https://workorder-intl.console.aliyun.com/#/ticket/createIndex). |
+If you require a greater bandwidth \(10 Gbit/s to 100 Gbit/s\), for example, if you have offline big data processing requirements, contact the [technical support](https://workorder-intl.console.aliyun.com/#/ticket/createIndex). |
 |Queries per second \(QPS\)|The limit of the total QPS for a single account is 10,000. The actual values that can be achieved are different in the different read and write modes:-   Sequential read/write: 2,000
 
 If you use sequential prefixes such as timestamps or letters in the names of large numbers of objects, multiple object indexes may be stored in a single partition and responsiveness may slow significantly. We recommend that you do not upload large number of objects by using sequential prefixes. For more information about how to change sequential prefixes to random prefixes, see [OSS performance and scalability best practices](/intl.en-US/Best Practices/OSS performance and scalability best practices.md).
 
 -   Non-sequential read/write: 10,000
 
-If you require a greater QPS, contact the[technical support](https://workorder-intl.console.aliyun.com/#/ticket/createIndex). |
+If you require a greater QPS, contact the [technical support](https://workorder-intl.console.aliyun.com/#/ticket/createIndex). |
 |Bucket|-   An Alibaba Cloud account to create up to 100 buckets in the same region.
 -   After a bucket is created, the name, region, and storage class of the bucket cannot be modified.
 -   OSS does not impose limits on the capacity of a bucket. |
@@ -67,5 +67,5 @@ The width or height of the resized image cannot exceed 16,384 pixels. The total 
 
 -   Limits on image styles
 
-You can create up to 50 image styles in each bucket. To create more styles for a bucket, contact the[technical support](https://workorder-intl.console.aliyun.com/#/ticket/createIndex). |
+You can create up to 50 image styles in each bucket. To create more styles for a bucket, contact the [technical support](https://workorder-intl.console.aliyun.com/#/ticket/createIndex). |
 
