@@ -8,7 +8,7 @@ OSS高防是OSS结合DDoS高防推出的DDoS攻击代理防护服务。当受保
 
 DDoS攻击是近年来对企业业务危害最大的攻击手段之一。当企业遭受DDoS攻击时，可能会导致业务中断，进而导致企业的形象受损、客户流失、收益受损等，严重影响企业业务的正常运营。
 
-为此，OSS深度结合[DDoS高防](/cn.zh-CN/阿里云DDoS防护产品介绍/什么是DDoS高防（新BGP&国际）.md)产品，提供最高T级DDoS防护能力、百万QPS防护、秒级攻击切换能力，可有效抵御SYN Flood、ACK Flood、ICMP Flood、UDP Flood、NTP Flood 、SSDP Flood、DNS Flood、HTTP Flood等攻击。非常适用于业务经常遭恶意攻击、勒索、刷单、刷流量等安全防护场景。
+为此，OSS深度结合[DDoS高防](/cn.zh-CN/阿里云DDoS防护产品介绍/什么是DDoS高防（新BGP&国际）.md)产品，提供最高T级DDoS防护能力、百万QPS防护、秒级攻击切换能力，可有效抵御SYN Flood、ACK Flood、ICMP Flood、UDP Flood、NTP Flood 、SSDP Flood、DNS Flood、HTTP Flood等攻击。OSS高防适用于业务经常遭恶意攻击、勒索、刷单、刷流量等安全防护场景。
 
 ## 防护原理
 
@@ -26,6 +26,12 @@ OSS默认使用[DDoS原生防护](/cn.zh-CN/阿里云DDoS防护产品介绍/DDoS
 
 -   高防OSS实例创建后需至少使用7天，若实例在7天内被删除，OSS会收取剩余时间的高防基础资源费用。
 -   每个地域可以创建一个高防OSS实例，每个实例最多只能绑定同一地域下的10个Bucket。
+-   OSS高防仅防护已绑定自定义域名的Bucket。如果您已购买DDoS高防产品，且已配置同名或泛域名的转发规则，则需要前往[DDoS高防控制台](https://yundun.console.aliyun.com/?p=ddoscoo)解绑该域名。否则，在该Bucket受到攻击时，无法通过该自定义域名正常访问OSS。
+
+    为Bucket绑定自定义域名的具体步骤，请参见[绑定自定义域名](/cn.zh-CN/控制台用户指南/存储空间管理/传输管理/绑定自定义域名.md)。
+
+    配置同名或泛域名转发规则的具体步骤，请参见[添加网站](/cn.zh-CN/DDoS高防（新BGP&国际）用户指南/接入DDoS高防/域名接入/添加网站.md)。
+
 
 ## 配置方式
 
