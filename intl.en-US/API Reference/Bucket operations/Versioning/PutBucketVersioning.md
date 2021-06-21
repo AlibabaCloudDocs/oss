@@ -4,9 +4,7 @@ You can call this operation to configure the versioning state of a bucket.
 
 ## Usage notes
 
-Note the following items when you call the PutBucketVersioning operation:
-
--   Only the bucket owner or RAM users that have the PutBucketVersioning permission can configure versioning for a bucket.
+-   To configure versioning for a bucket, you must have the PutBucketVersioning permission.
 -   A bucket can be in one of the following versioning state: disabled, enabled, and suspended. By default, versioning is disabled for a bucket.
 -   If versioning is enabled for a bucket, an object that is added to the bucket have a unique version ID. In this case, multiple versions of an object can be stored in OSS at the same time.
 -   If versioning is suspended for a bucket, the version ID of an object that is added to the bucket is null. OSS does not store new previous versions for objects that is deleted or overwritten.
@@ -23,7 +21,7 @@ Authorization: SignatureValue
 <? xml version="1.0" encoding="UTF-8"? >
 <VersioningConfiguration>
     <Status>Enabled</Status>
-<VersioningConfiguration>
+</VersioningConfiguration>
 ```
 
 ## Examples
@@ -38,7 +36,7 @@ Authorization: SignatureValue
     <? xml version="1.0" encoding="UTF-8"? >
     <VersioningConfiguration>
         <Status>Enabled</Status>
-    <VersioningConfiguration>
+    </VersioningConfiguration>
     ```
 
     Sample response
@@ -62,7 +60,7 @@ Authorization: SignatureValue
     <? xml version="1.0" encoding="UTF-8"? >
     <VersioningConfiguration>
         <Status>Suspended</Status>
-    <VersioningConfiguration>
+    </VersioningConfiguration>
     ```
 
     Sample response
