@@ -141,7 +141,7 @@ You can use the delimiter and prefix parameters to list objects by folder.
 -   If you set prefix to a folder name in the request, objects and subfolders whose names contain the prefix are listed.
 -   If you also set delimiter to a forward slash \(/\) in the request, the objects and subfolders whose names start with the specified prefix in the folder are listed. Each subfolder is listed as a single result element in commonPrefixes. The objects and folders in these subfolders are not listed.
 
-Example: A bucket named examplebucket contains the following objects: oss.jpg, fun/test.jpg, fun/movie/001.avi, and fun/movie/007.txt. The forward slash \(/\) is used as the folder delimiter. The following figure shows the structure of the bucket named examplbucket.
+Example: A bucket named examplebucket contains the following objects: oss.jpg, fun/test.jpg, fun/movie/001.avi, and fun/movie/007.txt. The forward slash \(/\) is used as the folder delimiter. The structure of the bucket named examplbucket is as following.
 
 ```
 examplebucket           
