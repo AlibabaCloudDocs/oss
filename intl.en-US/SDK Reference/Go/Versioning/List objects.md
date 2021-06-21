@@ -4,7 +4,7 @@ You can list objects in a versioned bucket, including all objects, objects whose
 
 ## Scenarios
 
-The following figure shows the objects and folders in a bucket named examplebucket.
+The following structure shows the objects and folders in a bucket named examplebucket.
 
 ```
 examplebucket
