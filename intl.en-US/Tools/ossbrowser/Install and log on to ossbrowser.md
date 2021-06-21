@@ -6,10 +6,10 @@ ossbrowser is a graphical management tool developed by Alibaba Cloud. This tool 
 
     |Current version|Download link|Description|
     |---------------|-------------|-----------|
-    |1.14.0|[Windows x32](https://gosspublic.alicdn.com/oss-browser/1.14.0/oss-browser-win32-ia32.zip)|Windows 7 and later versions are supported.|
-    |[Windows x64](https://gosspublic.alicdn.com/oss-browser/1.14.0/oss-browser-win32-x64.zip)|
-    |[macOS](https://gosspublic.alicdn.com/oss-browser/1.14.0/oss-browser-darwin-x64.zip)|Applications that are not verified by developers cannot be run on macOS. If this issue occurs, modify the security settings of your system. For more information, see [What do I do if I cannot run ossbrowser on macOS?](/intl.en-US/Tools/ossbrowser/Troubleshooting.md).|
-    |[Linux x64](https://gosspublic.alicdn.com/oss-browser/1.14.0/oss-browser-linux-x64.zip) \(not recommended\)|If problems occur when you install ossbrowser on Linux, download and compile the [source code](https://github.com/aliyun/oss-browser) to troubleshoot the problems.|
+    |1.15.0|[Windows x32](https://gosspublic.alicdn.com/oss-browser/1.15.0/oss-browser-win32-ia32.zip)|Windows 7 and later versions are supported.|
+    |[Windows x64](https://gosspublic.alicdn.com/oss-browser/1.15.0/oss-browser-win32-x64.zip)|
+    |[macOS](https://gosspublic.alicdn.com/oss-browser/1.15.0/oss-browser-darwin-x64.zip)|Applications that are not verified by developers cannot be run on macOS. If this issue occurs, modify the security settings of your system. For more information, see [What do I do if I cannot run ossbrowser on macOS?](/intl.en-US/Tools/ossbrowser/Troubleshooting.md).|
+    |[Linux x64](https://gosspublic.alicdn.com/oss-browser/1.15.0/oss-browser-linux-x64.zip) \(not recommended\)|If problems occur when you install ossbrowser on Linux, download and compile the [source code](https://github.com/aliyun/oss-browser) to troubleshoot the problems.|
 
 2.  Log on to ossbrowser. In this topic, Windows is used in the example to describe the procedures.
 
