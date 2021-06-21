@@ -6,10 +6,10 @@ ossbrowser是阿里云官方提供的OSS图形化管理工具，提供类似Wind
 
     |当前版本|下载地址|说明|
     |----|----|--|
-    |1.14.0|[Windows x32](https://gosspublic.alicdn.com/oss-browser/1.14.0/oss-browser-win32-ia32.zip)|支持Windows 7及以上版本。|
-    |[Windows x64](https://gosspublic.alicdn.com/oss-browser/1.14.0/oss-browser-win32-x64.zip)|
-    |[macOS](https://gosspublic.alicdn.com/oss-browser/1.14.0/oss-browser-darwin-x64.zip)|macOS系统默认无法打开未验证的开发者应用。如果出现该问题，请参见[macOS系统无法打开ossbrowser](/cn.zh-CN/常用工具/图形化管理工具ossbrowser/常见问题.md)修改系统安全设置。|
-    |[Linux x64](https://gosspublic.alicdn.com/oss-browser/1.14.0/oss-browser-linux-x64.zip)（不推荐）|如果在Linux系统安装ossbrowser遇到问题时，请自行下载[源码](https://github.com/aliyun/oss-browser)编译排查。|
+    |1.15.0|[Windows x32](https://gosspublic.alicdn.com/oss-browser/1.15.0/oss-browser-win32-ia32.zip)|支持Windows 7及以上版本。|
+    |[Windows x64](https://gosspublic.alicdn.com/oss-browser/1.15.0/oss-browser-win32-x64.zip)|
+    |[macOS](https://gosspublic.alicdn.com/oss-browser/1.15.0/oss-browser-darwin-x64.zip)|macOS系统默认无法打开未验证的开发者应用。如果出现该问题，请参见[macOS系统无法打开ossbrowser](/cn.zh-CN/常用工具/图形化管理工具ossbrowser/常见问题.md)修改系统安全设置。|
+    |[Linux x64](https://gosspublic.alicdn.com/oss-browser/1.15.0/oss-browser-linux-x64.zip)（不推荐）|如果在Linux系统安装ossbrowser遇到问题时，请自行下载[源码](https://github.com/aliyun/oss-browser)编译排查。|
 
 2.  以Windows系统为例，按如下步骤登录ossbrowser。
 
