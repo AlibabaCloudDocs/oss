@@ -1,17 +1,15 @@
 # PutBucketVersioning
 
-PutBucketVersioning用于设置指定存储空间（Bucket）的版本控制状态。
+调用PutBucketVersioning设置指定存储空间（Bucket）的版本控制状态。
 
 ## 注意事项
 
-调用PutBucketVersioning接口时，有如下注意事项：
-
--   只有Bucket的拥有者及授予了PutBucketVersioning权限的RAM用户才能配置版本控制。
--   Bucket包含三种版本控制状态，分别为未开启、开启（Enabled）或者暂停（Suspended）。默认情况下，Bucket处于未开启版本控制状态。
+-   要配置版本控制，您必须有PutBucketVersioning权限。
+-   Bucket包括未开启、开启（Enabled）或者暂停（Suspended）三种版本控制状态。默认情况下Bucket处于未开启版本控制状态。
 -   在Bucket处于开启版本控制状态下，所有新添加的文件（Object）都将拥有唯一的版本ID，OSS将累积所添加Object的多个版本。
 -   在Bucket处于暂停版本控制状态下，所有新添加Object的版本ID将为null，且OSS将不再为此状态下添加的Object累积更多的版本。
 
-有关版本控制的更多详情，请参见[版本控制介绍](/intl.zh-CN/开发指南/数据安全/版本控制/版本控制介绍.md)。
+关于版本控制的更多信息，请参见[版本控制介绍](/intl.zh-CN/开发指南/数据安全/版本控制/版本控制介绍.md)。
 
 ## 请求语法
 
@@ -23,7 +21,7 @@ Authorization: SignatureValue
 <?xml version="1.0" encoding="UTF-8"?>
 <VersioningConfiguration>
     <Status>Enabled</Status>
-<VersioningConfiguration>
+</VersioningConfiguration>
 ```
 
 ## 示例
@@ -38,7 +36,7 @@ Authorization: SignatureValue
     <?xml version="1.0" encoding="UTF-8"?>
     <VersioningConfiguration>
         <Status>Enabled</Status>
-    <VersioningConfiguration>
+    </VersioningConfiguration>
     ```
 
     返回示例
@@ -62,7 +60,7 @@ Authorization: SignatureValue
     <?xml version="1.0" encoding="UTF-8"?>
     <VersioningConfiguration>
         <Status>Suspended</Status>
-    <VersioningConfiguration>
+    </VersioningConfiguration>
     ```
 
     返回示例
