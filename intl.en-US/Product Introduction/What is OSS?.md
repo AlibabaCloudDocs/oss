@@ -41,7 +41,7 @@ You can call API operations and use SDKs or OSS migration tools provided by Alib
 
 -   AccessKey pair
 
-    An AccessKey pair consists of an AccessKey ID and an AccessKey secret. AccessKey pairs are used for access authentication. OSS uses symmetric encryption based on AccessKey pairs to authenticate the identities of requesters. The AccessKey ID is used to identify a user. The AccessKey secret is used to encrypt and verify signature strings. The AccessKey secret must be kept confidential. For more information about how to obtain an AccessKey pair, see[Create an AccessKey pair]().
+    An AccessKey pair consists of an AccessKey ID and an AccessKey secret. AccessKey pairs are used for access authentication. OSS uses symmetric encryption based on AccessKey pairs to authenticate the identities of requesters. The AccessKey ID is used to identify a user. The AccessKey secret is used to encrypt and verify signature strings. The AccessKey secret must be kept confidential. For more information about how to obtain an AccessKey pair, see [Create an AccessKey pair]().
 
 
 ## Common operations
@@ -106,7 +106,7 @@ You can upload objects, download objects, and manage OSS by using a variety of m
 
 -   Manage OSS by using Cloud Storage Gateway
 
-    OSS does not use a hierarchical structure for objects, but instead uses a flat structure. All elements are stored as objects in buckets. To use OSS in a manner similar to local file systems, you can configure Cloud Storage Gateway \(CSG\). For more information, visit the[CSG product homepage](https://www.alibabacloud.com/product/cloud-storage-gateway).
+    OSS does not use a hierarchical structure for objects, but instead uses a flat structure. All elements are stored as objects in buckets. To use OSS in a manner similar to local file systems, you can configure Cloud Storage Gateway \(CSG\). For more information, visit the [CSG product homepage](https://www.alibabacloud.com/product/cloud-storage-gateway).
 
 
 ## Pricing
@@ -115,7 +115,7 @@ Traditional service providers require you to purchase a fixed amount of storage 
 
 OSS charges you only for the storage capacity and traffic that you consume. Therefore, you do not need to purchase storage capacity and traffic in advance. You can take the cost advantages of the flexible infrastructure provided by Alibaba Cloud to grow your business.
 
-For more information about OSS pricing, visit[Object Storage Service Pricing](https://www.alibabacloud.com/product/oss#pricing). For more information about OSS billing methods, see [Overview](/intl.en-US/Pricing/Billing items and methods/Overview.md).
+For more information about OSS pricing, visit [Object Storage Service Pricing](https://www.alibabacloud.com/product/oss#pricing). For more information about OSS billing methods, see [Overview](/intl.en-US/Pricing/Billing items and methods/Overview.md).
 
 ## Other services
 
@@ -124,10 +124,10 @@ After you upload your data to OSS, you can use other Alibaba Cloud services to m
 The following services are frequently used with OSS:
 
 -   Image Processing \(IMG\): a service that allows you to perform a variety of operations such as format converting, resizing, cropping, rotating, and adding watermarks to images stored in OSS. For more information, see [IMG implementation modes](/intl.en-US/Developer Guide/Data Processing/Image Processing/IMG implementation modes.md).
--   Elastic Compute Service \(ECS\): a cloud computing service that offers elastic and efficient computing capability. For more information, visit the[ECS product homepage](https://www.alibabacloud.com/product/ecs).
--   Alibaba Cloud CDN: a distributed network that caches resources from an origin server to edge nodes in different regions to accelerate content delivery. For more information, visit the[CDN product homepage](https://www.alibabacloud.com/product/cdn).
--   E-MapReduce \(EMR\): a big data processing system solution built on ECS. EMR is based on Apache Hadoop and Apache Spark to facilitate data analysis and processing. For more information, see the[E-MapReduce product homepage](https://www.alibabacloud.com/product/e-mapreduce).
--   ApsaraVideo for Media Processing: a service that converts audio or video objects stored in OSS into files that are suitable for playback on PCs, TVs, and mobile devices. Based on the deep learning results of large amounts of data, ApsaraVideo for Media Processing performs multimodal analysis on the content, text, audio, and scenario of audio or video files. Based on the analysis result, ApsaraVideo for Media Processing can intelligently audit, understand, and edit the content of the audio or video files. For more information, visit the[ApsaraVideo for Media Processing product homepage](https://www.alibabacloud.com/product/mts).
+-   Elastic Compute Service \(ECS\): a cloud computing service that offers elastic and efficient computing capability. For more information, visit the [ECS product homepage](https://www.alibabacloud.com/product/ecs).
+-   Alibaba Cloud CDN: a distributed network that caches resources from an origin server to edge nodes in different regions to accelerate content delivery. For more information, visit the [CDN product homepage](https://www.alibabacloud.com/product/cdn).
+-   E-MapReduce \(EMR\): a big data processing system solution built on ECS. EMR is based on Apache Hadoop and Apache Spark to facilitate data analysis and processing. For more information, visit the [E-MapReduce product homepage](https://www.alibabacloud.com/product/e-mapreduce).
+-   ApsaraVideo for Media Processing: a service that converts audio or video objects stored in OSS into files that are suitable for playback on PCs, TVs, and mobile devices. Based on the deep learning results of large amounts of data, ApsaraVideo for Media Processing performs multimodal analysis on the content, text, audio, and scenario of audio or video files. Based on the analysis result, ApsaraVideo for Media Processing can intelligently audit, understand, and edit the content of the audio or video files. For more information, visit the [ApsaraVideo for Media Processing product homepage](https://www.alibabacloud.com/product/mts).
 -   Data Online Migration: a service that allows you to migrate data from a third-party storage service such as Amazon Web Services \(AWS\) and Google Cloud to OSS. For more information, see [Data Online Migration documentation](https://www.alibabacloud.com/help/product/94157.htm).
 -   Data Transport: a service that helps you migrate a large amount of data from local storage to OSS. For example, you can use Data Transport to migrate terabytes or petabytes of local data to OSS when the local network bandwidth is insufficient and expansion costs are high. For more information, see [What is Data Transport?](/intl.en-US/Product Introduction/What is Data Transport?.md)
 
@@ -135,5 +135,5 @@ The following services are frequently used with OSS:
 
 In addition to OSS, Alibaba Cloud also provides a variety of storage services such as file storage and block storage for different scenarios. For more information about Alibaba Cloud storage services, see [Overview]().
 
-For more information about use cases and solutions of Alibaba Cloud storage services, visit [Alibaba Cloud Storage](https://www.alibabacloud.com/product/storage).
+For more information about use cases and solutions of Alibaba Cloud storage services, see [Alibaba Cloud Storage](https://www.alibabacloud.com/product/storage).
 
