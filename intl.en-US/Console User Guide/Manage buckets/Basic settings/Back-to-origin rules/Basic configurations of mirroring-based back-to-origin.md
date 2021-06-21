@@ -28,7 +28,7 @@ When a requester accesses an object in the specified bucket but the object does 
     Access process after the back-to-origin rule is configured:
 
     1.  A requester accesses `https://examplebucket.oss-cn-hangzhou.aliyuncs.com/examplefolder/example.txt` for the first time.
-    2.  If the examplefolder/example.txt object does not exist in examplebucket, OSS sends a request to `https://example.com/examplefolder/example.txt`.
+    2.  If the examplefolder/example.txt object does not exist in examplebucket, OSS sends a request to `https://www.example.com/examplefolder/example.txt`.
     3.  If the required object is obtained, OSS writes the example.txt object to the examplefolder folder in examplebucket and then returns the object to the requester. If the required object is not obtained, HTTP status code 404 is returned to the requester.
 
 ## References
