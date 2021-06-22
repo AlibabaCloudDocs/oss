@@ -6,7 +6,7 @@ You can use the resize parameters to adjust the size of images stored in OSS. Th
 
 Operation: `resize`
 
-The following table lists the parameters that you can configure for the resize operation.
+The following table lists the parameters that you can configure when you resize images.
 
 -   Resize an image based on the specified height and width
 
@@ -73,21 +73,22 @@ For more information, see the examples following the table.|
 
 ## Usage notes
 
--   Limits on source images:
-    -   Only JPG, PNG, BMP, GIF, WebP, and TIFF images are supported. GIF images can be resized based on the specified width and height but cannot be resized proportionally. A GIF images become static images when you resize the images proportionally.
+-   Limits on source images
+    -   Only JPG, PNG, BMP, GIF, WebP, and TIFF images are supported. GIF images can be resized based on the specified width and height but cannot be resized proportionally. GIF images become static images when you resize the images proportionally.
     -   The size of the source image cannot exceed 20 MB.
     -   The width or height of the source image cannot exceed 30,000 pixels. The total pixel number of the source image cannot exceed 250 million.
 
-        The pixel number of a dynamic image, such as a GIF image, is calculated by using the following formula: `Width x Height x Number of image frames`. The pixel number of a static image, such as a PNG image, is calculated by using the following formula: `Width x Height`.
+        The total pixel number of a dynamic image, such as a GIF image, is calculated by using the following formula: `Width × Height × Number of image frames`. The total pixel number of a static image, such as a PNG image, is calculated by using the following formula: `Width × Height`.
 
--   Limit on resized images: The width or height of the resized image cannot exceed 16,384 pixels. The total pixel number of the resized image cannot exceed 16,777,216.
+-   Limits on resized images
+
+    The width or height of the resized image cannot exceed 16,384 pixels. The total pixel number of the resized image cannot exceed 16,777,216.
+
 -   If the width or height of the resized image is specified:
-    -   The source image is resized proportionally when proportional resizing is performed. For example, if you resize the height of a source image of 200 × 100 pixels to 100 pixels, the width of the source image is resized to 50 pixels.
-    -   The source image is resized based on the specified width and height. For example, if you resize the height of a source image of 200 × 100 pixels to 100 pixels, the width of the source image is resized to 100 pixels.
--   By default, if the size of the resized image is larger than that of the source image, the source image is returned. You can add the `limit_0` parameter to enlarge the image.
-
-    Example: `https://image-demo.oss-cn-hangzhou.aliyuncs.com/example.jpg?x-oss-process=image/resize,w_500,limit_0`
-
+    -   The source image is resized proportionally when proportional resizing is performed. For example, if you resize the height of a source image from 200 × 100 pixels to 100 pixels, the width of the source image is resized to 50 pixels.
+    -   The source image is resized based on the specified width and height. For example, if you resize the height of a source image from 200 × 100 pixels to 100 pixels, the width of the source image is resized to 100 pixels.
+-   If you set the m parameter to mfit and specify a value for the l parameter that indicates the length of the longer side or the s parameter that indicates the length of the shorter side, the longer side or the shorter side of the image is scaled based on the specified value of l or s.
+-   By default, if the size of the resized image is larger than that of the source image, the source image is returned. You can add the `limit_0` parameter to enlarge the image. Example: `https://image-demo.oss-cn-hangzhou.aliyuncs.com/example.jpg?x-oss-process=image/resize,w_500,limit_0`
 
 ## Examples
 
@@ -108,13 +109,11 @@ An image in the bucket named image-demo in the China \(Hangzhou\) region is used
 
         ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/3856348951/p2414.jpg)
 
-    -   Based on the longer side or shorter side
+    -   Based on the longer side
 
-        Configure parameters to resize the image:
+        Resize the source image based on the longer side of 100 pixels: `resize,l_100`
 
-        -   Resize the source image based on the longer side of 100 pixels to a resized image: `resize,l_100`
-        -   Specify the resize type: `m_mfit`
-        The URL used to process the image is in the following format: [http://image-demo.oss-cn-hangzhou.aliyuncs.com/example.jpg?x-oss-process=image/resize,l\_100,m\_mfit](http://image-demo.oss-cn-hangzhou.aliyuncs.com/example.jpg?x-oss-process=image/resize,l_100,m_mfit)
+        The URL used to process the image is in the following format: [http://image-demo.oss-cn-hangzhou.aliyuncs.com/example.jpg?x-oss-process=image/resize,l\_100](http://image-demo.oss-cn-hangzhou.aliyuncs.com/example.jpg?x-oss-process=image/resize,l_100,m_mfit)
 
         ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/3856348951/p2415.jpg)
 
@@ -155,8 +154,14 @@ An image in the bucket named image-demo in the China \(Hangzhou\) region is used
 
     Resize the source image by 50%: `resize,p_50`
 
-    The following URL is used to process the image: [http://image-demo.oss-cn-hangzhou.aliyuncs.com/example.jpg?x-oss-process=image/resize,p\_50](http://image-demo.oss-cn-hangzhou.aliyuncs.com/example.jpg?x-oss-process=image/resize,p_50)
+    The URL used to process the image is in the following format: [http://image-demo.oss-cn-hangzhou.aliyuncs.com/example.jpg?x-oss-process=image/resize,p\_50](http://image-demo.oss-cn-hangzhou.aliyuncs.com/example.jpg?x-oss-process=image/resize,p_50)
 
     ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/4856348951/p2425.jpg)
 
+
+## FAQ
+
+How do I access a resized image if the ACL of the image is private?
+
+You must add signature information to the URL of the resized image to access the image. For more information about how to obtain the URL of an object, see [How do I obtain the URL of an uploaded object?](/intl.en-US/Developer Guide/Objects/FAQ/How do I obtain the URL of an uploaded object?.md)
 
