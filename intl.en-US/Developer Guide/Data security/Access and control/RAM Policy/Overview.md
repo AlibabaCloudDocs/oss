@@ -1,6 +1,6 @@
 # Overview
 
-RAM policies are configured based on users. You can configure RAM policies to control the resources that can be accessed by users.
+Resource Access Management \(RAM\) policies are configured based on users. You can configure RAM policies to control the resources that can be accessed by users.
 
 ## Background information
 
@@ -8,7 +8,7 @@ RAM policies are configured based on users. You can configure RAM policies to co
 
     A RAM policy consists of the Version and Statement elements. A Statement contains the Effect, Action, Resource, and Condition fields, in which the Condition field is optional. For more information about the syntax and structure of RAM policies, see [Policy structure and syntax](/intl.en-US/Policy Management/Policy language/Policy structure and syntax.md).
 
-    The usage of Version, Statement, and Effect in RAM policies for OSS is the same as that in policies for RAM. For more information about the usage of Actions, Resources, and Conditions in RAM policies for OSS, see the following sections:
+    The usage of Version, Statement, and Effect in RAM policies for Object Storage Service \(OSS\) is the same as that in policies for RAM. For more information about the usage of Actions, Resources, and Conditions in RAM policies for OSS, see the following sections:
 
     -   [Actions in RAM policies for OSS](#section_x3c_nsm_2gb)
     -   [Resources in RAM policies for OSS](#section_an0_sb1_5sh)
@@ -23,7 +23,7 @@ RAM policies are configured based on users. You can configure RAM policies to co
 
 ## Actions in RAM policies for OSS
 
-RAM policies for OSS support service-related actions, bucket-related actions, and object-related actions.
+RAM policies for OSS support service-related actions, bucket-related actions, and object-related actions. For more information about actions that are implemented by API operations, see [API overview](/intl.en-US/API Reference/API overview.md).
 
 -   Service-related actions
 
@@ -35,7 +35,7 @@ RAM policies for OSS support service-related actions, bucket-related actions, an
 
 -   Bucket-related actions
 
-    Bucket-related actions are performed on buckets. The names of bucket-related actions have one-to-one correspondence with the operations called by the these actions.
+    Bucket-related actions are performed on buckets. The names of bucket-related actions have a one-to-one correspondence with the operations called by these actions.
 
     |API|Action|
     |:--|:-----|
@@ -139,30 +139,30 @@ In RAM policies for OSS, the Resource field indicates a specific resource or spe
 
 The Resource field is specified in the following format: `acs:oss:{region}:{bucket_owner}:{bucket_name}/{object_name}`.
 
-When you specify the Resource field in a RAM policy for a bucket, you do not need to add a forward slash \(/\) and `{object_name}` after `{bucket_name}`. In this case, you can specify the Resource field in the following format: `acs:oss:{region}:{bucket_owner}:{bucket_name}`. The region field can be set only to a asterisk \(\*\) as a wildcard.
+When you specify the Resource field in a RAM policy for a bucket, you do not need to add a forward slash \(/\) and `{object_name}` after `{bucket_name}`. In this case, you can specify the Resource field in the following format: `acs:oss:{region}:{bucket_owner}:{bucket_name}`. The region field can be set only to an asterisk \(\*\) as a wildcard.
 
 ## Conditions in RAM policies for OSS
 
-In RAM policies for OSS, the Condition field indicates the conditions for the RAM policies. The following table describes the conditions that are supported by RAM policies for OSS.
+In RAM policies for OSS, the Condition field indicates the conditions for the RAM policies. In RAM policies for OSS, the Condition field indicates the conditions for the RAM policies.
 
 |Condition|Description|
 |:--------|:----------|
 |acs:SourceIp|The CIDR block from which the request is sent. Asterisks are supported as wildcards.|
-|acs:UserAgent|The User-Agent header in the HTTP request.Type: string |
-|acs:CurrentTime|The time when the request arrives at the OSS server.Format: ISO 8601 timestamp |
-|acs:SecureTransport|The protocol type of the request. If the protocol type of the request is HTTP, set the value to HTTP. If the protocol type of the request is HTTPS, set the value to HTTPS.|
+|acs:UserAgent|The User-Agent header in the HTTP request. Type: string |
+|acs:CurrentTime|The time when the request arrives at the OSS server. Format: ISO 8601 timestamp |
+|acs:SecureTransport|The protocol of the request. If the protocol of the request is HTTP, set the value to HTTP. If the protocol of the request is HTTPS, set the value to HTTPS.|
 |oss:Prefix|The prefix of the objects listed by the ListObjects operation.|
 |oss:Delimiter|The character that is used to group the names of objects listed by the ListObjects operation.|
 |acs:AccessId|The AccessKey ID in the request.|
-|oss:BucketTag|The tag of the bucket.A single BucketTag can be used as a condition. To configure multiple BucketTags as multiple conditions, you must add `oss:BucketTag/` before each BucketTag. |
-|acs:MFAPresent|Indicates whether multi-factor authentication \(MFA\) is enabled.Valid values:
+|oss:BucketTag|The tag of the bucket. A single BucketTag can be used as a condition. To configure multiple BucketTags as multiple conditions, you must add `oss:BucketTag/` before each BucketTag. |
+|acs:MFAPresent|Indicates whether multi-factor authentication \(MFA\) is enabled. Valid values:
 
 -   true: MFA is enabled.
 -   false: MFA is disabled. |
-|oss:ExistingObjectTag|Indicates that the requested object has tags.A single ObjectTag can be used as a condition. To configure multiple ObjectTags as multiple conditions, you must add `oss:ExistingObjectTag/` before each ObjectTag.
+|oss:ExistingObjectTag|Indicates that the requested object has tags. A single ObjectTag can be used as a condition. To configure multiple ObjectTags as multiple conditions, you must add `oss:ExistingObjectTag/` before each ObjectTag.
 
 This condition applies to operations used to read objects, such as GetObject and HeadObject, and operations related to object tags, such as PutObjectTagging and GetObjectTagging. |
-|oss:RequestObjectTag|The object tags contained in the request.A single ObjectTag can be used as a condition. To configure multiple ObjectTags as multiple conditions, you must add `oss:RequestObjectTag/` before each ObjectTag.
+|oss:RequestObjectTag|The object tags contained in the request. A single ObjectTag can be used as a condition. To configure multiple ObjectTags as multiple conditions, you must add `oss:RequestObjectTag/` before each ObjectTag.
 
 This condition applies to operations used to write objects, such as PutObject and PostObject, and operations related to object tags, such as PutObjectTagging and GetObjectTagging. |
 
