@@ -63,16 +63,12 @@ This section describes the related settings during the installation of OSS SDK f
 
     The following permissions are required to use OSS SDK for Android:
 
-    ```
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-                        
-    ```
+    **Note:** Ensure the permissions are set in the AndroidManifest.xml file for the normal operating of OSS SDK for Android.
 
-    **Note:** Ensure the preceding permissions are set in the AndroidManifest.xml file for the normal operating of OSS SDK for Android.
+    ```
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>                   
+    ```
 
 -   ProGuard settings
 
