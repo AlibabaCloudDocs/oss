@@ -29,7 +29,7 @@ Only one server-side encryption method can be used for an object at a time. OSS 
 |Implementation mode|Description|
 |-------------------|-----------|
 |[Console](/intl.en-US/Console User Guide/Manage buckets/Basic settings/Configure server-side encryption.md)|A user-friendly and intuitive web application|
-|ossutil -   [bucket-encryption](/intl.en-US/Tools/ossutil/Common commands/Bucket encryption on the server side.md)
+|ossutil -   [bucket-encryption](/intl.en-US/Tools/ossutil/Common commands/bucket-encryption (server-side encryption).md)
 -   [cp](/intl.en-US/Tools/ossutil/Common commands/cp/Overview.md)
 
 |A high-performance command-line tool|
@@ -68,7 +68,7 @@ When you use SSE-KMS to encrypt data, you can use the following keys:
     You can import your BYOK material into KMS as the CMK:
 
     -   BYOK material provided by Alibaba Cloud: When you create a key on KMS, you can select **Alibaba Cloud KMS** as the source of the key material.
-    -   BYOK material provided by the user: When you create a key on KMS, you can select the source of the key material as **external** and import the external key material. For more information about how to import the key material, see [Import key material](/intl.en-US/Key service/Key type/Use symmetric keys/Import key material.md).
+    -   BYOK material provided by the user: When you create a key on KMS, you can select the source of the key material as **external** and import the external key material. For more information about how to import the key material, see [Import key material](/intl.en-US/Key Service/Key type/Use symmetric keys/Import key material.md).
     You can use the following configuration methods:
 
     -   Configure the default server-side encryption method for a bucket
@@ -135,7 +135,8 @@ To use server-side encryption by using the credentials of a RAM user in the foll
               "Action": [
                 "kms:List*",
                 "kms:DescribeKey",
-                "kms:GenerateDataKey"
+                "kms:GenerateDataKey",
+                "kms:Decrypt"
               ],
               "Resource": [
                 "acs:kms:*:1416614965936597:*" // In this example, the user is allowed to use all CMKs that belong to the account. To specify that only a CMK is available, enter the CMK ID.
