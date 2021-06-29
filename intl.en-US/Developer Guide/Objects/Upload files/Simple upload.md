@@ -8,8 +8,8 @@ For simple upload, you can call the PutObject operation to upload single objects
 
 |Implementation mode|Description|
 |-------------------|-----------|
-|[Console](/intl.en-US/Console User Guide/Upload, download, and manage objects/Upload an object.md)|A user-friendly and intuitive web application|
-|[ossbrowser](/intl.en-US/Tools/ossbrowser/Quick start.md)|An easy-to-operate graphical tool|
+|[Console](/intl.en-US/Console User Guide/Upload, download, and manage objects/Upload objects.md)|A user-friendly and intuitive web application|
+|[ossbrowser](/intl.en-US/Tools/ossbrowser/Use ossbrowser.md)|An easy-to-operate graphical tool|
 |[ossutil](/intl.en-US/Tools/ossutil/Common commands/cp/Overview.md)|A high-performance command-line tool|
 |[Java SDK](/intl.en-US/SDK Reference/Java/Upload objects/Simple upload.md)|SDK demos for various programming languages|
 |[Python SDK](/intl.en-US/SDK Reference/Python/Upload objects/Simple upload.md)|
@@ -19,7 +19,7 @@ For simple upload, you can call the PutObject operation to upload single objects
 |[.NET SDK](/intl.en-US/SDK Reference/. NET/Upload objects/Simple upload.md)|
 |[Android SDK](/intl.en-US/SDK Reference/Android/Upload objects/Simple upload.md)|
 |[iOS SDK](/intl.en-US/SDK Reference/iOS/Upload objects/Simple upload.md)|
-|[Node.js SDK](/intl.en-US/SDK Reference/Node. js/Upload objects/Upload a local file.md)|
+|[Node.js SDK](/intl.en-US/SDK Reference/Node. js/Upload objects/Local file upload.md)|
 |[Browser.js SDK](/intl.en-US/SDK Reference/Browser.js/Upload objects.md)|
 |[Ruby SDK](/intl.en-US/SDK Reference/Ruby/Upload objects.md)|
 
@@ -52,7 +52,7 @@ For simple upload, you can call the PutObject operation to upload single objects
 
 ## Configure object metadata
 
-When you use simple upload, you can configure object metadata to describe an object. For example, you can set standard HTTP headers such as Content-Type. You can also set user-defined metadata. For more information, see [Manage object metadata](/intl.en-US/Developer Guide/Objects/Manage files/Manage object metadata.md).
+When you use simple upload, you can configure object metadata to describe an object. For example, you can set standard HTTP headers such as Content-Type. You can also set user-defined metadata. For more information, see [Manage object metadata](/intl.en-US/Developer Guide/Objects/Manage object metadata.md).
 
 ## Security and authorization
 
