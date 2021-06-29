@@ -4,7 +4,7 @@ Alibaba Cloud Object Storage Service \(OSS\) provides you with network-based dat
 
 ## Use the OSS console
 
-You can create a bucket and upload objects to the bucket in the OSS console. After you upload objects to a bucket, you can download the objects to local disks or generate signed URLs for the objects to share the objects with third parties for download or preview. For more information, see [t2013568.md\#]().
+You can create a bucket and upload objects to the bucket in the OSS console. After you upload objects to a bucket, you can download the objects to local disks or generate signed URLs for the objects to share the objects with third parties for download or preview. For more information, see [Operations in the OSS console](/intl.en-US/Quick Start/OSS console/Operations in the OSS console.md).
 
 ## Use ossbrowser
 
@@ -22,5 +22,5 @@ OSS provides API operations and SDK packages in a variety of programming languag
 
 ## OSS-based file system management
 
-OSS does not use a hierarchical structure for objects, but instead uses a flat structure. All elements are stored as objects in buckets. However, OSS supports folders as a concept to group objects and simplify management. To use OSS in a manner similar to local folders and disks, you can configure Cloud Storage Gateway \(CSG\). CSG uses the NFS, SMB \(CIFS\), or iSCSI protocol to map OSS buckets to local folders or disks. By using CSG, you can access OSS resources by reading and writing files in local folders or disks. This way, you can use applications compliant with POSIX and protocols for block-based access to reduce the cost for application modification and learning. For more information, see [Configure CSG](/intl.en-US/Console User Guide/Upload, download, and manage objects/Configure CSG.md).
+OSS does not use a hierarchical structure for objects, but instead uses a flat structure. All elements are stored as objects in buckets. However, OSS supports folders as a concept to group objects and simplify management. To use OSS in a manner similar to local folders and disks, you can configure Cloud Storage Gateway \(CSG\). CSG uses the NFS, SMB \(CIFS\), or iSCSI protocol to map OSS buckets to local folders or disks. By using CSG, you can access OSS resources by reading and writing files in local folders or disks. This way, you can use applications compliant with POSIX and protocols for block-based access to reduce the cost for application modification and learning. For more information, see [Use CSG to attach OSS to ECS](/intl.en-US/Console User Guide/Upload, download, and manage objects/Use CSG to attach OSS to ECS.md).
 
