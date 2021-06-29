@@ -263,7 +263,7 @@ The following code provides an example on how to list objects whose names are al
     });
     
     async function list () {
-      let result = await store.listV2({
+      let result = await client.listV2({
         // List the objects and subfolders whose names are alphabetically greater than a/b in the a/ folder.
         delimiter: '/',
         prefix: 'a/',
@@ -332,7 +332,7 @@ The following code provides an example on how to list all objects in a specified
       // List up to 20 objects on each page.
       const maxKeys = 20;
       do {
-        let result = await client.list({
+        let result = await client.listV2({
               'continuation-token': continuationToken
           'max-keys': maxKeys
           });
@@ -364,7 +364,7 @@ let client = new OSS({
 
 // By default, the information about the object owners is not listed. To include the object owner information in the returned results, you must set the fetch-owner parameter to true.
 async function list () {
-  let result = await store.listV2({
+  let result = await client.listV2({
     'fetch-owner': true
   });
   console.log(result.objects);
