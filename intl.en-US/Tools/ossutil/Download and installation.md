@@ -78,7 +78,7 @@ Download the package based on your operating system and run the corresponding bi
 
         -   accessKeyID and accessKeySecret: Enter the AccessKey pair of your account.
             -   For more information about how to obtain the AccessKey pair of an Alibaba Cloud account or a RAM user, see [Create an AccessKey pair]().
-            -   For more information about how to obtain the AccessKey pair of a temporary STS token, see [Access OSS with a temporary access credential provided by STS](/intl.en-US/Developer Guide/Data security/Access and control/Access OSS with a temporary access credential provided by STS.md).
+            -   For more information about how to obtain the AccessKey pair of a temporary STS token, see [Use a temporary credential provided by STS to access OSS](/intl.en-US/Developer Guide/Data security/Use a temporary credential provided by STS to access OSS.md).
         -   stsToken: This option is required only when you use a temporary STS token to access an OSS bucket. Otherwise, you can leave this parameter empty. For more information about how to generate an STS token, see [Access OSS with a temporary access credential provided by STS](/intl.en-US/Developer Guide/Objects/Upload files/Authorized third-party upload.md).
     **Note:** For more information about configuration files, see [config](/intl.en-US/Tools/ossutil/Common commands/config.md).
 
