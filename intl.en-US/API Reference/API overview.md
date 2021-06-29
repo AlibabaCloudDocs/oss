@@ -17,7 +17,7 @@ This topic describes the API operations provided by OSS and their usage.
 |[GetBucket\(ListObject\)](/intl.en-US/API Reference/Bucket operations/Basic operations/GetBucket (ListObjects).md)|Lists the information about all objects in a bucket.|
 |[GetBucketInfo](/intl.en-US/API Reference/Bucket operations/Basic operations/GetBucketInfo.md)|Queries the information about a bucket.|
 |[GetBucketLocation](/intl.en-US/API Reference/Bucket operations/Basic operations/GetBucketLocation.md)|Queries the region of a bucket.|
-|[PutBucketAcl](/intl.en-US/API Reference/Bucket operations/ACL/PutBucketACL.md)|Configures the ACL of a bucket.|
+|[PutBucketAcl](/intl.en-US/API Reference/Bucket operations/ACL/PutBucketAcl.md)|Configures the ACL of a bucket.|
 |[GetBucketAcl](/intl.en-US/API Reference/Bucket operations/ACL/GetBucketAcl.md)|Queries the ACL of a bucket|
 |[PutBucketLifecycle](/intl.en-US/API Reference/Bucket operations/Lifecycle/PutBucketLifecycle.md)|Configures lifecycle rules for the objects in a bucket.|
 |[GetBucketLifecycle](/intl.en-US/API Reference/Bucket operations/Lifecycle/GetBucketLifecycle.md)|Queries the lifecycle rules configured for the objects in a bucket.|
@@ -25,11 +25,11 @@ This topic describes the API operations provided by OSS and their usage.
 |[PutBucketVersioning](/intl.en-US/API Reference/Bucket operations/Versioning/PutBucketVersioning.md)|Configures the versioning status of a bucket.|
 |[GetBucketVersioning](/intl.en-US/API Reference/Bucket operations/Versioning/GetBucketVersioning.md)|Queries the versioning status of a bucket.|
 |[GetBucketVersions\(ListObjectVersions\)](/intl.en-US/API Reference/Bucket operations/Versioning/GetBucketVersions(ListObjectVersions).md)|Lists the versions of all objects in a bucket.|
-|[PutBucketReplication](/intl.en-US/API Reference/Bucket operations/Cross-region replication/PutBucketReplication.md)|Configures cross-region replication \(CRR\) rules for a bucket.|
-|[GetBucketReplication](/intl.en-US/API Reference/Bucket operations/Cross-region replication/GetBucketReplication.md)|Queries the CRR rules configured for a bucket.|
-|[GetBucketReplicationLocation](/intl.en-US/API Reference/Bucket operations/Cross-region replication/GetBucketReplicationLocation.md)|Queries the regions in which the destination bucket can be located.|
-|[GetBucketReplicationProgress](/intl.en-US/API Reference/Bucket operations/Cross-region replication/GetBucketReplicationProgress.md)|Queries the progress of a CRR task performed on a bucket.|
-|[DeleteBucketReplication](/intl.en-US/API Reference/Bucket operations/Cross-region replication/DeleteBucketReplication.md)|Disables CRR for a bucket and deletes the CRR rule configured for the bucket.|
+|[PutBucketReplication](/intl.en-US/API Reference/Bucket operations/Cross-region Replication/PutBucketReplication.md)|Configures cross-region replication \(CRR\) rules for a bucket.|
+|[GetBucketReplication](/intl.en-US/API Reference/Bucket operations/Cross-region Replication/GetBucketReplication.md)|Queries the CRR rules configured for a bucket.|
+|[GetBucketReplicationLocation](/intl.en-US/API Reference/Bucket operations/Cross-region Replication/GetBucketReplicationLocation.md)|Queries the regions in which the destination bucket can be located.|
+|[GetBucketReplicationProgress](/intl.en-US/API Reference/Bucket operations/Cross-region Replication/GetBucketReplicationProgress.md)|Queries the progress of a CRR task performed on a bucket.|
+|[DeleteBucketReplication](/intl.en-US/API Reference/Bucket operations/Cross-region Replication/DeleteBucketReplication.md)|Disables CRR for a bucket and deletes the CRR rule configured for the bucket.|
 |[PutBucketPolicy](/intl.en-US/API Reference/Bucket operations/Authorization policy/PutBucketPolicy.md)|Configures policies for a bucket.|
 |[GetBucketPolicy](/intl.en-US/API Reference/Bucket operations/Authorization policy/GetBucketPolicy.md)|Queries the policies configured for a bucket.|
 |[DeleteBucketPolicy](/intl.en-US/API Reference/Bucket operations/Authorization policy/DeleteBucketPolicy.md)|Deletes the policies configured for a bucket.|
