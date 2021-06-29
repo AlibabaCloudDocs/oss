@@ -4,7 +4,7 @@ The following table lists the tools that can be used to streamline OSS operation
 
 |Tool|Description|
 |:---|:----------|
-|[ossbrowser](/intl.en-US/Tools/ossbrowser/Quick start.md)|A graphical object management tool. -   Provides an easy-to-use graphical interface.
+|[ossbrowser](/intl.en-US/Tools/ossbrowser/Use ossbrowser.md)|A graphical object management tool. -   Provides an easy-to-use graphical interface.
 -   Provides features similar to those of Windows Explorer.
 -   Allows you to browse objects.
 -   Allows you to upload and download directories \(folders\).
@@ -41,7 +41,7 @@ Limits:-   Archive and Cold Archivebuckets cannot be attached to local file syst
 -   If an OSS bucket is attached to multiple clients, you are responsible for maintaining data consistency. We recommend that you schedule the time when your users can use objects, which prevents multiple clients from writing to the same object at the same time.
 -   Hard links are not supported.
 
-**Note:** We recommend that you use Cloud Storage Gateway \(CSG\) to attach buckets. For more information, see [Configure CSG](/intl.en-US/Console User Guide/Upload, download, and manage objects/Configure CSG.md). |
+**Note:** We recommend that you use Cloud Storage Gateway \(CSG\) to attach buckets. For more information, see [Use CSG to attach OSS to ECS](/intl.en-US/Console User Guide/Upload, download, and manage objects/Use CSG to attach OSS to ECS.md). |
 |[ossftp](/intl.en-US/Tools/ossftp/Overview.md)|An FTP-based tool used to manage objects in OSS. -   You can use FTP clients such as FileZilla, WinSCP, and FlashFXP to manage objects in OSS.
 -   ossftp is an FTP server that receives FTP requests and performs operations on objects and folders in OSS.
 -   ossftp is based on Python 2.7 and later.
