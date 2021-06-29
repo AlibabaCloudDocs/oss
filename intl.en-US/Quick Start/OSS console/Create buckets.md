@@ -40,8 +40,8 @@ OSS is activated. For more information, see [Activate OSS](/intl.en-US/Console U
 
 |Operation|Implementation method|
 |---------|---------------------|
-|Create buckets|[ossutil](/intl.en-US/Tools/ossutil/Common commands/mb.md)|
-|[ossbrowser](/intl.en-US/Tools/ossbrowser/Quick start.md)|
+|Create buckets|[ossutil](/intl.en-US/Tools/ossutil/Common commands/mb (create buckets).md)|
+|[ossbrowser](/intl.en-US/Tools/ossbrowser/Use ossbrowser.md)|
 |[API operations](/intl.en-US/API Reference/Bucket operations/Basic operations/PutBucket.md)|
 |[Java SDK](/intl.en-US/SDK Reference/Java/Buckets/Create buckets.md)|
 |[Python SDK](/intl.en-US/SDK Reference/Python/Buckets/Create a bucket.md)|
