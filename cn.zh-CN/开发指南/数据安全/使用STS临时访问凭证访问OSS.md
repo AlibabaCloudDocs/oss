@@ -203,6 +203,8 @@ ossClient.shutdown();
 -   [Android SDK](/cn.zh-CN/SDK 示例/Android/授权访问.md)
 -   [iOS SDK](/cn.zh-CN/SDK 示例/iOS/授权访问.md)
 
+Object上传成功后，关于如何获取访问URL的具体操作，请参见[上传Object后如何获取访问URL？](/cn.zh-CN/开发指南/对象/文件（Object）/常见问题/上传Object后如何获取访问URL？.md)。
+
 ## 常见问题
 
 -   报错The security token you provided is invalid.如何处理？
