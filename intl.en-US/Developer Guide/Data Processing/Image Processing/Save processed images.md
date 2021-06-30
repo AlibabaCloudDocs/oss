@@ -4,13 +4,30 @@ By default, Image Processing \(IMG\) does not save processed images. You must ad
 
 ## Usage notes
 
--   To save a processed image, you must have the `oss:PostProcessTask` permission on the source bucket in which the source image is stored and write permissions on the destination bucket to store the process image as an object. For more information, see [Overview](/intl.en-US/Developer Guide/Data security/Access and control/RAM Policy/Overview.md).
--   You can save the processed image object to the same bucket where the object is stored or to a different bucket. However, the source bucket and the destination bucket must belong to the same Alibaba Cloud account and must be in the same region.
--   Images that are processed by using object URLs cannot be directly saved to a specified bucket. You can save the processed images to your local device and then upload them to the specified bucket.
+-   Permission
+
+    To save a processed image, you must have the `oss:PostProcessTask` permission on the source bucket in which the source image is stored, the `oss:PutBucket` permission on the destination bucket in which you want to store the processed image, and the `oss:PutObject` permission on the object as which you want to store the processed image.
+
+-   Region
+
+    You can save the processed image to the same bucket where the source image is stored or to a different bucket. However, the source bucket and the destination bucket must belong to the same Alibaba Cloud account and must be in the same region.
+
+-   Storage method
+
+    Images that are processed by using object URLs cannot be directly saved to a specified bucket. You can save the processed images to your local device and then upload them to the specified bucket.
+
+-   ACL
+
+    The access control list \(ACL\) of the processed image is the same as that of the bucket in which the image is saved and cannot be customized.
+
+-   Storage duration
+
+    If you want to store the processed image for the specific duration, configure a lifecycle rule for the image object to specify the time when the object expires. For more information, see [Lifecycle rules](/intl.en-US/Developer Guide/Buckets/Lifecycle/Lifecycle rules.md).
+
 
 ## SDK
 
-If you use OSS SDKs to process images, you can use the ImgSaveAs operation to save the processed images to a specified bucket. The following code provides an example on how to use OSS SDK for Java to save a processed image to a specified bucket:
+If you use Object Storage Service \(OSS\) SDKs to process images, you can use the ImgSaveAs operation to save the processed images to a specified bucket. The following code provides an example on how to use OSS SDK for Java to save a processed image to a specified bucket:
 
 ```
 // Specify the endpoint of the region in which the specified bucket is located. In this example, the endpoint of the China (Hangzhou) region is used. 
@@ -59,16 +76,18 @@ For more information about SDK demos for other programming languages, see the fo
 -   [OSS SDK for Node.js](/intl.en-US/SDK Reference/Node. js/IMG.md)
 -   [OSS SDK for Browser.js](/intl.en-US/SDK Reference/Browser.js/IMG.md)
 
-## API operation
+## API
 
-When you use the PostObject operation to call IMG, x-oss-process is passed by the request body. You can add the saveas operation to the IMG request to save the processed image to a specified bucket.
+When you use the PostObject operation to call IMG, x-oss-process is passed by the request body. You can add saveas to the IMG request to save the processed image to a specified bucket.
 
-You must specify the parameters described in the following table when you add the saveas operation to the request.
+You must specify the parameters described in the following table when you add saveas to the request.
 
 |Parameter|Description|
 |---------|-----------|
 |o|The name of the object as which the processed image is stored. This parameter must be URL-safe Base64-encoded. For more information, see [Encode watermarks](/intl.en-US/Developer Guide/Data Processing/Image Processing/Parameters/Add watermarks.md).|
 |b|The name of the bucket in which the processed image is stored. This parameter must be URL-safe Base64-encoded. By default, the processed image is saved to the current bucket if this parameter is not specified.|
+
+You can use the following two methods to process an image and save the processed image to the specified bucket:
 
 -   The following code provides an example on how to configure IMG parameters to process an image and save the processed image to a specified bucket:
 
