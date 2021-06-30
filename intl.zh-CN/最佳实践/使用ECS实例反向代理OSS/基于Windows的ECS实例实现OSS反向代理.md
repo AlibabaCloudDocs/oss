@@ -49,7 +49,7 @@
         
                location / {
                     proxy_pass  http://bucketname.oss-cn-hangzhou-internal.aliyuncs.com;
-                    #proxy_set_header Head $host;
+                    #proxy_set_header Host $host;
                 }
            }
         }
@@ -60,7 +60,7 @@
             -   当ECS实例与Bucket在同一地域时，填写目标Bucket的内网访问域名。访问域名介绍请参见[OSS访问域名使用规则](/intl.zh-CN/开发指南/访问域名（Endpoint）/OSS访问域名使用规则.md)。
             -   当ECS实例与Bucket不在同一地域时，填写目标Bucket的外网访问域名。
             -   因OSS的安全设置，当使用默认域名通过浏览器访问OSS中的图片或网页文件时，会直接下载。所以，若您的用户需通过浏览器预览Bucket中的图片或网页文件，需为Bucket绑定自定义域名，并在此项中添加已绑定的域名。绑定自定义域名操作请参见[绑定自定义域名](/intl.zh-CN/控制台用户指南/存储空间管理/管理域名/绑定自定义域名.md)。
-        -   proxy\_set\_header Head $host：添加此项时，Nginx会在向OSS请求的时候，将host替换为ECS的访问地址。遇到以下情况时，您需要添加此项。
+        -   proxy\_set\_header Host $host：添加此项时，Nginx会在向OSS请求的时候，将host替换为ECS的访问地址。遇到以下情况时，您需要添加此项。
             -   遇到签名错误问题。
             -   如果您的域名已解析到ECS实例的外网上，且您的用户需要通过浏览器预览Bucket中的图片或网页文件。您可以将您的域名绑定到ECS实例代理的Bucket上，不配置CNAME。这种情况下，proxy\_pass项可直接配置Bucket的内网或外网访问地址。绑定自定义域名操作请参见[绑定自定义域名](/intl.zh-CN/控制台用户指南/存储空间管理/管理域名/绑定自定义域名.md)。
         **说明：**
