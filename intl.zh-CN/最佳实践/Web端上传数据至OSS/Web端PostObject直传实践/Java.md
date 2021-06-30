@@ -8,7 +8,7 @@
 
 ## 步骤1：配置应用服务器
 
-1.  下载[应用服务器源码](https://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/86983/APP_zh/1537973714934/aliyun-oss-appserver-java-master.zip?spm=a2c4g.11186623.2.13.45fa4c07Y7xS8I&file=aliyun-oss-appserver-java-master.zip)（Java版本）。
+1.  下载[应用服务器源码](https://gosspublic.alicdn.com/doc/91868/aliyun-oss-appserver-java-master.zip)（Java版本）。
 
 2.  本示例中以`Ubuntu 16.04`为例，将下载的文件解压到/home/aliyun/aliyun-oss-appserver-java目录下。
 
