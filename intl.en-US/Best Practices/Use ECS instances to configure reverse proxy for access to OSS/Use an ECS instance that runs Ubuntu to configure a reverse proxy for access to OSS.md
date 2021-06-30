@@ -53,7 +53,7 @@ To resolve these issues, you can use an ECS instance to configure a reverse prox
     
             location / {
                 proxy_pass http://bucketname.oss-cn-beijing-internal.aliyuncs.com; 
-                #proxy_set_header Head $host; 
+                #proxy_set_header Host $host; 
          }  
     }
     ```
@@ -63,7 +63,7 @@ To resolve these issues, you can use an ECS instance to configure a reverse prox
         -   When the ECS instance and the bucket that you want to access are located within the same region, specify the internal endpoint of the bucket. For more information about endpoints, see [OSS domain names](/intl.en-US/Developer Guide/Endpoint/OSS domain names.md).
         -   When the ECS instance and the bucket that you want to access are located in different regions, specify the public endpoint of the bucket.
         -   For security reasons, when you access an image or web page object in a bucket by using the default domain name of the bucket in a browser, the object is downloaded. To preview the object in your browser, map a custom domain name to the bucket in which the object is stored and add the custom domain name to the value of proxy\_pass. For more information about how to map a custom domain name to a bucket, see [Map custom domain names](/intl.en-US/Console User Guide/Manage buckets/Manage a domain/Map custom domain names.md).
-    -   proxy\_set\_header Head $host: If you add this parameter, the host value is replaced with the IP address of the ECS instance when NGINX sends a request to OSS. You must add this parameter in the following scenarios:
+    -   proxy\_set\_header Host $host: If you add this parameter, the host value is replaced with the IP address of the ECS instance when NGINX sends a request to OSS. You must add this parameter in the following scenarios:
         -   Signature errors occur.
         -   The custom domain name that is mapped to the bucket is resolved to the public IP address of the ECS instance. You must preview image or web page objects in the bucket by using a browser. You can map the custom domain name to the bucket for which a reverse proxy is configured without adding a CNAME record for the custom domain name. In this case, you can set proxy\_pass to the internal or public endpoint of the bucket. For more information about how to map a custom domain name to a bucket, see [Map custom domain names](/intl.en-US/Console User Guide/Manage buckets/Manage a domain/Map custom domain names.md).
     **Note:**
