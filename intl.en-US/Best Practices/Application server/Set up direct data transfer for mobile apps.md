@@ -59,7 +59,7 @@ The following section describes how to use the app server to generate a token an
     |Programming language|Download link|
     |--------------------|-------------|
     |PHP|[Download link](https://gosspublic.alicdn.com/doc31920servercode/sts-server.zip)|
-    |Java|[Download link](https://gosspublic.alicdn.com/doc31920servercode/AppTokenServerDemo.zip)|
+    |Java|[Download link](https://gosspublic.alicdn.com/doc/31920/AppTokenServerDemo.zip)|
     |Ruby|[Download link](https://gosspublic.alicdn.com/doc31920servercode/sts-app-server-master.zip)|
     |Node.js|[Download link](https://gosspublic.alicdn.com/doc31920servercode/sts-app-server-node.zip)|
     |Go|[Download link](https://gosspublic.alicdn.com/doc31920servercode/test_token_server.zip)|
