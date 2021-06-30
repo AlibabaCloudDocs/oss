@@ -29,7 +29,7 @@
 
     -   access\_key\_id：设置您的AccessKeyId。
     -   access\_key\_secret：设置您的AessKeySecret。
-    -   host：格式为https://bucketname.endpoint，例如https://bucket-name.oss-cn-hangzhou.aliyuncs.com。关于Endpoint的介绍，请参见[Endpoint访问域名](/cn.zh-CN/开发指南/基本概念.md)。
+    -   host：格式为https://bucketname.endpoint，例如https://bucket-name.oss-cn-hangzhou.aliyuncs.com。关于Endpoint的介绍，请参见[Endpoint访问域名](/intl.zh-CN/开发指南/基本概念.md)。
     -   callback\_url：设置上传回调URL，即回调服务器地址，用于处理应用服务器与OSS之间的通信。OSS会在文件上传完成后，把文件上传信息通过此回调URL发送给应用服务器。本例中修改为：`var callbackUrl string ="http://11.22.33.44:1234";`。
     -   upload\_dir：若要设置上传到OSS文件的前缀则需要配置此项，否则置空即可。
 
@@ -63,7 +63,7 @@
 
     ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/9354449951/p12308.png)
 
-    **说明：** 为了您的数据安全，实际使用时，**来源**建议填写实际允许访问的域名。更多配置信息请参见[设置跨域访问](/cn.zh-CN/控制台用户指南/存储空间管理/权限管理/设置跨域访问.md)。
+    **说明：** 为了您的数据安全，实际使用时，**来源**建议填写实际允许访问的域名。更多配置信息请参见[设置跨域访问](/intl.zh-CN/控制台用户指南/存储空间管理/权限管理/设置跨域访问.md)。
 
 
 ## 步骤4：体验上传回调
@@ -78,15 +78,11 @@
 
     在PC侧的客户端源码目录中，打开index.html文件。
 
-    ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/3423029951/p12306.png)
-
     **说明：** index.html文件不保证兼容IE 10以下版本浏览器，若使用IE 10以下版本浏览器出现问题时，您需要自行调试。
 
 3.  上传文件。
 
     单击**选择文件**，选择指定类型的文件后，单击**开始上传**。上传成功后，显示回调服务器返回的内容。
-
-    ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/3423029951/p12309.png)
 
 
 ## 应用服务器核心代码解析
@@ -174,6 +170,6 @@
             self.wfile.write(resp_body)
     ```
 
-    更多详情请参见API文档[Callback](/cn.zh-CN/API 参考/关于Object操作/基础操作/Callback.md)。
+    更多详情请参见API文档[Callback](/intl.zh-CN/API 参考/关于Object操作/基础操作/Callback.md)。
 
 
