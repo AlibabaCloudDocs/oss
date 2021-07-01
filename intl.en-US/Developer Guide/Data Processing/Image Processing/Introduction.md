@@ -2,10 +2,6 @@
 
 You can add Image Processing \(IMG\) parameters to GetObject requests to process image objects stored in Object Storage Service \(OSS\). For example, you can add image watermarks to images or convert image formats.
 
-## Video tutorial
-
-The following video shows you how to process image objects. 
-
 ## Parameters
 
 OSS allows you to directly use one or more parameters to process images. You can also encapsulate multiple IMG parameters in a style to batch process images. When multiple IMG parameters are specified, OSS processes the image in the order of the parameters. The following table describes the parameters that you can configure to process images.
