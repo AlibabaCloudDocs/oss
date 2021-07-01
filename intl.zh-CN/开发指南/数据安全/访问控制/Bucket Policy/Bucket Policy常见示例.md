@@ -2,6 +2,10 @@
 
 Bucket Policy是阿里云OSS推出的针对Bucket的授权策略，您可以通过Bucket Policy授权其他用户访问您指定的OSS资源。例如，您可以对同账号以及跨账号下的不同RAM用户，或者匿名用户等授予访问或管理Bucket资源的不同权限，例如只读、读写权限等。
 
+## 通用说明
+
+以下均为资源拥有者（即UID为`174649585760xxxx`的Bucket Owner）通过Bucket Policy授权指定用户（例如UID为`27737962156157xxxx`的RAM用户）不同权限的示例。与RAM Policy不同的是，Bucket Policy还包含了用于指定授权用户的Principal元素。Bucket Policy的其他元素，例如Action，Condition等用法遵循RAM Policy的语法规则。有关各元素的使用详情，请参见[RAM Policy概述](/intl.zh-CN/开发指南/数据安全/访问控制/RAM Policy/RAM Policy概述.md)。
+
 ## 示例一：授予指定RAM用户对某个Bucket的读写权限
 
 以下示例用于授权UID为`27737962156157xxxx`以及`20214760404935xxxx`的RAM用户拥有目标存储空间examplebucket的读写权限：
