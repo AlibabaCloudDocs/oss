@@ -154,7 +154,7 @@ You can perform the following steps to add or modify a lifecycle rule:
 -   Command syntax
 
     ```
-    ./ossuitl64 lifecycle --method delete oss://bucketname
+    ./ossutil64 lifecycle --method delete oss://bucketname
     ```
 
 -   Examples
@@ -162,7 +162,7 @@ You can perform the following steps to add or modify a lifecycle rule:
     You can run the following command to delete the lifecycle rules of examplebucket:
 
     ```
-    ./ossuitl64 lifecycle --method delete oss://examplebucket
+    ./ossutil64 lifecycle --method delete oss://examplebucket
     ```
 
     If a similar output is displayed, the lifecycle rules of examplebucket are deleted.
