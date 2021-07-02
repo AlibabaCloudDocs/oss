@@ -5,7 +5,7 @@
 **说明：**
 
 -   本文各命令行示例均基于Linux 64位系统，其他系统请将命令开头的./ossutil64替换成对应的Binary名称。详情请参见[命令行工具ossutil快速入门](/intl.zh-CN/快速入门/命令行工具ossutil快速入门.md)。
--   有关生命周期规则的更多信息，请参见[生命周期规则介绍](/intl.zh-CN/开发指南/对象/文件（Object）/文件生命周期/生命周期规则介绍.md)。
+-   有关生命周期规则的更多信息，请参见[生命周期规则介绍](/intl.zh-CN/开发指南/存储空间（Bucket）/生命周期/生命周期规则介绍.md)。
 
 ## 添加或修改生命周期规则
 
@@ -154,7 +154,7 @@
 -   命令格式
 
     ```
-    ./ossuitl64 lifecycle --method delete oss://bucketname
+    ./ossutil64 lifecycle --method delete oss://bucketname
     ```
 
 -   使用示例
@@ -162,7 +162,7 @@
     删除examplebucket的生命周期规则配置。
 
     ```
-    ./ossuitl64 lifecycle --method delete oss://examplebucket
+    ./ossutil64 lifecycle --method delete oss://examplebucket
     ```
 
     以下输出结果表明已删除examplebucket的生命周期规则配置。
