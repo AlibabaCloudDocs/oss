@@ -82,13 +82,16 @@
 
         
       
-      * **业务类型** ：选择 **动态加速** 。
+      * **业务类型** ：选择 **全站加速** 。
 
         
       
-      * **源站信息** ：选择 **OSS域名** ，然后选择需要加速的OSS域名（即之前创建的OSS Bucket对应的域名）、端口、以及加速区域，如下图所示。
+      * **加速区域** ：选择 **仅中国内地** 。
 
-        ![添加域名](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/0997298951/p132107.png)
+        
+      
+      * **源站信息** ：单击 **新增源站信息** ，然后选择 **OSS域名** 和需要加速的OSS域名（即之前创建的OSS Bucket对应的域名），其他参数保持默认值。单击 **确认** 。
+
         
       
 
@@ -127,7 +130,6 @@
       
       * 其他参数：保留默认值。
 
-        ![添加cname](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/0997298951/p132113.png)
         
       
 
