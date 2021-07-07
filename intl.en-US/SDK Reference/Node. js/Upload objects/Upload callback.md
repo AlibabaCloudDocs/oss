@@ -10,7 +10,7 @@ The following code provides an example on how to use upload callback when you up
 const oss = require('ali-oss');
 var path = require('path');
 
-const store = oss({
+const client = oss({
   // Set yourregion to the endpoint of the region where the bucket is located. For example, if your bucket is located in the China (Hangzhou) region, set yourregion to oss-cn-hangzhou. 
   region: 'yourregion',
   // Security risks may arise if you use the AccessKey pair of an Alibaba Cloud account to log on to OSS because the account has permissions on all API operations. We recommend that you use a RAM user to call API operations or perform routine operations and maintenance. To create a RAM user, log on to the RAM console. 
