@@ -115,7 +115,7 @@ Traditional service providers require you to purchase a fixed amount of storage 
 
 OSS charges you only for the storage capacity and traffic that you consume. Therefore, you do not need to purchase storage capacity and traffic in advance. You can take the cost advantages of the flexible infrastructure provided by Alibaba Cloud to grow your business.
 
-For more information about OSS pricing, visit [Object Storage Service Pricing](https://www.alibabacloud.com/product/oss#pricing). For more information about OSS billing methods, see [Overview](/intl.en-US/Pricing/Billing items and methods/Overview.md).
+For more information about OSS pricing, visit [Object Storage Service Pricing](https://www.alibabacloud.com/product/oss/pricing). For more information about OSS billing methods, see [Overview](/intl.en-US/Pricing/Billing items and methods/Overview.md).
 
 ## Other services
 
