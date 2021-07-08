@@ -32,7 +32,7 @@ The following table lists the features provided by OSS.
 |-   [Set the ACL for a bucket](/intl.en-US/Developer Guide/Buckets/Set the ACL for a bucket.md)
 -   [Configure ACL for objects](/intl.en-US/Console User Guide/Upload, download, and manage objects/Configure ACL for objects.md)
 -   [Bucket Policy](/intl.en-US/Console User Guide/Upload, download, and manage objects/Configure bucket policies to authorize other users to access OSS resources.md)
--   [RAM Policy](/intl.en-US/Developer Guide/Data security/Access and control/Overview.md)
+-   [RAM Policy](/intl.en-US/Developer Guide/Data security/Access and control/RAM Policy/Overview.md)
 -   [Use a temporary credential provided by STS to access OSS](/intl.en-US/Developer Guide/Data security/Use a temporary credential provided by STS to access OSS.md)
 -   [Configure hotlink protection](/intl.en-US/Developer Guide/Data security/Configure hotlink protection.md) |
 |Encrypt data|OSS supports client-side and server-side encryption. You can select an encryption method to encrypt and store your data in OSS.|-   [Client-side encryption](/intl.en-US/Developer Guide/Data security/Data encryption/Client-side encryption.md)
