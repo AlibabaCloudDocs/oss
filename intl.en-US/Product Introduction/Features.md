@@ -42,10 +42,11 @@ The following table lists the features provided by OSS.
 
 |-   [Bucket tagging](/intl.en-US/Developer Guide/Buckets/Bucket tagging.md)
 -   [Configure object tagging](/intl.en-US/Developer Guide/Objects/Manage files/Configure object tagging.md) |
-|Record the access information for OSS resources|OSS supports logging. You can configure logging to audit operations, collect access statistics, track exceptions, and troubleshoot problems in OSS.| |
+|Record the access information for OSS resources|OSS supports logging. You can configure logging to audit operations, collect access statistics, track exceptions, and troubleshoot problems in OSS.|-   [Real-time log query](/intl.en-US/Developer Guide/Manage logs/Real-time log query.md)
+-   [Log storage](/intl.en-US/Developer Guide/Manage logs/Log storage.md) |
 |Use custom domain names to access OSS resources|OSS allows you to map custom domain names to OSS buckets and use custom domain names to access data in the buckets. If you want to use your custom domain name to access OSS by using HTTPS, you can host your SSL certificate in OSS.|-   [Map custom domain names](/intl.en-US/Developer Guide/Buckets/Map custom domain names.md)
 -   [Host SSL certificates](/intl.en-US/Console User Guide/Manage buckets/Manage a domain/Host SSL certificates.md) |
-|Configure static website hosting|OSS supports static website hosting. You can configure static website hosting for your bucket and access static websites by using the bucket domain name.|[Static website hosting](/intl.en-US/Developer Guide/Static website hosting/Static website hosting.md)|
+|Configure static website hosting|OSS supports static website hosting. You can configure static website hosting for your bucket and access static websites by using the bucket domain name.|[Overview](/intl.en-US/Developer Guide/Static website hosting/Static website hosting.md)|
 |CORS|OSS supports CORS in HTML5. CORS allows client web applications that are loaded in one domain name to interact with resources in another domain.|[Configure CORS](/intl.en-US/Developer Guide/Buckets/Configure CORS.md)|
 |Obtain data from the origin|OSS supports back-to-origin configurations. If your user accesses data in a bucket that has no back-to-origin rules configured and the data does not exist, 404 Not Found is returned. However, if you configure back-to-origin rules that contain the correct origin URL, your user can obtain the data based on the back-to-origin rules. You can configure back-to-origin rules for hot data migration and specific request redirection.|[Manage back-to-origin configurations](/intl.en-US/Developer Guide/Objects/Manage files/Manage back-to-origin configurations.md)|
 |View object metadata|OSS supports the inventory feature. You can configure inventory rules for buckets to export the metadata of specified objects, including the object sizes and encryption status.|[Bucket inventory](/intl.en-US/Developer Guide/Buckets/Bucket inventory.md)|
@@ -55,7 +56,7 @@ The following table lists the features provided by OSS.
 |Analyze and process data|OSS supports Image Processing \(IMG\) and video snapshot capturing for you to analyze and process data stored in OSS:-   IMG: You can perform operations such as format conversion, cropping, scaling, rotating, watermarking, and style encapsulation on images stored in OSS.
 -   Capture video snapshots: You can capture images from video objects in the H.264 format.
 
-|-   [IMG](/intl.en-US/Developer Guide/Data Processing/Image Processing/IMG implementation modes.md)
+|-   [IMG](/intl.en-US/Developer Guide/Data Processing/Image Processing/Introduction.md)
 -   [Video snapshots](/intl.en-US/Developer Guide/Data Processing/Video snapshots.md) |
 |Use tools to manage OSS resources|OSS provides graphical, command-line, file mounting, and FTP tools for you to manage OSS resources.|[OSS tools](/intl.en-US/Tools/OSS tools.md)|
 |Use SDKs to manage OSS resources|OSS provides SDKs for a variety of programming languages to facilitate further development.|[SDK sample code](SDK sample codet22258.dita#concept_dcn_tp1_kfb)|
