@@ -10,7 +10,7 @@ You can call this operation to delete a directory. This operation is applicable 
 -   Different permissions are required when a different deletion method is used.
     -   When you use the recursive delete method to delete a directory, you must have the DeleteObject permission on the directory and all objects and subdirectories in this directory.
 
-        For example, to recursively delete the oss directory from the desktop directory, you must have the DeleteObject permission on the desktop/oss directory and all objects and subdirectories in the desktop/oss directory.
+        For example, to recursively delete the oss directory from the desktop directory, you must have the DeleteObject permission on the desktop/osstest directory and all objects and subdirectories in the desktop/osstest directory.
 
     -   To use non-recursive delete to delete a directory, you must have the DeleteObject permission on the directory.
 
@@ -60,7 +60,7 @@ The response headers involved in this API operation contain only common response
     Sample requests
 
     ```
-    POST /desktop/oss/a?x-oss-delete HTTP/1.1
+    POST /desktop/osstest/a?x-oss-delete HTTP/1.1
     Host: oss-example.oss-cn-hangzhou.aliyuncs.com
     Date: Thu, 29 Apr 2021 05:21:12 GMT
     Authorization: OSS qn6qrrqxo2oawuk53otfjbyc:CTkuxpLAi4XZ+WwIfNm0Fmgb****
@@ -75,7 +75,7 @@ The response headers involved in this API operation contain only common response
     Connection: keep-alive
     Server: AliyunOSS
     <DeleteDirectoryResult>
-        <DirectoryName>desktop/oss/a</DirectoryName>
+        <DirectoryName>desktop/osstest/a</DirectoryName>
         <DeleteNumber>1</DeleteNumber>
     </DeleteDirectoryResult>
     ```
@@ -85,7 +85,7 @@ The response headers involved in this API operation contain only common response
     Sample requests
 
     ```
-    POST /desktop/oss/a?x-oss-delete HTTP/1.1
+    POST /desktop/osstest/a?x-oss-delete HTTP/1.1
     Host: oss-example.oss-cn-hangzhou.aliyuncs.com
     Date: Thu, 29 Apr 2021 05:21:12 GMT
     Authorization: OSS qn6qrrqxo2oawuk53otfjbyc:CTkuxpLAi4XZ+WwIfNm0Fmgb****
@@ -101,7 +101,7 @@ The response headers involved in this API operation contain only common response
     Connection: keep-alive
     Server: AliyunOSS
     <DeleteDirectoryResult>
-        <DirectoryName>desktop/oss/a</DirectoryName>
+        <DirectoryName>desktop/osstest/a</DirectoryName>
         <DeleteNumber>100</DeleteNumber>
         <NextDeleteToken>CgJiYw--</NextDeleteToken>
     </DeleteDirectoryResult>
@@ -110,7 +110,7 @@ The response headers involved in this API operation contain only common response
 
 ## SDK
 
-OSS SDK for Java: [Delete directories]()
+OSS SDK for Java: [Delete directories](/intl.en-US/SDK Reference/Java/Manage directories.md)
 
 ## Error codes
 
