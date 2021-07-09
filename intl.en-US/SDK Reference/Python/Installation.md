@@ -4,7 +4,7 @@ This topic describes how to install Python SDK.
 
 ## Environment requirements
 
-This version of Python SDK is applicable to Python 2.6, 2.7, 3.3, 3.4, 3.5 and 3.6.
+This version of Python SDK is applicable to Python 2.6, 2.7, 3.3, 3.4, 3.5, 3.6, 3.7 and 3.8.
 
 -   Installation environment
 
