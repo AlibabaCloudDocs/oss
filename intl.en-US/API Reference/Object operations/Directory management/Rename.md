@@ -36,10 +36,10 @@ The response to a Rename request contains only common response headers. For more
 
 Sample requests
 
-The following sample request is sent to rename an object named a in the desktop/oss/ directory to b.
+The following sample request is sent to rename an object named a in the desktop/osstest/ directory to b.
 
 ```
-POST /desktop/oss/b?x-oss-rename HTTP/1.1
+POST /desktop/osstest/b?x-oss-rename HTTP/1.1
 Host: oss-example.oss-cn-hangzhou.aliyuncs.com
 Date: Thu, 29 Apr 2021 05:21:12 GMT
 Authorization: OSS qn6qrrqxo2oawuk53otfjbyc:CTkuxpLAi4XZ+WwIfNm0Fmgb****
@@ -58,7 +58,7 @@ Server: AliyunOSS
 
 ## SDK
 
-[OSS SDK for Java]()
+[OSS SDK for Java](/intl.en-US/SDK Reference/Java/Manage directories.md)
 
 ## Error codes
 
