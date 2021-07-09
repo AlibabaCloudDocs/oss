@@ -58,7 +58,7 @@ Server: AliyunOSS
 
 ## SDK
 
-OSS SDK for Java: [Create directories]()
+OSS SDK for Java: [Create directories](/intl.en-US/SDK Reference/Java/Manage directories.md)
 
 ## Error code
 
@@ -66,5 +66,5 @@ OSS SDK for Java: [Create directories]()
 |----------|----------------|-----------|
 |AccessDenied|403|Possible causes:-   When you create a directory, you do not have permissions to access the specified bucket.
 -   When you create a directory, the directory you want to create has the same name as an existing directory, but you do not have the permissions to access the existing directory. |
-|FileAlreadyExists|409|The error message returned because an existing object at the same directory level has the same name. For example: The desktop directory contains an object named oss. You cannot create a directory named oss in the desktop directory.|
+|FileAlreadyExists|409|The error message returned because an existing object at the same directory level has the same name. For example: The desktop directory contains an object named osstest. You cannot create a directory named osstest in the desktop directory.|
 
