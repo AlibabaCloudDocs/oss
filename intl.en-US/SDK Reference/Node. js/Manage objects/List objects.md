@@ -333,7 +333,7 @@ The following code provides an example on how to list all objects in a specified
       const maxKeys = 20;
       do {
         let result = await client.listV2({
-              'continuation-token': continuationToken
+          'continuation-token': continuationToken,
           'max-keys': maxKeys
           });
         continuationToken = result.nextContinuationToken;
