@@ -19,7 +19,7 @@ You can modify the IP address and listening port. After you update the configura
 
 ## Step 2: Configure the application server
 
-1.  Download the [application server source code](https://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/92590/APP_zh/1539603337889/aliyun-oss-appserver-php-master.zip?spm=a2c4g.11186623.2.14.40e84c07nb3YkP&file=aliyun-oss-appserver-php-master.zip) in PHP.
+1.  Download the [application server source code](https://gosspublic.alicdn.com/doc/91771/aliyun-oss-appserver-php-master-new.rar) in PHP.
 
 2.  Decompress the application server source code to the corresponding directory. The web server must be deployed to the /var/www/html/aliyun-oss-appserver-php directory of Ubuntu 16.04 in this example.
 
