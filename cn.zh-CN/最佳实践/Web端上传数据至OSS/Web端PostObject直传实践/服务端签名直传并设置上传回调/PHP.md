@@ -19,7 +19,7 @@
 
 ## 步骤2：配置应用服务器
 
-1.  下载[应用服务器源码](https://docs-aliyun.cn-hangzhou.oss.aliyun-inc.com/assets/attach/92590/APP_zh/1539603337889/aliyun-oss-appserver-php-master.zip?spm=a2c4g.11186623.2.14.40e84c07nb3YkP&file=aliyun-oss-appserver-php-master.zip)（PHP版本）。
+1.  下载[应用服务器源码](https://gosspublic.alicdn.com/doc/91771/aliyun-oss-appserver-php-master-new.rar)（PHP版本）。
 
 2.  将应用服务器源码解压到应用服务器的相应目录。本文示例中需要部署到Ubuntu16.04的/var/www/html/aliyun-oss-appserver-php目录下。
 
