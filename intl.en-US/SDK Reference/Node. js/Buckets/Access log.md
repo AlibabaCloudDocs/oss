@@ -5,8 +5,7 @@ You can enable access log to record bucket access to log files, which are stored
 Log format:
 
 ```
-<TargetPrefix><SourceBucket>-YYYY-mm-DD-HH-MM-SS-UniqueString
-		
+<TargetPrefix><SourceBucket>YYYY-mm-DD-HH-MM-SS-UniqueString      
 ```
 
 For more information about access log, see the "[Log storage](/intl.en-US/Developer Guide/Manage logs/Log storage.md).
@@ -38,7 +37,7 @@ putBucketLogging();
 
 Use `getBucketLogging` to view configurations of access log.
 
-```language-js
+```
 let OSS = require('ali-oss')
 
 let client = new OSS({
@@ -58,14 +57,14 @@ async function getBucketLogging() {
 })
 
 getBucketLogging();
-			
+            
 ```
 
 ## Disable access log
 
 Use `deleteBucketLogging` to disable access log of the bucket.
 
-```language-js
+```
 let OSS = require('ali-oss')
 
 let client = new OSS({
@@ -84,6 +83,6 @@ async function deleteBucketLogging () {
   }
 
 deleteBucketLogging();
-			
+            
 ```
 
