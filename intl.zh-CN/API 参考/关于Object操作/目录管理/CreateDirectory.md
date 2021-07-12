@@ -58,7 +58,7 @@ Server: AliyunOSS
 
 ## SDK
 
-[Java SDK：创建目录]()
+[Java SDK：创建目录](/intl.zh-CN/SDK 示例/Java/管理目录.md)
 
 ## 错误码
 
@@ -66,5 +66,5 @@ Server: AliyunOSS
 |---|-------|--|
 |AccessDenied|403|返回此错误的可能原因如下：-   创建目录时，用户对设置的Bucket没有访问权限。
 -   创建目录时，已存在同名目录但用户对该目录没有访问权限。 |
-|FileAlreadyExists|409|创建目录时，如果当前目录层级已存在同名文件，则返回该错误。例如desktop目录下已存在名为oss的文件，则在desktop目录下无法再创建名为oss的目录。|
+|FileAlreadyExists|409|创建目录时，如果当前目录层级已存在同名文件，则返回该错误。例如desktop目录下已存在名为osstest的文件，则在desktop目录下无法再创建名为osstest的目录。|
 
