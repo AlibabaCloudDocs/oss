@@ -10,7 +10,7 @@ DeleteDirectory接口用于删除目录（Directory）。只有开启分层命�
 -   使用的删除方式不同时需要的权限不同。
     -   使用递归删除方式删除目录时，您必须有目录以及该目录下所有文件和目录的DeleteObject权限。
 
-        例如要递归删除desktop目录下oss目录，您必须有desktop/oss和desktop/oss/\*的DeleteObject权限。
+        例如要递归删除desktop目录下osstest目录，您必须有desktop/osstest和desktop/osstest/\*的DeleteObject权限。
 
     -   使用非递归删除方式删除目录时，您必须有目录的DeleteObject权限。
 
@@ -59,7 +59,7 @@ Authorization: SignatureValue
     请求示例
 
     ```
-    POST /desktop/oss/a?x-oss-delete HTTP/1.1
+    POST /desktop/osstest/a?x-oss-delete HTTP/1.1
     Host: oss-example.oss-cn-hangzhou.aliyuncs.com
     Date: Thu, 29 Apr 2021 05:21:12 GMT
     Authorization: OSS qn6qrrqxo2oawuk53otfjbyc:CTkuxpLAi4XZ+WwIfNm0Fmgb****
@@ -74,7 +74,7 @@ Authorization: SignatureValue
     Connection: keep-alive
     Server: AliyunOSS
     <DeleteDirectoryResult>
-        <DirectoryName>desktop/oss/a</DirectoryName>
+        <DirectoryName>desktop/osstest/a</DirectoryName>
         <DeleteNumber>1</DeleteNumber>
     </DeleteDirectoryResult>
     ```
@@ -84,7 +84,7 @@ Authorization: SignatureValue
     请求示例
 
     ```
-    POST /desktop/oss/a?x-oss-delete HTTP/1.1
+    POST /desktop/osstest/a?x-oss-delete HTTP/1.1
     Host: oss-example.oss-cn-hangzhou.aliyuncs.com
     Date: Thu, 29 Apr 2021 05:21:12 GMT
     Authorization: OSS qn6qrrqxo2oawuk53otfjbyc:CTkuxpLAi4XZ+WwIfNm0Fmgb****
@@ -100,7 +100,7 @@ Authorization: SignatureValue
     Connection: keep-alive
     Server: AliyunOSS
     <DeleteDirectoryResult>
-        <DirectoryName>desktop/oss/a</DirectoryName>
+        <DirectoryName>desktop/osstest/a</DirectoryName>
         <DeleteNumber>100</DeleteNumber>
         <NextDeleteToken>Cg9kZXNrdG9wL29zcy9hLzk-</NextDeleteToken>
     </DeleteDirectoryResult>
@@ -109,7 +109,7 @@ Authorization: SignatureValue
 
 ## SDK
 
-[Java SDK：删除目录]()
+[Java SDK：删除目录](/intl.zh-CN/SDK 示例/Java/管理目录.md)
 
 ## 错误码
 
