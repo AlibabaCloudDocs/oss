@@ -78,7 +78,7 @@ Authorization: SignatureValue
 **说明：** 仅允许使用一个星号（\*）通配符 。
 
 父节点：CORSRule |
-|ExposeHeader|字符串|否|x-oss-test|指定允许用户从应用程序中访问的响应头。例如，一个Javascript的XMLHttpRequest对象。**说明：** 不允许使用星号（\*）通配符。
+|ExposeHeader|字符串|否|x-oss-test|指定允许用户从应用程序中访问的响应头。例如，一个JavaScript的XMLHttpRequest对象。**说明：** 不允许使用星号（\*）通配符。
 
 父节点：CORSRule |
 |MaxAgeSeconds|整型|否|100|指定浏览器对特定资源的预取（OPTIONS）请求返回结果的缓存时间。单位为秒。 单条CORS规则仅允许一个MaxAgeSeconds。
