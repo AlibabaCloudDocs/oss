@@ -1,8 +1,8 @@
-# GetLiveChannelHistory {#reference_kjz_yld_xdb .reference}
+# GetLiveChannelHistory
 
 GetLiveChannelHistory接口用于获取指定LiveChannel的推流记录。使用GetLiveChannelHistory接口最多会返回指定LiveChannel最近的10次推流记录。
 
-## 请求语法 {#section_wtq_bmd_xdb .section}
+## 请求语法
 
 ```
 GET /ChannelName?live&comp=history HTTP/1.1
@@ -11,39 +11,29 @@ Host: BucketName.oss-cn-hangzhou.aliyuncs.com
 Authorization: SignatureValue
 ```
 
-## 响应元素 {#section_kln_dmd_xdb .section}
+## 响应元素
 
 |名称|类型|描述|
 |:-|:-|:-|
 |LiveChannelHistory|容器|保存GetLiveChannelHistory返回结果的容器。 子节点：LiveRecord
 
- 父节点：无
-
- |
+父节点：无 |
 |LiveRecord|容器|保存一次推流记录信息的容器。 子节点：StartTime、EndTime、RemoteAddr
 
- 父节点：LiveChannelHistory
-
- |
+父节点：LiveChannelHistory |
 |StartTime|字符串|推流开始时间，使用ISO8601格式表示。 子节点：无
 
- 父节点：LiveRecord
-
- |
+父节点：LiveRecord |
 |EndTime|字符串|推流结束时间，使用ISO8601格式表示。 子节点：无
 
- 父节点：LiveRecord
+父节点：LiveRecord |
+|RemoteAddr|字符串|推流客户端的IP地址。 子节点：无
 
- |
-|RemoteAddr|字符串|推流客户端的ip地址。 子节点：无
+父节点：LiveRecord |
 
- 父节点：LiveRecord
+## 示例
 
- |
-
-## 示例 {#section_znp_mmd_xdb .section}
-
-**请求示例**
+请求示例
 
 ```
 GET /test-channel?live&comp=history HTTP/1.1
@@ -52,7 +42,7 @@ Host: test-bucket.oss-cn-hangzhou.aliyuncs.com
 Authorization: OSS YJjHKOKWDWINLKXv:pqgDBP8JXTXAytBoXpvNoZfo****
 ```
 
-**返回实例**
+返回示例
 
 ```
 HTTP/1.1 200
@@ -86,4 +76,8 @@ content-type: application/xml
   </LiveRecord>
 </LiveChannelHistory>
 ```
+
+## SDK
+
+[Java](/cn.zh-CN/最佳实践/用户实践/Java SDK 的 LiveChannel 常见操作.md)
 
