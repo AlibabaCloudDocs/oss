@@ -6,7 +6,7 @@ The log file format is as follows:
 
 `<TargetPrefix><SourceBucket>-YYYY-mm-DD-HH-MM-SS-UniqueString`
 
-For more information about access log files, see [Set access logging](/intl.en-US/Developer Guide/Manage logs/Logging.md).
+For more information about access log files, see [Set access logging](/intl.en-US/Developer Guide/Manage logs/Log storage.md).
 
 ## Enable access logging
 
