@@ -36,10 +36,10 @@ x-oss-rename-source:srcPathName
 
 请求示例
 
-以下示例用于将desktop目录下oss目录中的a重命名为b。
+以下示例用于将desktop目录下osstest目录中的a重命名为b。
 
 ```
-POST /desktop/oss/b?x-oss-rename HTTP/1.1
+POST /desktop/osstest/b?x-oss-rename HTTP/1.1
 Host: oss-example.oss-cn-hangzhou.aliyuncs.com
 Date: Thu, 29 Apr 2021 05:21:12 GMT
 Authorization: OSS qn6qrrqxo2oawuk53otfjbyc:CTkuxpLAi4XZ+WwIfNm0Fmgb****
@@ -58,7 +58,7 @@ Server: AliyunOSS
 
 ## SDK
 
-[Java SDK：重命名]()
+[Java SDK：重命名](/intl.zh-CN/SDK 示例/Java/管理目录.md)
 
 ## 错误码
 
