@@ -1,58 +1,68 @@
 # cat（输出文件内容）
 
-cat命令可以将文件内容输出到ossutil。
+cat命令仅支持将存储空间（Bucket）内文件（Object）的内容输出到屏幕。
 
-**说明：** 本文命令均以Linux系统为例，实际使用时，请将命令名称改为您实际可执行程序文件的名称。例如Windows 32位系统的帮助命令为ossutil32.exe help。
+**说明：** 本文各命令行示例均基于Linux 64位系统，其他系统请将命令开头的./ossutil64替换成对应的Binary名称。详情请参见[命令行工具ossutil快速入门](/intl.zh-CN/快速入门/命令行工具ossutil快速入门.md)。
 
 ## 命令格式
 
 ```
-./ossutil cat oss://bucket/object [--payer requester]
+./ossutil64 cat oss://bucketname/objectname [--payer <value>] [--version-id <value>]
 ```
 
 **说明：** 仅建议使用此命令查看文本文件内容。
 
+参数及选项说明如下：
+
+|配置项|说明|
+|---|--|
+|bucketname|Bucket名称。|
+|objectname|Object名称。|
+|--payer|请求的支付方式。如果希望访问指定路径下的资源产生的流量、请求次数等费用由请求者支付，请将此选项的值设置为requester。|
+|--version-id|Object的指定版本。仅适用于已开启或暂停版本控制状态Bucket下的Object。|
+
 ## 使用示例
 
--   查看指定文件内容
+-   将未开启版本控制的目标存储空间examplebucket内名为test.txt的文件内容输出到屏幕
 
     ```
-    ./ossutil cat oss://bucket1/test.txt
-    language=ch
-    endpoint=oss-cn-hangzhou.aliyuncs.com
+    ./ossutil64 cat oss://examplebucket/test.txt
+    ```
+
+    以下输出结果表明test.txt文件包含的信息，以及完成输出操作所用时长。
+
+    ```
+    My Website Home Page.
     
-    0.273027(s) elapsed
+    0.088092(s) elapsed
     ```
 
--   在已开启版本控制的Bucket内查看指定版本的文件的内容
+-   将已开启版本控制的目标存储空间examplebucket内名为exampleobject.txt文件的指定版本内容输出到屏幕
 
     ```
-    ./ossutil cat oss://bucket1/test.txt --version-id  CAEQARiBgID8rumR2hYiIGUyOTAyZGY2MzU5MjQ5ZjlhYzQzZjNlYTAyZDE3MDRk
-    language=ch
-    endpoint=oss-cn-hangzhou.aliyuncs.com
+    ./ossutil64 cat oss://examplebucket/exampleobject.txt --version-id  CAEQARiBgID8rumR2hYiIGUyOTAyZGY2MzU5MjQ5ZjlhYzQzZjNlYTAyZDE3****
+    ```
+
+    有关获取Object所有版本的具体操作，请参见[ls命令](/intl.zh-CN/常用工具/命令行工具ossutil/常用命令/ls（列举账号级别下的资源）.md)。
+
+    以下输出结果表明指定版本的exampleobject.txt文件包含的信息，以及完成输出操作所用时长。
+
+    ```
+    Hello World.
     
-    0.375125(s) elapsed
+    0.044820(s) elapsed
     ```
 
-    在使用`--version-id`选项前，需使用[ls --all-versions](/intl.zh-CN/常用工具/命令行工具ossutil/常用命令/ls（列举）.md)命令获取文件的versionid。
 
-    **说明：** `--version-id`选项仅支持在已开启版本控制的Bucket内使用。开启Bucket版本控制命令请参见[bucket-versioning（版本控制）](/intl.zh-CN/常用工具/命令行工具ossutil/常用命令/bucket-versioning（版本控制）.md)。
+## 通用选项
 
+当您需要通过命令行工具ossutil管理不同地域的Bucket时，可以通过-e选项切换至指定Bucket所属的Endpoint。当您需要通过命令行工具ossutil管理多个阿里云账号下的Bucket时，可以通过-i选项切换至指定账号的AccessKey ID，并通过-k选项切换至指定账号的AccessKey Secret。
 
-## 常用选项
+例如您需要查看另一个阿里云账号下，华东2（上海）地域下目标存储空间examplebucket1下名为exampleobject1.txt文件内容，命令如下：
 
-您可以在使用cat命令时附加如下选项：
+```
+./ossutil64 cat oss://examplebucket1/exampleobject1.txt -e oss-cn-shanghai.aliyuncs.com -i LTAI4Fw2NbDUCV8zYUzA****  -k 67DLVBkH7EamOjy2W5RVAHUY9H****
+```
 
-|选项名称|描述|
-|----|--|
-|--encoding-type|输入或者输出的Object名的编码方式，目前只支持url编码，即指定该选项时，取值为url。如果不指定该选项，则表示Object名未经过编码。Bucket名不支持url编码。|
-|--loglevel|设置日志级别，默认为空，表示不输出日志文件。可选值为： -   info：输出提示信息日志。
--   debug：输出详细信息日志（包括http请求和响应信息）。 |
-|--version-id|操作指定版本的Object，仅支持在已开启版本控制的Bucket内使用。|
-|--payer|请求的支付方式，如果为请求者付费模式，需将该值设置为requester。|
-|--proxy-host|网络代理服务器的url地址，支持http、https、socks5。例如http://120.79.\*\*.\*\*:3128、 socks5://120.79.\*\*.\*\*:1080。|
-|--proxy-user|网络代理服务器的用户名，默认为空。|
-|--proxy-pwd|网络代理服务器的密码，默认为空。|
-
-**说明：** 更多通用选项请参见[查看选项](/intl.zh-CN/常用工具/命令行工具ossutil/查看选项.md)。
+有关此命令其他通用选项的更多信息，请参见[通用选项](/intl.zh-CN/常用工具/命令行工具ossutil/查看选项.md)。
 
