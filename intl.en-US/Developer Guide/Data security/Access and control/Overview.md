@@ -1,0 +1,17 @@
+# Overview
+
+By default, the access control list \(ACL\) of Object Storage Service \(OSS\) resources, including buckets and objects, is set to private to ensure data security. Only the owners of the resources and authorized users can access these resources. OSS allows you to configure a variety of policies to grant third-party users specific permissions to access or use your OSS resources.
+
+The following table describes the access control policies that you can configure for objects stored in buckets.
+
+|Policy|Description|Scenario|
+|------|-----------|--------|
+|[RAM Policy](/intl.en-US/Developer Guide/Data security/Access and control/RAM Policy/Overview.md)|Resource Access Management \(RAM\) is a service provided by Alibaba Cloud to manage access permissions on resources. RAM policies are configured based on users. You can configure RAM policies to manage your users, such as employees, systems, or applications, and control the permissions of the users on your resources. For example, you can configure a RAM policy to allow your users to only read one bucket.|-   Grant the same permissions to the RAM users of the same Alibaba Cloud account.
+-   Configure the same permissions required to access all OSS resources or multiple buckets.
+-   Configure the permissions required to perform specific operations. For example, you can configure a RAM policy to specify the permission required to list all buckets that belong to the same Alibaba Cloud account.
+-   Limit the permissions of temporary access credentials used to access OSS. |
+|[Bucket Policy](/intl.en-US/Developer Guide/Data security/Access and control/Bucket Policy/Tutorial: Implement data sharing across departments based on bucket policies.md)|Bucket policies are configured based on resources. Compared with RAM policies, bucket policies can be easily configured on the graphical interface of the console. In addition, the owner of a bucket can configure bucket policies for the bucket without RAM permissions. You can configure bucket policies to grant permissions to the RAM users of other Alibaba Cloud accounts or anonymous users who access OSS by using the specified IP addresses.|-   Grant different permissions to the RAM users of the same Alibaba Cloud account.
+-   Grant permissions to the RAM users of other Alibaba Cloud accounts or anonymous users. |
+|[Bucket ACL](/intl.en-US/Developer Guide/Data security/Access and control/ACL.md)|You can configure the ACL of a bucket when you create the bucket or modify the ACL of a created bucket. Only the owner of a bucket can configure or modify the ACL of the bucket. You can set the ACL of a bucket to one of the following values: public-read-write, public-read, and private.|Configure the same access permission for all objects in a bucket.|
+|[Object ACL](/intl.en-US/Developer Guide/Data security/Access and control/ACL.md)|You can also configure the ACL of each object stored in OSS. You can configure the ACL of an object when you upload the object or modify the ACL of an uploaded object. You can set the ACL of an object to one of the following values: Inherited from bucket, public-read-write, public-read, and private.|Configure the access permission of a single object. For example, you configure RAM policies or bucket policies for a bucket to set the ACL of all objects in the bucket or objects whose names contain the specified prefix to private. In this case, if you want that an object in the bucket can be accessed by all anonymous users from the Internet, you can set the ACL of the object to public-read. |
+
