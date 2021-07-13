@@ -73,9 +73,9 @@ The following table describes the usage details of resource plans.
     If the resources you use exceed the quota of the resource plan, the additional resources are charged on a pay-as-you-go basis.
 
 -   Can I purchase multiple resource plans?
-    -   No, you cannot purchase multiple storage plans.
+    -   No, you cannot purchase multiple resource plans.
 
-        Storage plans in the same region can be purchased only once in the same period of time. If you require a storage plan with a higher specification or longer duration, you can [upgrade](#section_nnt_zug_lsv) or [renew](#section_axy_bot_o4m) the existing storage plan.
+        Resource plans in the same region can be purchased only once in the same period of time. If you require a resource plan with a higher specification or longer duration, you can [upgrage](/intl.en-US/Pricing/Billing methods/Subscription/Upgrade resource plans.md) or [renew](/intl.en-US/Pricing/Billing methods/Subscription/Renew resource plans.md) the existing resource plan.
 
     -   You can purchase and renew multiple downstream data transfer plans, but cannot upgrade the purchased plans.
 
