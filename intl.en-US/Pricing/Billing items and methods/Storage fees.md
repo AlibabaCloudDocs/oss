@@ -11,29 +11,29 @@ OSS provides the following storage classes: Standard, Infrequent Access \(IA\), 
 |Storage usage of Standard locally redundant storage \(LRS\)|Billed based on the total size and storage duration of Standard LRS objects.|-   Pay-as-you-go: Storage fees = Storage usage \(GB\) × Unit price per month/30 \(days\)/24 \(hours\).
 -   Subscription:
     -   Standard LRS storage plan: A storage plan can deduct the storage fees for Standard LRS objects of the same size as the capacity of the plan.
-    -   Storage capacity units \(SCUs\):0.075 GB of SCUs can offset the storage fees for 1 GB of Standard LRS objects in mainland China regions. For more information about fee offset rules in other regions, see the [Pricing page](https://www.alibabacloud.com/zh/product/ecs). |
+    -   Storage capacity units \(SCUs\):0.075 GB of SCUs can offset the storage fees for 1 GB of Standard LRS objects in mainland China regions. For more information about fee offset rules in other regions, see the [Pricing page](https://www.alibabacloud.com/product/ecs). |
 |Storage usage of Standard zone-redundant storage \(ZRS\)|Billed based on the total size and storage duration of Standard ZRS objects.|-   Pay-as-you-go: Storage fees = Storage usage \(GB\) × Unit price per month/30 \(days\)/24 \(hours\).
 -   Subscription:
 
-SCUs: 0.101 GB of SCUs can offset the storage fees for 1 GB of Standard ZRS objects in mainland China regions. For more information about fee offset rules in other regions, see the [Pricing page](https://www.alibabacloud.com/zh/product/ecs). |
+SCUs: 0.101 GB of SCUs can offset the storage fees for 1 GB of Standard ZRS objects in mainland China regions. For more information about fee offset rules in other regions, see the [Pricing page](https://www.alibabacloud.com/product/ecs). |
 |Storage usage of IA LRS|Billed based on the total size and storage duration of IA LRS objects. IA storage has a minimum billable size of 64 KB for each object. Objects smaller than 64 KB in size are charged as 64 KB. Objects that are larger than or equal to 64 KB in size are charged based on their actual sizes.
 
 |-   Pay-as-you-go: Storage fees = Billed storage usage \(GB\) × Unit price per month/30 \(days\)/24 \(hours\).
 -   Subscription:
     -   IA LRS storage plan: A storage plan can offset the storage fees for IA LRS objects. The offset amount of the storage fee is equivalent to the capacity of the plan.
-    -   SCUs:0.052 GB of SCUs can offset the storage fees for 1 GB of IA LRS objects in mainland China regions. For more information about fee offset rules in other regions, see the [Pricing page](https://www.alibabacloud.com/zh/product/ecs). |
+    -   SCUs:0.052 GB of SCUs can offset the storage fees for 1 GB of IA LRS objects in mainland China regions. For more information about fee offset rules in other regions, see the [Pricing page](https://www.alibabacloud.com/product/ecs). |
 |Storage usage of IA ZRS|Billed based on the total size and storage duration of IA ZRS objects. IA storage has a minimum billable size of 64 KB for each object. Objects that are smaller than 64 KB in size are charged as 64 KB. Objects that are larger than or equal to 64 KB in size are charged based on their actual sizes.
 
 |-   Pay-as-you-go: Storage fees = Billed storage usage \(GB\) × Unit price per month/30 \(days\)/24 \(hours\).
 -   Subscription:
 
-SCUs: 0.67 GB of SCUs can offset the storage fees for 1 GB of IA ZRS objects in mainland China regions. For more information about fee offset rules in other regions, see the [Pricing page](https://www.alibabacloud.com/zh/product/ecs). |
+SCUs: 0.67 GB of SCUs can offset the storage fees for 1 GB of IA ZRS objects in mainland China regions. For more information about fee offset rules in other regions, see the [Pricing page](https://www.alibabacloud.com/product/ecs). |
 |Storage usage of Archive LRS|Billed based on the total size and storage duration of Archive LRS objects. Archive storage has a minimum billable size of 64 KB for each object. Objects smaller than 64 KB in size are charged as 64 KB. Objects that are larger than or equal to 64 KB in size are charged based on their actual sizes.
 
 |-   Pay-as-you-go: Storage fees = Billed storage usage \(GB\) × Unit price per month/30 \(days\)/24 \(hours\).
 -   Subscription:
 
-SCUs: 0.022 GB of SCUs can offset the storage fees for 1 GB of Archive LRS objects in mainland China regions. For more information about fee offset rules in other regions, see the [Pricing page](https://www.alibabacloud.com/zh/product/ecs). |
+SCUs: 0.022 GB of SCUs can offset the storage fees for 1 GB of Archive LRS objects in mainland China regions. For more information about fee offset rules in other regions, see the [Pricing page](https://www.alibabacloud.com/product/ecs). |
 |Storage usage of Cold Archive LRS|Billed based on the total size and storage duration of Cold Archive LRS objects. Cold Archive storage has a minimum billable size of 64 KB for each object. Objects smaller than 64 KB in size are charged as 64 KB. Objects that are larger than or equal to 64 KB in size are charged based on their actual sizes.
 
 |-   Pay-as-you-go: Storage fees = Billed storage usage \(GB\) × Unit price per month/30 \(days\)/24 \(hours\).
