@@ -12,7 +12,7 @@ For more information about how to purchase SCUs, see [Create an SCU](/intl.en-US
 
 SCUs can be used to deduct the storage fees of OSS, ECS, NAS and HBR. The following table describes the rules that apply when you use SCUs to deduct the storage fees of different storage classes of OSS resources in mainland China regions.
 
-**Note:** For more information about the deduction rules for other Alibaba Cloud storage services and regions, see the [Pricing page](https://www.aliyun.com/price/product#/ecs/detail).
+**Note:** For more information about the deduction rules for other Alibaba Cloud storage services and regions, see the [Pricing page](https://www.alibabacloud.com/product/ecs).
 
 |Storage class|Deduction factor|Description|
 |-------------|----------------|-----------|
