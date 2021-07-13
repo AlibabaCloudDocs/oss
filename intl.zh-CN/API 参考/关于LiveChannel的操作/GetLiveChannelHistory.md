@@ -77,7 +77,3 @@ content-type: application/xml
 </LiveChannelHistory>
 ```
 
-## SDK
-
-[Java]()
-
