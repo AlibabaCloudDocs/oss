@@ -2,13 +2,13 @@
 
 Content-Type（MIME）用于标识发送或接收数据的类型，浏览器根据该参数来决定数据的打开方式。多用于指定一些客户端自定义的文件，以及一些媒体文件的打开方式。
 
-OSS会默认匹配您上传的文件类型，例如.jpg会自动识别为图片文件。您也可以通过修改文件的元信息来修改文件类型，操作方式请参见[管理文件元信息](/intl.zh-CN/开发指南/对象/文件（Object）/管理文件/管理文件元信息.md)。
+OSS默认自动识别文件类型。例如上传的文件类型为.jpg，OSS会自动将该文件识别为图片文件。您可以通过[控制台](/intl.zh-CN/控制台用户指南/上传、下载和管理文件/设置文件元信息.md)、[图形化工具ossbrowser](/intl.zh-CN/常用工具/图形化管理工具ossbrowser/快速使用ossbrowser.md)、[命令行工具ossutil](/intl.zh-CN/常用工具/命令行工具ossutil/常用命令/set-meta（文件元信息）.md)、各语言SDK例如[Java SDK](/intl.zh-CN/SDK 示例/Java/管理文件/管理文件元信息.md)、[Python SDK](/intl.zh-CN/SDK 示例/Python/管理文件/管理文件元信息.md)、[PHP SDK](/intl.zh-CN/SDK 示例/PHP/管理文件/管理文件元信息.md)、[Go SDK](/intl.zh-CN/SDK 示例/Go/管理文件/管理文件元信息.md)等方式来修改文件类型。
 
 常见Content-Type（MIME）列表如下：
 
 |文件扩展名|Content-Type\(Mime-Type\)|文件扩展名|Content-Type\(Mime-Type\)|
 |-----|-------------------------|-----|-------------------------|
-|.*（ 二进制流，未知的文件类型）*|application/octet-stream|.tif|image/tiff|
+|*（二进制流，未知的文件类型）*|application/octet-stream|.tif|image/tiff|
 |0.001|application/x-001|0.301|application/x-301|
 |0.323|text/h323|0.906|application/x-906|
 |0.907|drawing/907|.a11|application/x-a11|
@@ -35,7 +35,8 @@ OSS会默认匹配您上传的文件类型，例如.jpg会自动识别为图片�
 |.dcd|text/xml|.dcx|application/x-dcx|
 |.der|application/x-x509-ca-cert|.dgn|application/x-dgn|
 |.dib|application/x-dib|.dll|application/x-msdownload|
-|.doc|application/msword|.dot|application/msword|
+|.doc|application/msword|.docx|application/vnd.openxmlformats-officedocument.wordprocessingml.document|
+|.dot|application/msword|.dotx|application/vnd.openxmlformats-officedocument.wordprocessingml.template|
 |.drw|application/x-drw|.dtd|text/xml|
 |.dwf|Model/vnd.dwf|.dwf|application/x-dwf|
 |.dwg|application/x-dwg|.dxb|application/x-dxb|
@@ -105,31 +106,33 @@ OSS会默认匹配您上传的文件类型，例如.jpg会自动识别为图片�
 |.plg|text/html|.pls|audio/scpls|
 |.plt|application/x-plt|.png|image/png|
 |.png|application/x-png|.pot|application/vnd.ms-powerpoint|
-|.ppa|application/vnd.ms-powerpoint|.ppm|application/x-ppm|
-|.pps|application/vnd.ms-powerpoint|.ppt|application/vnd.ms-powerpoint|
-|.ppt|application/x-ppt|.pr|application/x-pr|
-|.prf|application/pics-rules|.prn|application/x-prn|
-|.prt|application/x-prt|.ps|application/x-ps|
-|.ps|application/postscript|.ptn|application/x-ptn|
-|.pwz|application/vnd.ms-powerpoint|.r3t|text/vnd.rn-realtext3d|
-|.ra|audio/vnd.rn-realaudio|.ram|audio/x-pn-realaudio|
-|.ras|application/x-ras|.rat|application/rat-file|
-|.rdf|text/xml|.rec|application/vnd.rn-recording|
-|.red|application/x-red|.rgb|application/x-rgb|
-|.rjs|application/vnd.rn-realsystem-rjs|.rjt|application/vnd.rn-realsystem-rjt|
-|.rlc|application/x-rlc|.rle|application/x-rle|
-|.rm|application/vnd.rn-realmedia|.rmf|application/vnd.adobe.rmf|
-|.rmi|audio/mid|.rmj|application/vnd.rn-realsystem-rmj|
-|.rmm|audio/x-pn-realaudio|.rmp|application/vnd.rn-rn\_music\_package|
-|.rms|application/vnd.rn-realmedia-secure|.rmvb|application/vnd.rn-realmedia-vbr|
-|.rmx|application/vnd.rn-realsystem-rmx|.rnx|application/vnd.rn-realplayer|
-|.rp|image/vnd.rn-realpix|.rpm|audio/x-pn-realaudio-plugin|
-|.rsml|application/vnd.rn-rsml|.rt|text/vnd.rn-realtext|
-|.rtf|application/msword|.rtf|application/x-rtf|
-|.rv|video/vnd.rn-realvideo|.sam|application/x-sam|
-|.sat|application/x-sat|.sdp|application/sdp|
-|.sdw|application/x-sdw|.sit|application/x-stuffit|
-|.slb|application/x-slb|.sld|application/x-sld|
+|.potx|application/vnd.openxmlformats-officedocument.presentationml.template|.ppa|application/vnd.ms-powerpoint|
+|.ppm|application/x-ppm|.pps|application/vnd.ms-powerpoint|
+|.ppsx|application/vnd.openxmlformats-officedocument.presentationml.slideshow|.ppt|application/vnd.ms-powerpoint|
+|.ppt|application/x-ppt|. pptx|application/vnd.openxmlformats-officedocument.presentationml.presentation|
+|.pr|application/x-pr|.prf|application/pics-rules|
+|.prn|application/x-prn|.prt|application/x-prt|
+|.ps|application/x-ps|.ps|application/postscript|
+|.ptn|application/x-ptn|.pwz|application/vnd.ms-powerpoint|
+|.r3t|text/vnd.rn-realtext3d|.ra|audio/vnd.rn-realaudio|
+|.ram|audio/x-pn-realaudio|.ras|application/x-ras|
+|.rat|application/rat-file|.rdf|text/xml|
+|.rec|application/vnd.rn-recording|.red|application/x-red|
+|.rgb|application/x-rgb|.rjs|application/vnd.rn-realsystem-rjs|
+|.rjt|application/vnd.rn-realsystem-rjt|.rlc|application/x-rlc|
+|.rle|application/x-rle|.rm|application/vnd.rn-realmedia|
+|.rmf|application/vnd.adobe.rmf|.rmi|audio/mid|
+|.rmj|application/vnd.rn-realsystem-rmj|.rmm|audio/x-pn-realaudio|
+|.rmp|application/vnd.rn-rn\_music\_package|.rms|application/vnd.rn-realmedia-secure|
+|.rmvb|application/vnd.rn-realmedia-vbr|.rmx|application/vnd.rn-realsystem-rmx|
+|.rnx|application/vnd.rn-realplayer|.rp|image/vnd.rn-realpix|
+|.rpm|audio/x-pn-realaudio-plugin|.rsml|application/vnd.rn-rsml|
+|.rt|text/vnd.rn-realtext|.rtf|application/msword|
+|.rtf|application/x-rtf|.rv|video/vnd.rn-realvideo|
+|.sam|application/x-sam|.sat|application/x-sat|
+|.sdp|application/sdp|.sdw|application/x-sdw|
+|.sit|application/x-stuffit|.slb|application/x-slb|
+|.sld|application/x-sld|.sldx|application/vnd.openxmlformats-officedocument.presentationml.slide|
 |.slk|drawing/x-slk|.smi|application/smil|
 |.smil|application/smil|.smk|application/x-smk|
 |.snd|audio/basic|.sol|text/plain|
@@ -171,7 +174,8 @@ OSS会默认匹配您上传的文件类型，例如.jpg会自动识别为图片�
 |.xdp|application/vnd.adobe.xdp|.xdr|text/xml|
 |.xfd|application/vnd.adobe.xfd|.xfdf|application/vnd.adobe.xfdf|
 |.xhtml|text/html|.xls|application/vnd.ms-excel|
-|.xls|application/x-xls|.xlw|application/x-xlw|
+|.xls|application/x-xls|.xlsx|application/vnd.openxmlformats-officedocument.spreadsheetml.sheet|
+|.xltx|application/vnd.openxmlformats-officedocument.spreadsheetml.template|.xlw|application/x-xlw|
 |.xml|text/xml|.xpl|audio/scpls|
 |.xq|text/xml|.xql|text/xml|
 |.xquery|text/xml|.xsd|text/xml|
