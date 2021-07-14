@@ -9,10 +9,6 @@ OSS provides CORS over HTML5 to enable cross-origin access. When OSS receives a 
 
 For more information, see [Configure CORS](/intl.en-US/Developer Guide/Buckets/Configure CORS.md).
 
-## Video tutorial
-
-You can view the following video to know how to configure cross-origin access. 
-
 ## Procedure
 
 1.  Log on to the [OSS console](https://oss.console.aliyun.com/).
