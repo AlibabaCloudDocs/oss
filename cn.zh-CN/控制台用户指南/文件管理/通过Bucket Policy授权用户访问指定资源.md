@@ -38,11 +38,11 @@ Bucket Policy是阿里云OSS推出的针对Bucket的授权策略，您可以通�
     -   **其他账号**：如果您需要给其他阿里云账号、RAM用户以及通过STS生成的临时用户授予访问权限，请选中此项。
 
         -   当您需要给其他阿里云账号或RAM用户授权时，请输入被授权账号的UID。
-        -   当您需要给STS临时用户授权时，输入格式为`arn:sts::{RoleOwnerUid}:assumed-role/{RoleName}/{RoleSessionName}`。例如生成临时用户时使用的角色为testrole，角色拥有者的阿里云账号UID为12345，生成临时用户时指定的RoleSessionName为testsession。此时应填写`arn:sts::12345:assumed-role/testrole/testsession`。当您需要给所有临时用户授权时，请使用通配符星号（\*）。例如配置为`arn:sts::*:*/*/*`。生成临时授权用户的操作请参见[使用STS临时访问凭证访问OSS](/cn.zh-CN/开发指南/数据安全/访问控制/使用STS临时访问凭证访问OSS.md)。
+        -   当您需要给STS临时用户授权时，输入格式为`arn:sts::{RoleOwnerUid}:assumed-role/{RoleName}/{RoleSessionName}`。例如生成临时用户时使用的角色为testrole，角色拥有者的阿里云账号UID为12345，生成临时用户时指定的RoleSessionName为testsession。此时应填写`arn:sts::12345:assumed-role/testrole/testsession`。当您需要给所有临时用户授权时，请使用通配符星号（\*）。例如配置为`arn:sts::*:*/*/*`。生成临时授权用户的操作请参见[使用STS临时访问凭证访问OSS](/cn.zh-CN/开发指南/数据安全/使用STS临时访问凭证访问OSS.md)。
 **说明：** 当被授权的用户是STS临时用户时，该账号无法通过OSS控制台访问授权资源，您可以通过命令行工具ossutil、OSS SDK、OSS API访问授权资源。 |
     |**授权操作**|您可以通过**简单设置**和**高级设置**两种方式进行授权操作。    -   简单设置
 
-选中此项后，您可以结合实际场景按照如下说明配置相应的访问权限。将鼠标悬停在每一种访问权限右侧对应的![mark](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/3168817161/p259026.jpg)，可获取各访问权限对应的Action列表。
+选中此项后，您可以结合实际场景按照如下说明配置相应的访问权限。将鼠标悬停在每一种访问权限右侧对应的![mark](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/0984616261/p259026.jpg)，可获取各访问权限对应的Action列表。
 
         -   **只读**：对相关资源拥有查看、列举及下载权限。
         -   **读/写**：对相关资源有读和写权限。
@@ -56,7 +56,7 @@ Bucket Policy是阿里云OSS推出的针对Bucket的授权策略，您可以通�
 
         -   **效力**：包含允许（Allow）和拒绝（Deny）两种授权效力。
         -   **操作**：支持配置所有OSS支持的Action。有关Action分类的更多信息，请参见[RAM Policy概述](/cn.zh-CN/开发指南/数据安全/访问控制/RAM Policy/RAM Policy概述.md)。 |
-    |**条件**（可选）|您还可以在基础设置和高级设置模式下选中此项，用于限定只有满足条件的用户能够访问OSS资源。     -   **访问方式**：选中HTTPS或HTTP的访问方式。
+    |**条件**（可选）|您还可以在基础设置和高级设置模式下选中此项，用于限定只有满足条件的用户能够访问OSS资源。     -   **访问方式**：当您希望授权用户通过HTTPS的方式来访问OSS资源时，请选中**HTTPS**。当您希望授权用户通过HTTP的方式来访问OSS资源时，请选中**HTTP**。相比HTTP，HTTPS具有更高的安全性。
     -   **IP =**：设置IP等于某个IP地址或IP地址段。如有多个IP地址，各个IP地址之间用英文逗号（,）分隔。
     -   **IP ≠**：设置IP不等于某个IP地址或IP地址段。如有多个IP地址，各个IP地址之间用英文逗号（,）分隔 。 |
 
